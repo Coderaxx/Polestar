@@ -8,6 +8,9 @@
             "loginFailed": "Login failed. Please check your email address and password and try again.",
             "alertNoCarFound": "No Polestar 2 found on your Tibber account.",
             "fetchingCars": "Fetching Polestar 2 from your Tibber account..."
+        },
+        "device": {
+            "unknownChargingState": "Unknown"
         }
     }
 }
