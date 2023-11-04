@@ -10,6 +10,8 @@
             "fetchingCars": "Fetching Polestar 2 from your Tibber account..."
         },
         "device": {
+            "isCharging": "Charging",
+            "isNotCharging": "Not charging",
             "unknownChargingState": "Unknown"
         }
     }

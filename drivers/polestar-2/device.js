@@ -19,7 +19,7 @@ class Polestar extends Device {
 		this.refreshInterval = this.settings.refresh_interval * 60 * 1000;
 		
 		await this.updateDeviceData();
-		this.homey.setInterval(async () => {
+		this.interval = this.homey.setInterval(async () => {
 			await this.updateDeviceData();
 		}, this.refreshInterval || 60 * 60 * 1000);
 	}
@@ -177,7 +177,11 @@ class Polestar extends Device {
 			await this.setCapabilityValue('measure_battery', this.vehicleData.vehicle.battery.level);
 			await this.setCapabilityValue('measure_polestarBattery', this.vehicleData.vehicle.battery.level);
 			await this.setCapabilityValue('measure_polestarRange', `~ ${range} km`);
-			await this.setCapabilityValue('measure_polestarChargeState', this.vehicleData.vehicle.isCharging === null ? this.homey.i18n.__('unknownChargingState') : this.vehicleData.vehicle.isCharging ? 'Lader' : 'Lader ikke');
+			await this.setCapabilityValue('measure_polestarChargeState', this.vehicleData.homes.battery.isCharging === null
+			? this.homey.__('Polestar2.device.unknownChargingState')
+			: this.vehicleData.homes.battery.isCharging
+			? this.homey.__('Polestar2.device.isCharging')
+			: this.homey.__('Polestar2.device.isNotCharging'));
 			await this.setCapabilityValue('measure_polestarUpdated', lastUpdated);
 		} else {
 			this.log('Failed to update device data');
@@ -192,6 +196,17 @@ class Polestar extends Device {
 
 	async onSettings({ oldSettings, newSettings, changedKeys }) {
 		this.log('Polestar settings where changed');
+		if (changedKeys.includes('tibber_email') || changedKeys.includes('tibber_password')) {
+			this.token = await this.loginToTibber(newSettings.tibber_email, newSettings.tibber_password);
+			this.isLoggedIn = this.token !== undefined;
+		}
+		if (changedKeys.includes('refresh_interval')) {
+			this.refreshInterval = newSettings.refresh_interval * 60 * 1000;
+			this.homey.clearInterval(this.interval);
+			this.interval = this.homey.setInterval(async () => {
+				await this.updateDeviceData();
+			}, this.refreshInterval || 60 * 60 * 1000);
+		}
 	}
 
 	async onRenamed(name) {

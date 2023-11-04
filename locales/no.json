@@ -10,6 +10,8 @@
             "fetchingCars": "Henter Polestar 2 fra Tibber-kontoen din..."
         },
         "device": {
+            "isCharging": "Lader",
+            "isNotCharging": "Lader ikke",
             "unknownChargingState": "Ukjent"
         }
     }

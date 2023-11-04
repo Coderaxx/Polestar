@@ -49,7 +49,30 @@ class Polestar extends Driver {
 		session.setHandler('getVehicles', async () => {
 			try {
 				const response = await axios.post('https://app.tibber.com/v4/gql', {
-					query: '{\n  me{\n    myVehicles{\n      vehicles{\n        id\n        title\n        }\n    }\n  }\n}',
+					query: `{
+					me{
+						homes{
+							electricVehicles{
+								id
+								name
+								shortName
+								lastSeen
+								lastSeenText
+								isAlive
+								hasNoSmartChargingCapability
+								battery{
+									percent
+									percentColor
+									isCharging
+									chargeLimit
+								}
+								batteryText
+								chargingText
+								consumptionText
+								consumptionUnitText
+							}
+						}
+					}}`,
 				}, {
 					headers: {
 						'Authorization': `Bearer ${this.token}`,

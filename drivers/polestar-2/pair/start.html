@@ -20,8 +20,8 @@
 
     $(document).ready(function () {
         Homey.emit('getLoginDetails').then(function (result) {
-            console.log(result);
-            if (result.success && result !== null) {
+            //console.log(result);
+            if (result && result.success) {
                 $('#email').val(result.email) || '';
                 $('#password').val(result.password) || '';
 
@@ -38,7 +38,7 @@
         };
         Homey.emit('login', loginData).then(function (result) {
             Homey.hideLoadingOverlay();
-            console.log(result);
+            //console.log(result);
             if (result.error) {
                 console.log('Login failed');
                 Homey.alert(Homey.__("Polestar2.pair.loginFailed"));
