@@ -1,0 +1,28 @@
+{
+  "id": "com.coderax.polestar",
+  "version": "1.0.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "Polestar"
+  },
+  "description": {
+    "en": "Adds support for Polestar statistics, by using CarStatsViewer and Tibber API (account required, no subscription required)."
+  },
+  "category": [
+    "localization"
+  ],
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Jesper Grimstad",
+    "email": "jesper.grimstad@hotmail.com"
+  }
+}
