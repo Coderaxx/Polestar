@@ -16,12 +16,13 @@ class Polestar extends Device {
 		this.vehicleId = this.getData().id;
 		this.vehicleData = null;
 
-		this.refreshInterval = this.settings.refresh_interval * 60 * 1000;
+		this.refreshInterval = this.settings.refresh_interval * 60 * 1000 || 60 * 60 * 1000;
 
 		await this.updateDeviceData();
 		this.interval = this.homey.setInterval(async () => {
 			await this.updateDeviceData();
-		}, this.refreshInterval || 60 * 60 * 1000);
+		}, this.refreshInterval);
+		this.log(`Interval set to ${this.refreshInterval / 1000 / 60} minutes`);
 	}
 
 	async loginToTibber(email, password) {
@@ -57,7 +58,7 @@ class Polestar extends Device {
 			await this.loginToTibber(this.getSetting('tibber_email'), this.getSetting('tibber_password'));
 			return await this.fetchVehicleData();
 		}
-		this.log('Fetching vehicle data for Polestar 2');
+		this.log('Fetching vehicle data for Polestar 2...');
 
 		try {
 			const response = await axios.post('https://app.tibber.com/v4/gql', {
@@ -151,6 +152,9 @@ class Polestar extends Device {
 				myVehicle: response.data.data.me.myVehicle,
 			};
 
+			this.log('Successfully fetched vehicle data for Polestar 2');
+			this.log('Next update in', moment.duration(this.refreshInterval).humanize());
+			
 			return vehicleData;
 		} catch (error) {
 			if (error.response.status === 401) {
@@ -213,7 +217,7 @@ class Polestar extends Device {
 			this.homey.clearInterval(this.interval);
 			this.interval = this.homey.setInterval(async () => {
 				await this.updateDeviceData();
-			}, this.refreshInterval || 60 * 60 * 1000);
+			}, this.refreshInterval);
 		}
 	}
 
