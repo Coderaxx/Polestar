@@ -110,6 +110,7 @@ class Polestar extends Driver {
 	}
 
 	async onPairListDevices() {
+		this.log('Vehicles ready to be added:', this.vehicles);
 		return this.vehicles;
 	}
 
