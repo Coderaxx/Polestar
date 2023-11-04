@@ -1,0 +1,19 @@
+<script type="application/javascript">
+    Homey.setTitle(Homey.__("Henter Polestar 2 fra Tibber"));
+
+    Homey.emit('getVehicles').then(function (result) {
+        Homey.showLoadingOverlay();
+        console.log(result);
+        if (result.success) {
+            if (result.data.vehicles.find(v => v.title.includes('Polestar 2'))) {
+                return Homey.nextView();
+            } else {
+                Homey.alert('Fant ingen Polestar 2 på Tibber-kontoen din.');
+                return Homey.setNavigationClose();
+            }
+        } else {
+            Homey.alert('Fant ingen Polestar 2 på Tibber-kontoen din.');
+            return Homey.setNavigationClose();
+        }
+    });
+</script>

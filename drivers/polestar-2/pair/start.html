@@ -1,4 +1,4 @@
-<form class="homey-form" id="loginForm" style="display: none;">
+<form class="homey-form" id="loginForm">
     <fieldset class="homey-form-fieldset">
         <legend class="homey-form-legend">Login</legend>
 
@@ -27,12 +27,12 @@
             Homey.hideLoadingOverlay();
             console.log(result);
             if (result.error) {
-                console.log('Login failed.');
+                console.log('Login failed');
+                Homey.alert('Login failed. Please check your credentials and try again.');
                 return Homey.setNavigationClose();
             } else {
-                console.log("Login successful. Redirecting to startPairing.");
-                Homey.alert("Tibber login successful.", 'info');
-                return;
+                console.log("Tibber login successful");
+                return Homey.nextView();
             }
         });
     });

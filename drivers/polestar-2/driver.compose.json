@@ -14,7 +14,9 @@
   "platforms": [
     "local"
   ],
-  "connectivity": [],
+  "connectivity": [
+    "cloud"
+  ],
   "images": {
     "small": "{{driverAssetsPath}}/images/small.png",
     "large": "{{driverAssetsPath}}/images/large.png"
@@ -22,6 +24,9 @@
   "pair": [
     {
       "id": "start"
+    },
+    {
+      "id": "getPolestar"
     },
     {
       "id": "list_devices",

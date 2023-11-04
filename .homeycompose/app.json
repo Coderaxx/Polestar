@@ -1,6 +1,6 @@
 {
   "id": "com.coderax.polestar",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "platforms": [
@@ -12,9 +12,7 @@
   "description": {
     "en": "Adds support for Polestar statistics, by using CarStatsViewer and Tibber API (account required, no subscription required)."
   },
-  "category": [
-    "localization"
-  ],
+  "category": "internet",
   "permissions": [],
   "images": {
     "small": "/assets/images/small.png",
@@ -24,5 +22,6 @@
   "author": {
     "name": "Jesper Grimstad",
     "email": "jesper.grimstad@hotmail.com"
-  }
+  },
+  "brandColor": "#081822"
 }
