@@ -172,13 +172,63 @@ class Polestar extends Device {
 		if (this.vehicleData) {
 			const lastUpdated = moment(this.vehicleData.homes.lastSeen).fromNow();
 			const soc = this.vehicleData.vehicle.battery.level;
-			const range = parseInt((soc / 100) * 487, 10);
+			const range = parseInt((soc / 100) * 487, 10) / 1.5;
 
 			await this.setCapabilityValue('measure_battery', this.vehicleData.vehicle.battery.level);
 			await this.setCapabilityValue('measure_polestarBattery', this.vehicleData.vehicle.battery.level);
 			await this.setCapabilityValue('measure_polestarRange', `~ ${range} km`);
-			await this.setCapabilityValue('measure_polestarChargeState', this.vehicleData.vehicle.isCharging);
+			await this.setCapabilityValue('measure_polestarChargeState', this.vehicleData.vehicle.isCharging === null ? 'Ukjent' : this.vehicleData.vehicle.isCharging ? 'Lader' : 'Lader ikke');
 			await this.setCapabilityValue('measure_polestarUpdated', lastUpdated);
+
+			await this.setCapabilityOptions('measure_polestarBattery', {
+				icon: await this.calculateBatteryIcon(this.vehicleData.vehicle.battery.level),
+			});
+		}
+	}
+
+	async calculateBatteryIcon(batteryLevel) {
+		if (batteryLevel == 100) {
+			return '/drivers/polestar-2/assets/images/battery-100.svg';
+		} else if (batteryLevel <= 99 && batteryLevel >= 95) {
+			return '/drivers/polestar-2/assets/images/battery-95.svg';
+		} else if (batteryLevel <= 94 && batteryLevel >= 90) {
+			return '/drivers/polestar-2/assets/images/battery-90.svg';
+		} else if (batteryLevel <= 89 && batteryLevel >= 85) {
+			return '/drivers/polestar-2/assets/images/battery-85.svg';
+		} else if (batteryLevel <= 84 && batteryLevel >= 80) {
+			return '/drivers/polestar-2/assets/images/battery-80.svg';
+		} else if (batteryLevel <= 79 && batteryLevel >= 75) {
+			return '/drivers/polestar-2/assets/images/battery-75.svg';
+		} else if (batteryLevel <= 74 && batteryLevel >= 70) {
+			return '/drivers/polestar-2/assets/images/battery-70.svg';
+		} else if (batteryLevel <= 69 && batteryLevel >= 65) {
+			return '/drivers/polestar-2/assets/images/battery-65.svg';
+		} else if (batteryLevel <= 64 && batteryLevel >= 60) {
+			return '/drivers/polestar-2/assets/images/battery-60.svg';
+		} else if (batteryLevel <= 59 && batteryLevel >= 55) {
+			return '/drivers/polestar-2/assets/images/battery-55.svg';
+		} else if (batteryLevel <= 54 && batteryLevel >= 50) {
+			return '/drivers/polestar-2/assets/images/battery-50.svg';
+		} else if (batteryLevel <= 49 && batteryLevel >= 45) {
+			return '/drivers/polestar-2/assets/images/battery-45.svg';
+		} else if (batteryLevel <= 44 && batteryLevel >= 40) {
+			return '/drivers/polestar-2/assets/images/battery-40.svg';
+		} else if (batteryLevel <= 39 && batteryLevel >= 35) {
+			return '/drivers/polestar-2/assets/images/battery-35.svg';
+		} else if (batteryLevel <= 34 && batteryLevel >= 30) {
+			return '/drivers/polestar-2/assets/images/battery-30.svg';
+		} else if (batteryLevel <= 29 && batteryLevel >= 25) {
+			return '/drivers/polestar-2/assets/images/battery-25.svg';
+		} else if (batteryLevel <= 24 && batteryLevel >= 20) {
+			return '/drivers/polestar-2/assets/images/battery-20.svg';
+		} else if (batteryLevel <= 19 && batteryLevel >= 15) {
+			return '/drivers/polestar-2/assets/images/battery-15.svg';
+		} else if (batteryLevel <= 14 && batteryLevel >= 10) {
+			return '/drivers/polestar-2/assets/images/battery-10.svg';
+		} else if (batteryLevel <= 9 && batteryLevel >= 5) {
+			return '/drivers/polestar-2/assets/images/battery-5.svg';
+		} else if (batteryLevel <= 4 && batteryLevel >= 0) {
+			return '/drivers/polestar-2/assets/images/battery-0.svg';
 		}
 	}
 

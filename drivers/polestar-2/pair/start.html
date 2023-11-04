@@ -11,11 +11,24 @@
             <input class="homey-form-input" id="password" type="password" value="" />
         </div>
         <div class="homey-form-group">
-            <button class="homey-button homey-button-primary" id="loginButton" type="button"><span data-i18n="Polestar2.pair.loginButton"></span></button>
+            <button class="homey-button homey-button-primary" id="loginButton" type="button"><span
+                    data-i18n="Polestar2.pair.loginButton"></span></button>
     </fieldset>
 </form>
 <script type="application/javascript">
     Homey.setTitle(Homey.__("Polestar 2"));
+
+    $(document).ready(function () {
+        Homey.emit('getLoginDetails').then(function (result) {
+            console.log(result);
+            if (result.success) {
+                $('#email').val(result.email) || '';
+                $('#password').val(result.password) || '';
+
+                return $('#loginButton').click();
+            }
+        });
+    });
 
     $('#loginButton').click(function () {
         Homey.showLoadingOverlay();

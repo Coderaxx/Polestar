@@ -8,16 +8,28 @@ class Polestar extends Driver {
 		this.log('Polestar has been initialized');
 
 		this.token = null;
-		this.tibberAccount = null;
+		this.tibberAccount = {
+			email: this.homey.settings.get('tibber_email') || null,
+			password: this.homey.settings.get('tibber_password') || null,
+		};
 		this.vehicles = [];
 	}
 
 	async onPair(session) {
 		this.log('Started pairing for Polestar 2');
 
+		session.setHandler('getLoginDetails', async () => {
+			if (this.tibberAccount.email && this.tibberAccount.password) {
+				return { success: true, email: this.tibberAccount.email, password: this.tibberAccount.password };
+			}
+		});
+
 		session.setHandler('login', async (data) => {
 			const { email, password } = data;
 			this.tibberAccount = { email, password };
+			this.homey.settings.set('tibber_email', this.tibberAccount.email);
+			this.homey.settings.set('tibber_password', this.tibberAccount.password);
+
 			try {
 				const response = await axios.post('https://app.tibber.com/login.credentials', {
 					email,

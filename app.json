@@ -132,7 +132,7 @@
     "measure_polestarBattery": {
       "type": "number",
       "uiComponent": "sensor",
-      "icon": "/drivers/polestar-2/assets/images/battery.svg",
+      "icon": "/drivers/polestar-2/assets/images/battery-75.svg",
       "title": "Batteri",
       "units": "%",
       "getable": true,
@@ -149,11 +149,10 @@
       "insights": true
     },
     "measure_polestarRange": {
-      "type": "number",
+      "type": "string",
       "uiComponent": "sensor",
       "icon": "/drivers/polestar-2/assets/images/range.svg",
       "title": "Rekkevidde",
-      "units": "km",
       "getable": true,
       "setable": false,
       "insights": true
