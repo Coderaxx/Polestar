@@ -68,6 +68,11 @@
           "template": "add_devices"
         }
       ],
+      "energy": {
+        "batteries": [
+          "INTERNAL"
+        ]
+      },
       "id": "polestar-2",
       "settings": [
         {
