@@ -1,0 +1,10 @@
+{
+  "type": "number",
+  "uiComponent": "sensor",
+  "icon": "/drivers/polestar-2/assets/images/range.svg",
+  "title": "Rekkevidde",
+  "units": "km",
+  "getable": true,
+  "setable": false,
+  "insights": true
+}
