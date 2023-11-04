@@ -17,7 +17,7 @@ class Polestar extends Device {
 		this.vehicleData = null;
 
 		this.refreshInterval = this.settings.refresh_interval * 60 * 1000;
-		
+
 		await this.updateDeviceData();
 		this.interval = this.homey.setInterval(async () => {
 			await this.updateDeviceData();
@@ -148,7 +148,7 @@ class Polestar extends Device {
 			const vehicleData = {
 				homes: response.data.data.me.homes[0].electricVehicles[0],
 				vehicle: response.data.data.me.vehicle,
-				myVehicle: response.data.data.me.myVehicle, 
+				myVehicle: response.data.data.me.myVehicle,
 			};
 
 			return vehicleData;
@@ -178,10 +178,10 @@ class Polestar extends Device {
 			await this.setCapabilityValue('measure_polestarBattery', this.vehicleData.vehicle.battery.level);
 			await this.setCapabilityValue('measure_polestarRange', `~ ${range} km`);
 			await this.setCapabilityValue('measure_polestarChargeState', this.vehicleData.homes.battery.isCharging === null
-			? this.homey.__('Polestar2.device.unknownChargingState')
-			: this.vehicleData.homes.battery.isCharging
-			? this.homey.__('Polestar2.device.isCharging')
-			: this.homey.__('Polestar2.device.isNotCharging'));
+				? this.homey.__('Polestar2.device.unknownChargingState')
+				: this.vehicleData.homes.battery.isCharging
+					? this.homey.__('Polestar2.device.isCharging')
+					: this.homey.__('Polestar2.device.isNotCharging'));
 			await this.setCapabilityValue('measure_polestarUpdated', lastUpdated);
 		} else {
 			this.log('Failed to update device data');
@@ -214,6 +214,9 @@ class Polestar extends Device {
 	}
 
 	async onDeleted() {
+		if (this.interval) {
+			this.homey.clearInterval(this.interval);
+		}
 		this.log('Polestar has been deleted');
 	}
 

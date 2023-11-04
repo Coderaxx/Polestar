@@ -80,10 +80,10 @@ class Polestar extends Driver {
 						'Accept': 'application/json',
 					},
 				});
-				const car = response.data.data.me.myVehicles.vehicles;
+				const car = response.data.data.me.homes[0].electricVehicles;
 				const vehicles = car.map((vehicle) => {
 					return {
-						name: vehicle.title,
+						name: vehicle.shortName,
 						data: {
 							id: vehicle.id,
 						},
