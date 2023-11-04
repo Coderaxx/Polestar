@@ -1,18 +1,22 @@
 <script type="application/javascript">
-    Homey.setTitle(Homey.__("Henter Polestar 2 fra Tibber"));
+    Homey.setTitle(Homey.__("Polestar2.pair.fetchingCars"));
 
     Homey.emit('getVehicles').then(function (result) {
         Homey.showLoadingOverlay();
         console.log(result);
         if (result.success) {
-            if (result.data.vehicles.find(v => v.title.includes('Polestar 2'))) {
+            // Søk etter Polestar 2 i "title" i respons.vehicles
+            var polestar = result.vehicles.find(function (vehicle) {
+                return vehicle.name.includes('Polestar 2');
+            });
+            if (polestar) {
                 return Homey.nextView();
             } else {
-                Homey.alert('Fant ingen Polestar 2 på Tibber-kontoen din.');
+                Homey.alert(Homey.__("Polestar2.pair.alertNoCarFound"));
                 return Homey.setNavigationClose();
             }
         } else {
-            Homey.alert('Fant ingen Polestar 2 på Tibber-kontoen din.');
+            Homey.alert(Homey.__("Polestar2.pair.alertNoCarFound"));
             return Homey.setNavigationClose();
         }
     });

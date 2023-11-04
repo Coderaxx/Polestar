@@ -8,6 +8,8 @@ class Polestar extends Driver {
 		this.log('Polestar has been initialized');
 
 		this.token = null;
+		this.tibberAccount = null;
+		this.vehicles = [];
 	}
 
 	async onPair(session) {
@@ -15,6 +17,7 @@ class Polestar extends Driver {
 
 		session.setHandler('login', async (data) => {
 			const { email, password } = data;
+			this.tibberAccount = { email, password };
 			try {
 				const response = await axios.post('https://app.tibber.com/login.credentials', {
 					email,
@@ -31,7 +34,7 @@ class Polestar extends Driver {
 			}
 		});
 
-		session.setHandler('getVehicles', async (data) => {
+		session.setHandler('getVehicles', async () => {
 			try {
 				const response = await axios.post('https://app.tibber.com/v4/gql', {
 					query: '{\n  me{\n    myVehicles{\n      vehicles{\n        id\n        title\n        }\n    }\n  }\n}',
@@ -42,28 +45,37 @@ class Polestar extends Driver {
 						'Accept': 'application/json',
 					},
 				});
-				const { data: { data: { me: { myVehicles: { vehicles } } } } } = response;
+				const car = response.data.data.me.myVehicles.vehicles;
+				const vehicles = car.map((vehicle) => {
+					return {
+						name: vehicle.title,
+						data: {
+							id: vehicle.id,
+						},
+						settings:
+						{
+							tibber_email: this.tibberAccount.email,
+							tibber_password: this.tibberAccount.password,
+							refresh_interval: 60,
+						}
+					};
+				});
+				this.vehicles = vehicles;
+
 				return { success: true, vehicles };
 			} catch (error) {
 				this.error(error);
 				return error;
 			}
 		});
+
+		session.setHandler('list_devices', async () => {
+			return await this.onPairListDevices(session);
+		});
 	}
 
 	async onPairListDevices() {
-		return [
-			// Example device data, note that `store` is optional
-			// {
-			//   name: 'My Device',
-			//   data: {
-			//     id: 'my-device',
-			//   },
-			//   store: {
-			//     address: '127.0.0.1',
-			//   },
-			// },
-		];
+		return this.vehicles;
 	}
 
 }

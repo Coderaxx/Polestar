@@ -11,12 +11,8 @@
     "measure_polestarChargeState",
     "measure_polestarUpdated"
   ],
-  "platforms": [
-    "local"
-  ],
-  "connectivity": [
-    "cloud"
-  ],
+  "platforms": ["local"],
+  "connectivity": ["cloud"],
   "images": {
     "small": "{{driverAssetsPath}}/images/small.png",
     "large": "{{driverAssetsPath}}/images/large.png"
@@ -30,7 +26,10 @@
     },
     {
       "id": "list_devices",
-      "template": "list_devices"
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_device"
+      }
     },
     {
       "id": "add_device",

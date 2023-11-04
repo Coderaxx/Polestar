@@ -1,17 +1,17 @@
 <form class="homey-form" id="loginForm">
     <fieldset class="homey-form-fieldset">
-        <legend class="homey-form-legend">Login</legend>
+        <legend class="homey-form-legend"><span data-i18n="Polestar2.pair.title"></span></legend>
 
         <div class="homey-form-group">
-            <label class="homey-form-label" for="email">Epost</label>
+            <label class="homey-form-label" for="email"><span data-i18n="Polestar2.pair.email"></span></label>
             <input class="homey-form-input" id="email" type="text" value="" />
         </div>
         <div class="homey-form-group">
-            <label class="homey-form-label" for="password">Passord</label>
+            <label class="homey-form-label" for="password"><span data-i18n="Polestar2.pair.password"></span></label>
             <input class="homey-form-input" id="password" type="password" value="" />
         </div>
         <div class="homey-form-group">
-            <button class="homey-button homey-button-primary" id="loginButton" type="button">Login</button>
+            <button class="homey-button homey-button-primary" id="loginButton" type="button"><span data-i18n="Polestar2.pair.loginButton"></span></button>
     </fieldset>
 </form>
 <script type="application/javascript">
@@ -28,7 +28,7 @@
             console.log(result);
             if (result.error) {
                 console.log('Login failed');
-                Homey.alert('Login failed. Please check your credentials and try again.');
+                Homey.alert(Homey.__("Polestar2.pair.loginFailed"));
                 return Homey.setNavigationClose();
             } else {
                 console.log("Tibber login successful");

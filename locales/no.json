@@ -1,0 +1,13 @@
+{
+    "Polestar2": {
+        "pair": {
+            "title": "Vennligst logg inn på din Tibber-konto",
+            "email": "Epost-adresse",
+            "password": "Passord",
+            "loginButton": "Logg inn",
+            "loginFailed": "Innlogging feilet. Vennligst sjekk epost-adresse og passord og prøv igjen.",
+            "alertNoCarFound": "Fant ingen Polestar 2 på Tibber-kontoen din.",
+            "fetchingCars": "Henter Polestar 2 fra Tibber-kontoen din..."
+        }
+    }
+}
