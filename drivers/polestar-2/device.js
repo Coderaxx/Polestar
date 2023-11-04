@@ -11,8 +11,8 @@ class Polestar extends Device {
 		moment.locale(this.homey.i18n.getLanguage() === 'no' ? 'nb' : 'en');
 
 		this.settings = await this.getSettings();
-		this.token = await this.loginToTibber(this.settings.tibber_email, this.settings.tibber_password);
-		this.isLoggedIn = this.token !== undefined;
+		this.token = await this.homey.settings.get('tibber_token') || await this.loginToTibber(this.getSetting('tibber_email'), this.getSetting('tibber_password'));
+		this.isLoggedIn = this.token !== undefined || this.token !== null;
 		this.vehicleId = this.getData().id;
 		this.vehicleData = null;
 
