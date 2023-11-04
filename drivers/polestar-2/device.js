@@ -172,7 +172,7 @@ class Polestar extends Device {
 		if (this.vehicleData) {
 			const lastUpdated = moment(this.vehicleData.homes.lastSeen).fromNow();
 			const soc = this.vehicleData.vehicle.battery.level;
-			const range = parseInt((soc / 100) * 487, 10) / 1.5;
+			const range = parseInt(parseInt((soc / 100) * 487, 10) / 1.5);
 
 			await this.setCapabilityValue('measure_battery', this.vehicleData.vehicle.battery.level);
 			await this.setCapabilityValue('measure_polestarBattery', this.vehicleData.vehicle.battery.level);
