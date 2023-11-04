@@ -7,7 +7,7 @@ class Polestar extends Driver {
 	async onInit() {
 		this.log('Polestar has been initialized');
 
-		this.token = null;
+		this.token = this.homey.settings.get('tibber_token') || null;
 		this.tibberAccount = {
 			email: this.homey.settings.get('tibber_email') || null,
 			password: this.homey.settings.get('tibber_password') || null,
@@ -38,6 +38,7 @@ class Polestar extends Driver {
 
 				const { data: { token } } = response;
 				this.token = token;
+				this.homey.settings.set('tibber_token', this.token);
 
 				return { success: true, token };
 			} catch (error) {

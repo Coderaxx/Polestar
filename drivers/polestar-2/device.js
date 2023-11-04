@@ -159,9 +159,17 @@ class Polestar extends Device {
 				this.isLoggedIn = false;
 				await this.loginToTibber(this.getSetting('tibber_email'), this.getSetting('tibber_password'));
 				return await this.fetchVehicleData();
+			} else if (error.response.status === 429) {
+				this.error('Too many requests, try again later');
+
+				// Timeout for 30 minutes
+				await new Promise(resolve => setTimeout(resolve, 30 * 60 * 1000));
+				
+				return await this.fetchVehicleData();
+			} else {
+				this.error(error);
+				return error;
 			}
-			this.error(error);
-			return error;
 		}
 	}
 
