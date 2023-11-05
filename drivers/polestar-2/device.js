@@ -80,8 +80,8 @@ class PolestarDevice extends Device {
 		}
 
 		this.homey.app.log(this.homey.__({
-			en: `Logging in to Tibber... Attempt ${attempt}`,
-			no: `Logger inn på Tibber... Forsøk ${attempt}`
+			en: `Trying to log in to Tibber... Attempt ${attempt}`,
+			no: `Prøver å logge inn på Tibber... Forsøk ${attempt}`
 		}), this.name, 'DEBUG');
 
 		try {
@@ -104,14 +104,14 @@ class PolestarDevice extends Device {
 
 			return token;
 		} catch (error) {
-			this.homey.app.log(this.homey.__({
-				en: `Failed to login to Tibber. Attempt ${attempt}. Error code: ${error.response?.status}`,
-				no: `Klarte ikke å logge inn på Tibber. Forsøk ${attempt}. Feilkode: ${error.response?.status}`
-			}), this.name, 'ERROR');
-
 			// Eksponentiell backoff: ventetid = 2^forsøk * 100 ms
 			const backoffTime = Math.pow(2, attempt) * 100;
 			await new Promise(resolve => setTimeout(resolve, backoffTime));
+
+			this.homey.app.log(this.homey.__({
+				en: `Tibber login failed with error code: ${error.response?.status}. Trying again in ${backoffTime / 1000} seconds...`,
+				no: `Tibber innlogging feilet med feilkode: ${error.response?.status}. Prøver igjen om ${backoffTime / 1000} sekunder...`
+			}), this.name, 'ERROR');
 
 			return this.loginToTibber(email, password, attempt + 1);
 		}
