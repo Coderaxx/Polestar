@@ -39,13 +39,13 @@ class PolestarDevice extends Device {
 		}, this.refreshInterval);
 
 		this.homey.settings.on('set', (key) => {
-			if (key === 'debugLog') return;
+			if (key === 'debugLog' || key === 'tibber_token') return;
 			this.homey.setTimeout(async () => {
 				await this.homey.settings.get('tibber_email');
 				await this.homey.settings.get('tibber_password');
 				this.homey.settings.set('tibber_token', null);
 
-				this.log(this.homey.__({ en: 'Account settings updated. Logging in to Tibber again...', no: 'Kontoinnstillinger oppdatert. Logger inn på Tibber på nytt...' }), this.name, 'DEBUG');
+				this.homey.app.log(this.homey.__({ en: 'Account settings updated. Logging in to Tibber again...', no: 'Kontoinnstillinger oppdatert. Logger inn på Tibber på nytt...' }), this.name, 'DEBUG');
 
 				if (this.interval) this.homey.clearInterval(this.interval);
 
@@ -112,8 +112,8 @@ class PolestarDevice extends Device {
 			const backoffTime = Math.pow(2, attempt) * 100;
 
 			this.homey.app.log(this.homey.__({
-				en: `Tibber login failed with error code: ${error.response?.status}. Trying again in ~ ${parseInt(backoffTime / 1000)} seconds...`,
-				no: `Tibber innlogging feilet med feilkode: ${error.response?.status}. Prøver igjen om ~ ${parseInt(backoffTime / 1000)} sekunder...`
+				en: `Tibber login failed with error code: ${error.response?.status}. Trying again in ~${parseInt(backoffTime / 1000)} seconds...`,
+				no: `Tibber innlogging feilet med feilkode: ${error.response?.status}. Prøver igjen om ~${parseInt(backoffTime / 1000)} sekunder...`
 			}), this.name, 'ERROR');
 
 			await new Promise(resolve => setTimeout(resolve, backoffTime));
