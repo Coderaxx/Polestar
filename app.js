@@ -6,15 +6,21 @@ const moment = require('moment');
 class Polestar extends Homey.App {
 	async onInit() {
 		this.userLanguage = this.homey.i18n.getLanguage();
-		this.userLanguage == 'no' ? moment.locale('nb') : moment.locale('en');
+		moment.locale(this.userLanguage == 'no' ? 'nb' : 'en');
 
 		this.homey.settings.set('debugLog', null);
 
-		this.log(this.homey.__({ en: 'Polestar has been initialized', no: 'Polestar har blitt initialisert' }));
+		this.log(this.homey.__({
+			en: 'Polestar App has been initialized',
+			no: 'Polestar App har blitt initialisert'
+		}));
 
 		this.homey.settings.on('set', (key) => {
 			if (key === 'debugLog') return;
-			this.log(this.homey.__({ en: 'Setting updated:', no: 'Innstilling oppdatert:' }), 'Polestar App', 'DEBUG', `${key}: ${key == 'tibber_token' ? '********' : this.homey.settings.get(key)}`);
+			this.log(this.homey.__({
+				en: 'Setting updated:',
+				no: 'Innstilling oppdatert:'
+			}), 'Polestar App', 'DEBUG', `${key}: ${key == 'tibber_token' ? '********' : this.homey.settings.get(key)}`);
 		});
 	}
 

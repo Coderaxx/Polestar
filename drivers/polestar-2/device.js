@@ -14,7 +14,7 @@ class PolestarDevice extends Device {
 		}),
 			this.name, 'DEBUG');
 
-		moment.locale(this.homey.i18n.getLanguage() === 'no' ? 'nb' : 'en');
+		moment.locale(this.homey.i18n.getLanguage() == 'no' ? 'nb' : 'en');
 
 		this.settings = await this.getSettings();
 		this.auth = {
