@@ -50,11 +50,14 @@ class PolestarDevice extends Device {
 				// Avbryt eventuelle pågående innloggingsforsøk
 				this.cancelLogin();
 
-				this.homey.app.log(this.homey.__({ en: 'Account settings updated. Logging in to Tibber again...', no: 'Kontoinnstillinger oppdatert. Logger inn på Tibber på nytt...' }), this.name, 'DEBUG');
+				this.homey.app.log(this.homey.__({
+					en: 'Account settings updated. Restarting' + this.name + '...',
+					no: 'Kontoinnstillinger oppdatert. Restarter ' + this.name + '...'
+				}), this.name, 'DEBUG');
 
 				if (this.interval) this.homey.clearInterval(this.interval);
 
-				await this.onInit();
+				return await this.onInit();
 			}, 2000);
 		});
 	}
