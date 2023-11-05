@@ -14,7 +14,7 @@ class Polestar extends Homey.App {
 
 		this.homey.settings.on('set', (key) => {
 			if (key === 'debugLog') return;
-			this.log(this.homey.__({ en: 'Settings updated', no: 'Innstillinger oppdatert' }), 'Polestar App', 'DEBUG', `${key}: ${key == 'tibber_token' ? '********' : this.homey.settings.get(key)}`);
+			this.log(this.homey.__({ en: 'Setting updated:', no: 'Innstilling oppdatert:' }), 'Polestar App', 'DEBUG', `${key}: ${key == 'tibber_token' ? '********' : this.homey.settings.get(key)}`);
 		});
 	}
 
