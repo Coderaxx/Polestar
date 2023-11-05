@@ -76,6 +76,10 @@ class PolestarDevice extends Device {
 				en: 'Exceeded maximum login attempts to Tibber!',
 				no: 'Overskredet maksimalt antall innloggingsforsøk til Tibber!'
 			}), this.name, 'ERROR');
+			this.setUnavailable(this.homey.__({
+				en: 'Exceeded maximum login attempts to Tibber! Please check your account settings.',
+				no: 'Overskredet maksimalt antall innloggingsforsøk til Tibber! Vennligst sjekk konto-innstillingene dine.'
+			}));
 			return;
 		}
 
@@ -108,8 +112,8 @@ class PolestarDevice extends Device {
 			const backoffTime = Math.pow(2, attempt) * 100;
 
 			this.homey.app.log(this.homey.__({
-				en: `Tibber login failed with error code: ${error.response?.status}. Trying again in ${backoffTime / 1000} seconds...`,
-				no: `Tibber innlogging feilet med feilkode: ${error.response?.status}. Prøver igjen om ${backoffTime / 1000} sekunder...`
+				en: `Tibber login failed with error code: ${error.response?.status}. Trying again in ~ ${parseInt(backoffTime / 1000)} seconds...`,
+				no: `Tibber innlogging feilet med feilkode: ${error.response?.status}. Prøver igjen om ~ ${parseInt(backoffTime / 1000)} sekunder...`
 			}), this.name, 'ERROR');
 
 			await new Promise(resolve => setTimeout(resolve, backoffTime));
