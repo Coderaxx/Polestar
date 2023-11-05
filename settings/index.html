@@ -83,17 +83,17 @@
         <table class="tg">
             <thead>
                 <tr>
-                    <th class="tg-0lax">
+                    <th class="tg-0lax" style="text-align:center">
                         <b>
                             <span data-i18n="Polestar2.settings.debug.registered"></span>
                         </b>
                     </th>
-                    <th class="tg-0lax">
+                    <th class="tg-0lax" style="text-align:center">
                         <b>
                             <span data-i18n="Polestar2.settings.debug.severity"></span>
                         </b>
                     </th>
-                    <th class="tg-0lax" width="60%">
+                    <th class="tg-0lax" style="text-align:center" width="60%">
                         <b>
                             <span data-i18n="Polestar2.settings.debug.message"></span>
                         </b>
@@ -119,7 +119,7 @@
             } else {
                 msg = $('<b>').text(message).add($('<br>')).add($('<code>').text(JSON.stringify(data, ' ', 1)));
             }
-            var html = $('<tr>').addClass('event').append($('<td>').text(registered)).append($('<td>').text(severity)).append($('<td>').append(msg));
+            var html = $('<tr>').addClass('event').append($('<td style="text-align:center">').text(registered)).append($('<td style="text-align:center">').text(severity)).append($('<td>').append(msg));
             $('#logs').prepend(html);
         }
 
