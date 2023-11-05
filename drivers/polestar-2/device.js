@@ -106,12 +106,13 @@ class PolestarDevice extends Device {
 		} catch (error) {
 			// Eksponentiell backoff: ventetid = 2^forsøk * 100 ms
 			const backoffTime = Math.pow(2, attempt) * 100;
-			await new Promise(resolve => setTimeout(resolve, backoffTime));
 
 			this.homey.app.log(this.homey.__({
 				en: `Tibber login failed with error code: ${error.response?.status}. Trying again in ${backoffTime / 1000} seconds...`,
 				no: `Tibber innlogging feilet med feilkode: ${error.response?.status}. Prøver igjen om ${backoffTime / 1000} sekunder...`
 			}), this.name, 'ERROR');
+
+			await new Promise(resolve => setTimeout(resolve, backoffTime));
 
 			return this.loginToTibber(email, password, attempt + 1);
 		}
