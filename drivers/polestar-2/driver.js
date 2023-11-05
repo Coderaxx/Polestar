@@ -5,7 +5,7 @@ const axios = require('axios');
 
 class PolestarDriver extends Driver {
 	async onInit() {
-		this.homey.app.log(this.homey.__({ en: 'PolestarDriver has been initialized', no: 'PolestarDriver har blitt initialisert' }), 'PolstarDriver', 'DEBUG');
+		this.homey.app.log(this.homey.__({ en: 'Polestar Driver has been initialized', no: 'Polestar Driver har blitt initialisert' }), 'Polestar Driver', 'DEBUG');
 
 		this.token = this.homey.settings.get('tibber_token') || null;
 		this.tibberAccount = {
@@ -16,7 +16,7 @@ class PolestarDriver extends Driver {
 	}
 
 	async onPair(session) {
-		this.homey.app.log(this.homey.__({ en: 'Started pairing for Polestar 2', no: 'Starter paring for Polestar 2' }), 'PolstarDriver', 'DEBUG');
+		this.homey.app.log(this.homey.__({ en: 'Started pairing for Polestar 2', no: 'Starter paring for Polestar 2' }), 'Polestar Driver', 'DEBUG');
 
 		session.setHandler('getLoginDetails', async () => {
 			if (this.tibberAccount.email && this.tibberAccount.password) {
@@ -42,7 +42,7 @@ class PolestarDriver extends Driver {
 
 				return { success: true, token };
 			} catch (error) {
-				this.homey.app.log(this.homey.__({ en: 'Error logging in to Tibber', no: 'Feil ved innlogging til Tibber' }), 'PolstarDriver', 'ERROR', error.response?.status);
+				this.homey.app.log(this.homey.__({ en: 'Error logging in to Tibber', no: 'Feil ved innlogging til Tibber' }), 'Polestar Driver', 'ERROR', error.response?.status);
 				return error;
 			}
 		});
@@ -100,7 +100,7 @@ class PolestarDriver extends Driver {
 
 				return { success: true, vehicles };
 			} catch (error) {
-				this.homey.app.log(this.homey.__({ en: 'Error fetching vehicle data from Tibber', no: 'Feil ved henting av kjøretøydata fra Tibber' }), 'PolstarDriver', 'ERROR', error.response?.status);
+				this.homey.app.log(this.homey.__({ en: 'Error fetching vehicle data from Tibber', no: 'Feil ved henting av kjøretøydata fra Tibber' }), 'Polestar Driver', 'ERROR', error.response?.status);
 				return error;
 			}
 		});
@@ -111,7 +111,7 @@ class PolestarDriver extends Driver {
 	}
 
 	async onPairListDevices() {
-		this.homey.app.log(this.homey.__({ en: 'Vehicles ready to be added: ' + this.vehicles, no: 'Kjøretøy klare til å bli lagt til: ' + this.vehicles }), 'PolstarDriver', 'DEBUG');
+		this.homey.app.log(this.homey.__({ en: 'Vehicles ready to be added: ' + this.vehicles, no: 'Kjøretøy klare til å bli lagt til: ' + this.vehicles }), 'Polestar Driver', 'DEBUG');
 		return this.vehicles;
 	}
 

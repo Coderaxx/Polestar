@@ -100,6 +100,8 @@ class PolestarDevice extends Device {
 			no: `Prøver å logge inn på Tibber... Forsøk ${attempt}`
 		}), this.name, 'DEBUG');
 
+		this.abortController = new AbortController();
+
 		try {
 			const response = await axios.post('https://app.tibber.com/login.credentials', {
 				email,
@@ -124,21 +126,32 @@ class PolestarDevice extends Device {
 			this.abortController = null;
 			return token;
 		} catch (error) {
+			let errorMessage;
+
 			if (axios.isCancel(error)) {
-				// Håndter avbrutt forespørsel
-				this.homey.app.log(this.homey.__({
-					en: 'Login to Tibber was cancelled by the user.',
-					no: 'Innlogging til Tibber ble avbrutt av brukeren.'
-				}), this.name, 'ERROR');
-				return;
+				errorMessage = this.homey.__({
+					en: `Login to Tibber was cancelled during attempt ${attempt}.`,
+					no: `Innlogging til Tibber ble avbrutt under forsøk ${attempt}.`
+				});
+				this.homey.app.log(errorMessage, this.name, 'ERROR');
+				return; // Avslutt funksjonen her fordi vi ikke vil prøve igjen etter avbrudd
+			} else if (error.response) {
+				errorMessage = this.homey.__({
+					en: `Tibber login failed with error code: ${error.response.status} on attempt ${attempt}.`,
+					no: `Tibber innlogging feilet med feilkode: ${error.response.status} på forsøk ${attempt}.`
+				});
+			} else {
+				errorMessage = this.homey.__({
+					en: 'Tibber login failed due to a network or other error on attempt ' + attempt + '.',
+					no: 'Tibber innlogging feilet på grunn av en nettverksfeil eller annen feil på forsøk ' + attempt + '.'
+				});
 			}
 
 			// Eksponentiell backoff: ventetid = 2^forsøk * 100 ms
 			const backoffTime = Math.pow(2, attempt) * 100;
-
-			this.homey.app.log(this.homey.__({
-				en: `Tibber login failed with error code: ${error.response?.status}. Trying again in ~${parseInt(backoffTime / 1000)} seconds...`,
-				no: `Tibber innlogging feilet med feilkode: ${error.response?.status}. Prøver igjen om ~${parseInt(backoffTime / 1000)} sekunder...`
+			this.homey.app.log(errorMessage + this.homey.__({
+				en: ` Trying again in ~${parseInt(backoffTime / 1000)} seconds...`,
+				no: ` Prøver igjen om ~${parseInt(backoffTime / 1000)} sekunder...`
 			}), this.name, 'ERROR');
 
 			await new Promise(resolve => setTimeout(resolve, backoffTime));
