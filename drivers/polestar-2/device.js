@@ -26,6 +26,8 @@ class PolestarDevice extends Device {
 		this.vehicleId = this.getData().id;
 		this.vehicleData = null;
 
+		this.abortController = null;
+
 		this.refreshInterval = this.settings.refresh_interval * 60 * 1000 || 60 * 60 * 1000;
 
 		this.homey.app.log(this.homey.__({
@@ -45,6 +47,9 @@ class PolestarDevice extends Device {
 				await this.homey.settings.get('tibber_password');
 				this.homey.settings.set('tibber_token', null);
 
+				// Avbryt eventuelle pågående innloggingsforsøk
+				this.cancelLogin();
+
 				this.homey.app.log(this.homey.__({ en: 'Account settings updated. Logging in to Tibber again...', no: 'Kontoinnstillinger oppdatert. Logger inn på Tibber på nytt...' }), this.name, 'DEBUG');
 
 				if (this.interval) this.homey.clearInterval(this.interval);
@@ -52,6 +57,13 @@ class PolestarDevice extends Device {
 				await this.onInit();
 			}, 2000);
 		});
+	}
+
+	cancelLogin() {
+		if (this.abortController) {
+			this.abortController.abort();
+			this.abortController = null;
+		}
 	}
 
 	async loginToTibber(email, password, attempt = 1) {
@@ -92,6 +104,8 @@ class PolestarDevice extends Device {
 			const response = await axios.post('https://app.tibber.com/login.credentials', {
 				email,
 				password,
+			}, {
+				signal: this.abortController.signal
 			});
 
 			const { data: { token } } = response;
@@ -106,8 +120,19 @@ class PolestarDevice extends Device {
 			}),
 				this.name, 'DEBUG');
 
+			// Nullstill abortController etter vellykket innlogging
+			this.abortController = null;
 			return token;
 		} catch (error) {
+			if (axios.isCancel(error)) {
+				// Håndter avbrutt forespørsel
+				this.homey.app.log(this.homey.__({
+					en: 'Login to Tibber was cancelled by the user.',
+					no: 'Innlogging til Tibber ble avbrutt av brukeren.'
+				}), this.name, 'ERROR');
+				return;
+			}
+
 			// Eksponentiell backoff: ventetid = 2^forsøk * 100 ms
 			const backoffTime = Math.pow(2, attempt) * 100;
 
@@ -117,6 +142,11 @@ class PolestarDevice extends Device {
 			}), this.name, 'ERROR');
 
 			await new Promise(resolve => setTimeout(resolve, backoffTime));
+
+			// Nullstill abortController etter en feil hvis vi ikke skal prøve igjen
+			if (attempt >= 20) {
+				this.abortController = null;
+			}
 
 			return this.loginToTibber(email, password, attempt + 1);
 		}
