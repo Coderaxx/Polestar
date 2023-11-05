@@ -137,6 +137,20 @@
 		<header class="homey-header">
 			<h1 class="homey-title" data-i18n="Polestar2.settings.title"></h1>
 		</header>
+		<fieldset class="homey-form-fieldset">
+			<legend class="homey-form-legend" data-i18n="Polestar2.settings.account.title"></legend>
+
+			<div class="homey-form-group">
+				<label class="homey-form-label" for="email" data-i18n="Polestar2.settings.account.email"></label>
+				<input class="homey-form-input" id="email" type="text" value="" />
+			</div>
+			<div class="homey-form-group">
+				<label class="homey-form-label" for="password" data-i18n="Polestar2.settings.account.password"></label>
+				<input class="homey-form-input" id="password" type="password" value="" />
+			</div>
+		</fieldset>
+		<button id="save" class="homey-button-primary-full" data-i18n="Polestar2.settings.account.saveBtn">Save
+			changes</button>
 	</div>
 	<div id="debug" class="tabcontent">
 		<header class="homey-header">
@@ -194,15 +208,24 @@
 			var currentTab = document.getElementById(tabName);
 			if (currentTab) {
 				currentTab.style.display = "block";
-				evt.currentTarget.className += " active";
+				if (evt) evt.currentTarget.className += " active";
+				else {
+					// Finn knappen som samsvarer med tabName og legg til "active" klassen
+					var button = document.querySelector(`.tablinks[data-tabname="${tabName}"]`);
+					if (button) button.className += " active";
+				}
 			} else {
 				console.error('Det finnes ingen tab med ID:', tabName);
 			}
 		}
 
+		// Funksjon for å åpne en standardfane uten et event-objekt
+		function openDefaultTab(tabName) {
+			openTab(null, tabName);
+		}
+
 		// Bind openTab funksjonen til knappene
 		document.querySelectorAll('.tablinks').forEach(button => {
-			// Sett data-tabname attributten basert på id eller annen logikk
 			const tabName = button.id === 'accountTab' ? 'account' : 'debug';
 			button.setAttribute('data-tabname', tabName);
 
@@ -212,7 +235,7 @@
 		});
 
 		// Aktiver standard tab
-		document.getElementById("accountTab").click();
+		openDefaultTab("account");
 	});
 
 	function onHomeyReady(Homey) {
@@ -229,16 +252,16 @@
 
 			switch (severity) {
 				case 'DEBUG':
-					severity = `<span style="color:cyan">${severity}</span>`;
+					severity = `<span style="color:blue"><b>${severity}</b></span>`;
 					break;
 				case 'WARNING':
-					severity = `<span style="color:orange">${severity}</span>`;
+					severity = `<span style="color:orange"><b>${severity}</b></span>`;
 					break;
 				case 'ERROR':
-					severity = `<span style="color:red">${severity}</span>`;
+					severity = `<span style="color:red"><b>${severity}</b></span>`;
 					break;
 				default:
-					severity = `<span style="color:cyan">${severity}</span>`;
+					severity = `<span style="color:blue"><b>${severity}</b></span>`;
 					break;
 			}
 			var html = $('<tr>').addClass('event').append($('<td style="text-align:center">').text(registered)).append($('<td style="text-align:center">').html(severity)).append($('<td>').append(msg));
@@ -258,6 +281,30 @@
 
 		Homey.on('debugLog', function (item) {
 			addLogEntry(item.registered, item.severity, item.message, item.data);
+		});
+
+		var emailElement = document.getElementById("email");
+		var passwordElement = document.getElementById("password");
+		var saveElement = document.getElementById("save");
+
+		Homey.get("tibber_email", function (err, username) {
+			if (err) return Homey.alert(err);
+			emailElement.value = username;
+		});
+
+		Homey.get("tibber_password", function (err, password) {
+			if (err) return Homey.alert(err);
+			passwordElement.value = password;
+		});
+
+		saveElement.addEventListener("click", function (e) {
+			Homey.set("tibber_email", emailElement.value, function (err) {
+				if (err) return Homey.alert(err);
+			});
+			Homey.set("tibber_password", passwordElement.value, function (err) {
+				if (err) return Homey.alert(err);
+			});
+			Homey.alert(Homey.__({ en: "Settings saved", no: "Innstillinger lagret" }));
 		});
 	}
 </script>

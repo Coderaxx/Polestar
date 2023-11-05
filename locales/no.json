@@ -20,6 +20,12 @@
 				"account": "Konto",
 				"debug": "Debug"
 			},
+			"account": {
+				"title": "Konto-innstillinger",
+				"email": "Epost-adresse",
+				"password": "Passord",
+				"saveBtn": "Lagre"
+			},
 			"debug": {
 				"title": "Debug logger",
 				"registered": "Tidsstempel",

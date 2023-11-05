@@ -42,7 +42,7 @@ class PolestarDriver extends Driver {
 
 				return { success: true, token };
 			} catch (error) {
-				this.error(error);
+				this.homey.app.log(this.homey.__({ en: 'Error logging in to Tibber', no: 'Feil ved innlogging til Tibber' }), 'PolstarDriver', 'ERROR', error.response?.status);
 				return error;
 			}
 		});
@@ -100,7 +100,7 @@ class PolestarDriver extends Driver {
 
 				return { success: true, vehicles };
 			} catch (error) {
-				this.error(error);
+				this.homey.app.log(this.homey.__({ en: 'Error fetching vehicle data from Tibber', no: 'Feil ved henting av kjøretøydata fra Tibber' }), 'PolstarDriver', 'ERROR', error.response?.status);
 				return error;
 			}
 		});

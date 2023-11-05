@@ -17,6 +17,10 @@ class PolestarDevice extends Device {
 		moment.locale(this.homey.i18n.getLanguage() === 'no' ? 'nb' : 'en');
 
 		this.settings = await this.getSettings();
+		this.auth = {
+			email: await this.homey.settings.get('tibber_email') || null,
+			password: await this.homey.settings.get('tibber_password') || null,
+		}
 		this.token = await this.homey.settings.get('tibber_token') || null;
 		this.isLoggedIn = this.token !== null;
 		this.vehicleId = this.getData().id;
@@ -33,9 +37,24 @@ class PolestarDevice extends Device {
 		this.interval = this.homey.setInterval(async () => {
 			await this.updateDeviceData();
 		}, this.refreshInterval);
+
+		this.homey.settings.on('set', (key) => {
+			if (key === 'debugLog') return;
+			this.homey.setTimeout(async () => {
+				await this.homey.settings.get('tibber_email');
+				await this.homey.settings.get('tibber_password');
+				this.homey.settings.set('tibber_token', null);
+
+				this.log(this.homey.__({ en: 'Account settings updated. Logging in to Tibber again...', no: 'Kontoinnstillinger oppdatert. Logger inn på Tibber på nytt...' }), this.name, 'DEBUG');
+
+				if (this.interval) this.homey.clearInterval(this.interval);
+
+				await this.onInit();
+			}, 2000);
+		});
 	}
 
-	async loginToTibber(email, password) {
+	async loginToTibber(email, password, attempt = 1) {
 		if (!email || !password) {
 			this.homey.app.log(this.homey.__({
 				en: 'Email or password is missing!',
@@ -52,11 +71,18 @@ class PolestarDevice extends Device {
 				this.name, 'DEBUG');
 			return;
 		}
+		if (attempt > 20) {
+			this.homey.app.log(this.homey.__({
+				en: 'Exceeded maximum login attempts to Tibber!',
+				no: 'Overskredet maksimalt antall innloggingsforsøk til Tibber!'
+			}), this.name, 'ERROR');
+			return;
+		}
+
 		this.homey.app.log(this.homey.__({
-			en: 'Logging in to Tibber...',
-			no: 'Logger inn på Tibber...'
-		}),
-			this.name, 'DEBUG');
+			en: `Logging in to Tibber... Attempt ${attempt}`,
+			no: `Logger inn på Tibber... Forsøk ${attempt}`
+		}), this.name, 'DEBUG');
 
 		try {
 			const response = await axios.post('https://app.tibber.com/login.credentials', {
@@ -78,12 +104,16 @@ class PolestarDevice extends Device {
 
 			return token;
 		} catch (error) {
-			this.error(this.homey.__({
-				en: 'Failed to login to Tibber. Error code: ' + error.response.status,
-				no: 'Klarte ikke å logge inn på Tibber. Feilkode: ' + error.response.status
-			}),
-				this.name, 'ERROR');
-			return error;
+			this.homey.app.log(this.homey.__({
+				en: `Failed to login to Tibber. Attempt ${attempt}. Error code: ${error.response?.status}`,
+				no: `Klarte ikke å logge inn på Tibber. Forsøk ${attempt}. Feilkode: ${error.response?.status}`
+			}), this.name, 'ERROR');
+
+			// Eksponentiell backoff: ventetid = 2^forsøk * 100 ms
+			const backoffTime = Math.pow(2, attempt) * 100;
+			await new Promise(resolve => setTimeout(resolve, backoffTime));
+
+			return this.loginToTibber(email, password, attempt + 1);
 		}
 	}
 
@@ -94,7 +124,7 @@ class PolestarDevice extends Device {
 				no: 'Ikke logget inn, logger inn på Tibber på nytt...'
 			}),
 				this.name, 'DEBUG');
-			await this.loginToTibber(this.getSetting('tibber_email'), this.getSetting('tibber_password'));
+			await this.loginToTibber(this.auth.email, this.auth.password);
 			return await this.fetchVehicleData();
 		}
 		this.homey.app.log(this.homey.__({
@@ -211,10 +241,10 @@ class PolestarDevice extends Device {
 					this.name, 'DEBUG');
 				this.token = null;
 				this.isLoggedIn = false;
-				await this.loginToTibber(this.getSetting('tibber_email'), this.getSetting('tibber_password'));
+				await this.loginToTibber(this.auth.email, this.auth.password);
 				return await this.fetchVehicleData();
 			} else if (error.response.status === 429) {
-				this.error(this.homey.__({
+				this.homey.app.log(this.homey.__({
 					en: 'Too many requests, try again later...',
 					no: 'For mange forespørsler, prøv igjen senere...'
 				}),
@@ -225,7 +255,7 @@ class PolestarDevice extends Device {
 
 				return await this.fetchVehicleData();
 			} else {
-				this.error(error);
+				this.homey.app.log(error);
 				return error;
 			}
 		}
@@ -287,10 +317,6 @@ class PolestarDevice extends Device {
 			no: this.name + ' innstillinger har blitt endret'
 		}),
 			this.name, 'DEBUG');
-		if (changedKeys.includes('tibber_email') || changedKeys.includes('tibber_password')) {
-			this.token = await this.loginToTibber(newSettings.tibber_email, newSettings.tibber_password);
-			this.isLoggedIn = this.token !== undefined;
-		}
 		if (changedKeys.includes('refresh_interval')) {
 			this.refreshInterval = newSettings.refresh_interval * 60 * 1000;
 			this.homey.clearInterval(this.interval);

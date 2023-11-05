@@ -76,47 +76,6 @@
       "id": "polestar-2",
       "settings": [
         {
-          "type": "group",
-          "label": {
-            "en": "Tibber-account",
-            "no": "Tibber-konto"
-          },
-          "children": [
-            {
-              "id": "tibber_email",
-              "type": "text",
-              "label": {
-                "en": "Email",
-                "no": "Epost"
-              },
-              "placeholder": {
-                "en": "Email",
-                "no": "Epost"
-              },
-              "hint": {
-                "en": "Enter your Tibber email. Your credentials will only be stored locally on your Homey.",
-                "no": "Skriv inn din Tibber epost. Dine innloggingsdetaljer vil kun bli lagret lokalt på din Homey."
-              }
-            },
-            {
-              "id": "tibber_password",
-              "type": "password",
-              "label": {
-                "en": "Password",
-                "no": "Passord"
-              },
-              "placeholder": {
-                "en": "Password",
-                "no": "Passord"
-              },
-              "hint": {
-                "en": "Enter your Tibber password. Your credentials will only be stored locally on your Homey.",
-                "no": "Skriv inn ditt Tibber passord. Dine innloggingsdetaljer vil kun bli lagret lokalt på din Homey."
-              }
-            }
-          ]
-        },
-        {
           "id": "refresh_interval",
           "type": "number",
           "label": {

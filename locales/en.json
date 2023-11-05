@@ -20,6 +20,12 @@
 				"account": "Account",
 				"debug": "Debug"
 			},
+			"account": {
+				"title": "Account settings",
+				"email": "Email address",
+				"password": "Password",
+				"saveBtn": "Save"
+			},
 			"debug": {
 				"title": "Debug logs",
 				"registered": "Timestamp",

@@ -11,6 +11,11 @@ class Polestar extends Homey.App {
 		this.homey.settings.set('debugLog', null);
 
 		this.log(this.homey.__({ en: 'Polestar has been initialized', no: 'Polestar har blitt initialisert' }));
+
+		this.homey.settings.on('set', (key) => {
+			if (key === 'debugLog') return;
+			this.log(this.homey.__({ en: 'Settings updated', no: 'Innstillinger oppdatert' }), 'App', 'DEBUG', `${key}: ${this.homey.settings.get(key)}`);
+		});
 	}
 
 	async log(message, instance = 'App', severity = 'DEBUG', data = null) {
@@ -24,7 +29,7 @@ class Polestar extends Homey.App {
 			timeStyle: 'medium',
 			timeZone: 'Europe/Oslo'
 		});
-		
+
 		let debugDateString = `${datestring} ${timestring}`;
 		datestring = `${datestring} - ${timestring}`;
 
