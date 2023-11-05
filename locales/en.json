@@ -16,6 +16,7 @@
     },
     "settings": {
       "debug": {
+        "title": "Debug logs",
         "registered": "Timestamp",
         "severity": "Severity",
         "message": "Message"

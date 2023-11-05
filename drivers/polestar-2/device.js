@@ -38,23 +38,23 @@ class PolestarDevice extends Device {
 	async loginToTibber(email, password) {
 		if (!email || !password) {
 			this.homey.app.log(this.homey.__({
-				en: 'Email or password is missing',
-				no: 'Epost eller passord mangler'
+				en: 'Email or password is missing!',
+				no: 'Epost eller passord mangler!'
 			}),
 				this.name, 'ERROR');
 			return;
 		}
 		if (this.isLoggedIn) {
 			this.homey.app.log(this.homey.__({
-				en: 'Already logged in',
-				no: 'Allerede logget inn'
+				en: 'Already logged in!',
+				no: 'Allerede logget inn!'
 			}),
 				this.name, 'DEBUG');
 			return;
 		}
 		this.homey.app.log(this.homey.__({
-			en: 'Logging in to Tibber',
-			no: 'Logger inn på Tibber'
+			en: 'Logging in to Tibber...',
+			no: 'Logger inn på Tibber...'
 		}),
 			this.name, 'DEBUG');
 
@@ -71,16 +71,16 @@ class PolestarDevice extends Device {
 			this.isLoggedIn = true;
 
 			this.homey.app.log(this.homey.__({
-				en: 'Successfully logged in to Tibber',
-				no: 'Tibber innlogging var vellykket'
+				en: 'Successfully logged in to Tibber!',
+				no: 'Tibber innlogging var vellykket!'
 			}),
 				this.name, 'DEBUG');
 
 			return token;
 		} catch (error) {
 			this.error(this.homey.__({
-				en: 'Failed to login to Tibber. Check your email and password and try again.' + error.message,
-				no: 'Klarte ikke å logge inn på Tibber. Sjekk epost og passord og prøv igjen.' + error.message
+				en: 'Failed to login to Tibber. Error code: ' + error.response.status,
+				no: 'Klarte ikke å logge inn på Tibber. Feilkode: ' + error.response.status
 			}),
 				this.name, 'ERROR');
 			return error;
@@ -90,8 +90,8 @@ class PolestarDevice extends Device {
 	async fetchVehicleData() {
 		if (!this.isLoggedIn) {
 			this.homey.app.log(this.homey.__({
-				en: 'Not logged in, logging in to Tibber again',
-				no: 'Ikke logget inn, logger inn på Tibber på nytt'
+				en: 'Not logged in, logging in to Tibber again...',
+				no: 'Ikke logget inn, logger inn på Tibber på nytt...'
 			}),
 				this.name, 'DEBUG');
 			await this.loginToTibber(this.getSetting('tibber_email'), this.getSetting('tibber_password'));
@@ -234,7 +234,7 @@ class PolestarDevice extends Device {
 	async updateDeviceData() {
 		this.homey.app.log(this.homey.__({
 			en: 'Updating device data for ' + this.name,
-			no: 'Oppdaterer enhetsdata for' + this.name
+			no: 'Oppdaterer enhetsdata for ' + this.name
 		}),
 			this.name, 'DEBUG');
 		this.vehicleData = await this.fetchVehicleData();

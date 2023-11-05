@@ -16,8 +16,9 @@
 	},
 	"settings": {
 	  "debug": {
+		"title": "Debug logger",
 		"registered": "Tidsstempel",
-		"severity": "Alvorlighetsgrad",
+		"severity": "Alvorlighet",
 		"message": "Melding"
 	  }
 	}

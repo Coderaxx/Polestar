@@ -7,7 +7,7 @@ class Polestar extends Homey.App {
 	async onInit() {
 		this.userLanguage = this.homey.i18n.getLanguage();
 		this.userLanguage == 'no' ? moment.locale('nb') : moment.locale('en');
-		
+
 		this.homey.settings.set('debugLog', null);
 
 		this.log(this.homey.__({ en: 'Polestar has been initialized', no: 'Polestar har blitt initialisert' }));
@@ -24,10 +24,12 @@ class Polestar extends Homey.App {
 			timeStyle: 'medium',
 			timeZone: 'Europe/Oslo'
 		});
+		
+		let debugDateString = `${datestring} ${timestring}`;
 		datestring = `${datestring} - ${timestring}`;
 
 		const debugLog = this.homey.settings.get('debugLog') || [];
-		const entry = { registered: datestring, severity, message };
+		const entry = { registered: debugDateString, severity, message };
 
 		switch (severity) {
 			case 'DEBUG':

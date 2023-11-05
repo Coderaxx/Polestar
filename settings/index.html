@@ -43,42 +43,18 @@
             vertical-align: top
         }
 
-        .tg-sort-header::-moz-selection {
-            background: 0 0
+        .tg .tg-rz9m {
+            position: -webkit-sticky;
+            position: sticky;
+            text-align: center;
+            top: -1px;
+            vertical-align: top;
+            will-change: transform
         }
 
-        .tg-sort-header::selection {
-            background: 0 0
-        }
-
-        .tg-sort-header {
-            cursor: pointer
-        }
-
-        .tg-sort-header:after {
-            content: '';
-            float: right;
-            margin-top: 7px;
-            border-width: 0 5px 5px;
-            border-style: solid;
-            border-color: #404040 transparent;
-            visibility: hidden
-        }
-
-        .tg-sort-header:hover:after {
-            visibility: visible
-        }
-
-        .tg-sort-asc:after,
-        .tg-sort-asc:hover:after,
-        .tg-sort-desc:after {
-            visibility: visible;
-            opacity: .4
-        }
-
-        .tg-sort-desc:after {
-            border-bottom: none;
-            border-width: 5px 5px 0
+        .tg .tg-0lax {
+            text-align: left;
+            vertical-align: top
         }
 
         @media screen and (max-width: 767px) {
@@ -101,33 +77,38 @@
 
 <body>
     <header class="homey-header">
-        <h1 class="homey-title" data-i18n="settings.title">
-            Logs
-        </h1>
+        <h1 class="homey-title" data-i18n="Polestar2.settings.debug.title"></h1>
     </header>
-
-    <fieldset class="homey-form-fieldset">
-        <div class="tg-wrap">
-            <table id="logs" class="tg">
-                <thead>
-                    <tr>
-                        <td class="tg-0lax" data-i18n="Polestar2.settings.debug.registered">
-                            Timestamp</td>
-                        <td class="tg-0lax" data-i18n="Polestar2.settings.debug.severity">
-                            Severity</td>
-                        <td class="tg-0lax" data-i18n="Polestar2.settings.debug.message" width="60%">Message</td>
-                    </tr>
-                </thead>
-            </table>
-        </div>
-    </fieldset>
+    <div class="tg-wrap">
+        <table class="tg">
+            <thead>
+                <tr>
+                    <th class="tg-0lax">
+                        <b>
+                            <span data-i18n="Polestar2.settings.debug.registered"></span>
+                        </b>
+                    </th>
+                    <th class="tg-0lax">
+                        <b>
+                            <span data-i18n="Polestar2.settings.debug.severity"></span>
+                        </b>
+                    </th>
+                    <th class="tg-0lax" width="60%">
+                        <b>
+                            <span data-i18n="Polestar2.settings.debug.message"></span>
+                        </b>
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="logs"></tbody>
+        </table>
+    </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
     integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript">
     function onHomeyReady(Homey) {
-        // Tell Homey we're ready to be displayed
         Homey.ready();
         console.log('[\x1b[36mDEBUG\x1b[0m]', 'Homey is ready!')
 
