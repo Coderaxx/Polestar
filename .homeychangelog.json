@@ -4,5 +4,8 @@
   },
   "0.1.1": {
     "en": "Increased refresh interval to a minimum of 60 minutes, due to repeatedly experiencing 429 errors"
+  },
+  "1.0.0": {
+    "en": "Improved security by hiding sensitive information in logs. Enhanced login process with Tibber, including better error handling and messaging. Refined app and device initialization logs for clarity. Updated settings interface for a smoother user experience. Fixed an issue where Tibber login could hang, now with proper cancellation. Resolved a bug in the Polestar 2 driver initialization that could cause errors during pairing. Adjusted log messages to provide more accurate information during updates. Several optimizations and code clean-ups for better performance and stability."
   }
 }
