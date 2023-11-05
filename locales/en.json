@@ -1,18 +1,25 @@
 {
-    "Polestar2": {
-        "pair": {
-            "title": "Please log in to your Tibber account",
-            "email": "Email address",
-            "password": "Password",
-            "loginButton": "Log in",
-            "loginFailed": "Login failed. Please check your email address and password and try again.",
-            "alertNoCarFound": "No Polestar 2 found on your Tibber account.",
-            "fetchingCars": "Fetching Polestar 2 from your Tibber account..."
-        },
-        "device": {
-            "isCharging": "Charging",
-            "isNotCharging": "Not charging",
-            "unknownChargingState": "Unknown"
-        }
+  "Polestar2": {
+    "pair": {
+      "title": "Please log in to your Tibber account",
+      "email": "Email address",
+      "password": "Password",
+      "loginButton": "Log in",
+      "loginFailed": "Login failed. Please check your email address and password and try again.",
+      "alertNoCarFound": "No Polestar 2 found on your Tibber account.",
+      "fetchingCars": "Fetching Polestar 2 from your Tibber account..."
+    },
+    "device": {
+      "isCharging": "Charging",
+      "isNotCharging": "Not charging",
+      "unknownChargingState": "Unknown"
+    },
+    "settings": {
+      "debug": {
+        "registered": "Timestamp",
+        "severity": "Severity",
+        "message": "Message"
+      }
     }
+  }
 }

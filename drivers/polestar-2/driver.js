@@ -5,7 +5,7 @@ const axios = require('axios');
 
 class PolestarDriver extends Driver {
 	async onInit() {
-		this.homey.app.log(this.homey.__({ en: 'PolestarDriver has been initialized', no: 'PolestarDriver har blitt initialisert' }));
+		this.homey.app.log(this.homey.__({ en: 'PolestarDriver has been initialized', no: 'PolestarDriver har blitt initialisert' }), 'PolstarDriver', 'DEBUG');
 
 		this.token = this.homey.settings.get('tibber_token') || null;
 		this.tibberAccount = {
@@ -16,7 +16,7 @@ class PolestarDriver extends Driver {
 	}
 
 	async onPair(session) {
-		this.homey.app.log(this.homey.__({ en: 'Started pairing for Polestar 2', no: 'Starter paring for Polestar 2' }));
+		this.homey.app.log(this.homey.__({ en: 'Started pairing for Polestar 2', no: 'Starter paring for Polestar 2' }), 'PolstarDriver', 'DEBUG');
 
 		session.setHandler('getLoginDetails', async () => {
 			if (this.tibberAccount.email && this.tibberAccount.password) {
@@ -111,7 +111,7 @@ class PolestarDriver extends Driver {
 	}
 
 	async onPairListDevices() {
-		this.homey.app.log(this.homey.__({ en: 'Vehicles ready to be added: ' + this.vehicles, no: 'Kjøretøy klare til å bli lagt til: ' + this.vehicles }));
+		this.homey.app.log(this.homey.__({ en: 'Vehicles ready to be added: ' + this.vehicles, no: 'Kjøretøy klare til å bli lagt til: ' + this.vehicles }), 'PolstarDriver', 'DEBUG');
 		return this.vehicles;
 	}
 
