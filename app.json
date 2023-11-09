@@ -11,7 +11,7 @@
     "en": "Polestar"
   },
   "description": {
-    "en": "Adds support for Polestar statistics, by using CarStatsViewer and Tibber API (account required, no subscription required)."
+    "en": "Adds support for Polestar statistics, by using Tibber API."
   },
   "category": "internet",
   "permissions": [],
