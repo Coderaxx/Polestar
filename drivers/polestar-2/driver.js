@@ -112,7 +112,7 @@ class PolestarDriver extends Driver {
 	}
 
 	async onPairListDevices() {
-		this.homey.app.log(this.homey.__({ en: 'Vehicles ready to be added: ' + this.vehicles, no: 'Kjøretøy klare til å bli lagt til: ' + this.vehicles }), 'Polestar Driver', 'DEBUG');
+		this.homey.app.log(this.homey.__({ en: 'Vehicles ready to be added:', no: 'Kjøretøy klare til å bli lagt til:' }), 'Polestar Driver', 'DEBUG', this.vehicles);
 		return this.vehicles;
 	}
 
