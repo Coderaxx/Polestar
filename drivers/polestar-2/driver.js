@@ -81,15 +81,16 @@ class PolestarDriver extends Driver {
 						'Accept': 'application/json',
 					},
 				});
-				const car = response.data.data.me.homes[0].electricVehicles;
-				const vehicles = car.map((vehicle) => {
+				const cars = response.data.data.me.homes[0].electricVehicles;
+				// Filtrer for å kun inkludere Polestar-biler
+				const polestarVehicles = cars.filter(vehicle => vehicle.shortName.includes('Polestar'));
+				const vehicles = polestarVehicles.map((vehicle) => {
 					return {
 						name: vehicle.shortName,
 						data: {
 							id: vehicle.id,
 						},
-						settings:
-						{
+						settings: {
 							tibber_email: this.tibberAccount.email,
 							tibber_password: this.tibberAccount.password,
 							refresh_interval: 60,
@@ -101,7 +102,7 @@ class PolestarDriver extends Driver {
 				return { success: true, vehicles };
 			} catch (error) {
 				this.homey.app.log(this.homey.__({ en: 'Error fetching vehicle data from Tibber', no: 'Feil ved henting av kjøretøydata fra Tibber' }), 'Polestar Driver', 'ERROR', error.response?.status);
-				return error;
+				return { success: false, error: error };
 			}
 		});
 

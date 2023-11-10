@@ -10,7 +10,8 @@
     "en": "Polestar"
   },
   "description": {
-    "en": "Adds support for Polestar statistics, by using Tibber API."
+    "en": "Where Polestar and Homey connects in harmony",
+    "no": "Hvor Polestar og Homey kobler sammen i harmoni"
   },
   "category": "internet",
   "permissions": [],

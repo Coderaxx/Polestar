@@ -7,7 +7,8 @@
 			"loginButton": "Log in",
 			"loginFailed": "Login failed. Please check your email address and password and try again.",
 			"alertNoCarFound": "No Polestar 2 found on your Tibber account.",
-			"fetchingCars": "Fetching Polestar 2 from your Tibber account..."
+			"fetchingCars": "Fetching Polestar 2 from your Tibber account...",
+			"pairInfo": "Your Tibber account information is only used to pair your Polestar 2 with Homey. Your credentials are only stored locally on your Homey."
 		},
 		"device": {
 			"isCharging": "Charging",
