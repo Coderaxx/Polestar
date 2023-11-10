@@ -16,5 +16,8 @@
   },
   "1.0.3": {
     "en": "Changed app description for a better user experience on the Homey app store. Also fixed a bug where you could add any electric car from your Tibber account. You can now only add Polestar cars."
+  },
+  "1.0.4": {
+    "en": "Improved log messages during pairing"
   }
 }
