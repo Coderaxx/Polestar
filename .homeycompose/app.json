@@ -1,9 +1,11 @@
 {
   "id": "com.Coderax.Polestar",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "compatibility": ">=5.0.0",
   "sdk": 3,
-  "platforms": ["local"],
+  "platforms": [
+    "local"
+  ],
   "name": {
     "en": "Polestar"
   },
