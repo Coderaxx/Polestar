@@ -26,6 +26,17 @@
     "email": "jesper.grimstad@hotmail.com"
   },
   "brandColor": "#081822",
+  "support": "mailto:jesper.grimstad@hotmail.com?subject=Norske%20tjenester%20-%20Homey%20app",
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "Coderaxxx"
+      },
+      "githubSponsors": {
+        "username": "Coderaxx"
+      }
+    }
+  },
   "drivers": [
     {
       "name": {
