@@ -3,9 +3,7 @@
   "version": "1.0.4",
   "compatibility": ">=5.0.0",
   "sdk": 3,
-  "platforms": [
-    "local"
-  ],
+  "platforms": ["local"],
   "name": {
     "en": "Polestar"
   },
@@ -24,5 +22,16 @@
     "name": "Jesper Grimstad",
     "email": "jesper.grimstad@hotmail.com"
   },
-  "brandColor": "#081822"
+  "brandColor": "#081822",
+  "support": "mailto:jesper.grimstad@hotmail.com?subject=Norske%20tjenester%20-%20Homey%20app",
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "Coderaxxx"
+      },
+      "githubSponsors": {
+        "username": "Coderaxx"
+      }
+    }
+  }
 }
