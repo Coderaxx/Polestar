@@ -1,5 +1,5 @@
 <script type="application/javascript">
-    Homey.setTitle(Homey.__("Polestar2.pair.fetchingCars"));
+    Homey.setTitle(Homey.__("Polestar2Beta.pair.fetchingCars"));
 
     Homey.emit('getVehicles').then(function (result) {
         Homey.showLoadingOverlay();
@@ -10,11 +10,11 @@
             if (polestar) {
                 return Homey.nextView();
             } else {
-                Homey.alert(Homey.__("Polestar2.pair.alertNoCarFound"));
+                Homey.alert(Homey.__("Polestar2Beta.pair.alertNoCarFound"));
                 return Homey.setNavigationClose();
             }
         } else {
-            Homey.alert(Homey.__("Polestar2.pair.alertNoCarFound"));
+            Homey.alert(Homey.__("Polestar2Beta.pair.alertNoCarFound"));
             return Homey.setNavigationClose();
         }
     });

@@ -6,7 +6,7 @@ const PolestarAPI = require('./PolestarAPI');
 
 class PolestarBetaDriver extends Driver {
     async onInit() {
-        this.homey.app.log(this.homey.__({ en: 'Polestar Beta Driver has been initialized', no: 'Polestar Beta Driver har blitt initialisert' }), 'Polestar Beta Driver', 'DEBUG');
+        this.homey.app.log(this.homey.__({ en: 'Polestar Driver ᴮᴱᵀᴬ has been initialized', no: 'Polestar Driver ᴮᴱᵀᴬ har blitt initialisert' }), 'Polestar Driver ᴮᴱᵀᴬ', 'DEBUG');
 
         //const polestarApi = new PolestarAPI('jesper.grimstad@hotmail.com', 'GrL99D$N$!dkmrpD', 'YSMVSEDE5PL128797', 'a0c41700ca56416b8c2ad7c9028c1291');
         this.token = this.homey.settings.get('polestar_token') || null;
@@ -18,7 +18,7 @@ class PolestarBetaDriver extends Driver {
     }
 
     async onPair(session) {
-        this.homey.app.log(this.homey.__({ en: 'Started pairing for Polestar 2', no: 'Starter paring for Polestar 2' }), 'Polestar Beta Driver', 'DEBUG');
+        this.homey.app.log(this.homey.__({ en: 'Started pairing for Polestar 2', no: 'Starter paring for Polestar 2' }), 'Polestar Driver ᴮᴱᵀᴬ', 'DEBUG');
 
         session.setHandler('getLoginDetails', async () => {
             if (this.polestarAccount.email && this.polestarAccount.password) {
@@ -39,7 +39,7 @@ class PolestarBetaDriver extends Driver {
 
                 return { success: true, accessToken, refreshToken, tokenType };
             } catch (error) {
-                this.homey.app.log(this.homey.__({ en: 'Error logging in to Polestar', no: 'Feil ved innlogging til Polestar' }), 'Polestar Beta Driver', 'ERROR', error);
+                this.homey.app.log(this.homey.__({ en: 'Error logging in to Polestar', no: 'Feil ved innlogging til Polestar' }), 'Polestar Driver ᴮᴱᵀᴬ', 'ERROR', error);
                 return error;
             }
         });
@@ -61,7 +61,7 @@ class PolestarBetaDriver extends Driver {
 
                 return { success: true, vehicles };
             } catch (error) {
-                this.homey.app.log(this.homey.__({ en: 'Error fetching vehicle data from Polestar', no: 'Feil ved henting av kjøretøydata fra Polestar' }), 'Polestar Beta Driver', 'ERROR', error.response?.status);
+                this.homey.app.log(this.homey.__({ en: 'Error fetching vehicle data from Polestar', no: 'Feil ved henting av kjøretøydata fra Polestar' }), 'Polestar Driver ᴮᴱᵀᴬ', 'ERROR', error.response?.status);
                 return { success: false, error: error };
             }
         });
@@ -72,7 +72,7 @@ class PolestarBetaDriver extends Driver {
     }
 
     async onPairListDevices() {
-        this.homey.app.log(this.homey.__({ en: 'Vehicles ready to be added:', no: 'Kjøretøy klare til å bli lagt til:' }), 'Polestar Beta Driver', 'DEBUG', this.vehicles);
+        this.homey.app.log(this.homey.__({ en: 'Vehicles ready to be added:', no: 'Kjøretøy klare til å bli lagt til:' }), 'Polestar Driver ᴮᴱᵀᴬ', 'DEBUG', this.vehicles);
         return this.vehicles;
     }
 
