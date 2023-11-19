@@ -22,5 +22,8 @@
   },
   "1.0.5": {
     "en": "Added donation links, because you are the greatest community! :)"
+  },
+  "1.0.6": {
+    "en": "Added community forum link to the app metadata"
   }
 }
