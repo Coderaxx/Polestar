@@ -8,7 +8,7 @@ class PolestarBetaDriver extends Driver {
     async onInit() {
         this.homey.app.log(this.homey.__({ en: 'Polestar Beta Driver has been initialized', no: 'Polestar Beta Driver har blitt initialisert' }), 'Polestar Beta Driver', 'DEBUG');
 
-        const polestarApi = new PolestarAPI('jesper.grimstad@hotmail.com', 'GrL99D$N$!dkmrpD', 'YSMVSEDE5PL128797', 'a0c41700ca56416b8c2ad7c9028c1291');
+        //const polestarApi = new PolestarAPI('jesper.grimstad@hotmail.com', 'GrL99D$N$!dkmrpD', 'YSMVSEDE5PL128797', 'a0c41700ca56416b8c2ad7c9028c1291');
         this.token = this.homey.settings.get('polestar_token') || null;
         this.polestarAccount = {
             email: this.homey.settings.get('polestar_email') || null,
@@ -34,13 +34,10 @@ class PolestarBetaDriver extends Driver {
 
             try {
                 const polestarApi = new PolestarAPI(this.polestarAccount.email, this.polestarAccount.password, 'YSMVSEDE5PL128797', 'a0c41700ca56416b8c2ad7c9028c1291');
-                const response = await polestarApi.init();
+                const response = await polestarApi.getAccessToken();
+                const { accessToken, refreshToken, tokenType } = response;
 
-                const { token } = response;
-                this.token = token;
-                this.homey.settings.set('polestar_token', this.token);
-
-                return { success: true, token };
+                return { success: true, accessToken, refreshToken, tokenType };
             } catch (error) {
                 this.homey.app.log(this.homey.__({ en: 'Error logging in to Polestar', no: 'Feil ved innlogging til Polestar' }), 'Polestar Beta Driver', 'ERROR', error);
                 return error;
@@ -50,7 +47,7 @@ class PolestarBetaDriver extends Driver {
         session.setHandler('getVehicles', async () => {
             try {
                 const vehicles = {
-                    name: 'Polestar 2',
+                    name: 'Polestar 2 ᴮᴱᵀᴬ',
                     data: {
                         id: 'YSMVSEDE5PL128797',
                     },

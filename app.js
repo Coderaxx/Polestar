@@ -20,7 +20,7 @@ class Polestar extends Homey.App {
 			this.log(this.homey.__({
 				en: 'Setting updated:',
 				no: 'Innstilling oppdatert:'
-			}), 'Polestar App', 'DEBUG', `${key}: ${key == 'tibber_token' ? '********' : this.homey.settings.get(key)}`);
+			}), 'Polestar App', 'DEBUG', `${key}: ${key == 'tibber_token' || key == 'polestar_token' ? '********' : this.homey.settings.get(key)}`);
 		});
 	}
 

@@ -26,7 +26,18 @@ class PolestarBetaDevice extends Device {
         this.isLoggedIn = this.token !== null;
         this.vehicleId = this.getData().id;
         this.vehicleData = null;
-        const PolestarAPI = new PolestarAPI(this.auth.email, this.auth.password, this.vehicleId, 'a0c41700ca56416b8c2ad7c9028c1291');
+        this.PolestarAPI = new PolestarAPI(this.auth.email, this.auth.password, this.vehicleId, 'a0c41700ca56416b8c2ad7c9028c1291');
+        try {
+            const { accessToken, refreshToken, tokenType } = await this.PolestarAPI.getAccessToken();
+            this.token = accessToken;
+            this.homey.settings.set('polestar_token', this.token);
+        } catch (error) {
+            this.homey.app.log(this.homey.__({
+                en: 'Error logging in to Polestar',
+                no: 'Feil ved innlogging til Polestar'
+            }),
+                this.name, 'ERROR', error);
+        }
 
         this.abortController = null;
 
@@ -41,27 +52,6 @@ class PolestarBetaDevice extends Device {
         this.interval = this.homey.setInterval(async () => {
             await this.updateDeviceData();
         }, this.refreshInterval);
-
-        this.homey.settings.on('set', (key) => {
-            if (key === 'debugLog' || key === 'polestar_token') return;
-            this.homey.setTimeout(async () => {
-                await this.homey.settings.get('polestar_email');
-                await this.homey.settings.get('polestar_password');
-                this.homey.settings.set('polestar_token', null);
-
-                // Avbryt eventuelle pågående innloggingsforsøk
-                this.cancelLogin();
-
-                this.homey.app.log(this.homey.__({
-                    en: 'Account settings updated. Restarting' + this.name + '...',
-                    no: 'Kontoinnstillinger oppdatert. Restarter ' + this.name + '...'
-                }), this.name, 'DEBUG');
-
-                if (this.interval) this.homey.clearInterval(this.interval);
-
-                return await this.onInit();
-            }, 2000);
-        });
     }
 
     async updateDeviceData() {
@@ -74,7 +64,7 @@ class PolestarBetaDevice extends Device {
 
         if (this.vehicleData) {
             const lastUpdated = moment(this.vehicleData.batteryChargeLevel.timestamp).fromNow();
-            const soc = this.vehicleData.batteryChargeLevel.value;
+            const soc = parseInt(this.vehicleData.batteryChargeLevel.value);
             const range = this.vehicleData.electricRange.value;
 
             await this.setCapabilityValue('measure_battery', soc);
@@ -82,7 +72,7 @@ class PolestarBetaDevice extends Device {
             await this.setCapabilityValue('measure_polestarRange', `${range} km`);
             await this.setCapabilityValue('measure_polestarChargeState', this.vehicleData.chargingConnectionStatus.value === null
                 ? this.homey.__('Polestar2.device.unknownChargingState')
-                : this.vehicleData.homes.battery.isCharging !== 'CONNECTION_STATUS_DISCONNECTED'
+                : this.vehicleData.chargingConnectionStatus.value !== 'CONNECTION_STATUS_DISCONNECTED'
                     ? this.homey.__('Polestar2.device.isCharging')
                     : this.homey.__('Polestar2.device.isNotCharging'));
             await this.setCapabilityValue('measure_polestarUpdated', lastUpdated);

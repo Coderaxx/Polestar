@@ -51,10 +51,12 @@ class PolestarApi {
                 this.refreshToken = response.data.refresh_token;
                 this.tokenType = response.data.token_type;
 
-                return { success: true, token: this.accessToken };
+                return { success: true, accessToken: this.accessToken, refreshToken: this.refreshToken, tokenType: this.tokenType };
             }
         } catch (error) {
             console.error('Error fetching access token:', error);
+
+            return { success: false, error: error };
         }
     }
 

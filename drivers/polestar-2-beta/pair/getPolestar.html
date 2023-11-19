@@ -6,9 +6,7 @@
         console.log(result);
         if (result.success) {
             // Søk etter Polestar 2 i "title" i respons.vehicles
-            var polestar = result.vehicles.find(function (vehicle) {
-                return vehicle.name.includes('Polestar 2');
-            });
+            var polestar = result.vehicles;
             if (polestar) {
                 return Homey.nextView();
             } else {
