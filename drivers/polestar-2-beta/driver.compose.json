@@ -1,0 +1,42 @@
+{
+  "name": {
+    "en": "Polestar 2 ᴮᴱᵀᴬ",
+    "no": "Polestar 2 ᴮᴱᵀᴬ"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "measure_battery",
+    "measure_polestarBattery",
+    "measure_polestarRange",
+    "measure_polestarChargeState",
+    "measure_polestarUpdated"
+  ],
+  "platforms": ["local"],
+  "connectivity": ["cloud"],
+  "images": {
+    "small": "{{driverAssetsPath}}/images/small.png",
+    "large": "{{driverAssetsPath}}/images/large.png"
+  },
+  "pair": [
+    {
+      "id": "start"
+    },
+    {
+      "id": "getPolestar"
+    },
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_device"
+      }
+    },
+    {
+      "id": "add_device",
+      "template": "add_devices"
+    }
+  ],
+  "energy": {
+    "batteries": ["INTERNAL"]
+  }
+}
