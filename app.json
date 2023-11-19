@@ -173,7 +173,7 @@
             "en": "Refresh interval",
             "no": "Oppdateringsintervall"
           },
-          "min": 30,
+          "min": 10,
           "max": 720,
           "units": {
             "en": "minutes",

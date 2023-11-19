@@ -109,11 +109,12 @@ class PolestarApi {
                 }
 
                 return data;
-            } else if (response.status === 401) {
-                await this.getAccessToken();
             }
         } catch (error) {
-            console.error('Error fetching data:', error);
+             if (error.response.status === 401) {
+                return await this.getAccessToken();
+            }
+            return { success: false, error: error };
         }
     }
 }
