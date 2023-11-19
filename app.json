@@ -26,7 +26,7 @@
     "email": "jesper.grimstad@hotmail.com"
   },
   "brandColor": "#081822",
-  "support": "mailto:jesper.grimstad@hotmail.com?subject=Norske%20tjenester%20-%20Homey%20app",
+  "support": "mailto:jesper.grimstad@hotmail.com?subject=Polestar%20-%20Homey%20app",
   "contributing": {
     "donate": {
       "paypal": {
@@ -37,6 +37,20 @@
       }
     }
   },
+  "tags": {
+    "en": [
+      "polestar",
+      "pole",
+      "star",
+      "car",
+      "electric",
+      "electric car",
+      "ev",
+      "ev car",
+      "smart car"
+    ]
+  },
+  "homeyCommunityTopicId": 95083,
   "drivers": [
     {
       "name": {
