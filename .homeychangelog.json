@@ -25,5 +25,8 @@
   },
   "1.0.6": {
     "en": "Added community forum link to the app metadata"
+  },
+  "1.0.7": {
+    "en": "Changed support email, and added homepage to metadata"
   }
 }
