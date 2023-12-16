@@ -2,7 +2,10 @@
   "type": "string",
   "uiComponent": "sensor",
   "icon": "/drivers/polestar-2/assets/images/charging.svg",
-  "title": "Lader",
+  "title": {
+    "en": "Charging",
+    "no": "Lader"
+  },
   "getable": true,
   "setable": false,
   "insights": true

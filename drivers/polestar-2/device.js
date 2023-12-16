@@ -17,6 +17,20 @@ class PolestarDevice extends Device {
 
         moment.locale(this.homey.i18n.getLanguage() == 'no' ? 'nb' : 'en');
 
+        if (!this.hasCapability('measure_polestarMonthlyCharge')) {
+            try {
+                await this.removeCapability('measure_polestarUpdated');
+                await this.addCapability('measure_polestarMonthlyCharge');
+                await this.addCapability('measure_polestarUpdated');
+            } catch (error) {
+                this.homey.app.log(this.homey.__({
+                    en: 'Failed to update capabilities for ' + this.name,
+                    no: 'Klarte ikke å oppdatere funksjoner for ' + this.name
+                }),
+                    this.name, 'ERROR');
+            }
+        }
+
         this.settings = await this.getSettings();
         this.auth = {
             email: await this.homey.settings.get('tibber_email') || null,
@@ -338,6 +352,7 @@ class PolestarDevice extends Device {
                 : this.vehicleData.homes.battery.isCharging
                     ? this.homey.__('Polestar2.device.isCharging')
                     : this.homey.__('Polestar2.device.isNotCharging'));
+            await this.setCapabilityValue('measure_polestarMonthlyCharge', this.vehicleData.homes.consumptionUnitText);
             await this.setCapabilityValue('measure_polestarUpdated', lastUpdated);
         } else {
             this.homey.app.log(this.homey.__({

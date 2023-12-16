@@ -189,7 +189,10 @@
       "type": "number",
       "uiComponent": "sensor",
       "icon": "/drivers/polestar-2/assets/images/battery-75.svg",
-      "title": "Batteri",
+      "title": {
+        "en": "Battery",
+        "no": "Batteri"
+      },
       "units": "%",
       "getable": true,
       "setable": false,
@@ -199,7 +202,22 @@
       "type": "string",
       "uiComponent": "sensor",
       "icon": "/drivers/polestar-2/assets/images/charging.svg",
-      "title": "Lader",
+      "title": {
+        "en": "Charging",
+        "no": "Lader"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true
+    },
+    "measure_polestarMonthlyCharge": {
+      "type": "string",
+      "uiComponent": "sensor",
+      "icon": "/drivers/polestar-2/assets/images/charge-home.svg",
+      "title": {
+        "en": "Charged home this month",
+        "no": "Ladet hjemme denne mnd"
+      },
       "getable": true,
       "setable": false,
       "insights": true
@@ -208,7 +226,10 @@
       "type": "string",
       "uiComponent": "sensor",
       "icon": "/drivers/polestar-2/assets/images/range.svg",
-      "title": "Rekkevidde",
+      "title": {
+        "en": "Range",
+        "no": "Rekkevidde"
+      },
       "getable": true,
       "setable": false,
       "insights": true
@@ -217,7 +238,10 @@
       "type": "string",
       "uiComponent": "sensor",
       "icon": "/drivers/polestar-2/assets/images/update.svg",
-      "title": "Oppdatert",
+      "title": {
+        "en": "Updated",
+        "no": "Oppdatert"
+      },
       "getable": true,
       "setable": false,
       "insights": true
