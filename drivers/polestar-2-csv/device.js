@@ -53,18 +53,21 @@ class PolestarBetaDevice extends Device {
             this.name, 'DEBUG');
 
         if (this.vehicleData) {
-            const lastUpdated = moment(this.vehicleData.batteryChargeLevel.timestamp).fromNow();
-            const soc = parseInt(this.vehicleData.batteryChargeLevel.value);
-            const range = this.vehicleData.electricRange.value;
+            const lastUpdated = moment(this.vehicleData.timestamp).fromNow();
+            const soc = parseInt(this.vehicleData.stateOfCharge) * 100;
+            const range = this.vehicleData.batteryLevel;
+            const alt = parseInt(this.vehicleData.alt);
 
             await this.setCapabilityValue('measure_battery', soc);
             await this.setCapabilityValue('measure_polestarBattery', soc);
             await this.setCapabilityValue('measure_polestarRange', `${range} km`);
-            await this.setCapabilityValue('measure_polestarChargeState', this.vehicleData.chargingConnectionStatus.value === null
-                ? this.homey.__('Polestar2.device.unknownChargingState')
-                : this.vehicleData.chargingConnectionStatus.value !== 'CONNECTION_STATUS_DISCONNECTED'
-                    ? this.homey.__('Polestar2.device.isCharging')
-                    : this.homey.__('Polestar2.device.isNotCharging'));
+            await this.setCapabilityValue('measure_polestarChargeState', this.vehicleData.ignitionState);
+            await this.setCapabilityValue('measure_polestarConnected', this.vehicleData.chargePortConnected === true ? true : false);
+            await this.setCapabilityValue('measure_polestarSpeed', this.vehicleData.speed);
+            await this.setCapabilityValue('measure_polestarAlt', alt);
+            await this.setCapabilityValue('measure_polestarPower', this.vehicleData.power);
+            await this.setCapabilityValue('measure_polestarGear', this.vehicleData.selectedGear);
+            await this.setCapabilityValue('measure_polestarTemp', this.vehicleData.ambientTemperature);
             await this.setCapabilityValue('measure_polestarUpdated', lastUpdated);
         } else {
             this.homey.app.log(this.homey.__({
@@ -92,21 +95,6 @@ class PolestarBetaDevice extends Device {
             no: this.name + ' har blitt lagt til'
         }),
             this.name, 'DEBUG');
-    }
-
-    async onSettings({ oldSettings, newSettings, changedKeys }) {
-        this.homey.app.log(this.homey.__({
-            en: this.name + ' settings has been changed',
-            no: this.name + ' innstillinger har blitt endret'
-        }),
-            this.name, 'DEBUG');
-        if (changedKeys.includes('refresh_interval')) {
-            this.refreshInterval = newSettings.refresh_interval * 60 * 1000;
-            this.homey.clearInterval(this.interval);
-            this.interval = this.homey.setInterval(async () => {
-                await this.updateDeviceData();
-            }, this.refreshInterval);
-        }
     }
 
     async onRenamed(name) {

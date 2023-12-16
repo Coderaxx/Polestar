@@ -392,7 +392,7 @@
     "measure_polestarTemp": {
       "type": "string",
       "uiComponent": "sensor",
-      "icon": "/drivers/polestar-2-csv/assets/images/update.svg",
+      "icon": "/drivers/polestar-2-csv/assets/images/temp.svg",
       "title": {
         "en": "Ambient Temperature",
         "no": "Utetemperatur"
