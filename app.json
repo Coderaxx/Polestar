@@ -198,6 +198,7 @@
         "measure_polestarConnected",
         "measure_polestarSpeed",
         "measure_polestarAlt",
+        "measure_polestarPower",
         "measure_polestarGear",
         "measure_polestarTemp",
         "measure_polestarUpdated"

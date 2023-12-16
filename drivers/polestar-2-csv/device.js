@@ -26,15 +26,14 @@ class PolestarBetaDevice extends Device {
         }
         const webhook = await this.homey.cloud.createWebhook(id, secret, data);
         const webhookUrl = `https://webhooks.athom.com/webhook/${webhook.id}/?homey=${this.homeyId}`;
-        webhook.on('message', args => {
-            this.log('body:', args.body);
+        webhook.on('message', async args => {
             this.vehicleData = {
                 ...args.body
             };
 
             this.log('vehicleData:', this.vehicleData);
 
-            //await this.updateDeviceData();
+            await this.updateDeviceData();
         });
     }
 
@@ -57,13 +56,14 @@ class PolestarBetaDevice extends Device {
             const soc = parseInt(this.vehicleData.stateOfCharge) * 100;
             const range = this.vehicleData.batteryLevel;
             const alt = parseInt(this.vehicleData.alt);
+            const speed = `${parseInt(this.vehicleData.speed)} km/t`;
 
             await this.setCapabilityValue('measure_battery', soc);
             await this.setCapabilityValue('measure_polestarBattery', soc);
             await this.setCapabilityValue('measure_polestarRange', `${range} km`);
             await this.setCapabilityValue('measure_polestarChargeState', this.vehicleData.ignitionState);
             await this.setCapabilityValue('measure_polestarConnected', this.vehicleData.chargePortConnected === true ? true : false);
-            await this.setCapabilityValue('measure_polestarSpeed', this.vehicleData.speed);
+            await this.setCapabilityValue('measure_polestarSpeed', speed);
             await this.setCapabilityValue('measure_polestarAlt', alt);
             await this.setCapabilityValue('measure_polestarPower', this.vehicleData.power);
             await this.setCapabilityValue('measure_polestarGear', this.vehicleData.selectedGear);
