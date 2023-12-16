@@ -19,7 +19,7 @@ class PolestarBetaDriver extends Driver {
                 const id = '657d642cd640090bb9b88226';
                 const secret = 'ccf90ffd93f0110158c7c79e37861245';
                 const data = {
-                    deviceId: 'polestar2',
+                    deviceId: 'Polestar2CSV',
                 }
                 const webhook = await this.homey.cloud.createWebhook(id, secret, data);
                 const webhookUrl = `https://webhooks.athom.com/webhook/${webhook.id}/?homey=${this.homeyId}`;
@@ -27,6 +27,7 @@ class PolestarBetaDriver extends Driver {
                 this.vehicles.push({
                     name: 'Polestar 2 ᴮᴱᵀᴬ',
                     data: {
+                        id: 'Polestar2CSV',
                         webhook: JSON.stringify(webhook),
                     },
                     settings: {
@@ -37,13 +38,7 @@ class PolestarBetaDriver extends Driver {
                     }
                 });
 
-                this.webhookUrl = webhook.url;
-                webhook.on('message', args => {
-                    this.log('Got a webhook message!');
-                    this.log('headers:', args.headers);
-                    this.log('query:', args.query);
-                    this.log('body:', args.body);
-                });
+                this.webhookUrl = webhookUrl;
 
                 this.homey.app.log(this.homey.__({ en: 'Webhook created', no: 'Webhook opprettet' }), 'Polestar Driver CSV ᴮᴱᵀᴬ', 'DEBUG');
                 return { success: true };

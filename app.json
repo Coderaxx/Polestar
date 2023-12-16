@@ -195,6 +195,11 @@
         "measure_polestarBattery",
         "measure_polestarRange",
         "measure_polestarChargeState",
+        "measure_polestarConnected",
+        "measure_polestarSpeed",
+        "measure_polestarAlt",
+        "measure_polestarGear",
+        "measure_polestarTemp",
         "measure_polestarUpdated"
       ],
       "platforms": [
@@ -275,10 +280,22 @@
     }
   ],
   "capabilities": {
+    "measure_polestarAlt": {
+      "type": "string",
+      "uiComponent": "sensor",
+      "icon": "/drivers/polestar-2-csv/assets/images/altitude.svg",
+      "title": {
+        "en": "Altitude",
+        "no": "Høyde"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true
+    },
     "measure_polestarBattery": {
       "type": "number",
       "uiComponent": "sensor",
-      "icon": "/drivers/polestar-2/assets/images/battery-75.svg",
+      "icon": "/drivers/polestar-2-csv/assets/images/battery-75.svg",
       "title": {
         "en": "Battery",
         "no": "Batteri"
@@ -291,10 +308,34 @@
     "measure_polestarChargeState": {
       "type": "string",
       "uiComponent": "sensor",
-      "icon": "/drivers/polestar-2/assets/images/charging.svg",
+      "icon": "/drivers/polestar-2-csv/assets/images/charging.svg",
       "title": {
         "en": "Charging",
         "no": "Lader"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true
+    },
+    "measure_polestarConnected": {
+      "type": "boolean",
+      "uiComponent": "sensor",
+      "icon": "/drivers/polestar-2-csv/assets/images/ccs.svg",
+      "title": {
+        "en": "Charge port connected",
+        "no": "Laderport tilkoblet"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true
+    },
+    "measure_polestarGear": {
+      "type": "string",
+      "uiComponent": "sensor",
+      "icon": "/drivers/polestar-2-csv/assets/images/gear.svg",
+      "title": {
+        "en": "Selected Gear",
+        "no": "Valgt gir"
       },
       "getable": true,
       "setable": false,
@@ -312,10 +353,22 @@
       "setable": false,
       "insights": true
     },
+    "measure_polestarPower": {
+      "type": "string",
+      "uiComponent": "sensor",
+      "icon": "/drivers/polestar-2-csv/assets/images/update.svg",
+      "title": {
+        "en": "Power",
+        "no": "Effekt"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true
+    },
     "measure_polestarRange": {
       "type": "string",
       "uiComponent": "sensor",
-      "icon": "/drivers/polestar-2/assets/images/range.svg",
+      "icon": "/drivers/polestar-2-csv/assets/images/range.svg",
       "title": {
         "en": "Range",
         "no": "Rekkevidde"
@@ -324,10 +377,34 @@
       "setable": false,
       "insights": true
     },
+    "measure_polestarSpeed": {
+      "type": "string",
+      "uiComponent": "sensor",
+      "icon": "/drivers/polestar-2-csv/assets/images/speedometer.svg",
+      "title": {
+        "en": "Speed",
+        "no": "Fart"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true
+    },
+    "measure_polestarTemp": {
+      "type": "string",
+      "uiComponent": "sensor",
+      "icon": "/drivers/polestar-2-csv/assets/images/update.svg",
+      "title": {
+        "en": "Ambient Temperature",
+        "no": "Utetemperatur"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true
+    },
     "measure_polestarUpdated": {
       "type": "string",
       "uiComponent": "sensor",
-      "icon": "/drivers/polestar-2/assets/images/update.svg",
+      "icon": "/drivers/polestar-2-csv/assets/images/update.svg",
       "title": {
         "en": "Updated",
         "no": "Oppdatert"

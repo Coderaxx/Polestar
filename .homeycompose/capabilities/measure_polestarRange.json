@@ -1,7 +1,7 @@
 {
     "type": "string",
     "uiComponent": "sensor",
-    "icon": "/drivers/polestar-2/assets/images/range.svg",
+    "icon": "/drivers/polestar-2-csv/assets/images/range.svg",
     "title": {
         "en": "Range",
         "no": "Rekkevidde"

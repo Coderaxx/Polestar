@@ -1,7 +1,6 @@
 'use strict';
 
 const { Device } = require('homey');
-const axios = require('axios');
 const moment = require('moment');
 
 class PolestarBetaDevice extends Device {
@@ -17,49 +16,41 @@ class PolestarBetaDevice extends Device {
         moment.locale(this.homey.i18n.getLanguage() == 'no' ? 'nb' : 'en');
 
         this.settings = await this.getSettings();
-        this.auth = {
-            email: await this.homey.settings.get('polestar_email') || null,
-            password: await this.homey.settings.get('polestar_password') || null,
-        }
-        this.token = await this.homey.settings.get('polestar_token') || null;
-        this.isLoggedIn = this.token !== null;
         this.vehicleId = this.getData().id;
         this.vehicleData = null;
-        this.PolestarAPI = new PolestarAPI(this.auth.email, this.auth.password, this.vehicleId, 'a0c41700ca56416b8c2ad7c9028c1291');
-        try {
-            const { accessToken, refreshToken, tokenType } = await this.PolestarAPI.getAccessToken();
-            this.token = accessToken;
-            this.homey.settings.set('polestar_token', this.token);
-        } catch (error) {
-            this.homey.app.log(this.homey.__({
-                en: 'Error logging in to Polestar',
-                no: 'Feil ved innlogging til Polestar'
-            }),
-                this.name, 'ERROR', error);
+
+        const id = '657d642cd640090bb9b88226';
+        const secret = 'ccf90ffd93f0110158c7c79e37861245';
+        const data = {
+            deviceId: 'Polestar2CSV',
         }
+        const webhook = await this.homey.cloud.createWebhook(id, secret, data);
+        const webhookUrl = `https://webhooks.athom.com/webhook/${webhook.id}/?homey=${this.homeyId}`;
+        webhook.on('message', args => {
+            this.log('body:', args.body);
+            this.vehicleData = {
+                ...args.body
+            };
 
-        this.abortController = null;
+            this.log('vehicleData:', this.vehicleData);
 
-        this.refreshInterval = this.settings.refresh_interval * 60 * 1000 || 60 * 60 * 1000;
-
-        this.homey.app.log(this.homey.__({
-            en: `Interval set to ${this.refreshInterval / 1000 / 60} minutes`,
-            no: `Intervall satt til ${this.refreshInterval / 1000 / 60} minutter`
-        }),
-            this.name, 'DEBUG');
-        await this.updateDeviceData();
-        this.interval = this.homey.setInterval(async () => {
-            await this.updateDeviceData();
-        }, this.refreshInterval);
+            //await this.updateDeviceData();
+        });
     }
 
     async updateDeviceData() {
+        if (!this.vehicleData) {
+            this.homey.app.log(this.homey.__({
+                en: 'No data available for ' + this.name,
+                no: 'Ingen data tilgjengelig for ' + this.name
+            }), this.name, 'DEBUG');
+            return;
+        }
         this.homey.app.log(this.homey.__({
             en: 'Updating device data for ' + this.name,
             no: 'Oppdaterer enhetsdata for ' + this.name
         }),
             this.name, 'DEBUG');
-        this.vehicleData = await this.PolestarAPI.update();
 
         if (this.vehicleData) {
             const lastUpdated = moment(this.vehicleData.batteryChargeLevel.timestamp).fromNow();

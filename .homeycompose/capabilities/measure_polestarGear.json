@@ -1,10 +1,10 @@
 {
   "type": "string",
   "uiComponent": "sensor",
-  "icon": "/drivers/polestar-2-csv/assets/images/charging.svg",
+  "icon": "/drivers/polestar-2-csv/assets/images/gear.svg",
   "title": {
-    "en": "Charging",
-    "no": "Lader"
+    "en": "Selected Gear",
+    "no": "Valgt gir"
   },
   "getable": true,
   "setable": false,

@@ -1,0 +1,12 @@
+{
+  "type": "boolean",
+  "uiComponent": "sensor",
+  "icon": "/drivers/polestar-2-csv/assets/images/ccs.svg",
+  "title": {
+    "en": "Charge port connected",
+    "no": "Laderport tilkoblet"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true
+}

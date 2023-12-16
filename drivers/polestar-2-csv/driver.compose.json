@@ -9,6 +9,11 @@
     "measure_polestarBattery",
     "measure_polestarRange",
     "measure_polestarChargeState",
+    "measure_polestarConnected",
+    "measure_polestarSpeed",
+    "measure_polestarAlt",
+    "measure_polestarGear",
+    "measure_polestarTemp",
     "measure_polestarUpdated"
   ],
   "platforms": ["local"],

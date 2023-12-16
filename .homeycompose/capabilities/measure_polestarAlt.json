@@ -1,10 +1,10 @@
 {
   "type": "string",
   "uiComponent": "sensor",
-  "icon": "/drivers/polestar-2-csv/assets/images/charging.svg",
+  "icon": "/drivers/polestar-2-csv/assets/images/altitude.svg",
   "title": {
-    "en": "Charging",
-    "no": "Lader"
+    "en": "Altitude",
+    "no": "Høyde"
   },
   "getable": true,
   "setable": false,
