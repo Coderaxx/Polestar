@@ -1,10 +1,40 @@
 [
-  {
-    "id": "refresh_interval",
-    "type": "number",
-    "label": { "en": "Refresh interval", "no": "Oppdateringsintervall" },
-    "min": 10,
-    "max": 720,
-    "units": { "en": "minutes", "no": "minutter" }
-  }
+    {
+        "id": "polestar_webhook",
+        "type": "text",
+        "label": {
+            "en": "Webhook URL",
+            "no": "Webhook URL"
+        }
+    },
+    {
+        "id": "webhook_id",
+        "type": "text",
+        "label": {
+            "en": "Webhook ID",
+            "no": "Webhook ID"
+        }
+    },
+    {
+        "id": "webhook_secret",
+        "type": "text",
+        "label": {
+            "en": "Webhook secret",
+            "no": "Webhook secret"
+        }
+    },
+    {
+        "id": "refresh_interval",
+        "type": "number",
+        "label": {
+            "en": "Refresh interval",
+            "no": "Oppdateringsintervall"
+        },
+        "min": 10,
+        "max": 720,
+        "units": {
+            "en": "minutes",
+            "no": "minutter"
+        }
+    }
 ]

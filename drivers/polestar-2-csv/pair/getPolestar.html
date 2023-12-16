@@ -1,19 +1,14 @@
 <form class="homey-form">
     <legend class="homey-form-legend" id="header"></legend>
     <p>Dette er din webhook url for Polestar 2.</p>
-    <p>Før du kan bruke enheten, må du sørge for at du har skrevet inn din webhook url i Car Stats Viewer i din Polestar 2.</p>
+    <p>Før du kan bruke enheten, må du sørge for at du har skrevet inn din webhook url i Car Stats Viewer i din Polestar
+        2.</p>
 </form>
 <script type="application/javascript">
     Homey.setTitle(Homey.__("Polestar2Beta.pair.fetchingCars"));
 
     Homey.emit('getWebhook').then(function (result) {
-        Homey.showLoadingOverlay();
-        console.log(result);
-        if (result) {
-            Homey.hideLoadingOverlay();
-            $('#header').text(result);
-
-            return Homey.nextView();
-        }
+        $('#header').text(result);
+        return Homey.nextView();
     });
 </script>

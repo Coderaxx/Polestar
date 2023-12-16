@@ -7,36 +7,44 @@ class PolestarBetaDriver extends Driver {
     async onInit() {
         this.homey.app.log(this.homey.__({ en: 'Polestar Driver CSV ᴮᴱᵀᴬ has been initialized', no: 'Polestar Driver CSV ᴮᴱᵀᴬ har blitt initialisert' }), 'Polestar Driver CSV ᴮᴱᵀᴬ', 'DEBUG');
 
-        this.webhookUrl = this.homey.settings.get('polestar_webhook') || null;
+        this.homeyId = await this.homey.cloud.getHomeyId();
         this.vehicles = [];
     }
 
     async onPair(session) {
         this.homey.app.log(this.homey.__({ en: 'Started pairing for Polestar 2', no: 'Starter paring for Polestar 2' }), 'Polestar Driver CSV ᴮᴱᵀᴬ', 'DEBUG');
-        session.setHandler('createWebhook', async (data) => {
+        session.setHandler('createWebhook', async () => {
             try {
                 // Generer en secret for webhook og lagre den i settings
-                const secret = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-                const webhook = await this.homey.cloud.createWebhook('polestar_webhook', secret, null);
-                this.webhookUrl = this.homey.settings.get('polestar_webhook');
-                this.homey.app.log(this.homey.__({ en: 'Webhook created', no: 'Webhook opprettet' }), 'Polestar Driver CSV ᴮᴱᵀᴬ', 'DEBUG');
+                const id = '657d642cd640090bb9b88226';
+                const secret = 'ccf90ffd93f0110158c7c79e37861245';
+                const data = {
+                    deviceId: 'polestar2',
+                }
+                const webhook = await this.homey.cloud.createWebhook(id, secret, data);
+                const webhookUrl = `https://webhooks.athom.com/webhook/${webhook.id}/?homey=${this.homeyId}`;
 
                 this.vehicles.push({
                     name: 'Polestar 2 ᴮᴱᵀᴬ',
                     data: {
-                        webhook: this.webhookUrl,
+                        webhook: JSON.stringify(webhook),
                     },
                     settings: {
-                        polestar_webhook: this.webhookUrl,
+                        polestar_webhook: webhookUrl,
+                        webhook_id: webhook.id,
                         webhook_secret: secret,
                         refresh_interval: 60,
                     }
                 });
 
-                return webhook;
+                this.webhookUrl = webhook.url;
+
+                this.homey.app.log(this.homey.__({ en: 'Webhook created', no: 'Webhook opprettet' }), 'Polestar Driver CSV ᴮᴱᵀᴬ', 'DEBUG');
+                return { success: true };
             } catch (error) {
                 this.homey.app.log(this.homey.__({ en: 'Failed to create webhook', no: 'Klarte ikke å opprette webhook' }), 'Polestar Driver CSV ᴮᴱᵀᴬ', 'ERROR');
-                return false;
+                this.log(error);
+                return { success: false, error: error.message };
             }
         });
 
