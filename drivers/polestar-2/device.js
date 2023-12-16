@@ -3,6 +3,7 @@
 const { Device } = require('homey');
 const axios = require('axios');
 const moment = require('moment');
+const qs = require('qs');
 
 class PolestarDevice extends Device {
     async onInit() {
@@ -108,10 +109,13 @@ class PolestarDevice extends Device {
         this.abortController = new AbortController();
 
         try {
-            const response = await axios.post('https://app.tibber.com/login.credentials', {
+            const response = await axios.post('https://app.tibber.com/login.credentials', qs.stringify({
                 email,
                 password,
-            }, {
+            }), {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
                 signal: this.abortController.signal
             });
 
@@ -241,7 +245,6 @@ class PolestarDevice extends Device {
 							}
 							currency
 							chargerId
-							activeChargeLimit
 							sessionStartedAt
 							targetedStateOfCharge
 							targetedDepartureTime
