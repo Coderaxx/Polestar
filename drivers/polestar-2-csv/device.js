@@ -57,6 +57,10 @@ class PolestarBetaDevice extends Device {
             const range = this.vehicleData.batteryLevel;
             const alt = `${parseInt(this.vehicleData.alt)} m`;
             const speed = `${parseInt(this.vehicleData.speed)} km/t`;
+            // Dynamisk kalkulering for power
+            let power = parseInt(this.vehicleData.power);
+            power = power + power > 1000 ? ' kW' : ' W';
+            const temp = `${this.vehicleData.ambientTemperature} °C`;
 
             await this.setCapabilityValue('measure_battery', soc);
             await this.setCapabilityValue('measure_polestarBattery', soc);
@@ -65,9 +69,9 @@ class PolestarBetaDevice extends Device {
             await this.setCapabilityValue('measure_polestarConnected', this.vehicleData.chargePortConnected === true ? true : false);
             await this.setCapabilityValue('measure_polestarSpeed', speed);
             await this.setCapabilityValue('measure_polestarAlt', alt);
-            await this.setCapabilityValue('measure_polestarPower', this.vehicleData.power);
+            await this.setCapabilityValue('measure_polestarPower', power);
             await this.setCapabilityValue('measure_polestarGear', this.vehicleData.selectedGear);
-            await this.setCapabilityValue('measure_polestarTemp', this.vehicleData.ambientTemperature);
+            await this.setCapabilityValue('measure_polestarTemp', temp);
             await this.setCapabilityValue('measure_polestarUpdated', lastUpdated);
         } else {
             this.homey.app.log(this.homey.__({
