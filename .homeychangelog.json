@@ -28,5 +28,8 @@
   },
   "1.0.7": {
     "en": "Changed support email, and added homepage to metadata"
+  },
+  "1.0.8": {
+    "en": "Fixed the device becoming unavailable after an apparent API change from Tibber. This error should now be fully resolved."
   }
 }
