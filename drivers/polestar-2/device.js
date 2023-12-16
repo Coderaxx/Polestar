@@ -22,6 +22,26 @@ class PolestarDevice extends Device {
                 await this.removeCapability('measure_polestarUpdated');
                 await this.addCapability('measure_polestarMonthlyCharge');
                 await this.addCapability('measure_polestarUpdated');
+
+                this.homey.app.log(this.homey.__({
+                    en: 'Updated capabilities for ' + this.name,
+                    no: 'Oppdaterte funksjoner for ' + this.name
+                }), this.name, 'DEBUG');
+            } catch (error) {
+                this.homey.app.log(this.homey.__({
+                    en: 'Failed to update capabilities for ' + this.name,
+                    no: 'Klarte ikke å oppdatere funksjoner for ' + this.name
+                }),
+                    this.name, 'ERROR');
+            }
+        } else {
+            try {
+                await this.setCapabilityOptions('measure_polestarMonthlyCharge', {
+                    title: this.homey.__({
+                        "no": "Ladet hjemme i " + new Date().toLocaleString('no-NO', { month: 'long' }),
+                        "en": "Charged home in " + new Date().toLocaleString('en-US', { month: 'long' })
+                    })
+                })
             } catch (error) {
                 this.homey.app.log(this.homey.__({
                     en: 'Failed to update capabilities for ' + this.name,

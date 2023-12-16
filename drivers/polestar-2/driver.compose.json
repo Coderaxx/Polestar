@@ -9,6 +9,7 @@
     "measure_polestarBattery",
     "measure_polestarRange",
     "measure_polestarChargeState",
+    "measure_polestarMonthlyCharge",
     "measure_polestarUpdated"
   ],
   "platforms": [
