@@ -3,7 +3,6 @@
 const { Device } = require('homey');
 const axios = require('axios');
 const moment = require('moment');
-const PolestarAPI = require('./PolestarAPI');
 
 class PolestarBetaDevice extends Device {
     async onInit() {

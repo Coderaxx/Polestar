@@ -38,6 +38,12 @@ class PolestarBetaDriver extends Driver {
                 });
 
                 this.webhookUrl = webhook.url;
+                webhook.on('message', args => {
+                    this.log('Got a webhook message!');
+                    this.log('headers:', args.headers);
+                    this.log('query:', args.query);
+                    this.log('body:', args.body);
+                });
 
                 this.homey.app.log(this.homey.__({ en: 'Webhook created', no: 'Webhook opprettet' }), 'Polestar Driver CSV ᴮᴱᵀᴬ', 'DEBUG');
                 return { success: true };
