@@ -31,5 +31,8 @@
   },
   "1.0.8": {
     "en": "Fixed the device becoming unavailable after an apparent API change from Tibber. This error should now be fully resolved."
+  },
+  "1.0.9": {
+    "en": "Added new capability \"Charged at home this month\""
   }
 }
