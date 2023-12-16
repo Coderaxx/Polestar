@@ -55,7 +55,7 @@ class PolestarBetaDevice extends Device {
             const lastUpdated = moment(this.vehicleData.timestamp).fromNow();
             const soc = parseInt(this.vehicleData.stateOfCharge) * 100;
             const range = this.vehicleData.batteryLevel;
-            const alt = parseInt(this.vehicleData.alt);
+            const alt = `${parseInt(this.vehicleData.alt)} m`;
             const speed = `${parseInt(this.vehicleData.speed)} km/t`;
 
             await this.setCapabilityValue('measure_battery', soc);
