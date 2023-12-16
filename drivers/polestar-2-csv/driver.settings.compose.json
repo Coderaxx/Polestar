@@ -1,0 +1,10 @@
+[
+  {
+    "id": "refresh_interval",
+    "type": "number",
+    "label": { "en": "Refresh interval", "no": "Oppdateringsintervall" },
+    "min": 10,
+    "max": 720,
+    "units": { "en": "minutes", "no": "minutter" }
+  }
+]

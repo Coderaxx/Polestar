@@ -1,0 +1,38 @@
+<form class="homey-form" id="loginForm">
+    <fieldset class="homey-form-fieldset">
+        <legend class="homey-form-legend"><span data-i18n="Polestar2Beta.pair.title"></span></legend>
+
+        <div class="homey-form-group">
+            <label class="homey-form-label" for="email"><span data-i18n="Polestar2Beta.pair.email"></span></label>
+            <input class="homey-form-input" id="email" type="text" value="" />
+        </div>
+        <div class="homey-form-group">
+            <label class="homey-form-label" for="password"><span data-i18n="Polestar2Beta.pair.password"></span></label>
+            <input class="homey-form-input" id="password" type="password" value="" />
+        </div>
+        <p><b style="color: red;">NB! </b><span data-i18n="Polestar2Beta.pair.pairInfo"></span></p>
+        <div class="homey-form-group">
+            <button class="homey-button homey-button-primary" id="createWebhook" type="button"><span
+                    data-i18n="Polestar2Beta.pair.loginButton"></span></button>
+        </div>
+    </fieldset>
+</form>
+<script type="application/javascript">
+    Homey.setTitle(Homey.__("Polestar 2"));
+
+    $('#createWebhook').click(function () {
+        Homey.emit('createWebhook', loginData).then(function (result) {
+            Homey.hideLoadingOverlay();
+            //console.log(result);
+            if (result.error) {
+                console.log('Failed to create webhook');
+                Homey.alert(Homey.__("Polestar2Beta.pair.loginFailed"));
+                return Homey.setNavigationClose();
+            } else {
+                console.log("Webhook created successfully");
+                return Homey.nextView();
+            }
+        });
+    });
+</script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
