@@ -1,5 +1,5 @@
 {
-  "type": "boolean",
+  "type": "string",
   "uiComponent": "sensor",
   "icon": "/drivers/polestar-2-csv/assets/images/ccs.svg",
   "title": {

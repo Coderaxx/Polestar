@@ -73,6 +73,7 @@ class PolestarBetaDevice extends Device {
             let range = parseInt((soc / 100) * 487, 10) / 1.5;
             range = `≈ ${parseInt(range).toFixed(0)} km`;
             const batteryLevel = `${parseInt(this.vehicleData.batteryLevel / 1000)} kWh`;
+            let connected = this.vehicleData.chargePortConnected;
             const alt = `${parseInt(this.vehicleData.alt)} m`;
             const speed = `${parseInt(this.vehicleData.speed * 3.6)} km/t`;
             const powerW = parseInt(this.vehicleData.power / 1000);
@@ -110,11 +111,21 @@ class PolestarBetaDevice extends Device {
                     break;
             }
 
+            if (connected) {
+                if (connected && Math.abs(powerW) >= 1000) {
+                    connected = this.homey.__({ "en": "Charging", "no": "Lader" });
+                } else {
+                    connected = this.homey.__({ "en": "Connected", "no": "Tilkoblet" });
+                }
+            } else {
+                connected = this.homey.__({ "en": "Disconnected", "no": "Frakoblet" });
+            }
+
             await this.setCapabilityValue('measure_battery', soc);
             await this.setCapabilityValue('measure_polestarBattery', soc);
             await this.setCapabilityValue('measure_polestarRange', range);
             await this.setCapabilityValue('measure_polestarBatteryLevel', batteryLevel);
-            await this.setCapabilityValue('measure_polestarConnected', this.vehicleData.chargePortConnected === true ? true : false);
+            await this.setCapabilityValue('measure_polestarConnected', connected);
             await this.setCapabilityValue('measure_polestarIgnitionState', ignitionState);
             await this.setCapabilityValue('measure_polestarLocation', location);
             await this.setCapabilityValue('measure_polestarSpeed', speed);
