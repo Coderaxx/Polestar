@@ -26,17 +26,10 @@ class PolestarBetaDevice extends Device {
         };
         const webhook = await this.homey.cloud.createWebhook(id, secret, data);
         webhook.on('message', async args => {
-            if (!args.body
-                || !args.body.ambientTemperature
-                || !args.body.batteryLevel
-                || !args.body.chargePortConnected
-                || !args.body.ignitionState
-                || !args.body.lat
-                || !args.body.lon
-                || !args.body.power
-                || !args.body.selectedGear
-                || !args.body.speed
-                || !args.body.stateOfCharge) {
+            const fields = ['ambientTemperature', 'batteryLevel', 'chargePortConnected', 'ignitionState', 'lat', 'lon', 'power', 'selectedGear', 'speed', 'stateOfCharge'];
+            const isDataMissing = fields.some(field => args.body[field] === undefined || args.body[field] === null);
+
+            if (!args.body || isDataMissing) {
                 this.homey.app.log(this.homey.__({
                     en: 'Received webhook message for ' + this.name + ' but data is missing.',
                     no: 'Mottok webhook data med kjøretøydata for ' + this.name + ' men mangler data.'

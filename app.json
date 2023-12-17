@@ -393,7 +393,7 @@
     "measure_polestarPower": {
       "type": "string",
       "uiComponent": "sensor",
-      "icon": "/drivers/polestar-2-csv/assets/images/update.svg",
+      "icon": "/drivers/polestar-2-csv/assets/images/powerdc.svg",
       "title": {
         "en": "Power",
         "no": "Effekt"

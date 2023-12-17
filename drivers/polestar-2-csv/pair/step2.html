@@ -33,7 +33,7 @@
         <li>Sørg for at Webhookens URL er korrekt konfigurert i produsentens systemer.</li>
     </ul>
     </p>
-    <form class="homey-form" id="createWebhook">
+    <form class="homey-form">
         <div class="homey-form-group">
             <label class="homey-form-label" for="webhookId">
                 <span id="webhookIdLabel"></span>
@@ -90,6 +90,10 @@
                 '</ul>'
         }));
 
+        $('#webhookIdLabel').text(Homey.__({ en: 'Webhook ID', no: 'Webhook-ID' }));
+        $('#webhookSecretLabel').text(Homey.__({ en: 'Webhook Secret', no: 'Webhook-Secret' }));
+        $('#webhookUrlLabel').text(Homey.__({ en: 'Webhook URL', no: 'Webhook-URL' }));
+
         $('#continueButton').text(Homey.__({ en: 'Continue', no: 'Fortsett' }));
     });
 
@@ -116,8 +120,13 @@
         const webhookId = $('#webhookId').val();
         const webhookSecret = $('#webhookSecret').val();
         const webhookUrl = $('#webhookUrl').val();
+        const data = {
+            id: webhookId,
+            secret: webhookSecret,
+            url: webhookUrl
+        };
 
-        Homey.emit('createWebhook', { id: webhookId, secret: webhookSecret }).then(function (result) {
+        Homey.emit('createWebhook', data).then(function (result) {
             Homey.hideLoadingOverlay();
             //console.log(result);
             if (result.error) {

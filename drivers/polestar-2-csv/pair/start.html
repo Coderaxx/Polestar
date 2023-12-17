@@ -16,11 +16,6 @@
             <span id="infoText4"> "Internal test track" har begrenset plass til 100
                 testere. Hvis den er full, vent på at en ny testplass blir tilgjengelig.</span>
         </p>
-        <div class="homey-form-group" style="bottom: 10px;">
-            <button class="homey-button homey-button-primary-full" id="createWebhook" type="button">
-                <span id="continueButton"></span>
-            </button>
-        </div>
     </fieldset>
 </form>
 <script type="application/javascript">
@@ -57,9 +52,5 @@
         e.preventDefault();
         await Homey.popup('https://android.gadgethacks.com/how-to/remotely-install-apps-onto-your-android-phone-0328936/');
     }
-
-    $('#createWebhook').click(function () {
-        return Homey.nextView();
-    });
 </script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
