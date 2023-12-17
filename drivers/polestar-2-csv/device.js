@@ -56,7 +56,7 @@ class PolestarBetaDevice extends Device {
 
         this.homey.app.log(this.homey.__({
             en: 'Interval for ' + this.name + ' has been set',
-            no: 'Interval for ' + this.name + ' har blitt satt'
+            no: 'Intervall for ' + this.name + ' har blitt satt'
         }), this.name, 'DEBUG');
     }
 
