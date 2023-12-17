@@ -66,7 +66,8 @@ class PolestarBetaDevice extends Device {
         if (this.vehicleData) {
             const lastUpdated = moment(this.vehicleData.timestamp).fromNow();
             const soc = parseInt(this.vehicleData.stateOfCharge * 100);
-            const range = `≈ ${parseInt(((soc / 100) * 487, 10) / 1.5).toFixed(0)} km`;
+            let range = parseInt((soc / 100) * 487, 10) / 1.5;
+            range = `≈ ${parseInt(range).toFixed(0)} km`;
             const batteryLevel = `${parseInt(this.vehicleData.batteryLevel / 1000)} kWh`;
             const alt = `${parseInt(this.vehicleData.alt)} m`;
             const speed = `${parseInt(this.vehicleData.speed * 3.6)} km/t`;
