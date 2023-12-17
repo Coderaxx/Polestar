@@ -1,0 +1,12 @@
+{
+  "type": "string",
+  "uiComponent": "sensor",
+  "icon": "/drivers/polestar-2-csv/assets/images/hvbattery.svg",
+  "title": {
+    "en": "Battery level",
+    "no": "Batterinivå"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true
+}

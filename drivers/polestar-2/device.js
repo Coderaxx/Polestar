@@ -366,7 +366,7 @@ class PolestarDevice extends Device {
 
             await this.setCapabilityValue('measure_battery', this.vehicleData.vehicle.battery.level);
             await this.setCapabilityValue('measure_polestarBattery', this.vehicleData.vehicle.battery.level);
-            await this.setCapabilityValue('measure_polestarRange', `~ ${range} km`);
+            await this.setCapabilityValue('measure_polestarRange', `≈ ${range} km`);
             await this.setCapabilityValue('measure_polestarChargeState', this.vehicleData.homes.battery.isCharging === null
                 ? this.homey.__('Polestar2.device.unknownChargingState')
                 : this.vehicleData.homes.battery.isCharging

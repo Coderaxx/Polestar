@@ -194,8 +194,10 @@
         "measure_battery",
         "measure_polestarBattery",
         "measure_polestarRange",
-        "measure_polestarChargeState",
+        "measure_polestarBatteryLevel",
         "measure_polestarConnected",
+        "measure_polestarIgnitionState",
+        "measure_polestarLocation",
         "measure_polestarSpeed",
         "measure_polestarAlt",
         "measure_polestarPower",
@@ -306,6 +308,18 @@
       "setable": false,
       "insights": true
     },
+    "measure_polestarBatteryLevel": {
+      "type": "string",
+      "uiComponent": "sensor",
+      "icon": "/drivers/polestar-2-csv/assets/images/hvbattery.svg",
+      "title": {
+        "en": "Battery level",
+        "no": "Batterinivå"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true
+    },
     "measure_polestarChargeState": {
       "type": "string",
       "uiComponent": "sensor",
@@ -337,6 +351,30 @@
       "title": {
         "en": "Selected Gear",
         "no": "Valgt gir"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true
+    },
+    "measure_polestarIgnitionState": {
+      "type": "string",
+      "uiComponent": "sensor",
+      "icon": "/drivers/polestar-2-csv/assets/images/ignition.svg",
+      "title": {
+        "en": "Ignition",
+        "no": "Tenning"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true
+    },
+    "measure_polestarLocation": {
+      "type": "string",
+      "uiComponent": "sensor",
+      "icon": "/drivers/polestar-2-csv/assets/images/location.svg",
+      "title": {
+        "en": "Location",
+        "no": "Plassering"
       },
       "getable": true,
       "setable": false,
