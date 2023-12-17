@@ -1,11 +1,12 @@
 {
-  "type": "string",
+  "type": "number",
   "uiComponent": "sensor",
   "icon": "/drivers/polestar-2-csv/assets/images/powerdc.svg",
   "title": {
     "en": "Power",
     "no": "Effekt"
   },
+  "units": "kW",
   "getable": true,
   "setable": false,
   "insights": true

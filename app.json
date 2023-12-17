@@ -285,13 +285,14 @@
   ],
   "capabilities": {
     "measure_polestarAlt": {
-      "type": "string",
+      "type": "number",
       "uiComponent": "sensor",
       "icon": "/drivers/polestar-2-csv/assets/images/altitude.svg",
       "title": {
         "en": "Altitude",
         "no": "Høyde"
       },
+      "units": "m",
       "getable": true,
       "setable": false,
       "insights": true
@@ -310,13 +311,15 @@
       "insights": true
     },
     "measure_polestarBatteryLevel": {
-      "type": "string",
+      "type": "number",
       "uiComponent": "sensor",
       "icon": "/drivers/polestar-2-csv/assets/images/hvbattery.svg",
       "title": {
         "en": "Battery level",
         "no": "Batterinivå"
       },
+      "units": "kWh",
+      "decimals": 2,
       "getable": true,
       "setable": false,
       "insights": true
@@ -394,13 +397,14 @@
       "insights": true
     },
     "measure_polestarPower": {
-      "type": "string",
+      "type": "number",
       "uiComponent": "sensor",
       "icon": "/drivers/polestar-2-csv/assets/images/powerdc.svg",
       "title": {
         "en": "Power",
         "no": "Effekt"
       },
+      "units": "kW",
       "getable": true,
       "setable": false,
       "insights": true
@@ -418,25 +422,30 @@
       "insights": true
     },
     "measure_polestarSpeed": {
-      "type": "string",
+      "type": "number",
       "uiComponent": "sensor",
       "icon": "/drivers/polestar-2-csv/assets/images/speedometer.svg",
       "title": {
         "en": "Speed",
         "no": "Fart"
       },
+      "units": {
+        "en": "km/h",
+        "no": "km/t"
+      },
       "getable": true,
       "setable": false,
       "insights": true
     },
     "measure_polestarTemp": {
-      "type": "string",
+      "type": "number",
       "uiComponent": "sensor",
       "icon": "/drivers/polestar-2-csv/assets/images/temp.svg",
       "title": {
         "en": "Ambient Temperature",
         "no": "Utetemperatur"
       },
+      "units": "°C",
       "getable": true,
       "setable": false,
       "insights": true

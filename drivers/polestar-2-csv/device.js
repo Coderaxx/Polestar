@@ -3,6 +3,7 @@
 const { Device } = require('homey');
 const moment = require('moment');
 const axios = require('axios');
+const geolib = require('geolib');
 
 class PolestarBetaDevice extends Device {
     async onInit() {
@@ -19,6 +20,9 @@ class PolestarBetaDevice extends Device {
         this.vehicleId = this.getData().id;
         this.vehicleData = null;
         this.updatedInterval = null;
+        this.previousLat = null;
+        this.previousLon = null;
+        this.threshold = 10; // Threshold in meters for distance updates
 
         const id = this.settings.webhook_id || null;
         const secret = this.settings.webhook_secret || null;
@@ -49,7 +53,7 @@ class PolestarBetaDevice extends Device {
 
             await this.updateDeviceData();
         });
-        
+
         this.updatedInterval = this.homey.setInterval(async () => {
             await this.updateLastUpdated();
         }, 60 * 1000);
@@ -78,26 +82,17 @@ class PolestarBetaDevice extends Device {
             const soc = parseInt(this.vehicleData.stateOfCharge * 100);
             let range = parseInt((soc / 100) * 487, 10) / 1.5;
             range = `≈ ${parseInt(range).toFixed(0)} km`;
-            const batteryLevel = `${parseFloat(this.vehicleData.batteryLevel / 1000).toFixed(2)} kWh`;
+            const batteryLevel = parseFloat((this.vehicleData.batteryLevel / 1000).toFixed(2));
             let connected = this.vehicleData.chargePortConnected;
-            const alt = `${parseInt(this.vehicleData.alt)} m`;
-            const speed = `${parseInt(this.vehicleData.speed * 3.6)} km/t`;
+            const alt = parseInt(this.vehicleData.alt);
+            const speed = parseInt(this.vehicleData.speed * 3.6);
             const powerW = parseInt(this.vehicleData.power / 1000);
-            const temp = `${this.vehicleData.ambientTemperature} °C`;
+            const powerKW = parseFloat((powerW / 1000).toFixed(2));
+            const temp = parseInt(this.vehicleData.ambientTemperature);
             const lat = this.vehicleData.lat;
             const lon = this.vehicleData.lon;
             const location = await this.reverseGeocode(lat, lon);
             let ignitionState = this.vehicleData.ignitionState;
-
-            let powerString;
-            let powerKW = powerW / 1000;
-            if (Math.abs(powerW) >= 1000) {
-                // Konverter til kW hvis verdien er større enn eller lik 1000 W (1 kW)
-                powerString = `${powerKW.toFixed(2)} kW`;
-            } else {
-                // Behold i W hvis verdien er mindre enn 1000 W
-                powerString = `${powerW.toFixed(0)} W`;
-            }
 
             switch (ignitionState) {
                 case 'Started':
@@ -136,7 +131,7 @@ class PolestarBetaDevice extends Device {
             await this.setCapabilityValue('measure_polestarLocation', location);
             await this.setCapabilityValue('measure_polestarSpeed', speed);
             await this.setCapabilityValue('measure_polestarAlt', alt);
-            await this.setCapabilityValue('measure_polestarPower', powerString);
+            await this.setCapabilityValue('measure_polestarPower', powerKW);
             await this.setCapabilityValue('measure_polestarGear', this.vehicleData.selectedGear);
             await this.setCapabilityValue('measure_polestarTemp', temp);
             await this.setCapabilityValue('measure_polestarUpdated', lastUpdated);
@@ -154,15 +149,47 @@ class PolestarBetaDevice extends Device {
     }
 
     async updateLastUpdated() {
-        const lastUpdated = moment(this.vehicleData.timestamp).fromNow();
-        await this.setCapabilityValue('measure_polestarUpdated', lastUpdated);
+        if (this.vehicleData && this.vehicleData.timestamp) {
+            const lastUpdated = moment(this.vehicleData.timestamp).fromNow();
+            await this.setCapabilityValue('measure_polestarUpdated', lastUpdated);
+        }
     }
 
     async reverseGeocode(lat, lon) {
-        const url = `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&apiKey=398de38932c248a8b8e0544c79fc3f1c`;
+        if (
+            this.previousLat &&
+            this.previousLon &&
+            geolib.getDistance(
+                { latitude: lat, longitude: lon },
+                { latitude: this.previousLat, longitude: this.previousLon }
+            ) <= this.threshold
+        ) {
+            // Return the previous address without making a new request
+            this.homey.app.log(this.homey.__({
+                en: 'Using previous address',
+                no: 'Bruker forrige adresse'
+            }), this.name, 'DEBUG');
+
+            return this.previousAddress;
+        }
+
+        //const url = `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&apiKey=398de38932c248a8b8e0544c79fc3f1c`;
+        const url = `https://nominatim.openstreetmap.org/reverse.php?lat=${lat}&lon=${lon}&zoom=18&format=jsonv2`;
         const response = await axios.get(url);
-        if (response.data.features.length > 0) {
-            const address = response.data.features[0].properties.formatted;
+        if (response.data && response.data.address) {
+            //const address = response.data.features[0].properties.formatted;
+            const address = `${response.data.address.road} ${response.data.address.house_number}, ${response.data.address.postcode} ${response.data.address.suburb}`;
+
+            // Update the previous values with the current values
+            this.previousLat = lat;
+            this.previousLon = lon;
+            this.previousAddress = address;
+
+            this.homey.app.log(this.homey.__({
+                en: 'Using new address',
+                no: 'Bruker ny adresse'
+            }), this.name, 'DEBUG');
+
             return address;
         }
         return null;
