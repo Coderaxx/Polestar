@@ -18,6 +18,7 @@ class PolestarBetaDevice extends Device {
         this.settings = await this.getSettings();
         this.vehicleId = this.getData().id;
         this.vehicleData = null;
+        this.updatedInterval = null;
 
         const id = this.settings.webhook_id || null;
         const secret = this.settings.webhook_secret || null;
@@ -47,6 +48,9 @@ class PolestarBetaDevice extends Device {
             };
 
             await this.updateDeviceData();
+            this.updatedInterval = this.homey.setInterval(async () => {
+                await this.updateLastUpdated();
+            }, 60 * 1000);
         });
     }
 
@@ -130,6 +134,11 @@ class PolestarBetaDevice extends Device {
             en: 'Device data updated successfully',
             no: 'Enhetsdata ble oppdatert vellykket'
         }), this.name, 'DEBUG');
+    }
+
+    async updateLastUpdated() {
+        const lastUpdated = moment(this.vehicleData.timestamp).fromNow();
+        await this.setCapabilityValue('measure_polestarUpdated', lastUpdated);
     }
 
     async reverseGeocode(lat, lon) {
