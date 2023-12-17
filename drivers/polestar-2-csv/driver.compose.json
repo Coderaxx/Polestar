@@ -31,10 +31,16 @@
 	},
 	"pair": [
 		{
-			"id": "start"
+			"id": "start",
+            "navigation": {
+                "next": "step2"
+            }
 		},
 		{
-			"id": "step2"
+			"id": "step2",
+            "navigation": {
+                "prev": "start"
+            }
 		},
 		{
 			"id": "getPolestar"

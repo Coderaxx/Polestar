@@ -7,10 +7,10 @@
             Denne appen er ikke tilgjengelig i Google Play Store for Polestar, grunnet strenge regler i Android
             Automotive OS.</p>
         <p id="infoText2">For å laste ned appen, kan du bruke vår "internal test track". Klikk
-            <a href="#" onclick="openGooglePlay()"> her</a> for å få tilgang.
+            <a href="#" onclick="openGooglePlay(event)"> her</a> for å få tilgang.
         </p>
         <p id="infoText3">Etter at du har fått tilgang til appen, kan du installere den på din Polestar 2 gjennom Google
-            Play Store. Les mer om installasjonsprosessen <a href="#" onclick="openInstallGuide()">her</a>.
+            Play Store. Les mer om installasjonsprosessen <a href="#" onclick="openInstallGuide(event)">her</a>.
         </p>
         <p><b style="color: red;" id="markText">Merk:</b>
             <span id="infoText4"> "Internal test track" har begrenset plass til 100
@@ -34,12 +34,12 @@
             no: 'Sørg for at "Car Stats Viewer"-appen er installert på din Polestar 2 for å bruke denne enheten. Denne appen er ikke tilgjengelig i Google Play Store for Polestar, grunnet strenge regler i Android Automotive OS.'
         }));
         $('#infoText2').html(Homey.__({
-            en: 'To download the app, use our "internal test track". Click <a href="#" onclick="openGooglePlay()"> here</a> to access it.',
-            no: 'For å laste ned appen, kan du bruke vår "internal test track". Klikk <a href="#" onclick="openGooglePlay()"> her</a> for å få tilgang.'
+            en: 'To download the app, use our "internal test track". Click <a href="#" onclick="openGooglePlay(event)"> here</a> to access it.',
+            no: 'For å laste ned appen, kan du bruke vår "internal test track". Klikk <a href="#" onclick="openGooglePlay(event)"> her</a> for å få tilgang.'
         }));
         $('#infoText3').html(Homey.__({
-            en: 'After gaining access to the app, you can install it on your Polestar 2 via the Google Play Store. Learn more about the installation process <a href="#" onclick="openInstallGuide()">here</a>.',
-            no: 'Etter at du har fått tilgang til appen, kan du installere den på din Polestar 2 gjennom Google Play Store. Les mer om installasjonsprosessen <a href="#" onclick="openInstallGuide()">her</a>.'
+            en: 'After gaining access to the app, you can install it on your Polestar 2 via the Google Play Store. Learn more about the installation process <a href="#" onclick="openInstallGuide(event)">here</a>.',
+            no: 'Etter at du har fått tilgang til appen, kan du installere den på din Polestar 2 gjennom Google Play Store. Les mer om installasjonsprosessen <a href="#" onclick="openInstallGuide(event)">her</a>.'
         }));
         $('#infoText4').html(Homey.__({
             en: ' The "internal test track" has limited space for 100 testers. If full, wait for a new slot to become available.',
@@ -48,11 +48,13 @@
         $('#continueButton').text(Homey.__({ en: 'Continue', no: 'Fortsett' }));
     });
 
-    async function openGooglePlay() {
+    async function openGooglePlay(e) {
+        e.preventDefault();
         await Homey.popup('https://play.google.com/apps/internaltest/4698289242746853179');
     }
 
-    async function openInstallGuide() {
+    async function openInstallGuide(e) {
+        e.preventDefault();
         await Homey.popup('https://android.gadgethacks.com/how-to/remotely-install-apps-onto-your-android-phone-0328936/');
     }
 

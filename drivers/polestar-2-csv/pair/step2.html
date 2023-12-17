@@ -8,12 +8,12 @@
         <li>
             <strong>Logg inn på Homey Dev Tools:</strong>
             Logg inn med din Homey-konto på
-            <a href="#" onclick="openDevTools()">Homey Dev Tools</a>.
+            <a href="#" onclick="openDevTools(event)">Homey Dev Tools</a>.
         </li>
         <li>
             <strong>Konfigurer din Webhook:</strong>
             Besøk
-            <a href="#" onclick="openWebhooks()">Homey Dev Tools Webhooks</a>
+            <a href="#" onclick="openWebhooks(event)">Homey Dev Tools Webhooks</a>
             for å se en oversikt og opprette nye Webhooks.
         </li>
         <li>
@@ -67,8 +67,8 @@
 
         $('#infoText').html(Homey.__({
             en: '<ol>' +
-                '<li><strong>Login to Homey Dev Tools:</strong> Log in with your Homey account at <a href="#" onclick="openDevTools()">Homey Dev Tools</a>.</li>' +
-                '<li><strong>Configure Your Webhook:</strong> Visit <a href="#" onclick="openWebhooks()">Homey Dev Tools Webhooks</a> to overview and create new Webhooks.</li>' +
+                '<li><strong>Login to Homey Dev Tools:</strong> Log in with your Homey account at <a href="#" onclick="openDevTools(event)">Homey Dev Tools</a>.</li>' +
+                '<li><strong>Configure Your Webhook:</strong> Visit <a href="#" onclick="openWebhooks(event)">Homey Dev Tools Webhooks</a> to overview and create new Webhooks.</li>' +
                 '<li><strong>Create New Webhook:</strong> Choose "New Webhook" and follow the instructions to complete the setup. Ensure all information is accurate.</li>' +
                 '<li><strong>Copy ID and Secret Key:</strong> You will receive a unique ID and secret key (Secret) after creation. These are necessary for authentication.</li>' +
                 '</ol>' +
@@ -78,8 +78,8 @@
                 '<li>Ensure the Webhook URL is correctly configured in the manufacturer\'s systems.</li>' +
                 '</ul>',
             no: '<ol>' +
-                '<li><strong>Logg inn på Homey Dev Tools:</strong> Logg inn med din Homey-konto på <a href="#" onclick="openDevTools()">Homey Dev Tools</a>.</li>' +
-                '<li><strong>Konfigurer din Webhook:</strong> Besøk <a href="#" onclick="openWebhooks()">Homey Dev Tools Webhooks</a> for å se en oversikt og opprette nye Webhooks.</li>' +
+                '<li><strong>Logg inn på Homey Dev Tools:</strong> Logg inn med din Homey-konto på <a href="#" onclick="openDevTools(event)">Homey Dev Tools</a>.</li>' +
+                '<li><strong>Konfigurer din Webhook:</strong> Besøk <a href="#" onclick="openWebhooks(event)">Homey Dev Tools Webhooks</a> for å se en oversikt og opprette nye Webhooks.</li>' +
                 '<li><strong>Opprett Ny Webhook:</strong> Velg "Ny Webhook" og følg instruksjonene for å fullføre oppsettet. Sørg for at all informasjon er korrekt.</li>' +
                 '<li><strong>Kopier ID og Hemmelig Nøkkel:</strong> Du vil motta en unik ID og hemmelig nøkkel (Secret) etter opprettelsen. Disse er nødvendige for autentisering.</li>' +
                 '</ol>' +
@@ -101,11 +101,13 @@
         $('#webhookUrl').val(`https://webhooks.athom.com/webhook/${$('#webhookId').val()}/`);
     });
 
-    async function openDevTools() {
+    async function openDevTools(e) {
+        e.preventDefault();
         await Homey.popup('https://tools.developer.homey.app/');
     }
 
-    async function openWebhooks() {
+    async function openWebhooks(e) {
+        e.preventDefault();
         await Homey.popup('https://tools.developer.homey.app/webhooks');
     }
 
