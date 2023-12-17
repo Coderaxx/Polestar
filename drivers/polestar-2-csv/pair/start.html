@@ -6,8 +6,10 @@
         <p id="infoText">Sørg for at "Car Stats Viewer"-appen er installert på din Polestar 2 for å bruke denne enheten.
             Denne appen er ikke tilgjengelig i Google Play Store for Polestar, grunnet strenge regler i Android
             Automotive OS.</p>
-        <p id="infoText2">For å laste ned appen, kan du bruke vår "internal test track". Klikk
-            <a href="#" onclick="openGooglePlay(event)"> her</a> for å få tilgang.
+        <p id="infoText2">For å laste ned appen, kan du bruke vår "internal test track". For å få tilgang, send en
+            e-post med forespørsel til <a href="#" onclick="openEmail(event)">polestar@coderax.dev</a>. Inkluder din Google Play Store e-postadresse. Når du har
+            fått bekreftet at du er lagt inn i "internal test track", klikk
+            <a href="#" onclick="openGooglePlay(event)"> her</a> for bli med i test track.
         </p>
         <p id="infoText3">Etter at du har fått tilgang til appen, kan du installere den på din Polestar 2 gjennom Google
             Play Store. Les mer om installasjonsprosessen <a href="#" onclick="openInstallGuide(event)">her</a>.
@@ -29,8 +31,8 @@
             no: 'Sørg for at "Car Stats Viewer"-appen er installert på din Polestar 2 for å bruke denne enheten. Denne appen er ikke tilgjengelig i Google Play Store for Polestar, grunnet strenge regler i Android Automotive OS.'
         }));
         $('#infoText2').html(Homey.__({
-            en: 'To download the app, use our "internal test track". Click <a href="#" onclick="openGooglePlay(event)"> here</a> to access it.',
-            no: 'For å laste ned appen, kan du bruke vår "internal test track". Klikk <a href="#" onclick="openGooglePlay(event)"> her</a> for å få tilgang.'
+            en: 'For downloading the app, you can use the "internal test track". For gaining access, send a request to "polestar@coderax.dev". Include your Google Play Store email address. When you have confirmed that you are added to the "internal test track", click <a href="#" onclick="openGooglePlay(event)"> here</a> to join the test track.',
+            no: 'For å laste ned appen, kan du bruke vår "internal test track". For å få tilgang, send en e-post med forespørsel til "polestar@coderax.dev".Inkluder din Google Play Store e-postadresse.Når du har fått bekreftet at du er lagt inn i "internal test track", klikk <a href="#" onclick="openGooglePlay(event)"> her</a> for bli med i test track.'
         }));
         $('#infoText3').html(Homey.__({
             en: 'After gaining access to the app, you can install it on your Polestar 2 via the Google Play Store. Learn more about the installation process <a href="#" onclick="openInstallGuide(event)">here</a>.',
@@ -42,6 +44,11 @@
         }))
         $('#continueButton').text(Homey.__({ en: 'Continue', no: 'Fortsett' }));
     });
+
+    async function openEmail(e) {
+        e.preventDefault();
+        await Homey.popup('mailto:polestar@coderax.dev&subject=Car Stats Viewer for Polestar 2 Homey App&body=Hello!\r\n\r\n\ I would like to use the "Car Stats Viewer" app for my Polestar 2. \r\n\r\nMy Google Play Store email address is: ');
+    }
 
     async function openGooglePlay(e) {
         e.preventDefault();
