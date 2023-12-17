@@ -19,13 +19,31 @@ class PolestarBetaDevice extends Device {
         this.vehicleId = this.getData().id;
         this.vehicleData = null;
 
-        const id = '657d642cd640090bb9b88226';
-        const secret = 'ccf90ffd93f0110158c7c79e37861245';
+        const id = this.settings.webhook_id || null;
+        const secret = this.settings.webhook_secret || null;
         const data = {
-            deviceId: 'Polestar2CSV',
-        }
+
+        };
         const webhook = await this.homey.cloud.createWebhook(id, secret, data);
         webhook.on('message', async args => {
+            if (!args.body
+                || !args.body.ambientTemperature
+                || !args.body.batteryLevel
+                || !args.body.chargePortConnected
+                || !args.body.ignitionState
+                || !args.body.lat
+                || !args.body.lon
+                || !args.body.power
+                || !args.body.selectedGear
+                || !args.body.speed
+                || !args.body.stateOfCharge) {
+                this.homey.app.log(this.homey.__({
+                    en: 'Received webhook message for ' + this.name + ' but data is missing.',
+                    no: 'Mottok webhook data med kjøretøydata for ' + this.name + ' men mangler data.'
+                }), this.name, 'WARNING', args.body);
+
+                return;
+            }
             this.homey.app.log(this.homey.__({
                 en: 'Received webhook message for ' + this.name,
                 no: 'Mottok webhook data med kjøretøydata for ' + this.name

@@ -1,50 +1,62 @@
 {
-  "name": {
-    "en": "Polestar 2 CSV ᴮᴱᵀᴬ",
-    "no": "Polestar 2 CSV ᴮᴱᵀᴬ"
-  },
-  "class": "sensor",
-  "capabilities": [
-    "measure_battery",
-    "measure_polestarBattery",
-    "measure_polestarRange",
-    "measure_polestarBatteryLevel",
-    "measure_polestarConnected",
-    "measure_polestarIgnitionState",
-    "measure_polestarLocation",
-    "measure_polestarSpeed",
-    "measure_polestarAlt",
-    "measure_polestarPower",
-    "measure_polestarGear",
-    "measure_polestarTemp",
-    "measure_polestarUpdated"
-  ],
-  "platforms": ["local"],
-  "connectivity": ["cloud"],
-  "images": {
-    "small": "{{driverAssetsPath}}/images/small.png",
-    "large": "{{driverAssetsPath}}/images/large.png"
-  },
-  "pair": [
-    {
-      "id": "start"
-    },
-    {
-      "id": "getPolestar"
-    },
-    {
-      "id": "list_devices",
-      "template": "list_devices",
-      "navigation": {
-        "next": "add_device"
-      }
-    },
-    {
-      "id": "add_device",
-      "template": "add_devices"
-    }
-  ],
-  "energy": {
-    "batteries": ["INTERNAL"]
-  }
+	"name": {
+		"en": "Polestar 2 CSV ᴮᴱᵀᴬ",
+		"no": "Polestar 2 CSV ᴮᴱᵀᴬ"
+	},
+	"class": "sensor",
+	"capabilities": [
+		"measure_battery",
+		"measure_polestarBattery",
+		"measure_polestarRange",
+		"measure_polestarBatteryLevel",
+		"measure_polestarConnected",
+		"measure_polestarIgnitionState",
+		"measure_polestarLocation",
+		"measure_polestarSpeed",
+		"measure_polestarAlt",
+		"measure_polestarPower",
+		"measure_polestarGear",
+		"measure_polestarTemp",
+		"measure_polestarUpdated"
+	],
+	"platforms": [
+		"local"
+	],
+	"connectivity": [
+		"cloud"
+	],
+	"images": {
+		"small": "{{driverAssetsPath}}/images/small.png",
+		"large": "{{driverAssetsPath}}/images/large.png"
+	},
+	"pair": [
+		{
+			"id": "start"
+		},
+		{
+			"id": "step2"
+		},
+		{
+			"id": "getPolestar"
+		},
+		{
+			"id": "list_devices",
+			"template": "list_devices",
+			"options": {
+				"singular": true
+			},
+			"navigation": {
+				"next": "add_device"
+			}
+		},
+		{
+			"id": "add_device",
+			"template": "add_devices"
+		}
+	],
+	"energy": {
+		"batteries": [
+			"INTERNAL"
+		]
+	}
 }

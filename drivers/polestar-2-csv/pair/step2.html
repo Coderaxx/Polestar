@@ -1,0 +1,132 @@
+<fieldset class="homey-form-fieldset">
+    <h2><b style="color: red;" id="importantText">Viktig:</b>
+        <span id="headerText">Før du kan legge til denne enheten:</span>
+    </h2>
+    <p id="infoText">
+        Følg disse trinnene for å opprette en Webhook i Homey Dev Tools:
+    <ol>
+        <li>
+            <strong>Logg inn på Homey Dev Tools:</strong>
+            Logg inn med din Homey-konto på
+            <a href="#" onclick="openDevTools()">Homey Dev Tools</a>.
+        </li>
+        <li>
+            <strong>Konfigurer din Webhook:</strong>
+            Besøk
+            <a href="#" onclick="openWebhooks()">Homey Dev Tools Webhooks</a>
+            for å se en oversikt og opprette nye Webhooks.
+        </li>
+        <li>
+            <strong>Opprett Ny Webhook:</strong>
+            Velg 'Ny Webhook' og følg instruksjonene for å fullføre oppsettet. Sørg for at all informasjon er
+            korrekt.
+        </li>
+        <li>
+            <strong>Kopier ID og Hemmelig Nøkkel:</strong>
+            Du vil motta en unik ID og hemmelig nøkkel (Secret) etter opprettelsen. Disse er nødvendige for
+            autentisering.
+        </li>
+    </ol>
+    <strong>Viktig å Huske:</strong>
+    <ul>
+        <li>All kommunikasjon via Webhooken er sikret og kryptert. Hold den hemmelige nøkkelen trygg.</li>
+        <li>Sørg for at Webhookens URL er korrekt konfigurert i produsentens systemer.</li>
+    </ul>
+    </p>
+    <form class="homey-form" id="createWebhook">
+        <div class="homey-form-group">
+            <label class="homey-form-label" for="webhookId">
+                <span id="webhookIdLabel"></span>
+            </label>
+            <input class="homey-form-input" id="webhookId" type="text" value="" />
+        </div>
+        <div class="homey-form-group">
+            <label class="homey-form-label" for="webhookSecret">
+                <span id="webhookSecretLabel"></span>
+            </label>
+            <input class="homey-form-input" id="webhookSecret" type="text" value="" />
+        </div>
+        <div class="homey-form-group">
+            <label class="homey-form-label" for="webhookUrl">
+                <span id="webhookUrlLabel"></span>
+            </label>
+            <input class="homey-form-input" id="webhookUrl" type="text" value="" readonly />
+        </div>
+        <div class="homey-form-group" style="bottom: 10px;">
+            <button class="homey-button homey-button-primary-full" id="createWebhook" type="button">
+                <span id="continueButton">Fortsett</span>
+            </button>
+        </div>
+    </form>
+</fieldset>
+<script type="application/javascript">
+    Homey.setTitle(Homey.__("Polestar 2 - Car Stats Viewer (ᴮᴱᵀᴬ)"));
+    $(document).ready(function () {
+        $('#headerText').text(Homey.__({ en: 'Before you can add this device:', no: 'Før du kan legge til denne enheten:' }));
+        $('#importantText').text(Homey.__({ en: 'Important:', no: 'Viktig:' }));
+
+        $('#infoText').html(Homey.__({
+            en: '<ol>' +
+                '<li><strong>Login to Homey Dev Tools:</strong> Log in with your Homey account at <a href="#" onclick="openDevTools()">Homey Dev Tools</a>.</li>' +
+                '<li><strong>Configure Your Webhook:</strong> Visit <a href="#" onclick="openWebhooks()">Homey Dev Tools Webhooks</a> to overview and create new Webhooks.</li>' +
+                '<li><strong>Create New Webhook:</strong> Choose "New Webhook" and follow the instructions to complete the setup. Ensure all information is accurate.</li>' +
+                '<li><strong>Copy ID and Secret Key:</strong> You will receive a unique ID and secret key (Secret) after creation. These are necessary for authentication.</li>' +
+                '</ol>' +
+                '<strong>Important to Remember:</strong>' +
+                '<ul>' +
+                '<li>All communication via the Webhook is secured and encrypted. Keep the secret key safe.</li>' +
+                '<li>Ensure the Webhook URL is correctly configured in the manufacturer\'s systems.</li>' +
+                '</ul>',
+            no: '<ol>' +
+                '<li><strong>Logg inn på Homey Dev Tools:</strong> Logg inn med din Homey-konto på <a href="#" onclick="openDevTools()">Homey Dev Tools</a>.</li>' +
+                '<li><strong>Konfigurer din Webhook:</strong> Besøk <a href="#" onclick="openWebhooks()">Homey Dev Tools Webhooks</a> for å se en oversikt og opprette nye Webhooks.</li>' +
+                '<li><strong>Opprett Ny Webhook:</strong> Velg "Ny Webhook" og følg instruksjonene for å fullføre oppsettet. Sørg for at all informasjon er korrekt.</li>' +
+                '<li><strong>Kopier ID og Hemmelig Nøkkel:</strong> Du vil motta en unik ID og hemmelig nøkkel (Secret) etter opprettelsen. Disse er nødvendige for autentisering.</li>' +
+                '</ol>' +
+                '<strong>Viktig å Huske:</strong>' +
+                '<ul>' +
+                '<li>All kommunikasjon via Webhooken er sikret og kryptert. Hold den hemmelige nøkkelen trygg.</li>' +
+                '<li>Sørg for at Webhookens URL er korrekt konfigurert i produsentens systemer.</li>' +
+                '</ul>'
+        }));
+
+        $('#continueButton').text(Homey.__({ en: 'Continue', no: 'Fortsett' }));
+    });
+
+    $('#webhookId').change(function () {
+        $('#webhookUrl').val(`https://webhooks.athom.com/webhook/${$('#webhookId').val()}/`);
+    });
+
+    $('#webhookSecret').change(function () {
+        $('#webhookUrl').val(`https://webhooks.athom.com/webhook/${$('#webhookId').val()}/`);
+    });
+
+    async function openDevTools() {
+        await Homey.popup('https://tools.developer.homey.app/');
+    }
+
+    async function openWebhooks() {
+        await Homey.popup('https://tools.developer.homey.app/webhooks');
+    }
+
+    $('#createWebhook').click(function () {
+        Homey.showLoadingOverlay();
+        const webhookId = $('#webhookId').val();
+        const webhookSecret = $('#webhookSecret').val();
+        const webhookUrl = $('#webhookUrl').val();
+
+        Homey.emit('createWebhook', { id: webhookId, secret: webhookSecret }).then(function (result) {
+            Homey.hideLoadingOverlay();
+            //console.log(result);
+            if (result.error) {
+                console.log('Failed to create webhook');
+                Homey.alert(Homey.__({ en: 'Failed to create webhook', no: 'Kunne ikke opprette Webhook' }));
+                return Homey.setNavigationClose();
+            } else {
+                console.log("Webhook created successfully");
+                return Homey.nextView();
+            }
+        });
+    });
+</script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>

@@ -13,18 +13,26 @@ class PolestarBetaDriver extends Driver {
 
     async onPair(session) {
         this.vehicles = [];
-        
+
         this.homey.app.log(this.homey.__({ en: 'Started pairing for Polestar 2', no: 'Starter paring for Polestar 2' }), 'Polestar Driver CSV ᴮᴱᵀᴬ', 'DEBUG');
-        session.setHandler('createWebhook', async () => {
+        session.setHandler('createWebhook', async (args) => {
             try {
                 // Generer en secret for webhook og lagre den i settings
-                const id = '657d642cd640090bb9b88226';
-                const secret = 'ccf90ffd93f0110158c7c79e37861245';
+                const id = args.id;
+                const secret = args.secret;
                 const data = {
                     deviceId: 'Polestar2CSV',
                 }
                 const webhook = await this.homey.cloud.createWebhook(id, secret, data);
                 const webhookUrl = `https://webhooks.athom.com/webhook/${webhook.id}/?homey=${this.homeyId}`;
+
+                const pingWebhook = await axios.get(webhookUrl);
+                if (pingWebhook.status === 200 && pingWebhook.data === 'ok') {
+                    this.homey.app.log(this.homey.__({ en: 'Successfully pinged webhook', no: 'Klarte å pinge webhook' }), 'Polestar Driver CSV ᴮᴱᵀᴬ', 'DEBUG');
+                } else {
+                    this.homey.app.log(this.homey.__({ en: 'Failed to ping webhook', no: 'Klarte ikke å ping webhook' }), 'Polestar Driver CSV ᴮᴱᵀᴬ', 'ERROR');
+                    return { success: false, error: 'Failed to ping webhook' };
+                }
 
                 this.vehicles.push({
                     name: 'Polestar 2 ᴮᴱᵀᴬ',
@@ -34,9 +42,8 @@ class PolestarBetaDriver extends Driver {
                     },
                     settings: {
                         polestar_webhook: webhookUrl,
-                        webhook_id: webhook.id,
+                        webhook_id: id,
                         webhook_secret: secret,
-                        refresh_interval: 60,
                     }
                 });
 

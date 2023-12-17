@@ -1,27 +1,63 @@
 <form class="homey-form" id="loginForm">
     <fieldset class="homey-form-fieldset">
-        <div class="homey-form-group">
-            <button class="homey-button homey-button-primary-full" id="createWebhook" type="button"><span
-                    data-i18n="Polestar2Beta.pair.loginButton"></span></button>
+        <h2><b style="color: red;" id="importantText">Viktig:</b>
+            <span id="headerText"> Før du kan legge til denne enheten:</span>
+        </h2>
+        <p id="infoText">Sørg for at "Car Stats Viewer"-appen er installert på din Polestar 2 for å bruke denne enheten.
+            Denne appen er ikke tilgjengelig i Google Play Store for Polestar, grunnet strenge regler i Android
+            Automotive OS.</p>
+        <p id="infoText2">For å laste ned appen, kan du bruke vår "internal test track". Klikk
+            <a href="#" onclick="openGooglePlay()"> her</a> for å få tilgang.
+        </p>
+        <p id="infoText3">Etter at du har fått tilgang til appen, kan du installere den på din Polestar 2 gjennom Google
+            Play Store. Les mer om installasjonsprosessen <a href="#" onclick="openInstallGuide()">her</a>.
+        </p>
+        <p><b style="color: red;" id="markText">Merk:</b>
+            <span id="infoText4"> "Internal test track" har begrenset plass til 100
+                testere. Hvis den er full, vent på at en ny testplass blir tilgjengelig.</span>
+        </p>
+        <div class="homey-form-group" style="bottom: 10px;">
+            <button class="homey-button homey-button-primary-full" id="createWebhook" type="button">
+                <span id="continueButton"></span>
+            </button>
         </div>
     </fieldset>
 </form>
 <script type="application/javascript">
-    Homey.setTitle(Homey.__("Polestar 2"));
+    Homey.setTitle(Homey.__("Polestar 2 - Car Stats Viewer (ᴮᴱᵀᴬ)"));
+    $(document).ready(function () {
+        $('#headerText').text(Homey.__({ en: 'Before you can add this device:', no: 'Før du kan legge til denne enheten:' }));
+        $('#importantText').text(Homey.__({ en: 'Important:', no: 'Viktig:' }));
+        $('#markText').text(Homey.__({ en: 'Note:', no: 'Merk:' }));
+        $('#infoText').text(Homey.__({
+            en: 'Ensure the "Car Stats Viewer" app is installed on your Polestar 2 to use this device. This app is not available on the Google Play Store for Polestar due to strict rules in Android Automotive OS.',
+            no: 'Sørg for at "Car Stats Viewer"-appen er installert på din Polestar 2 for å bruke denne enheten. Denne appen er ikke tilgjengelig i Google Play Store for Polestar, grunnet strenge regler i Android Automotive OS.'
+        }));
+        $('#infoText2').html(Homey.__({
+            en: 'To download the app, use our "internal test track". Click <a href="#" onclick="openGooglePlay()"> here</a> to access it.',
+            no: 'For å laste ned appen, kan du bruke vår "internal test track". Klikk <a href="#" onclick="openGooglePlay()"> her</a> for å få tilgang.'
+        }));
+        $('#infoText3').html(Homey.__({
+            en: 'After gaining access to the app, you can install it on your Polestar 2 via the Google Play Store. Learn more about the installation process <a href="#" onclick="openInstallGuide()">here</a>.',
+            no: 'Etter at du har fått tilgang til appen, kan du installere den på din Polestar 2 gjennom Google Play Store. Les mer om installasjonsprosessen <a href="#" onclick="openInstallGuide()">her</a>.'
+        }));
+        $('#infoText4').html(Homey.__({
+            en: ' The "internal test track" has limited space for 100 testers. If full, wait for a new slot to become available.',
+            no: ' "Internal test track" har begrenset plass til 100 testere. Hvis den er full, vent på at en ny testplass blir tilgjengelig.'
+        }))
+        $('#continueButton').text(Homey.__({ en: 'Continue', no: 'Fortsett' }));
+    });
+
+    async function openGooglePlay() {
+        await Homey.popup('https://play.google.com/apps/internaltest/4698289242746853179');
+    }
+
+    async function openInstallGuide() {
+        await Homey.popup('https://android.gadgethacks.com/how-to/remotely-install-apps-onto-your-android-phone-0328936/');
+    }
 
     $('#createWebhook').click(function () {
-        Homey.emit('createWebhook').then(function (result) {
-            Homey.hideLoadingOverlay();
-            //console.log(result);
-            if (result.error) {
-                console.log('Failed to create webhook');
-                Homey.alert(Homey.__("Polestar2Beta.pair.loginFailed"));
-                return Homey.setNavigationClose();
-            } else {
-                console.log("Webhook created successfully");
-                return Homey.nextView();
-            }
-        });
+        return Homey.nextView();
     });
 </script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
