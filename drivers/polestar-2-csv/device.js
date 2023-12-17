@@ -78,7 +78,7 @@ class PolestarBetaDevice extends Device {
             const soc = parseInt(this.vehicleData.stateOfCharge * 100);
             let range = parseInt((soc / 100) * 487, 10) / 1.5;
             range = `≈ ${parseInt(range).toFixed(0)} km`;
-            const batteryLevel = `${parseInt(this.vehicleData.batteryLevel / 1000)} kWh`;
+            const batteryLevel = `${parseFloat(this.vehicleData.batteryLevel / 1000).toFixed(2)} kWh`;
             let connected = this.vehicleData.chargePortConnected;
             const alt = `${parseInt(this.vehicleData.alt)} m`;
             const speed = `${parseInt(this.vehicleData.speed * 3.6)} km/t`;
@@ -90,9 +90,9 @@ class PolestarBetaDevice extends Device {
             let ignitionState = this.vehicleData.ignitionState;
 
             let powerString;
+            let powerKW = powerW / 1000;
             if (Math.abs(powerW) >= 1000) {
                 // Konverter til kW hvis verdien er større enn eller lik 1000 W (1 kW)
-                const powerKW = powerW / 1000;
                 powerString = `${powerKW.toFixed(2)} kW`;
             } else {
                 // Behold i W hvis verdien er mindre enn 1000 W

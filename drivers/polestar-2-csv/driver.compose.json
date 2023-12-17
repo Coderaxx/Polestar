@@ -19,6 +19,9 @@
         "measure_polestarTemp",
 		"measure_polestarUpdated"
 	],
+    "measure_power": {
+      "approximated": true
+    },
 	"platforms": [
 		"local"
 	],
