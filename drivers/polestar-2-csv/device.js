@@ -51,6 +51,11 @@ class PolestarBetaDevice extends Device {
             this.updatedInterval = this.homey.setInterval(async () => {
                 await this.updateLastUpdated();
             }, 60 * 1000);
+            
+            this.homey.app.log(this.homey.__({
+                en: 'Interval for ' + this.name + ' has been set',
+                no: 'Interval for ' + this.name + ' har blitt satt'
+            }), this.name, 'DEBUG');
         });
     }
 
