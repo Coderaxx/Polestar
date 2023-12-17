@@ -243,7 +243,7 @@
       "settings": [
         {
           "id": "polestar_webhook",
-          "type": "text",
+          "type": "label",
           "label": {
             "en": "Webhook URL",
             "no": "Webhook URL"
@@ -251,7 +251,7 @@
         },
         {
           "id": "webhook_id",
-          "type": "text",
+          "type": "label",
           "label": {
             "en": "Webhook ID",
             "no": "Webhook ID"
@@ -259,24 +259,10 @@
         },
         {
           "id": "webhook_secret",
-          "type": "text",
+          "type": "label",
           "label": {
             "en": "Webhook secret",
             "no": "Webhook secret"
-          }
-        },
-        {
-          "id": "refresh_interval",
-          "type": "number",
-          "label": {
-            "en": "Refresh interval",
-            "no": "Oppdateringsintervall"
-          },
-          "min": 10,
-          "max": 720,
-          "units": {
-            "en": "minutes",
-            "no": "minutter"
           }
         }
       ]
@@ -338,7 +324,7 @@
       "icon": "/drivers/polestar-2-csv/assets/images/ccs.svg",
       "title": {
         "en": "Charge port connected",
-        "no": "Laderport tilkoblet"
+        "no": "Ladeport tilkoblet"
       },
       "getable": true,
       "setable": false,

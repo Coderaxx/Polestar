@@ -12,6 +12,8 @@ class PolestarBetaDriver extends Driver {
     }
 
     async onPair(session) {
+        this.vehicles = [];
+        
         this.homey.app.log(this.homey.__({ en: 'Started pairing for Polestar 2', no: 'Starter paring for Polestar 2' }), 'Polestar Driver CSV ᴮᴱᵀᴬ', 'DEBUG');
         session.setHandler('createWebhook', async () => {
             try {

@@ -29,7 +29,7 @@ class PolestarBetaDevice extends Device {
             this.homey.app.log(this.homey.__({
                 en: 'Received webhook message for ' + this.name,
                 no: 'Mottok webhook data med kjøretøydata for ' + this.name
-            }), this.name, 'DEBUG');
+            }), this.name, 'DEBUG', args.body);
 
             this.vehicleData = {
                 ...args.body
@@ -59,7 +59,7 @@ class PolestarBetaDevice extends Device {
             const batteryLevel = `${parseInt(this.vehicleData.batteryLevel / 1000)} kWh`;
             const alt = `${parseInt(this.vehicleData.alt)} m`;
             const speed = `${parseInt(this.vehicleData.speed * 3.6)} km/t`;
-            const power = parseInt(this.vehicleData.power);
+            const powerW = parseInt(this.vehicleData.power / 1000);
             const temp = `${this.vehicleData.ambientTemperature} °C`;
             const lat = this.vehicleData.lat;
             const lon = this.vehicleData.lon;
@@ -67,10 +67,13 @@ class PolestarBetaDevice extends Device {
             let ignitionState = this.vehicleData.ignitionState;
 
             let powerString;
-            if (power > 1000) {
-                powerString = `${parseFloat(power / 1000).toFixed(2)} ${power / 1000 > 1000 ? ' kW' : ' W'}`;
-            } else if (power < -1000) {
-                powerString = `${parseFloat(power / 1000).toFixed(2)} ${power / 1000 > 1000 ? ' kW' : ' W'}`;
+            if (Math.abs(powerW) >= 1000) {
+                // Konverter til kW hvis verdien er større enn eller lik 1000 W (1 kW)
+                const powerKW = powerW / 1000;
+                powerString = `${powerKW.toFixed(2)} kW`;
+            } else {
+                // Behold i W hvis verdien er mindre enn 1000 W
+                powerString = `${powerW.toFixed(0)} W`;
             }
 
             switch (ignitionState) {
@@ -85,6 +88,7 @@ class PolestarBetaDevice extends Device {
                     break;
                 case 'Accessory':
                     ignitionState = this.homey.__({ "en": "Accessory", "no": "Tilgjengelig" });
+                    break;
                 default:
                     ignitionState = this.homey.__({ "en": "Unknown", "no": "Ukjent" });
                     break;
