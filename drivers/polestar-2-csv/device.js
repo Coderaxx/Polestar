@@ -89,10 +89,25 @@ class PolestarBetaDevice extends Device {
             const powerW = parseInt(this.vehicleData.power / 1000);
             const powerKW = parseFloat((powerW / 1000).toFixed(2));
             const temp = parseInt(this.vehicleData.ambientTemperature);
+            let ignitionState = this.vehicleData.ignitionState;
             const lat = this.vehicleData.lat;
             const lon = this.vehicleData.lon;
             const location = await this.reverseGeocode(lat, lon);
-            let ignitionState = this.vehicleData.ignitionState;
+            let address;
+            if (location) {
+                const { road, house_number, postcode, city } = location;
+                if (speed > 10) {
+                    // Vis kun vei og by for høyere hastigheter
+                    address = road ? `${road}` : '';
+                    address += city ? `, ${city}` : '';
+                } else {
+                    // Vis full adresse for lavere hastigheter
+                    address = road ? `${road}` : '';
+                    address += house_number ? ` ${house_number}` : '';
+                    address += postcode ? `, ${postcode}` : '';
+                    address += city ? ` ${city}` : '';
+                }
+            }
 
             switch (ignitionState) {
                 case 'Started':
@@ -128,7 +143,7 @@ class PolestarBetaDevice extends Device {
             await this.setCapabilityValue('measure_polestarBatteryLevel', batteryLevel);
             await this.setCapabilityValue('measure_polestarConnected', connected);
             await this.setCapabilityValue('measure_polestarIgnitionState', ignitionState);
-            await this.setCapabilityValue('measure_polestarLocation', location);
+            await this.setCapabilityValue('measure_polestarLocation', address);
             await this.setCapabilityValue('measure_polestarSpeed', speed);
             await this.setCapabilityValue('measure_polestarAlt', alt);
             await this.setCapabilityValue('measure_polestarPower', powerKW);
@@ -178,7 +193,16 @@ class PolestarBetaDevice extends Device {
         const response = await axios.get(url);
         if (response.data && response.data.address) {
             //const address = response.data.features[0].properties.formatted;
-            const address = `${response.data.address.road} ${response.data.address.house_number}, ${response.data.address.postcode} ${response.data.address.suburb}`;
+            //const address = `${response.data.address.road} ${response.data.address.house_number}, ${response.data.address.postcode} ${response.data.address.suburb}`;
+            const address = {
+                road: response.data.address.road || null,
+                house_number: response.data.address.house_number || null,
+                postcode: response.data.address.postcode || null,
+                city: response.data.address.suburb || null,
+                city_district: response.data.address.city_district || null,
+                county: response.data.address.county || null,
+                country: response.data.address.country || null,
+            }
 
             // Update the previous values with the current values
             this.previousLat = lat;
