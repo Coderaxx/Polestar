@@ -61,12 +61,12 @@
 </fieldset>
 <script type="application/javascript">
     Homey.setTitle(Homey.__("Polestar 2 - Car Stats Viewer (ᴮᴱᵀᴬ)"));
-    $(document).ready(function () {
-        let homeyId;
-        Homey.emit('getHomeyId').then(function (result) {
-            homeyId = result;
-        });
+    let homeyId;
+    Homey.emit('getHomeyId').then(function (result) {
+        homeyId = result;
+    });
 
+    $(document).ready(function () {
         $('#headerText').text(Homey.__({ en: 'Before you can add this device:', no: 'Før du kan legge til denne enheten:' }));
         $('#importantText').text(Homey.__({ en: 'Important:', no: 'Viktig:' }));
 
@@ -103,11 +103,19 @@
     });
 
     $('#webhookId').change(function () {
-        $('#webhookUrl').val(`https://webhooks.athom.com/webhook/${$('#webhookId').val()}/?homey=${homeyId}`);
+        if (homeyId) {
+            $('#webhookUrl').val(`https://webhooks.athom.com/webhook/${$('#webhookId').val()}/?homey=${homeyId}`);
+        } else {
+            $('#webhookUrl').val(`https://webhooks.athom.com/webhook/${$('#webhookId').val()}/`);
+        }
     });
 
     $('#webhookSecret').change(function () {
-        $('#webhookUrl').val(`https://webhooks.athom.com/webhook/${$('#webhookId').val()}/?homey=${homeyId}`);
+        if (homeyId) {
+            $('#webhookUrl').val(`https://webhooks.athom.com/webhook/${$('#webhookId').val()}/?homey=${homeyId}`);
+        } else {
+            $('#webhookUrl').val(`https://webhooks.athom.com/webhook/${$('#webhookId').val()}/`);
+        }
     });
 
     async function openDevTools(e) {

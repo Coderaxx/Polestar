@@ -120,7 +120,7 @@ class PolestarBetaDevice extends Device {
                     ignitionState = this.homey.__({ "en": "Off", "no": "Av" });
                     break;
                 case 'Accessory':
-                    ignitionState = this.homey.__({ "en": "Ready", "no": "Klar" });
+                    ignitionState = this.homey.__({ "en": "Idle", "no": "Klar" });
                     break;
                 default:
                     ignitionState = this.homey.__({ "en": "Unknown", "no": "Ukjent" });
