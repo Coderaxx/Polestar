@@ -62,6 +62,11 @@
 <script type="application/javascript">
     Homey.setTitle(Homey.__("Polestar 2 - Car Stats Viewer (ᴮᴱᵀᴬ)"));
     $(document).ready(function () {
+        let homeyId;
+        Homey.emit('getHomeyId').then(function (result) {
+            homeyId = result;
+        });
+
         $('#headerText').text(Homey.__({ en: 'Before you can add this device:', no: 'Før du kan legge til denne enheten:' }));
         $('#importantText').text(Homey.__({ en: 'Important:', no: 'Viktig:' }));
 
@@ -98,11 +103,11 @@
     });
 
     $('#webhookId').change(function () {
-        $('#webhookUrl').val(`https://webhooks.athom.com/webhook/${$('#webhookId').val()}/`);
+        $('#webhookUrl').val(`https://webhooks.athom.com/webhook/${$('#webhookId').val()}/?homey=${homeyId}`);
     });
 
     $('#webhookSecret').change(function () {
-        $('#webhookUrl').val(`https://webhooks.athom.com/webhook/${$('#webhookId').val()}/`);
+        $('#webhookUrl').val(`https://webhooks.athom.com/webhook/${$('#webhookId').val()}/?homey=${homeyId}`);
     });
 
     async function openDevTools(e) {

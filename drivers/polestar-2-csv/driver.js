@@ -58,6 +58,10 @@ class PolestarBetaDriver extends Driver {
             }
         });
 
+        session.setHandler('getHomeyId', async () => {
+            return this.homeyId;
+        });
+
         session.setHandler('getWebhook', async (data) => {
             return this.webhookUrl;
         });
