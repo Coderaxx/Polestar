@@ -31,7 +31,7 @@ class PolestarBetaDevice extends Device {
         };
         const webhook = await this.homey.cloud.createWebhook(id, secret, data);
         webhook.on('message', async args => {
-            const fields = ['ambientTemperature', 'batteryLevel', 'chargePortConnected', 'ignitionState', 'lat', 'lon', 'power', 'selectedGear', 'speed', 'stateOfCharge'];
+            const fields = ['ambientTemperature', 'batteryLevel', 'chargePortConnected', 'ignitionState', 'power', 'selectedGear', 'speed', 'stateOfCharge'];
             const isDataMissing = fields.some(field => args.body[field] === undefined || args.body[field] === null);
 
             if (!args.body || isDataMissing) {
@@ -90,9 +90,21 @@ class PolestarBetaDevice extends Device {
             const powerKW = parseFloat((powerW / 1000).toFixed(2));
             const temp = parseInt(this.vehicleData.ambientTemperature);
             let ignitionState = this.vehicleData.ignitionState;
-            const lat = this.vehicleData.lat;
-            const lon = this.vehicleData.lon;
-            const location = await this.reverseGeocode(lat, lon);
+            const lat = this.vehicleData.lat || 0;
+            const lon = this.vehicleData.lon || 0;
+            
+            let location;
+            if (lat && lon) {
+                const locationPromise = await this.reverseGeocode(lat, lon);
+                if (locationPromise) {
+                    location = locationPromise;
+                } else {
+                    location = this.homey.__({ "en": "Unknown", "no": "Ukjent" });
+                }
+            } else {
+                location = this.homey.__({ "en": "Unknown", "no": "Ukjent" });
+            }
+
             let address;
             if (location) {
                 const { road, house_number, postcode, city } = location;
