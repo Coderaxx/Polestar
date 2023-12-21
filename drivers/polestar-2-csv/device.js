@@ -84,7 +84,7 @@ class PolestarBetaDevice extends Device {
             range = `≈ ${parseInt(range).toFixed(0)} km`;
             const batteryLevel = parseFloat((this.vehicleData.batteryLevel / 1000).toFixed(2));
             let connected = this.vehicleData.chargePortConnected;
-            const alt = parseInt(this.vehicleData.alt);
+            let alt = parseInt(this.vehicleData.alt);
             const speed = parseInt(this.vehicleData.speed * 3.6);
             const powerW = parseInt(this.vehicleData.power / 1000);
             const powerKW = parseFloat((powerW / 1000).toFixed(2));
@@ -103,6 +103,9 @@ class PolestarBetaDevice extends Device {
                 }
             } else {
                 location = this.homey.__({ "en": "Unknown", "no": "Ukjent" });
+            }
+            if (!alt) {
+                alt = this.homey.__({ "en": "Unknown", "no": "Ukjent" });
             }
 
             let address;
