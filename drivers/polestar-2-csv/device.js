@@ -62,6 +62,15 @@ class PolestarBetaDevice extends Device {
             en: 'Interval for ' + this.name + ' has been set',
             no: 'Intervall for ' + this.name + ' har blitt satt'
         }), this.name, 'DEBUG');
+
+        this.image = await this.homey.images.createImage();
+        this.image.setUrl('https://crdx.us/tripSummary');
+
+        await this.setCameraImage(this.getData().id, 'Din siste tur', this.image);
+
+        this.updateCameraInterval = this.homey.setInterval(async () => {
+            await this.image.update();
+        }, 60 * 1000);
     }
 
     async updateDeviceData() {
@@ -92,7 +101,7 @@ class PolestarBetaDevice extends Device {
             let ignitionState = this.vehicleData.ignitionState;
             const lat = this.vehicleData.lat || 0;
             const lon = this.vehicleData.lon || 0;
-            
+
             let location;
             if (lat && lon) {
                 const locationPromise = await this.reverseGeocode(lat, lon);

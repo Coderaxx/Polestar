@@ -189,7 +189,7 @@
         "en": "Polestar 2 CSV ᴮᴱᵀᴬ",
         "no": "Polestar 2 CSV ᴮᴱᵀᴬ"
       },
-      "class": "sensor",
+      "class": "camera",
       "capabilities": [
         "measure_battery",
         "measure_polestarIgnitionState",
