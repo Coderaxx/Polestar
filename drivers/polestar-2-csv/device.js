@@ -29,7 +29,7 @@ class PolestarBetaDevice extends Device {
         const secret = this.settings.webhook_secret || null;
         const data = {};
         const webhook = await this.homey.cloud.createWebhook(id, secret, data);
-        
+
         webhook.on('message', async args => {
             const fields = ['ambientTemperature', 'batteryLevel', 'chargePortConnected', 'ignitionState', 'power', 'selectedGear', 'speed', 'stateOfCharge'];
             const isDataMissing = fields.some(field => args.body[field] === undefined || args.body[field] === null);
@@ -52,7 +52,7 @@ class PolestarBetaDevice extends Device {
                 }), this.name, 'DEBUG', args.body);
 
                 if (args.body.drivingPoints) {
-                    drivingData = [...drivingData, ...req.body.drivingPoints];
+                    drivingData = [...drivingData, ...args.body.drivingPoints];
 
                     const isTripEnded = args.body.drivingPoints.some(point => point.point_marker_type === 2);
                     if (isTripEnded) {
