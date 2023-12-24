@@ -24,13 +24,12 @@ class PolestarBetaDevice extends Device {
         this.previousLon = null;
         this.threshold = 10; // Threshold in meters for distance updates
 
+        let drivingData = [];
         const id = this.settings.webhook_id || null;
         const secret = this.settings.webhook_secret || null;
-        const data = {
-
-        };
+        const data = {};
         const webhook = await this.homey.cloud.createWebhook(id, secret, data);
-        let drivingData = [];
+        
         webhook.on('message', async args => {
             const fields = ['ambientTemperature', 'batteryLevel', 'chargePortConnected', 'ignitionState', 'power', 'selectedGear', 'speed', 'stateOfCharge'];
             const isDataMissing = fields.some(field => args.body[field] === undefined || args.body[field] === null);
@@ -54,10 +53,11 @@ class PolestarBetaDevice extends Device {
 
                 if (args.body.drivingPoints) {
                     drivingData = [...drivingData, ...req.body.drivingPoints];
-                    
+
                     const isTripEnded = args.body.drivingPoints.some(point => point.point_marker_type === 2);
                     if (isTripEnded) {
                         const data = encodeURIComponent(drivingData);
+                        await this.setStoreValue('polestarDrivingData', data);
                         drivingData = [];
 
                         this.image = await this.homey.images.createImage();
@@ -79,6 +79,15 @@ class PolestarBetaDevice extends Device {
 
             await this.updateDeviceData();
         });
+
+        if (await this.getStoreValue('polestarDrivingData')) {
+            const data = await this.getStoreValue('polestarDrivingData');
+            
+            this.image = await this.homey.images.createImage();
+            this.image.setUrl(`https://crdx.us/homey/polestar/tripSummary?data=${data}`);
+
+            await this.setCameraImage(this.getData().id, 'Din siste tur', this.image);
+        }
 
         this.updatedInterval = this.homey.setInterval(async () => {
             await this.updateLastUpdated();
