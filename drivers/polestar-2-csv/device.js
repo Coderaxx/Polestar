@@ -4,7 +4,6 @@ const { Device } = require('homey');
 const moment = require('moment');
 const axios = require('axios');
 const geolib = require('geolib');
-const polyline = require('@mapbox/polyline');
 
 class PolestarBetaDevice extends Device {
     async onInit() {
@@ -277,8 +276,8 @@ class PolestarBetaDevice extends Device {
     }
 
     async onDeleted() {
-        if (this.interval) {
-            this.homey.clearInterval(this.interval);
+        if (this.updatedInterval) {
+            this.homey.clearInterval(this.updatedInterval);
         }
         this.homey.app.log(this.homey.__({
             en: this.name + ' has been deleted',
