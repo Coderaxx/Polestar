@@ -30,6 +30,11 @@ class PolestarBetaDevice extends Device {
         const data = {};
         const webhook = await this.homey.cloud.createWebhook(id, secret, data);
 
+        this.image = await this.homey.images.createImage();
+        this.image.setUrl(`https://resources.tibber.com/vehicles/Polestar_Space.png`);
+        await this.image.update();
+        await this.setCameraImage('polestarTrip', 'Din siste tur', this.image);
+
         webhook.on('message', async args => {
             const fields = ['ambientTemperature', 'batteryLevel', 'chargePortConnected', 'ignitionState', 'power', 'selectedGear', 'speed', 'stateOfCharge'];
             const isDataMissing = fields.some(field => args.body[field] === undefined || args.body[field] === null);
@@ -56,14 +61,14 @@ class PolestarBetaDevice extends Device {
 
                     const isTripEnded = args.body.drivingPoints.some(point => point.point_marker_type === 2);
                     if (isTripEnded) {
-                        const data = encodeURIComponent(drivingData);
+                        const data = encodeURIComponent(JSON.stringify(drivingData));
                         await this.setStoreValue('polestarDrivingData', data);
                         drivingData = [];
 
-                        this.image = await this.homey.images.createImage();
-                        this.image.setUrl(`https://crdx.us/homey/polestar/tripSummary?data=${data}`);
+                        this.image.setUrl(`https://crdx.us/homey/polestar/tripSummary?drivingPoints=${data}`);
 
-                        await this.setCameraImage(this.getData().id, 'Din siste tur', this.image);
+                        await this.image.update();
+                        //await this.setCameraImage('polestarTrip', 'Din siste tur', this.image);
                         await this.driver._tripEndedFlow.trigger(this, { lastTrip: this.image });
                     }
                 }
@@ -84,10 +89,10 @@ class PolestarBetaDevice extends Device {
         if (await this.getStoreValue('polestarDrivingData')) {
             const data = await this.getStoreValue('polestarDrivingData');
 
-            this.image = await this.homey.images.createImage();
-            this.image.setUrl(`https://crdx.us/homey/polestar/tripSummary?data=${data}`);
+            this.image.setUrl(`https://crdx.us/homey/polestar/tripSummary?drivingPoints=${data}`);
 
-            await this.setCameraImage(this.getData().id, 'Din siste tur', this.image);
+            await this.image.update();
+            //await this.setCameraImage('polestarTrip', 'Din siste tur', this.image);
         }
 
         this.updatedInterval = this.homey.setInterval(async () => {
