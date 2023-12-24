@@ -1,6 +1,7 @@
 {
     "triggers": [
         {
+            "id": "tripEnded",
             "title": {
                 "en": "Trip ended",
                 "no": "Reisen er over"
