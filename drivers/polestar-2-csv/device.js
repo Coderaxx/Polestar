@@ -31,9 +31,6 @@ class PolestarBetaDevice extends Device {
         const webhook = await this.homey.cloud.createWebhook(id, secret, data);
 
         this.image = await this.homey.images.createImage();
-        this.image.setUrl(`https://resources.tibber.com/vehicles/Polestar_Space.png`);
-        await this.image.update();
-        await this.setCameraImage('polestarTrip', 'Din siste tur', this.image);
 
         webhook.on('message', async args => {
             const fields = ['ambientTemperature', 'batteryLevel', 'chargePortConnected', 'ignitionState', 'power', 'selectedGear', 'speed', 'stateOfCharge'];
@@ -90,10 +87,14 @@ class PolestarBetaDevice extends Device {
             const data = await this.getStoreValue('polestarDrivingData');
 
             this.image.setUrl(`https://crdx.us/homey/polestar/tripSummary?drivingPoints=${data}`);
-
             await this.image.update();
             //await this.setCameraImage('polestarTrip', 'Din siste tur', this.image);
+        } else {
+            this.image.setUrl(`https://crdx.us/homey/polestar/tripSummary`);
+            await this.image.update();
         }
+
+        await this.setCameraImage('polestarTrip', 'Din siste tur', this.image);
 
         this.updatedInterval = this.homey.setInterval(async () => {
             await this.updateLastUpdated();
