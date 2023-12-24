@@ -4,6 +4,7 @@ const { Device } = require('homey');
 const moment = require('moment');
 const axios = require('axios');
 const geolib = require('geolib');
+const polyline = require('@mapbox/polyline');
 
 class PolestarBetaDevice extends Device {
     async onInit() {
@@ -30,9 +31,12 @@ class PolestarBetaDevice extends Device {
 
         };
         const webhook = await this.homey.cloud.createWebhook(id, secret, data);
+        let drivingData = [];
         webhook.on('message', async args => {
             const fields = ['ambientTemperature', 'batteryLevel', 'chargePortConnected', 'ignitionState', 'power', 'selectedGear', 'speed', 'stateOfCharge'];
             const isDataMissing = fields.some(field => args.body[field] === undefined || args.body[field] === null);
+            const hasFields = ['drivingPoints'];
+            const hasData = hasFields.some(field => args.body[field] !== undefined && args.body[field] !== null);
 
             if (!args.body || isDataMissing) {
                 this.homey.app.log(this.homey.__({
@@ -42,6 +46,29 @@ class PolestarBetaDevice extends Device {
 
                 return;
             }
+
+            if (args.body && hasData) {
+                this.homey.app.log(this.homey.__({
+                    en: 'Received webhook message with trip data for ' + this.name,
+                    no: 'Mottok webhook data med turdata for ' + this.name
+                }), this.name, 'DEBUG', args.body);
+
+                if (args.body.drivingPoints) {
+                    drivingData = [...drivingData, ...req.body.drivingPoints];
+                    
+                    const isTripEnded = args.body.drivingPoints.some(point => point.point_marker_type === 2);
+                    if (isTripEnded) {
+                        const data = encodeURIComponent(drivingData);
+                        drivingData = [];
+
+                        this.image = await this.homey.images.createImage();
+                        this.image.setUrl(`https://crdx.us/homey/polestar/tripSummary?data=${data}`);
+
+                        await this.setCameraImage(this.getData().id, 'Din siste tur', this.image);
+                    }
+                }
+            }
+
             this.homey.app.log(this.homey.__({
                 en: 'Received webhook message for ' + this.name,
                 no: 'Mottok webhook data med kjøretøydata for ' + this.name
@@ -62,15 +89,6 @@ class PolestarBetaDevice extends Device {
             en: 'Interval for ' + this.name + ' has been set',
             no: 'Intervall for ' + this.name + ' har blitt satt'
         }), this.name, 'DEBUG');
-
-        this.image = await this.homey.images.createImage();
-        this.image.setUrl('https://crdx.us/tripSummary');
-
-        await this.setCameraImage(this.getData().id, 'Din siste tur', this.image);
-
-        this.updateCameraInterval = this.homey.setInterval(async () => {
-            await this.image.update();
-        }, 60 * 1000);
     }
 
     async updateDeviceData() {
