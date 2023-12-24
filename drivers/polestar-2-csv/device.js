@@ -4,6 +4,7 @@ const { Device } = require('homey');
 const moment = require('moment');
 const axios = require('axios');
 const geolib = require('geolib');
+const zlib = require('zlib');
 
 class PolestarBetaDevice extends Device {
     async onInit() {
@@ -58,13 +59,15 @@ class PolestarBetaDevice extends Device {
 
                     const isTripEnded = args.body.drivingPoints.some(point => point.point_marker_type === 2);
                     if (isTripEnded) {
-                        const data = encodeURIComponent(JSON.stringify(drivingData));
+                        //const data = encodeURIComponent(JSON.stringify(drivingData));
+                        const data = await this.compressAndEncode(drivingData);
                         await this.setStoreValue('polestarDrivingData', data);
                         drivingData = [];
 
-                        this.image.setUrl(`https://crdx.us/homey/polestar/tripSummary?drivingPoints=${data}`);
+                        this.image.setUrl(`https://crdx.us/homey/polestar/tripSummary?drivingPoints=${encodeURIComponent(data)}`);
 
                         await this.image.update();
+                        //console.log('Updated image with driving data', data);
                         //await this.setCameraImage('polestarTrip', 'Din siste tur', this.image);
                         await this.driver._tripEndedFlow.trigger(this, { lastTrip: this.image });
                     }
@@ -84,18 +87,23 @@ class PolestarBetaDevice extends Device {
         });
 
         if (await this.getStoreValue('polestarDrivingData')) {
+            //console.log('Found driving data in store');
             const data = await this.getStoreValue('polestarDrivingData');
+            //console.log(data);
 
-            this.image.setUrl(`https://crdx.us/homey/polestar/tripSummary?drivingPoints=${data}`);
+            this.image.setUrl(`https://crdx.us/homey/polestar/tripSummary?drivingPoints=${encodeURIComponent(data)}`);
             await this.image.update();
-            //await this.setCameraImage('polestarTrip', 'Din siste tur', this.image);
+            console.log('Updated image');
+            await this.setCameraImage('polestarTrip', 'Din siste tur', this.image);
         } else {
+            console.log('No driving data in store');
             this.image.setUrl(`https://crdx.us/homey/polestar/tripSummary`);
             await this.image.update();
+            //console.log('Updated image');
+            await this.setCameraImage('polestarTrip', 'Din siste tur', this.image);
         }
 
-        await this.setCameraImage('polestarTrip', 'Din siste tur', this.image);
-
+        await this.updateLastUpdated();
         this.updatedInterval = this.homey.setInterval(async () => {
             await this.updateLastUpdated();
         }, 60 * 1000);
@@ -104,6 +112,18 @@ class PolestarBetaDevice extends Device {
             en: 'Interval for ' + this.name + ' has been set',
             no: 'Intervall for ' + this.name + ' har blitt satt'
         }), this.name, 'DEBUG');
+    }
+
+    async compressAndEncode(data) {
+        return new Promise((resolve, reject) => {
+            zlib.deflate(JSON.stringify(data), (err, buffer) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(buffer.toString('base64'));
+                }
+            });
+        });
     }
 
     async updateDeviceData() {
