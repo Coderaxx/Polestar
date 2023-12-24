@@ -64,6 +64,7 @@ class PolestarBetaDevice extends Device {
                         this.image.setUrl(`https://crdx.us/homey/polestar/tripSummary?data=${data}`);
 
                         await this.setCameraImage(this.getData().id, 'Din siste tur', this.image);
+                        await this.driver._tripEndedFlow.trigger(this, { lastTrip: this.image });
                     }
                 }
             }
@@ -82,7 +83,7 @@ class PolestarBetaDevice extends Device {
 
         if (await this.getStoreValue('polestarDrivingData')) {
             const data = await this.getStoreValue('polestarDrivingData');
-            
+
             this.image = await this.homey.images.createImage();
             this.image.setUrl(`https://crdx.us/homey/polestar/tripSummary?data=${data}`);
 

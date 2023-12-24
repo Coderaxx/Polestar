@@ -9,6 +9,7 @@ class PolestarBetaDriver extends Driver {
 
         this.homeyId = await this.homey.cloud.getHomeyId();
         this.vehicles = [];
+        this._tripEndedFlow = this.homey.flow.getDeviceTriggerCard('tripEnded');
     }
 
     async onPair(session) {

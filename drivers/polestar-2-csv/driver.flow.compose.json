@@ -1,0 +1,24 @@
+{
+    "triggers": [
+        {
+            "title": {
+                "en": "Trip ended",
+                "no": "Reisen er over"
+            },
+            "tokens": [
+                {
+                    "type": "image",
+                    "name": "lastTrip",
+                    "title": {
+                        "en": "Your last trip",
+                        "no": "Din siste reise"
+                    },
+                    "example": {
+                        "en": "An image visualizing your last trip, combined with useful trip data",
+                        "no": "Et bilde som viser din siste reise, kombinert med nyttige reise-data"
+                    }
+                }
+            ]
+        }
+    ]
+}
