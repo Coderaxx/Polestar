@@ -87,20 +87,25 @@ class PolestarBetaDevice extends Device {
         });
 
         if (await this.getStoreValue('polestarDrivingData')) {
-            //console.log('Found driving data in store');
             const data = await this.getStoreValue('polestarDrivingData');
-            //console.log(data);
 
             this.image.setUrl(`https://crdx.us/homey/polestar/tripSummary?drivingPoints=${encodeURIComponent(data)}`);
             await this.image.update();
-            console.log('Updated image');
             await this.setCameraImage('polestarTrip', 'Din siste tur', this.image);
+
+            this.homey.app.log(this.homey.__({
+                en: 'Updated image with driving data',
+                no: 'Oppdaterte bilde med turdata'
+            }), this.name, 'DEBUG');
         } else {
-            console.log('No driving data in store');
             this.image.setUrl(`https://crdx.us/homey/polestar/tripSummary`);
             await this.image.update();
-            //console.log('Updated image');
             await this.setCameraImage('polestarTrip', 'Din siste tur', this.image);
+
+            this.homey.app.log(this.homey.__({
+                en: 'Image set to default placeholder image',
+                no: 'Bilde er satt til standard placeholder-bilde'
+            }), this.name, 'DEBUG');
         }
 
         await this.updateLastUpdated();
