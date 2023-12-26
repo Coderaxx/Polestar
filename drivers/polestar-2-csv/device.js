@@ -5,6 +5,29 @@ const moment = require('moment');
 const axios = require('axios');
 const geolib = require('geolib');
 const zlib = require('zlib');
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
+
+// Koble til MongoDB med spesifisert database
+mongoose.connect('mongodb+srv://coderax:BurlroaD50@cluster0.wgpn5ch.mongodb.net/Homey');
+
+// Definer et skjema for Polestar collection
+const polestarSchema = new Schema({
+    _id: { type: String, required: true },
+    drivingPoints: [{
+        alt: Number,
+        distance_delta: Number,
+        driving_point_epoch_time: Number,
+        energy_delta: Number,
+        lat: Number,
+        lon: Number,
+        point_marker_type: Number,
+        state_of_charge: Number
+    }]
+}, { collection: 'Polestar', _id: false });
+
+// Opprett en modell for Polestar
+const Polestar = mongoose.model('Polestar', polestarSchema);
 
 class PolestarBetaDevice extends Device {
     async onInit() {
@@ -17,6 +40,7 @@ class PolestarBetaDevice extends Device {
 
         moment.locale(this.homey.i18n.getLanguage() == 'no' ? 'nb' : 'en');
 
+        this.homeyId = await this.homey.cloud.getHomeyId();
         this.settings = await this.getSettings();
         this.vehicleId = this.getData().id;
         this.vehicleData = null;
@@ -61,10 +85,24 @@ class PolestarBetaDevice extends Device {
                     if (isTripEnded) {
                         //const data = encodeURIComponent(JSON.stringify(drivingData));
                         const data = await this.compressAndEncode(drivingData);
+                        try {
+                            if (!this.homeyId) {
+                                throw new Error('homeyId er ikke satt');
+                            }
+
+                            // Oppdater eller opprett dokument
+                            const data = await Polestar.findOneAndUpdate(
+                                { _id: this.homeyId },
+                                { _id: this.homeyId, drivingPoints: drivingData },
+                                { new: true, upsert: true, setDefaultsOnInsert: true }
+                            );
+                        } catch (error) {
+                            res.status(500).send('En feil oppstod ved lagring av data: ' + error.message);
+                        }
                         await this.setStoreValue('polestarDrivingData', data);
                         drivingData = [];
 
-                        this.image.setUrl(`https://crdx.us/homey/polestar/tripSummary?drivingPoints=${encodeURIComponent(data)}`);
+                        this.image.setUrl(`https://homey.crdx.us/tripSummary/${Buffer.from(this.homeyId).toString('base64')}`);
 
                         await this.image.update();
                         //console.log('Updated image with driving data', data);
@@ -87,9 +125,9 @@ class PolestarBetaDevice extends Device {
         });
 
         if (await this.getStoreValue('polestarDrivingData')) {
-            const data = await this.getStoreValue('polestarDrivingData');
+            const homeyId = Buffer.from(this.homeyId).toString('base64');
 
-            this.image.setUrl(`https://crdx.us/homey/polestar/tripSummary?drivingPoints=${encodeURIComponent(data)}`);
+            this.image.setUrl(`https://homey.crdx.us/tripSummary/${homeyId}`);
             await this.image.update();
             await this.setCameraImage('polestarTrip', 'Din siste tur', this.image);
 
@@ -98,7 +136,8 @@ class PolestarBetaDevice extends Device {
                 no: 'Oppdaterte bilde med turdata'
             }), this.name, 'DEBUG');
         } else {
-            this.image.setUrl(`https://crdx.us/homey/polestar/tripSummary`);
+            const homeyId = Buffer.from(this.homeyId).toString('base64');
+            this.image.setUrl(`https://homey.crdx.us/tripSummary/${homeyId}`);
             await this.image.update();
             await this.setCameraImage('polestarTrip', 'Din siste tur', this.image);
 
