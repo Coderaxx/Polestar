@@ -90,7 +90,8 @@ class PolestarBetaDevice extends Device {
                                 throw new Error('homeyId er ikke satt');
                             }
 
-                            const response = await axios.post(`https://homey.crdx.us/save/${Buffer.from(this.homeyId).toString('base64')}`, drivingData);
+                            const response = await axios.post(`https://homey.crdx.us/save/${Buffer.from(this.homeyId).toString('base64')}`, JSON.stringify(drivingData), { headers: { 'Content-Type': 'application/json' } });
+                            console.log(response);
                             if (response.status !== 200) {
                                 return this.homey.app.log(this.homey.__({
                                     en: 'Failed to save data',
@@ -102,7 +103,10 @@ class PolestarBetaDevice extends Device {
                                 no: 'Lagret data'
                             }), this.name, 'DEBUG', drivingData);
                         } catch (error) {
-                            return;
+                            this.homey.app.log(this.homey.__({
+                                en: 'Failed to save data',
+                                no: 'Kunne ikke lagre data'
+                            }), this.name, 'ERROR', error);
                         }
                         await this.setStoreValue('polestarDrivingData', data);
                         drivingData = [];
