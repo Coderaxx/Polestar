@@ -5,29 +5,6 @@ const moment = require('moment');
 const axios = require('axios');
 const geolib = require('geolib');
 const zlib = require('zlib');
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
-
-// Koble til MongoDB med spesifisert database
-mongoose.connect('mongodb+srv://coderax:BurlroaD50@cluster0.wgpn5ch.mongodb.net/Homey');
-
-// Definer et skjema for Polestar collection
-const polestarSchema = new Schema({
-    _id: { type: String, required: true },
-    drivingPoints: [{
-        alt: Number,
-        distance_delta: Number,
-        driving_point_epoch_time: Number,
-        energy_delta: Number,
-        lat: Number,
-        lon: Number,
-        point_marker_type: Number,
-        state_of_charge: Number
-    }]
-}, { collection: 'Polestar', _id: false });
-
-// Opprett en modell for Polestar
-const Polestar = mongoose.model('Polestar', polestarSchema);
 
 class PolestarBetaDevice extends Device {
     async onInit() {
@@ -90,7 +67,7 @@ class PolestarBetaDevice extends Device {
                                 throw new Error('homeyId er ikke satt');
                             }
 
-                            const response = await axios.post(`https://homey.crdx.us/save/${Buffer.from(this.homeyId).toString('base64')}`, JSON.stringify(drivingData), { headers: { 'Content-Type': 'application/json' } });
+                            const response = await axios.post(`https://homey.crdx.us/save/${this.homeyId}`, JSON.stringify(drivingData), { headers: { 'Content-Type': 'application/json' } });
                             console.log(response);
                             if (response.status !== 200) {
                                 return this.homey.app.log(this.homey.__({
@@ -101,12 +78,12 @@ class PolestarBetaDevice extends Device {
                             this.homey.app.log(this.homey.__({
                                 en: 'Saved data',
                                 no: 'Lagret data'
-                            }), this.name, 'DEBUG', drivingData);
+                            }), this.name, 'DEBUG');
                         } catch (error) {
                             this.homey.app.log(this.homey.__({
                                 en: 'Failed to save data',
                                 no: 'Kunne ikke lagre data'
-                            }), this.name, 'ERROR', error);
+                            }), this.name, 'ERROR', error.message);
                         }
                         await this.setStoreValue('polestarDrivingData', data);
                         drivingData = [];
