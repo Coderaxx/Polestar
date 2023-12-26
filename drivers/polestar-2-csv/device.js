@@ -68,7 +68,6 @@ class PolestarBetaDevice extends Device {
                             }
 
                             const response = await axios.post(`https://homey.crdx.us/save/${this.homeyId}`, JSON.stringify(drivingData), { headers: { 'Content-Type': 'application/json' } });
-                            console.log(response);
                             if (response.status !== 200) {
                                 return this.homey.app.log(this.homey.__({
                                     en: 'Failed to save data',
