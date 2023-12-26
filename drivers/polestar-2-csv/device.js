@@ -90,14 +90,19 @@ class PolestarBetaDevice extends Device {
                                 throw new Error('homeyId er ikke satt');
                             }
 
-                            // Oppdater eller opprett dokument
-                            const data = await Polestar.findOneAndUpdate(
-                                { _id: this.homeyId },
-                                { _id: this.homeyId, drivingPoints: drivingData },
-                                { new: true, upsert: true, setDefaultsOnInsert: true }
-                            );
+                            const response = await axios.post(`https://homey.crdx.us/save/${Buffer.from(this.homeyId).toString('base64')}`, drivingData);
+                            if (response.status !== 200) {
+                                return this.homey.app.log(this.homey.__({
+                                    en: 'Failed to save data',
+                                    no: 'Kunne ikke lagre data'
+                                }), this.name, 'ERROR');
+                            }
+                            this.homey.app.log(this.homey.__({
+                                en: 'Saved data',
+                                no: 'Lagret data'
+                            }), this.name, 'DEBUG', drivingData);
                         } catch (error) {
-                            res.status(500).send('En feil oppstod ved lagring av data: ' + error.message);
+                            return;
                         }
                         await this.setStoreValue('polestarDrivingData', data);
                         drivingData = [];
