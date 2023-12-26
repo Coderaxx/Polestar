@@ -38,5 +38,6 @@
   ],
   "energy": {
     "batteries": ["INTERNAL"]
-  }
+  },
+  "deprecated": true
 }

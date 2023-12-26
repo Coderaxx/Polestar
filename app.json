@@ -166,6 +166,7 @@
           "INTERNAL"
         ]
       },
+      "deprecated": true,
       "id": "polestar-2-beta",
       "settings": [
         {
