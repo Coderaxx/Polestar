@@ -1,26 +1,113 @@
 [
     {
-        "id": "polestar_webhook",
-        "type": "label",
+        "type": "group",
         "label": {
-            "en": "Webhook URL",
-            "no": "Webhook URL"
-        }
+            "en": "Trip summary settings",
+            "no": "Innstillinger for turoppsummering"
+        },
+        "children": [
+            {
+                "id": "mapImageType",
+                "type": "dropdown",
+                "value": "mapboxOutdoors",
+                "label": {
+                    "en": "Map image type",
+                    "no": "Kart-bildetype"
+                },
+                "hint": {
+                    "en": "This changes the type of the map that is shown in the trip summary. (Optional)",
+                    "no": "Dette endrer hvilket type kart som vises i turoppsummeringen. (Valgfritt)"
+                },
+                "values": [
+                    {
+                        "id": "mapboxLight",
+                        "label": {
+                            "en": "Mapbox Light",
+                            "no": "Mapbox Light"
+                        }
+                    },
+                    {
+                        "id": "mapboxDark",
+                        "label": {
+                            "en": "Mapbox Dark",
+                            "no": "Mapbox Dark"
+                        }
+                    },
+                    {
+                        "id": "mapboxStreets",
+                        "label": {
+                            "en": "Mapbox Streets",
+                            "no": "Mapbox Streets"
+                        }
+                    },
+                    {
+                        "id": "mapboxOutdoors",
+                        "label": {
+                            "en": "Mapbox Outdoors",
+                            "no": "Mapbox Outdoors"
+                        }
+                    },
+                    {
+                        "id": "mapboxSatellite",
+                        "label": {
+                            "en": "Mapbox Satellite",
+                            "no": "Mapbox Satellite"
+                        }
+                    },
+                    {
+                        "id": "mapboxSatelliteStreets",
+                        "label": {
+                            "en": "Mapbox Satellite Streets",
+                            "no": "Mapbox Satellite Streets"
+                        }
+                    }
+                ]
+            }
+        ]
     },
     {
-        "id": "webhook_id",
-        "type": "label",
+        "type": "group",
         "label": {
-            "en": "Webhook ID",
-            "no": "Webhook ID"
-        }
-    },
-    {
-        "id": "webhook_secret",
-        "type": "label",
-        "label": {
-            "en": "Webhook secret",
-            "no": "Webhook secret"
-        }
+            "en": "Webhook Settings",
+            "no": "Webhook innstillinger"
+        },
+        "children": [
+            {
+                "id": "polestar_webhook",
+                "type": "text",
+                "hint": {
+                    "en": "Do not change unless instructed by developer, or if you changed the webhook.",
+                    "no": "Ikke endre med mindre du har fått beskjed om det av utvikler, eller hvis du har endret webhooken."
+                },
+                "label": {
+                    "en": "Webhook URL",
+                    "no": "Webhook URL"
+                }
+            },
+            {
+                "id": "webhook_id",
+                "type": "text",
+                "hint": {
+                    "en": "Do not change unless instructed by developer.",
+                    "no": "Ikke endre med mindre du har ått beskjed om det av utvikler."
+                },
+                "label": {
+                    "en": "Webhook ID",
+                    "no": "Webhook ID"
+                }
+            },
+            {
+                "id": "webhook_secret",
+                "type": "text",
+                "hint": {
+                    "en": "Do not change unless instructed by developer.",
+                    "no": "Ikke endre med mindre du har ått beskjed om det av utvikler."
+                },
+                "label": {
+                    "en": "Webhook secret",
+                    "no": "Webhook secret"
+                }
+            }
+        ]
     }
 ]

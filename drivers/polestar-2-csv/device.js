@@ -25,14 +25,26 @@ class PolestarBetaDevice extends Device {
         this.previousLat = null;
         this.previousLon = null;
         this.threshold = 10; // Threshold in meters for distance updates
+        this.image = await this.homey.images.createImage();
+        this.webhook = null;
 
+        await this.updateLastUpdated();
+        this.updatedInterval = this.homey.setInterval(async () => {
+            await this.updateLastUpdated();
+        }, 60 * 1000);
+
+        this.homey.app.log(this.homey.__({
+            en: 'Interval for ' + this.name + ' has been set',
+            no: 'Intervall for ' + this.name + ' har blitt satt'
+        }), this.name, 'DEBUG');
+    }
+
+    async initWebhook() {
         let drivingData = [];
         const id = this.settings.webhook_id || null;
         const secret = this.settings.webhook_secret || null;
         const data = {};
-        const webhook = await this.homey.cloud.createWebhook(id, secret, data);
-
-        this.image = await this.homey.images.createImage();
+        this.webhook = await this.homey.cloud.createWebhook(id, secret, data);
 
         webhook.on('message', async args => {
             const fields = ['ambientTemperature', 'batteryLevel', 'chargePortConnected', 'ignitionState', 'power', 'selectedGear', 'speed', 'stateOfCharge'];
@@ -60,8 +72,6 @@ class PolestarBetaDevice extends Device {
 
                     const isTripEnded = args.body.drivingPoints.some(point => point.point_marker_type === 2);
                     if (isTripEnded) {
-                        //const data = encodeURIComponent(JSON.stringify(drivingData));
-                        const data = await this.compressAndEncode(drivingData);
                         try {
                             if (!this.homeyId) {
                                 throw new Error('homeyId er ikke satt');
@@ -85,10 +95,9 @@ class PolestarBetaDevice extends Device {
                                 no: 'Kunne ikke lagre data'
                             }), this.name, 'ERROR', error.message);
                         }
-                        await this.setStoreValue('polestarDrivingData', data);
-                        drivingData = [];
 
-                        this.image.setUrl(`https://homey.crdx.us/tripSummary/${Buffer.from(this.homeyId).toString('base64')}`);
+                        drivingData = [];
+                        this.image.setUrl(`https://homey.crdx.us/tripSummary/${Buffer.from(this.homeyId).toString('base64')}?mapType=${this.settings.mapImageType}`);
 
                         await this.image.update();
                         await this.driver._tripEndedFlow.trigger(this, { lastTrip: this.image });
@@ -106,51 +115,6 @@ class PolestarBetaDevice extends Device {
             };
 
             await this.updateDeviceData();
-        });
-
-        if (await this.getStoreValue('polestarDrivingData')) {
-            const homeyId = Buffer.from(this.homeyId).toString('base64');
-
-            this.image.setUrl(`https://homey.crdx.us/tripSummary/${homeyId}`);
-            await this.image.update();
-            await this.setCameraImage('polestarTrip', 'Din siste tur', this.image);
-
-            this.homey.app.log(this.homey.__({
-                en: 'Updated image with driving data',
-                no: 'Oppdaterte bilde med turdata'
-            }), this.name, 'DEBUG');
-        } else {
-            const homeyId = Buffer.from(this.homeyId).toString('base64');
-            this.image.setUrl(`https://homey.crdx.us/tripSummary/${homeyId}`);
-            await this.image.update();
-            await this.setCameraImage('polestarTrip', 'Din siste tur', this.image);
-
-            this.homey.app.log(this.homey.__({
-                en: 'Image set to default placeholder image',
-                no: 'Bilde er satt til standard placeholder-bilde'
-            }), this.name, 'DEBUG');
-        }
-
-        await this.updateLastUpdated();
-        this.updatedInterval = this.homey.setInterval(async () => {
-            await this.updateLastUpdated();
-        }, 60 * 1000);
-
-        this.homey.app.log(this.homey.__({
-            en: 'Interval for ' + this.name + ' has been set',
-            no: 'Intervall for ' + this.name + ' har blitt satt'
-        }), this.name, 'DEBUG');
-    }
-
-    async compressAndEncode(data) {
-        return new Promise((resolve, reject) => {
-            zlib.deflate(JSON.stringify(data), (err, buffer) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(buffer.toString('base64'));
-                }
-            });
         });
     }
 
@@ -330,6 +294,16 @@ class PolestarBetaDevice extends Device {
             no: this.name + ' har blitt lagt til'
         }),
             this.name, 'DEBUG');
+    }
+
+    async onSettings({ oldSettings, newSettings, changedKeys }) {
+        this.settings = newSettings;
+        await this.homey.cloud.unregisterWebhook(this.webhook);
+        await this.initWebhook();
+        this.homey.app.log(this.homey.__({
+            en: 'Settings have been updated',
+            no: 'Innstillingene har blitt oppdatert'
+        }), this.name, 'DEBUG');
     }
 
     async onRenamed(name) {

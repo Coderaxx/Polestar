@@ -1,71 +1,71 @@
 {
-	"name": {
-		"en": "Polestar 2 CSV ᴮᴱᵀᴬ",
-		"no": "Polestar 2 CSV ᴮᴱᵀᴬ"
-	},
-	"class": "camera",
-	"capabilities": [
-		"measure_battery",
-        "measure_polestarIgnitionState",
-        "measure_polestarGear",
-        "measure_polestarSpeed",
-        "measure_polestarAlt",
-		"measure_polestarBattery",
-		"measure_polestarRange",
-		"measure_polestarBatteryLevel",
-        "measure_polestarPower",
-		"measure_polestarConnected",
-		"measure_polestarLocation",
-        "measure_polestarTemp",
-		"measure_polestarUpdated"
-	],
-    "measure_power": {
-      "approximated": true
+  "name": {
+    "en": "Polestar 2 via Car Stats Viewer ᴮᴱᵀᴬ",
+    "no": "Polestar 2 via Car Stats Viewer ᴮᴱᵀᴬ"
+  },
+  "class": "camera",
+  "capabilities": [
+    "measure_battery",
+    "measure_polestarIgnitionState",
+    "measure_polestarGear",
+    "measure_polestarSpeed",
+    "measure_polestarAlt",
+    "measure_polestarBattery",
+    "measure_polestarRange",
+    "measure_polestarBatteryLevel",
+    "measure_polestarPower",
+    "measure_polestarConnected",
+    "measure_polestarLocation",
+    "measure_polestarTemp",
+    "measure_polestarUpdated"
+  ],
+  "measure_power": {
+    "approximated": true
+  },
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "cloud"
+  ],
+  "images": {
+    "small": "{{driverAssetsPath}}/images/small.png",
+    "large": "{{driverAssetsPath}}/images/large.png"
+  },
+  "pair": [
+    {
+      "id": "start",
+      "navigation": {
+        "next": "step2"
+      }
     },
-	"platforms": [
-		"local"
-	],
-	"connectivity": [
-		"cloud"
-	],
-	"images": {
-		"small": "{{driverAssetsPath}}/images/small.png",
-		"large": "{{driverAssetsPath}}/images/large.png"
-	},
-	"pair": [
-		{
-			"id": "start",
-            "navigation": {
-                "next": "step2"
-            }
-		},
-		{
-			"id": "step2",
-            "navigation": {
-                "prev": "start"
-            }
-		},
-		{
-			"id": "getPolestar"
-		},
-		{
-			"id": "list_devices",
-			"template": "list_devices",
-			"options": {
-				"singular": true
-			},
-			"navigation": {
-				"next": "add_device"
-			}
-		},
-		{
-			"id": "add_device",
-			"template": "add_devices"
-		}
-	],
-	"energy": {
-		"batteries": [
-			"INTERNAL"
-		]
-	}
+    {
+      "id": "step2",
+      "navigation": {
+        "prev": "start"
+      }
+    },
+    {
+      "id": "getPolestar"
+    },
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "options": {
+        "singular": true
+      },
+      "navigation": {
+        "next": "add_device"
+      }
+    },
+    {
+      "id": "add_device",
+      "template": "add_devices"
+    }
+  ],
+  "energy": {
+    "batteries": [
+      "INTERNAL"
+    ]
+  }
 }

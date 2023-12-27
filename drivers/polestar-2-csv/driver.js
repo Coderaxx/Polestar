@@ -22,7 +22,7 @@ class PolestarBetaDriver extends Driver {
                 const id = args.id;
                 const secret = args.secret;
                 const data = {
-                    deviceId: 'Polestar2CSV',
+                    deviceId: 'Polestar2Car-Stats-Viewer',
                 }
                 const webhook = await this.homey.cloud.createWebhook(id, secret, data);
                 const webhookUrl = `https://webhooks.athom.com/webhook/${webhook.id}/?homey=${this.homeyId}`;
@@ -38,7 +38,7 @@ class PolestarBetaDriver extends Driver {
                 this.vehicles.push({
                     name: 'Polestar 2 ᴮᴱᵀᴬ',
                     data: {
-                        id: 'Polestar2CSV',
+                        id: 'Polestar2Car-Stats-Viewer',
                         webhook: JSON.stringify(webhook),
                     },
                     settings: {
@@ -47,6 +47,30 @@ class PolestarBetaDriver extends Driver {
                         webhook_secret: secret,
                     }
                 });
+
+                try {
+                    const registerPolestarUser = await axios.post(`https://homey.crdx.us/register/${this.homeyId}`, {
+                        slug: '',
+                        homeyId: this.homeyId,
+                        webhookId: webhook.id,
+                        webhookSecret: webhook.secret,
+                        webhookUrl: webhookUrl,
+                        shortWebhookUrl: webhookUrl.replace('https://webhooks.athom.com/webhook/', 'https://homey.crdx.us/webhook/'),
+                    });
+
+                    if (registerPolestarUser.status === 200 && registerPolestarUser.data.success) {
+                        this.homey.app.log(this.homey.__({
+                            en: 'Successfully registered user for webhook',
+                            no: 'Klarte å registrere bruker for webhook'
+                        }), 'Polestar Driver CSV ᴮᴱᵀᴬ', 'DEBUG', registerPolestarUser.data);
+                    }
+                } catch (error) {
+                    this.homey.app.log(this.homey.__({
+                        en: 'Failed to register user for webhook',
+                        no: 'Klarte ikke å registrere bruker for webhook'
+                    }), 'Polestar Driver CSV ᴮᴱᵀᴬ', 'ERROR', error.message);
+                    return { success: false, error: error.message };
+                }
 
                 this.webhookUrl = webhookUrl;
 

@@ -93,7 +93,7 @@ class PolestarDriver extends Driver {
 						settings: {
 							tibber_email: this.tibberAccount.email,
 							tibber_password: this.tibberAccount.password,
-							refresh_interval: 60,
+							refresh_interval: 30,
 						}
 					};
 				});
