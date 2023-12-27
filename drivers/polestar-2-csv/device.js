@@ -91,8 +91,6 @@ class PolestarBetaDevice extends Device {
                         this.image.setUrl(`https://homey.crdx.us/tripSummary/${Buffer.from(this.homeyId).toString('base64')}`);
 
                         await this.image.update();
-                        //console.log('Updated image with driving data', data);
-                        //await this.setCameraImage('polestarTrip', 'Din siste tur', this.image);
                         await this.driver._tripEndedFlow.trigger(this, { lastTrip: this.image });
                     }
                 }
