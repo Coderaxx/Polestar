@@ -26,6 +26,7 @@ class PolestarBetaDevice extends Device {
         this.previousLon = null;
         this.threshold = 10; // Threshold in meters for distance updates
         this.image = await this.homey.images.createImage();
+        await this.setCameraImage('polestarTrip', 'Din siste tur', this.image);
         this.webhook = null;
 
         await this.initWebhook();
@@ -47,7 +48,6 @@ class PolestarBetaDevice extends Device {
         const updateImage = async () => {
             this.image.setUrl(`https://homey.crdx.us/tripSummary/${Buffer.from(this.homeyId).toString('base64')}?mapType=${this.settings.mapImageType}`);
             await this.image.update();
-            await this.setCameraImage('polestarTrip', 'Din siste tur', this.image);
 
             this.homey.app.log(this.homey.__({
                 en: 'Updated image for ' + this.name,
