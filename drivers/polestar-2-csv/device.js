@@ -28,6 +28,8 @@ class PolestarBetaDevice extends Device {
         this.image = await this.homey.images.createImage();
         this.webhook = null;
 
+        await this.initWebhook();
+
         await this.updateLastUpdated();
         this.updatedInterval = this.homey.setInterval(async () => {
             await this.updateLastUpdated();
@@ -41,12 +43,26 @@ class PolestarBetaDevice extends Device {
 
     async initWebhook() {
         let drivingData = [];
+
+        const updateImage = async () => {
+            this.image.setUrl(`https://homey.crdx.us/tripSummary/${Buffer.from(this.homeyId).toString('base64')}?mapType=${this.settings.mapImageType}`);
+            await this.image.update();
+            await this.setCameraImage('polestarTrip', 'Din siste tur', this.image);
+
+            this.homey.app.log(this.homey.__({
+                en: 'Updated image for ' + this.name,
+                no: 'Oppdaterte bilde for ' + this.name
+            }), this.name, 'DEBUG');
+        }
+
+        await updateImage();
+
         const id = this.settings.webhook_id || null;
         const secret = this.settings.webhook_secret || null;
         const data = {};
         this.webhook = await this.homey.cloud.createWebhook(id, secret, data);
 
-        webhook.on('message', async args => {
+        this.webhook.on('message', async args => {
             const fields = ['ambientTemperature', 'batteryLevel', 'chargePortConnected', 'ignitionState', 'power', 'selectedGear', 'speed', 'stateOfCharge'];
             const isDataMissing = fields.some(field => args.body[field] === undefined || args.body[field] === null);
             const hasFields = ['drivingPoints'];
