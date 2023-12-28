@@ -346,7 +346,7 @@ class PolestarBetaDevice extends Device {
                 this.homey.app.log(this.homey.__({
                     en: 'Data has been deleted successfully',
                     no: 'Sletting av data i databasen var vellykket'
-                }), this.name, 'DEBUG', response.data.message);
+                }), this.name, 'DEBUG');
             }
 
             return this.homey.app.log(this.homey.__({
