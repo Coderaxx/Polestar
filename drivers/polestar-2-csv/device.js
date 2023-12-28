@@ -332,12 +332,34 @@ class PolestarBetaDevice extends Device {
         if (this.updatedInterval) {
             this.homey.clearInterval(this.updatedInterval);
         }
-        this.homey.app.log(this.homey.__({
-            en: this.name + ' has been deleted',
-            no: this.name + ' har blitt slettet'
-        }), this.name, 'DEBUG');
-    }
 
+        await this.homey.cloud.unregisterWebhook(this.webhook);
+
+        try {
+            const response = await axios.delete(`${this.apiUrl}/delete/${this.homeyId}`);
+            if (response.status !== 200) {
+                return this.homey.app.log(this.homey.__({
+                    en: 'Failed to delete data',
+                    no: 'Kunne ikke slette data'
+                }), this.name, 'ERROR');
+            } else {
+                this.homey.app.log(this.homey.__({
+                    en: 'Data has been deleted successfully',
+                    no: 'Sletting av data i databasen var vellykket'
+                }), this.name, 'DEBUG', response.data.message);
+            }
+
+            return this.homey.app.log(this.homey.__({
+                en: this.name + ' has been deleted',
+                no: this.name + ' har blitt slettet'
+            }), this.name, 'DEBUG');
+        } catch (error) {
+            this.homey.app.log(this.homey.__({
+                en: this.name + ' has been deleted, but failed to delete data in database',
+                no: this.name + ' har blitt slettet, men feilet med å slette data i databasen'
+            }), this.name, 'ERROR', error.message);
+        }
+    }
 }
 
 module.exports = PolestarBetaDevice;
