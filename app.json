@@ -265,6 +265,35 @@
           },
           "children": [
             {
+              "id": "tripSummaryStyle",
+              "type": "dropdown",
+              "value": "light",
+              "label": {
+                "en": "Trip summary style",
+                "no": "Turoppsummeringens stil"
+              },
+              "hint": {
+                "en": "This changes the style of the trip summary. (Optional)",
+                "no": "Dette endrer stilen til turoppsummeringen. (Valgfritt)"
+              },
+              "values": [
+                {
+                  "id": "light",
+                  "label": {
+                    "en": "Light",
+                    "no": "Lys"
+                  }
+                },
+                {
+                  "id": "dark",
+                  "label": {
+                    "en": "Dark",
+                    "no": "Mørk"
+                  }
+                }
+              ]
+            },
+            {
               "id": "mapImageType",
               "type": "dropdown",
               "value": "mapboxOutdoors",
@@ -334,8 +363,8 @@
               "id": "polestar_webhook",
               "type": "text",
               "hint": {
-                "en": "Do not change unless instructed by developer, or if you changed the webhook.",
-                "no": "Ikke endre med mindre du har fått beskjed om det av utvikler, eller hvis du har endret webhooken."
+                "en": "Do not change unless instructed by developer, or if you changed the webhook. This setting has no function, and is only for information.",
+                "no": "Ikke endre med mindre du har fått beskjed om det av utvikler, eller hvis du har endret webhooken. Denne innstillingen har ingen funksjon, og er kun til informasjon."
               },
               "label": {
                 "en": "Webhook URL",
@@ -346,8 +375,8 @@
               "id": "webhook_id",
               "type": "text",
               "hint": {
-                "en": "Do not change unless instructed by developer.",
-                "no": "Ikke endre med mindre du har ått beskjed om det av utvikler."
+                "en": "Do not change unless instructed by developer. This setting has no function, and is only for information.",
+                "no": "Ikke endre med mindre du har ått beskjed om det av utvikler. Dette er ikke en funksjon, og er kun til informasjon."
               },
               "label": {
                 "en": "Webhook ID",
@@ -358,8 +387,8 @@
               "id": "webhook_secret",
               "type": "text",
               "hint": {
-                "en": "Do not change unless instructed by developer.",
-                "no": "Ikke endre med mindre du har ått beskjed om det av utvikler."
+                "en": "Do not change unless instructed by developer. This setting has no function, and is only for information.",
+                "no": "Ikke endre med mindre du har ått beskjed om det av utvikler. Dette er ikke en funksjon, og er kun til informasjon."
               },
               "label": {
                 "en": "Webhook secret",

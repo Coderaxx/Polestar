@@ -5,9 +5,11 @@ const moment = require('moment');
 const axios = require('axios');
 const geolib = require('geolib');
 const zlib = require('zlib');
+const Homey = require('homey');
 
 class PolestarBetaDevice extends Device {
     async onInit() {
+        this.debug = true;
         this.name = this.getName();
 
         this.homey.app.log(this.homey.__({
@@ -28,6 +30,11 @@ class PolestarBetaDevice extends Device {
         this.image = await this.homey.images.createImage();
         await this.setCameraImage('polestarTrip', 'Din siste tur', this.image);
         this.webhook = null;
+        this.apiUrl = this.debug ? Homey.env.API_URL_LOCAL : Homey.env.API_URL;
+        this.debug ? this.homey.app.log(this.homey.__({
+            en: 'App is in debug mode. API URL: ' + this.apiUrl,
+            no: 'Appen er i debug modus. API URL: ' + this.apiUrl
+        }), this.name, 'DEBUG') : null;
 
         await this.initWebhook();
 
@@ -46,7 +53,7 @@ class PolestarBetaDevice extends Device {
         let drivingData = [];
 
         const updateImage = async () => {
-            this.image.setUrl(`https://homey.crdx.us/tripSummary/${Buffer.from(this.homeyId).toString('base64')}?mapType=${this.settings.mapImageType}`);
+            this.image.setUrl(`${this.apiUrl}/tripSummary/${Buffer.from(this.homeyId).toString('base64')}?mapType=${this.settings.mapImageType}&theme=${this.settings.tripSummaryStyle}`);
             await this.image.update();
 
             this.homey.app.log(this.homey.__({
@@ -93,7 +100,7 @@ class PolestarBetaDevice extends Device {
                                 throw new Error('homeyId er ikke satt');
                             }
 
-                            const response = await axios.post(`https://homey.crdx.us/save/${this.homeyId}`, drivingData, { headers: { 'Content-Type': 'application/json' } });
+                            const response = await axios.post(`${this.apiUrl}/save/${this.homeyId}`, drivingData, { headers: { 'Content-Type': 'application/json' } });
                             if (response.status !== 200) {
                                 return this.homey.app.log(this.homey.__({
                                     en: 'Failed to save data',
@@ -113,7 +120,7 @@ class PolestarBetaDevice extends Device {
                         }
 
                         drivingData = [];
-                        this.image.setUrl(`https://homey.crdx.us/tripSummary/${Buffer.from(this.homeyId).toString('base64')}?mapType=${this.settings.mapImageType}`);
+                        this.image.setUrl(`${this.apiUrl}/tripSummary/${Buffer.from(this.homeyId).toString('base64')}?mapType=${this.settings.mapImageType}`);
 
                         await this.image.update();
                         await this.driver._tripEndedFlow.trigger(this, { lastTrip: this.image });
@@ -273,7 +280,6 @@ class PolestarBetaDevice extends Device {
             return this.previousAddress;
         }
 
-        //const url = `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&apiKey=398de38932c248a8b8e0544c79fc3f1c`;
         const url = `https://nominatim.openstreetmap.org/reverse.php?lat=${lat}&lon=${lon}&zoom=18&format=jsonv2`;
         const response = await axios.get(url);
         if (response.data && response.data.address) {
