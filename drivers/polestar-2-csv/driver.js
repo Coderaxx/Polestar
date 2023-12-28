@@ -43,6 +43,8 @@ class PolestarBetaDriver extends Driver {
                     },
                     settings: {
                         polestar_webhook: webhookUrl,
+                        webhook_url_short: args.url_short,
+                        webhook_slug: args.slug,
                         webhook_id: id,
                         webhook_secret: secret,
                     }
@@ -50,12 +52,12 @@ class PolestarBetaDriver extends Driver {
 
                 try {
                     const registerPolestarUser = await axios.post(`https://homey.crdx.us/register/${this.homeyId}`, {
-                        slug: '',
+                        slug: args.slug,
                         homeyId: this.homeyId,
                         webhookId: webhook.id,
                         webhookSecret: webhook.secret,
                         webhookUrl: webhookUrl,
-                        shortWebhookUrl: webhookUrl.replace('https://webhooks.athom.com/webhook/', 'https://homey.crdx.us/webhook/'),
+                        shortWebhookUrl: args.url_short,
                     });
 
                     if (registerPolestarUser.status === 200 && registerPolestarUser.data.success) {

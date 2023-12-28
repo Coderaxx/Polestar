@@ -1,64 +1,85 @@
 <form class="homey-form" id="loginForm">
-    <fieldset class="homey-form-fieldset">
-        <h2><b style="color: red;" id="importantText">Viktig:</b>
-            <span id="headerText"> Før du kan legge til denne enheten:</span>
-        </h2>
-        <p id="infoText">Sørg for at "Car Stats Viewer"-appen er installert på din Polestar 2 for å bruke denne enheten.
-            Denne appen er ikke tilgjengelig i Google Play Store for Polestar, grunnet strenge regler i Android
-            Automotive OS.</p>
-        <p id="infoText2">For å laste ned appen, kan du bruke vår "internal test track". For å få tilgang, send en
-            e-post med forespørsel til <a href="#" onclick="openEmail(event)">polestar@coderax.dev</a>. Inkluder din
-            Google Play Store e-postadresse. Når du har
-            fått bekreftet at du er lagt inn i "internal test track", klikk
-            <a href="#" onclick="openGooglePlay(event)"> her</a> for bli med i test track.
-        </p>
-        <p id="infoText3">Etter at du har fått tilgang til appen, kan du installere den på din Polestar 2 gjennom Google
-            Play Store. Les mer om installasjonsprosessen <a href="#" onclick="openInstallGuide(event)">her</a>.
-        </p>
-        <p><b style="color: red;" id="markText">Merk:</b>
-            <span id="infoText4"> "Internal test track" har begrenset plass til 100
-                testere. Hvis den er full, vent på at en ny testplass blir tilgjengelig.</span>
-        </p>
-    </fieldset>
+  <fieldset class="homey-form-fieldset">
+    <div class="homey-form-group">
+      <h1>
+        <b><span id="headerTitleInfo">VIKTIG! Dette er en avansert enhet!</span></b>
+      </h1>
+    </div>
+    <h2><b style="color: red;" id="importantText">Viktig:</b>
+      <span id="headerText"> Før du kan legge til denne enheten:</span>
+    </h2>
+    <p id="infoText">Sørg for at "Car Stats Viewer"-appen er installert på din Polestar 2 for å bruke denne enheten.
+      Denne appen er ikke tilgjengelig i Google Play Store for Polestar, grunnet strenge regler i Android
+      Automotive OS.</p>
+    <p id="infoText2">For å laste ned appen, kan du bruke vår "internal test track". For å få tilgang, send en
+      e-post med forespørsel til <a href="#" onclick="openEmail(event)">polestar@coderax.dev</a>. Inkluder din
+      Google Play Store e-postadresse. Når du har
+      fått bekreftet at du er lagt inn i "internal test track", klikk
+      <a href="#" onclick="openGooglePlay(event)"> her</a> for bli med i test track.
+    </p>
+    <p id="infoText3">Etter at du har fått tilgang til appen, kan du installere den på din Polestar 2 gjennom Google
+      Play Store. Les mer om installasjonsprosessen <a href="#" onclick="openInstallGuide(event)">her</a>.
+    </p>
+    <p><b style="color: red;" id="markText">Merk:</b>
+      <span id="infoText4"> "Internal test track" har begrenset plass til 100
+        testere. Hvis den er full, vent på at en ny testplass blir tilgjengelig.</span>
+    </p>
+  </fieldset>
 </form>
 <script type="application/javascript">
-    Homey.setTitle(Homey.__("Polestar 2 - Car Stats Viewer (ᴮᴱᵀᴬ)"));
-    $(document).ready(function () {
-        $('#headerText').text(Homey.__({ en: 'Before you can add this device:', no: 'Før du kan legge til denne enheten:' }));
-        $('#importantText').text(Homey.__({ en: 'Important:', no: 'Viktig:' }));
-        $('#markText').text(Homey.__({ en: 'Note:', no: 'Merk:' }));
-        $('#infoText').text(Homey.__({
-            en: 'Ensure the "Car Stats Viewer" app is installed on your Polestar 2 to use this device. This app is not available on the Google Play Store for Polestar due to strict rules in Android Automotive OS.',
-            no: 'Sørg for at "Car Stats Viewer"-appen er installert på din Polestar 2 for å bruke denne enheten. Denne appen er ikke tilgjengelig i Google Play Store for Polestar, grunnet strenge regler i Android Automotive OS.'
-        }));
-        $('#infoText2').html(Homey.__({
-            en: 'For downloading the app, you can use the "internal test track". For gaining access, send a request to <a href="#" onclick="openEmail(event)">polestar@coderax.dev</a>. Include your Google Play Store email address. When you have confirmed that you are added to the "internal test track", click <a href="#" onclick="openGooglePlay(event)"> here</a> to join the test track.',
-            no: 'For å laste ned appen, kan du bruke vår "internal test track". For å få tilgang, send en e-post med forespørsel til <a href="#" onclick="openEmail(event)">polestar@coderax.dev</a>. Inkluder din Google Play Store e-postadresse.Når du har fått bekreftet at du er lagt inn i "internal test track", klikk <a href="#" onclick="openGooglePlay(event)"> her</a> for bli med i test track.'
-        }));
-        $('#infoText3').html(Homey.__({
-            en: 'After gaining access to the app, you can install it on your Polestar 2 via the Google Play Store. Learn more about the installation process <a href="#" onclick="openInstallGuide(event)">here</a>.',
-            no: 'Etter at du har fått tilgang til appen, kan du installere den på din Polestar 2 gjennom Google Play Store. Les mer om installasjonsprosessen <a href="#" onclick="openInstallGuide(event)">her</a>.'
-        }));
-        $('#infoText4').html(Homey.__({
-            en: ' The "internal test track" has limited space for 100 testers. If full, wait for a new slot to become available.',
-            no: ' "Internal test track" har begrenset plass til 100 testere. Hvis den er full, vent på at en ny testplass blir tilgjengelig.'
-        }))
-        $('#continueButton').text(Homey.__({ en: 'Continue', no: 'Fortsett' }));
-    });
+  Homey.setTitle(Homey.__("Polestar 2 - Car Stats Viewer (ᴮᴱᵀᴬ)"));
+  $(document).ready(function() {
+    $('#headerTitleInfo').html(Homey.__({
+      en: '<span style="color:red">IMPORTANT!</span> This is an advanced device!<br />Follow the instructions below to set up this device correctly.',
+      no: '<span style="color:red">VIKTIG!</span> Dette er en avansert enhet!<br />Følg instruksjonene under for å sette opp enheten på riktig måte.'
+    }));
+    $('#headerText').text(Homey.__({
+      en: 'Before you can add this device:',
+      no: 'Før du kan legge til denne enheten:'
+    }));
+    $('#importantText').text(Homey.__({
+      en: 'Important:',
+      no: 'Viktig:'
+    }));
+    $('#markText').text(Homey.__({
+      en: 'Note:',
+      no: 'Merk:'
+    }));
+    $('#infoText').text(Homey.__({
+      en: 'Ensure the "Car Stats Viewer" app is installed on your Polestar 2 to use this device. This app is not available on the Google Play Store for Polestar due to strict rules in Android Automotive OS.',
+      no: 'Sørg for at "Car Stats Viewer"-appen er installert på din Polestar 2 for å bruke denne enheten. Denne appen er ikke tilgjengelig i Google Play Store for Polestar, grunnet strenge regler i Android Automotive OS.'
+    }));
+    $('#infoText2').html(Homey.__({
+      en: 'For downloading the app, you can use the "internal test track". For gaining access, send a request to <a href="#" onclick="openEmail(event)">polestar@coderax.dev</a>. Include your Google Play Store email address. When you have confirmed that you are added to the "internal test track", click <a href="#" onclick="openGooglePlay(event)"> here</a> to join the test track.',
+      no: 'For å laste ned appen, kan du bruke vår "internal test track". For å få tilgang, send en e-post med forespørsel til <a href="#" onclick="openEmail(event)">polestar@coderax.dev</a>. Inkluder din Google Play Store e-postadresse.Når du har fått bekreftet at du er lagt inn i "internal test track", klikk <a href="#" onclick="openGooglePlay(event)"> her</a> for bli med i test track.'
+    }));
+    $('#infoText3').html(Homey.__({
+      en: 'After gaining access to the app, you can install it on your Polestar 2 via the Google Play Store. Learn more about the installation process <a href="#" onclick="openInstallGuide(event)">here</a>.',
+      no: 'Etter at du har fått tilgang til appen, kan du installere den på din Polestar 2 gjennom Google Play Store. Les mer om installasjonsprosessen <a href="#" onclick="openInstallGuide(event)">her</a>.'
+    }));
+    $('#infoText4').html(Homey.__({
+      en: ' The "internal test track" has limited space for 100 testers. If full, wait for a new slot to become available.',
+      no: ' "Internal test track" har begrenset plass til 100 testere. Hvis den er full, vent på at en ny testplass blir tilgjengelig.'
+    }))
+    $('#continueButton').text(Homey.__({
+      en: 'Continue',
+      no: 'Fortsett'
+    }));
+  });
 
-    async function openEmail(e) {
-        e.preventDefault();
-        await Homey.popup(`mailto:polestar@coderax.dev?subject=Car%20Stats%20Viewer%20for%20Polestar%202%20Homey%20App&body=Hello!%0D%0A%0D%0AI%20would%20like%20to%20use%20the%20%22Car%20Stats%20Viewer%22%20app%20for%20my%20Polestar%202.%0D%0A%0D%0AMy%20Google%20Play%20Store%20email%20address%20is%3A%0D%0A%0D%0A`);
-    }
+  async function openEmail(e) {
+    e.preventDefault();
+    await Homey.popup(`mailto:polestar@coderax.dev?subject=Car%20Stats%20Viewer%20for%20Polestar%202%20Homey%20App&body=Hello!%0D%0A%0D%0AI%20would%20like%20to%20use%20the%20%22Car%20Stats%20Viewer%22%20app%20for%20my%20Polestar%202.%0D%0A%0D%0AMy%20Google%20Play%20Store%20email%20address%20is%3A%0D%0A%0D%0A`);
+  }
 
-    async function openGooglePlay(e) {
-        e.preventDefault();
-        await Homey.popup('https://play.google.com/apps/internaltest/4698289242746853179');
-    }
+  async function openGooglePlay(e) {
+    e.preventDefault();
+    await Homey.popup('https://play.google.com/apps/internaltest/4698289242746853179');
+  }
 
-    async function openInstallGuide(e) {
-        e.preventDefault();
-        await Homey.popup('https://android.gadgethacks.com/how-to/remotely-install-apps-onto-your-android-phone-0328936/');
-    }
+  async function openInstallGuide(e) {
+    e.preventDefault();
+    await Homey.popup('https://android.gadgethacks.com/how-to/remotely-install-apps-onto-your-android-phone-0328936/');
+  }
 </script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>

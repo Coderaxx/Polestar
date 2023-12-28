@@ -114,11 +114,35 @@
                 }
             },
             {
-                "id": "webhook_id",
+                "id": "webhook_url_short",
                 "type": "text",
                 "hint": {
                     "en": "Do not change unless instructed by developer. This setting has no function, and is only for information.",
-                    "no": "Ikke endre med mindre du har ått beskjed om det av utvikler. Dette er ikke en funksjon, og er kun til informasjon."
+                    "no": "Ikke endre med mindre du har fått beskjed om det av utvikler. Dette er ikke en funksjon, og er kun til informasjon."
+                },
+                "label": {
+                    "en": "Webhook URL (short)",
+                    "no": "Webhook URL (kort)"
+                }
+            },
+            {
+                "id": "webhook_slug",
+                "type": "text",
+                "hint": {
+                    "en": "Do not change unless instructed by developer. This setting has no function, and is only for information.",
+                    "no": "Ikke endre med mindre du har fått beskjed om det av utvikler. Dette er ikke en funksjon, og er kun til informasjon."
+                },
+                "label": {
+                    "en": "Webhook slug",
+                    "no": "Webhook slug"
+                }
+            },
+            {
+                "id": "webhook_id",
+                "type": "text",
+                "hint": {
+                    "en": "Do not change unless instructed by developer.",
+                    "no": "Ikke endre med mindre du har fått beskjed om det av utvikler."
                 },
                 "label": {
                     "en": "Webhook ID",
@@ -129,8 +153,8 @@
                 "id": "webhook_secret",
                 "type": "text",
                 "hint": {
-                    "en": "Do not change unless instructed by developer. This setting has no function, and is only for information.",
-                    "no": "Ikke endre med mindre du har ått beskjed om det av utvikler. Dette er ikke en funksjon, og er kun til informasjon."
+                    "en": "Do not change unless instructed by developer.",
+                    "no": "Ikke endre med mindre du har fått beskjed om det av utvikler."
                 },
                 "label": {
                     "en": "Webhook secret",
