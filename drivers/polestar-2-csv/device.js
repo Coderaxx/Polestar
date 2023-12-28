@@ -4,12 +4,9 @@ const { Device } = require('homey');
 const moment = require('moment');
 const axios = require('axios');
 const geolib = require('geolib');
-const zlib = require('zlib');
-const Homey = require('homey');
 
 class PolestarBetaDevice extends Device {
     async onInit() {
-        this.debug = true;
         this.name = this.getName();
 
         this.homey.app.log(this.homey.__({
@@ -30,11 +27,7 @@ class PolestarBetaDevice extends Device {
         this.image = await this.homey.images.createImage();
         await this.setCameraImage('polestarTrip', 'Din siste tur', this.image);
         this.webhook = null;
-        this.apiUrl = this.debug ? Homey.env.API_URL_LOCAL : Homey.env.API_URL;
-        this.debug ? this.homey.app.log(this.homey.__({
-            en: 'App is in debug mode. API URL: ' + this.apiUrl,
-            no: 'Appen er i debug modus. API URL: ' + this.apiUrl
-        }), this.name, 'DEBUG') : null;
+        this.apiUrl = 'https://homey.crdx.us';
 
         await this.initWebhook();
 
@@ -120,7 +113,7 @@ class PolestarBetaDevice extends Device {
                         }
 
                         drivingData = [];
-                        this.image.setUrl(`${this.apiUrl}/tripSummary/${Buffer.from(this.homeyId).toString('base64')}?mapType=${this.settings.mapImageType}`);
+                        this.image.setUrl(`${this.apiUrl}/tripSummary/${Buffer.from(this.homeyId).toString('base64')}?mapType=${this.settings.mapImageType}&theme=${this.settings.tripSummaryStyle}`);
 
                         await this.image.update();
                         await this.driver._tripEndedFlow.trigger(this, { lastTrip: this.image });
