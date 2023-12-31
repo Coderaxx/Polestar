@@ -37,5 +37,8 @@
   },
   "2.0.0": {
     "en": "Added a new driver for enhanced Polestar vehicle integration."
+  },
+  "2.0.1": {
+    "en": "Added theme toggle for trip info image"
   }
 }
