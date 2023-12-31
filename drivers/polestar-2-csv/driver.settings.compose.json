@@ -49,6 +49,35 @@
                 ]
             },
             {
+                "id": "tripInfoStyle",
+                "type": "dropdown",
+                "value": "light",
+                "label": {
+                    "en": "Trip info style",
+                    "no": "Turinfoens stil"
+                },
+                "hint": {
+                    "en": "This changes the style of the trip info. (Optional)",
+                    "no": " Dette endrer stilen til turinfoen. (Valgfritt)"
+                },
+                "values": [
+                    {
+                        "id": "light",
+                        "label": {
+                            "en": "Light",
+                            "no": "Lys"
+                        }
+                    },
+                    {
+                        "id": "dark",
+                        "label": {
+                            "en": "Dark",
+                            "no": "Mørk"
+                        }
+                    }
+                ]
+            },
+            {
                 "id": "mapImageType",
                 "type": "dropdown",
                 "value": "mapboxOutdoors",
