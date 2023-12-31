@@ -27,8 +27,12 @@ class PolestarBetaDevice extends Device {
         this.previousLon = null;
         this.threshold = 10; // Threshold in meters for distance updates
         if (this.settings.tripSummaryEnabled) {
-            this.image = await this.homey.images.createImage();
-            await this.setCameraImage('polestarTrip', 'Din siste tur', this.image);
+            this.tripSummaryImage = await this.homey.images.createImage();
+            this.tripInfoImage = await this.homey.images.createImage();
+            const lastTripString = this.homey.__({ "en": "Last trip", "no": "Din siste tur" });
+            const lastTripInfoString = this.homey.__({ "en": "Last trip info", "no": "Turinformasjon" });
+            await this.setCameraImage('polestarTrip', lastTripString, this.tripSummaryImage);
+            await this.setCameraImage('polestarTripInfo', lastTripInfoString, this.tripInfoImage);
         }
         this.webhook = null;
         this.apiUrl = 'https://homey.crdx.us';
@@ -50,8 +54,10 @@ class PolestarBetaDevice extends Device {
         let drivingData = [];
 
         const updateImage = async () => {
-            this.image.setUrl(`${this.apiUrl}/tripSummary/${Buffer.from(this.homeyId).toString('base64')}?mapType=${this.settings.mapImageType}&theme=${this.settings.tripSummaryStyle}`);
-            await this.image.update();
+            this.tripSummaryImage.setUrl(`${this.apiUrl}/tripSummary/${Buffer.from(this.homeyId).toString('base64')}?mapType=${this.settings.mapImageType}&theme=${this.settings.tripSummaryStyle}&lang=${this.locale}`);
+            this.tripInfoImage.setUrl(`${this.apiUrl}/tripInfo/${Buffer.from(this.homeyId).toString('base64')}?theme=${this.settings.tripSummaryStyle}&lang=${this.locale}`);
+            await this.tripSummaryImage.update();
+            await this.tripInfoImage.update();
 
             this.homey.app.log(this.homey.__({
                 en: 'Updated image for ' + this.name,
@@ -177,11 +183,13 @@ class PolestarBetaDevice extends Device {
                         };
 
                         drivingData = [];
-                        this.image.setUrl(`${this.apiUrl}/tripSummary/${Buffer.from(this.homeyId).toString('base64')}?mapType=${this.settings.mapImageType}&theme=${this.settings.tripSummaryStyle}`);
+                        this.tripSummaryImage.setUrl(`${this.apiUrl}/tripSummary/${Buffer.from(this.homeyId).toString('base64')}?mapType=${this.settings.mapImageType}&theme=${this.settings.tripSummaryStyle}&lang=${this.locale}`);
+                        this.tripInfoImage.setUrl(`${this.apiUrl}/tripInfo/${Buffer.from(this.homeyId).toString('base64')}?theme=${this.settings.tripSummaryStyle}&lang=${this.locale}`);
 
-                        await this.image.update();
+                        await this.tripSummaryImage.update();
+                        await this.tripInfoImage.update();
                         await this.driver._tripEndedFlow.trigger(this, {
-                            lastTrip: this.image,
+                            lastTrip: this.tripSummaryImage,
                             tripFrom: tripData.tripFrom,
                             tripTo: tripData.tripTo,
                             totalDistance: tripData.totalDistance,
@@ -245,7 +253,18 @@ class PolestarBetaDevice extends Device {
             if (lat && lon) {
                 const locationPromise = await this.reverseGeocode(lat, lon);
                 if (locationPromise) {
-                    location = locationPromise;
+                    const { road, house_number, postcode, city } = locationPromise;
+                    if (speed > 10) {
+                        // Vis kun vei og by for høyere hastigheter
+                        location = road ? `${road}` : '';
+                        location += city ? `, ${city}` : '';
+                    } else {
+                        // Vis full adresse for lavere hastigheter
+                        location = road ? `${road}` : '';
+                        location += house_number ? ` ${house_number}` : '';
+                        location += postcode ? `, ${postcode}` : '';
+                        location += city ? ` ${city}` : '';
+                    }
                 } else {
                     location = this.homey.__({ "en": "Unknown", "no": "Ukjent" });
                 }
@@ -254,22 +273,6 @@ class PolestarBetaDevice extends Device {
             }
             if (!alt) {
                 alt = this.homey.__({ "en": "Unknown", "no": "Ukjent" });
-            }
-
-            let address;
-            if (location) {
-                const { road, house_number, postcode, city } = location;
-                if (speed > 10) {
-                    // Vis kun vei og by for høyere hastigheter
-                    address = road ? `${road}` : '';
-                    address += city ? `, ${city}` : '';
-                } else {
-                    // Vis full adresse for lavere hastigheter
-                    address = road ? `${road}` : '';
-                    address += house_number ? ` ${house_number}` : '';
-                    address += postcode ? `, ${postcode}` : '';
-                    address += city ? ` ${city}` : '';
-                }
             }
 
             switch (ignitionState) {
