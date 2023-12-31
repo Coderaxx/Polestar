@@ -1,21 +1,26 @@
 Hello, Polestar Owner! 🚗✨
 
-Welcome to the Polestar app for Homey! This nifty little helper connects your sleek electric car to your smart home. 🏠🔌
+Welcome to the upgraded Polestar app for Homey, your gateway to a smarter driving experience. This nifty helper not only connects your sleek electric car to your smart home but now brings an array of new features to your fingertips. 🏠🔌
 
+Drive Smart, Live Smarter! ⚡️
 
-Drive smart, charge smarter! ⚡️
+What’s New in the Latest Update:
 
-With the Polestar app, you can:
+Direct Connection with Homey: Introducing the "Car Stats Viewer" feature, connecting your Polestar with Homey like never before. 🚀
+Exclusive Access: A special 'internal test track' for the first 100 users to experience the latest advancements. 🏁
+Classic Features Enhanced:
 
-- Check the battery level of your Polestar – always ready for the next journey! 🔋
-- Monitor charging status – more time for coffee while your car charges. ☕️
-- See estimated range – for spontaneous adventures or meticulously planned trips. 🌍
-- Get updates on your car’s status – because your Polestar is part of the family. ❤️
+Battery Insights: Keep an eye on your Polestar's battery level – always be ready for what's next. 🔋
+Charging Status Monitoring: Enjoy that extra cup of coffee while your car charges efficiently. ☕️
+Range Estimation: Perfect for both spontaneous outings and well-planned journeys. 🌍
+Car’s Health Updates: Your Polestar isn't just a car; it's part of your life. ❤️
+Getting Started:
 
-All you need is a Tibber account, and voilà, you're ready to integrate your Polestar with Homey – no subscription required!
+Tibber Integration: No extra subscription needed. Just link your Tibber account for seamless integration.
+Webhook Magic: Set up a new webhook in Homey for enhanced communication with your car.
+Easy Installation: Just email polestar@coderax.dev with your Google Play details for access, install the app, and follow the setup guide. 📲
+Let’s Roll into the Future! 🎲
 
-Let's roll! 🎲
+Add the Polestar app to your Homey, follow the new setup instructions, and step into a world where your car and home exist in perfect harmony.
 
-Add the Polestar app to your Homey, enter your Tibber information, and enjoy a life where car and home live in perfect harmony.
-
-Thank you for choosing the Polestar app – where technology meets the road. Safe travels! 🛣️✨
+Thank you for choosing the Polestar app – where technology meets the road, and your smart home meets your smart ride. Safe and smart travels! 🛣️✨

@@ -67,8 +67,8 @@
   "drivers": [
     {
       "name": {
-        "en": "Polestar 2 via Tibber",
-        "no": "Polestar 2 via Tibber"
+        "en": "Polestar 2 (Tibber)",
+        "no": "Polestar 2 (Tibber)"
       },
       "class": "sensor",
       "capabilities": [
@@ -199,8 +199,8 @@
     },
     {
       "name": {
-        "en": "Polestar 2 via Car Stats Viewer ᴮᴱᵀᴬ",
-        "no": "Polestar 2 via Car Stats Viewer ᴮᴱᵀᴬ"
+        "en": "Polestar 2 (Car Stats Viewer ᴮᴱᵀᴬ)",
+        "no": "Polestar 2 (Car Stats Viewer ᴮᴱᵀᴬ)"
       },
       "class": "sensor",
       "capabilities": [

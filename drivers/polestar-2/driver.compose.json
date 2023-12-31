@@ -1,7 +1,7 @@
 {
   "name": {
-    "en": "Polestar 2 via Tibber",
-    "no": "Polestar 2 via Tibber"
+    "en": "Polestar 2 (Tibber)",
+    "no": "Polestar 2 (Tibber)"
   },
   "class": "sensor",
   "capabilities": [
