@@ -15,17 +15,21 @@ class PolestarBetaDevice extends Device {
         }), this.name, 'DEBUG');
 
         moment.locale(this.homey.i18n.getLanguage() == 'no' ? 'nb' : 'en');
+        this.locale = this.homey.i18n.getLanguage() == 'no' ? 'nb' : 'en';
 
         this.homeyId = await this.homey.cloud.getHomeyId();
         this.settings = await this.getSettings();
+        this.tripSummaryEnabled = this.settings.tripSummaryEnabled || false;
         this.vehicleId = this.getData().id;
         this.vehicleData = null;
         this.updatedInterval = null;
         this.previousLat = null;
         this.previousLon = null;
         this.threshold = 10; // Threshold in meters for distance updates
-        this.image = await this.homey.images.createImage();
-        await this.setCameraImage('polestarTrip', 'Din siste tur', this.image);
+        if (this.settings.tripSummaryEnabled) {
+            this.image = await this.homey.images.createImage();
+            await this.setCameraImage('polestarTrip', 'Din siste tur', this.image);
+        }
         this.webhook = null;
         this.apiUrl = 'https://homey.crdx.us';
 
@@ -55,7 +59,9 @@ class PolestarBetaDevice extends Device {
             }), this.name, 'DEBUG');
         }
 
-        await updateImage();
+        if (this.tripSummaryEnabled) {
+            await updateImage();
+        }
 
         const id = this.settings.webhook_id || null;
         const secret = this.settings.webhook_secret || null;
@@ -83,7 +89,7 @@ class PolestarBetaDevice extends Device {
                     no: 'Mottok webhook data med turdata for ' + this.name
                 }), this.name, 'DEBUG', args.body);
 
-                if (args.body.drivingPoints) {
+                if (args.body.drivingPoints && this.tripSummaryEnabled) {
                     drivingData = [...drivingData, ...args.body.drivingPoints];
 
                     const isTripEnded = args.body.drivingPoints.some(point => point.point_marker_type === 2);
@@ -112,11 +118,83 @@ class PolestarBetaDevice extends Device {
                             }), this.name, 'ERROR', error.message);
                         }
 
+                        const from = await this.reverseGeocode(data.drivingPoints[0].lat, data.drivingPoints[0].lon);
+                        const to = await this.reverseGeocode(data.drivingPoints[data.drivingPoints.length - 1].lat, data.drivingPoints[data.drivingPoints.length - 1].lon);
+                        let addressFrom;
+                        let addressTo;
+                        if (from) {
+                            addressFrom = from.road ? `${from.road}` : '';
+                            addressFrom += from.house_number ? ` ${from.house_number}` : '';
+                            addressFrom += from.postcode ? `, ${from.postcode}` : '';
+                            addressFrom += from.suburb ? ` ${from.suburb}` : `${from.municipality ? ` ${from.municipality}` : ''}`;
+                        }
+                        if (to) {
+                            addressTo = to.road ? `${to.road}` : '';
+                            addressTo += to.house_number ? ` ${to.house_number}` : '';
+                            addressTo += to.postcode ? `, ${to.postcode}` : '';
+                            addressTo += to.suburb ? ` ${to.suburb}` : `${to.municipality ? ` ${to.municipality}` : ''}`;
+                        }
+
+                        let totalDistance = data.drivingPoints.reduce((acc, point) => acc + point.distance_delta, 0);
+                        if (totalDistance > 1000) {
+                            totalDistance /= 1000;
+                            totalDistance = totalDistance.toFixed(1) + ' km';
+                        } else {
+                            totalDistance = totalDistance.toFixed(0) + ' m';
+                        }
+
+                        const drivingPointStart = new Date(data.drivingPoints[0].driving_point_epoch_time);
+                        const drivingPointEnd = new Date(data.drivingPoints[data.drivingPoints.length - 1].driving_point_epoch_time);
+                        const dateStringStart = drivingPointStart.toLocaleString(this.locale, { timeZone: 'Europe/Oslo', year: 'numeric', month: '2-digit', day: '2-digit' });
+                        const dateStringEnd = drivingPointEnd.toLocaleString(this.locale, { timeZone: 'Europe/Oslo', year: 'numeric', month: '2-digit', day: '2-digit' });
+                        let dateString;
+                        if (dateStringStart === dateStringEnd) {
+                            dateString = `${dateStringStart}`;
+                        } else {
+                            dateString = `${dateStringStart} - ${dateStringEnd}`;
+                        }
+
+                        let totalEnergy = data.drivingPoints.reduce((acc, point) => acc + point.energy_delta, 0);
+                        let energyUnit = 'Wh';
+                        if (totalEnergy > 1000) {
+                            totalEnergy /= 1000; // Wh -> kWh
+                            energyUnit = 'kWh';
+                        }
+
+                        const tripData = {
+                            tripFrom: addressFrom,
+                            tripTo: addressTo,
+                            totalDistance: totalDistance,
+                            dateString: dateString,
+                            timeStringStart: drivingPointStart.toLocaleString(locale, { timeZone: 'Europe/Oslo', hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+                            timeStringEnd: drivingPointEnd.toLocaleString(locale, { timeZone: 'Europe/Oslo', hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+                            tripDuration: moment.duration(data.drivingPoints[0].driving_point_epoch_time - data.drivingPoints[data.drivingPoints.length - 1].driving_point_epoch_time).humanize(),
+                            socStart: data.drivingPoints[0].state_of_charge * 100,
+                            socEnd: data.drivingPoints[data.drivingPoints.length - 1].state_of_charge * 100,
+                            energyUsed: `${totalEnergy.toFixed(2)} ${energyUnit}`,
+                            altStart: data.drivingPoints[0].alt.toFixed(2),
+                            altEnd: data.drivingPoints[data.drivingPoints.length - 1].alt.toFixed(2),
+                        };
+
                         drivingData = [];
                         this.image.setUrl(`${this.apiUrl}/tripSummary/${Buffer.from(this.homeyId).toString('base64')}?mapType=${this.settings.mapImageType}&theme=${this.settings.tripSummaryStyle}`);
 
                         await this.image.update();
-                        await this.driver._tripEndedFlow.trigger(this, { lastTrip: this.image });
+                        await this.driver._tripEndedFlow.trigger(this, {
+                            lastTrip: this.image,
+                            tripFrom: tripData.tripFrom,
+                            tripTo: tripData.tripTo,
+                            totalDistance: tripData.totalDistance,
+                            dateString: tripData.dateString,
+                            timeStringStart: tripData.timeStringStart,
+                            timeStringEnd: tripData.timeStringEnd,
+                            tripDuration: tripData.tripDuration,
+                            socStart: tripData.socStart,
+                            socEnd: tripData.socEnd,
+                            energyUsed: tripData.energyUsed,
+                            altStart: tripData.altStart,
+                            altEnd: tripData.altEnd,
+                        });
                     }
                 }
             }
@@ -312,6 +390,23 @@ class PolestarBetaDevice extends Device {
     }
 
     async onSettings({ oldSettings, newSettings, changedKeys }) {
+        if (changedKeys.includes('polestar_webhook')) {
+            if (oldSettings.polestar_webhook !== newSettings.polestar_webhook) {
+                await this.setSettings({ polestar_webhook: oldSettings.polestar_webhook });
+                this.homey.app.log(this.homey.__({
+                    en: 'polestar_webhook was attempted to change. This is not allowed, and will be ignored. No changes have been made.',
+                    no: 'polestar_webhook ble forsøkt endret. Dette er ikke tillatt. ingen endringer har blitt utført.'
+                }), this.name, 'ERROR');
+            }
+        } else if (changedKeys.includes('webhook_url_short')) {
+            if (oldSettings.webhook_url_short !== newSettings.webhook_url_short) {
+                await this.setSettings({ webhook_url_short: oldSettings.webhook_url_short });
+                this.homey.app.log(this.homey.__({
+                    en: 'webhook_url_short was attempted to change. This is not allowed, and will be ignored. No changes have been made.',
+                    no: 'webhook_url_short ble forsøkt endret. Dette er ikke tillatt. ingen endringer har blitt utført.'
+                }), this.name, 'ERROR');
+            }
+        }
         this.settings = newSettings;
         await this.homey.cloud.unregisterWebhook(this.webhook);
         await this.initWebhook();

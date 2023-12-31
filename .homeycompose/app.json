@@ -7,11 +7,12 @@
     "local"
   ],
   "name": {
-    "en": "Polestar"
+    "en": "Polestar",
+    "no": "Polestar"
   },
   "description": {
-    "en": "Where Polestar and Homey connects in harmony",
-    "no": "Hvor Polestar og Homey kobler sammen i harmoni"
+    "en": "Enjoy the road with Polestar and Homey – smart technology for smart drivers",
+    "no": "Nyt veien med Polestar og Homey – smart teknologi for smarte sjåfører"
   },
   "category": "internet",
   "permissions": [],
@@ -38,6 +39,17 @@
   },
   "tags": {
     "en": [
+      "polestar",
+      "pole",
+      "star",
+      "car",
+      "electric",
+      "electric car",
+      "ev",
+      "ev car",
+      "smart car"
+    ],
+    "no": [
       "polestar",
       "pole",
       "star",

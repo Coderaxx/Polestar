@@ -265,6 +265,19 @@
           },
           "children": [
             {
+              "id": "tripSummaryEnabled",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Enable trip summary",
+                "no": "Aktiver turoppsummering"
+              },
+              "hint": {
+                "en": "Enable or disable the trip summary. (Optional) NOTE: By enabling you accept that your trip data will be stored anonymously in the cloud. You can disable this at any time. By deleting the device, you will also permanently delete all your trip data.",
+                "no": "Aktiver eller deaktiver turoppsummeringen. (Valgfritt) MERK: Ved å aktivere godtar du at turoppsummeringen lagres anonymt i skyen. Du kan deaktivere dette når som helst. Ved å slette enheten vil du også slette all turoppsummeringsdata permanent."
+              }
+            },
+            {
               "id": "tripSummaryStyle",
               "type": "dropdown",
               "value": "light",
@@ -385,7 +398,7 @@
             },
             {
               "id": "webhook_slug",
-              "type": "text",
+              "type": "label",
               "hint": {
                 "en": "Do not change unless instructed by developer. This setting has no function, and is only for information.",
                 "no": "Ikke endre med mindre du har fått beskjed om det av utvikler. Dette er ikke en funksjon, og er kun til informasjon."
@@ -397,7 +410,7 @@
             },
             {
               "id": "webhook_id",
-              "type": "text",
+              "type": "label",
               "hint": {
                 "en": "Do not change unless instructed by developer.",
                 "no": "Ikke endre med mindre du har fått beskjed om det av utvikler."
@@ -409,7 +422,7 @@
             },
             {
               "id": "webhook_secret",
-              "type": "text",
+              "type": "label",
               "hint": {
                 "en": "Do not change unless instructed by developer.",
                 "no": "Ikke endre med mindre du har fått beskjed om det av utvikler."
@@ -443,6 +456,198 @@
             "example": {
               "en": "An image visualizing your last trip, combined with useful trip data",
               "no": "Et bilde som viser din siste reise, kombinert med nyttige reise-data"
+            }
+          },
+          {
+            "type": "string",
+            "name": "tripFrom",
+            "title": {
+              "en": "Trip From",
+              "no": "Reise fra"
+            },
+            "hint": {
+              "en": "Starting address of the trip.",
+              "no": "Startadressen for reisen."
+            },
+            "example": {
+              "en": "Storgata 1, Oslo",
+              "no": "Storgata 1, Oslo"
+            }
+          },
+          {
+            "type": "string",
+            "name": "tripTo",
+            "title": {
+              "en": "Trip To",
+              "no": "Reise til"
+            },
+            "hint": {
+              "en": "Destination address of the trip.",
+              "no": "Destinasjonsadressen for reisen."
+            },
+            "example": {
+              "en": "Karl Johans gate 1, Oslo",
+              "no": "Karl Johans gate 1, Oslo"
+            }
+          },
+          {
+            "type": "string",
+            "name": "totalDistance",
+            "title": {
+              "en": "Total Distance",
+              "no": "Total distanse"
+            },
+            "hint": {
+              "en": "The total distance covered during the trip.",
+              "no": "Total distanse tilbakelagt under reisen."
+            },
+            "example": {
+              "en": "2.5 km",
+              "no": "2.5 km"
+            }
+          },
+          {
+            "type": "string",
+            "name": "dateString",
+            "title": {
+              "en": "Date",
+              "no": "Dato"
+            },
+            "hint": {
+              "en": "Date of the trip.",
+              "no": "Datoen for reisen."
+            },
+            "example": {
+              "en": "31.12.2023",
+              "no": "31.12.2023"
+            }
+          },
+          {
+            "type": "string",
+            "name": "timeStringStart",
+            "title": {
+              "en": "Start Time",
+              "no": "Starttid"
+            },
+            "hint": {
+              "en": "Starting time of the trip.",
+              "no": "Starttiden for reisen."
+            },
+            "example": {
+              "en": "10:00",
+              "no": "10:00"
+            }
+          },
+          {
+            "type": "string",
+            "name": "timeStringEnd",
+            "title": {
+              "en": "End Time",
+              "no": "Sluttid"
+            },
+            "hint": {
+              "en": "Ending time of the trip.",
+              "no": "Sluttiden for reisen."
+            },
+            "example": {
+              "en": "10:30",
+              "no": "10:30"
+            }
+          },
+          {
+            "type": "string",
+            "name": "tripDuration",
+            "title": {
+              "en": "Trip Duration",
+              "no": "Reisens varighet"
+            },
+            "hint": {
+              "en": "The total duration of the trip.",
+              "no": "Total varighet av reisen."
+            },
+            "example": {
+              "en": "2.5 hours",
+              "no": "2.5 timer"
+            }
+          },
+          {
+            "type": "number",
+            "name": "socStart",
+            "title": {
+              "en": "Start State of Charge",
+              "no": "Starttilstand for lading"
+            },
+            "hint": {
+              "en": "Battery state of charge at the start of the trip.",
+              "no": "Batteriets ladetilstand ved starten av reisen."
+            },
+            "example": {
+              "en": "80",
+              "no": "80"
+            }
+          },
+          {
+            "type": "number",
+            "name": "socEnd",
+            "title": {
+              "en": "End State of Charge",
+              "no": "Slutttilstand for lading"
+            },
+            "hint": {
+              "en": "Battery state of charge at the end of the trip.",
+              "no": "Batteriets ladetilstand ved slutten av reisen."
+            },
+            "example": {
+              "en": "50",
+              "no": "50"
+            }
+          },
+          {
+            "type": "string",
+            "name": "energyUsed",
+            "title": {
+              "en": "Energy Used",
+              "no": "Energi brukt"
+            },
+            "hint": {
+              "en": "Total energy used during the trip.",
+              "no": "Totalt energiforbruk under reisen."
+            },
+            "example": {
+              "en": "12.41 kWh",
+              "no": "12.41 kWh"
+            }
+          },
+          {
+            "type": "string",
+            "name": "altStart",
+            "title": {
+              "en": "Start Altitude",
+              "no": "Start høyde"
+            },
+            "hint": {
+              "en": "Starting altitude of the trip.",
+              "no": "Start høyde for reisen."
+            },
+            "example": {
+              "en": "20 m",
+              "no": "20 m"
+            }
+          },
+          {
+            "type": "string",
+            "name": "altEnd",
+            "title": {
+              "en": "End Altitude",
+              "no": "Slutt høyde"
+            },
+            "hint": {
+              "en": "Ending altitude of the trip.",
+              "no": "Slutt høyde for reisen."
+            },
+            "example": {
+              "en": "40 m",
+              "no": "40 m"
             }
           }
         ],

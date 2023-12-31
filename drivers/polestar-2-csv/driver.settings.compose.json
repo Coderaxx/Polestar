@@ -7,6 +7,19 @@
         },
         "children": [
             {
+                "id": "tripSummaryEnabled",
+                "type": "checkbox",
+                "value": true,
+                "label": {
+                    "en": "Enable trip summary",
+                    "no": "Aktiver turoppsummering"
+                },
+                "hint": {
+                    "en": "Enable or disable the trip summary. (Optional) NOTE: By enabling you accept that your trip data will be stored anonymously in the cloud. You can disable this at any time. By deleting the device, you will also permanently delete all your trip data.",
+                    "no": "Aktiver eller deaktiver turoppsummeringen. (Valgfritt) MERK: Ved å aktivere godtar du at turoppsummeringen lagres anonymt i skyen. Du kan deaktivere dette når som helst. Ved å slette enheten vil du også slette all turoppsummeringsdata permanent."
+                }
+            },
+            {
                 "id": "tripSummaryStyle",
                 "type": "dropdown",
                 "value": "light",
@@ -127,7 +140,7 @@
             },
             {
                 "id": "webhook_slug",
-                "type": "text",
+                "type": "label",
                 "hint": {
                     "en": "Do not change unless instructed by developer. This setting has no function, and is only for information.",
                     "no": "Ikke endre med mindre du har fått beskjed om det av utvikler. Dette er ikke en funksjon, og er kun til informasjon."
@@ -139,7 +152,7 @@
             },
             {
                 "id": "webhook_id",
-                "type": "text",
+                "type": "label",
                 "hint": {
                     "en": "Do not change unless instructed by developer.",
                     "no": "Ikke endre med mindre du har fått beskjed om det av utvikler."
@@ -151,7 +164,7 @@
             },
             {
                 "id": "webhook_secret",
-                "type": "text",
+                "type": "label",
                 "hint": {
                     "en": "Do not change unless instructed by developer.",
                     "no": "Ikke endre med mindre du har fått beskjed om det av utvikler."
