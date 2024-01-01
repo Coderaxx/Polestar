@@ -40,5 +40,8 @@
   },
   "2.0.1": {
     "en": "Added theme toggle for trip info image"
+  },
+  "2.0.2": {
+    "en": "Fixed a minor typo bug in the new driver"
   }
 }
