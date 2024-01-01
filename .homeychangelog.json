@@ -46,5 +46,8 @@
   },
   "2.0.3": {
     "en": "Fixed a bug where the battery level could be read as above 100, which would result in errors"
+  },
+  "2.0.4": {
+    "en": "Fixed a small type bug"
   }
 }
