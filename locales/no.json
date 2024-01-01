@@ -46,5 +46,66 @@
             "fetchingCars": "Henter Polestar 2 fra Polestar-kontoen din...",
             "pairInfo": "Din Polestar-kontoinformasjon brukes kun for å koble din Polestar 2 til Homey. Dine påloggingsdata lagres kun lokalt på din Homey."
         }
+    },
+    "Polestar2CSV": {
+        "pair": {
+            "webhookSetup": {
+                "importantText": "Viktig:",
+                "headerText": "Før du kan legge til denne enheten:",
+                "infoText": {
+                    "step1": "Logg inn på Homey Dev Tools: Logg inn med din Homey-konto på Homey Dev Tools.",
+                    "step2": "Konfigurer din Webhook: Besøk Homey Dev Tools Webhooks for å se en oversikt og opprette nye Webhooks.",
+                    "step3": "Opprett Ny Webhook: Velg 'Ny Webhook' og følg instruksjonene for å fullføre oppsettet. Sørg for at all informasjon er korrekt.",
+                    "step4": "Kopier ID og Hemmelig Nøkkel: Du vil motta en unik ID og hemmelig nøkkel (Secret) etter opprettelsen. Disse er nødvendige for autentisering.",
+                    "importantRemember": "Viktig å Huske: All kommunikasjon via Webhooken er sikret og kryptert. Hold den hemmelige nøkkelen trygg. Sørg for at Webhookens URL er korrekt konfigurert i produsentens systemer."
+                },
+                "webhookIdLabel": "Webhook-ID",
+                "webhookSecretLabel": "Webhook-Secret",
+                "webhookUrlLabel": "Webhook-URL",
+                "webhookUrlInfo": "Dette er din standard webhook url. Om du ønsker å ha en kortere url, så kan du velge en slug under.",
+                "webhookSlugLabel": "Webhook-Slug (4-16 tegn)",
+                "webhookSlugInfo": "Webhook-slugen er en unik identifikator for webhooken. Du kan velge en hvilken som helst alfanumerisk streng (a-z, A-Z, 0-9) med en maksimal lengde på 16 tegn. Dette er valgfritt.",
+                "webhookUrlShortLabel": "Kort Webhook-URL",
+                "continueButton": "Fortsett",
+                "slugAvailable": "Denne slugen er tilgjengelig.",
+                "slugNotAvailable": "Denne slugen er ikke tilgjengelig.",
+                "webhookCreationError": "Kunne ikke opprette Webhook",
+                "webhookCreationSuccess": "Webhook opprettet vellykket"
+            }
+        },
+        "device": {
+            "initialized": "__name__ har blitt initialisert",
+            "intervalSet": "Intervall for __name__ har blitt satt",
+            "updatedImage": "Oppdaterte bilde for __name__",
+            "webhookDataReceived": "Mottok webhook data med kjøretøydata for __name__",
+            "webhookTripDataReceived": "Mottok webhook data med turdata for __name__",
+            "dataMissing": "Mottok webhook data med kjøretøydata for __name__ men mangler data.",
+            "failedToSaveData": "Kunne ikke lagre data for __name__",
+            "dataSaved": "Lagret data for __name__",
+            "usingPreviousAddress": "Bruker forrige adresse for __name__",
+            "usingNewAddress": "Bruker ny adresse for __name__",
+            "noDataAvailable": "Ingen data tilgjengelig for __name__",
+            "updatingDeviceData": "Oppdaterer enhetsdata for __name__",
+            "failedToUpdateDeviceData": "Klarte ikke å oppdatere enhetsdata for __name__",
+            "deviceDataUpdated": "Enhetsdata ble oppdatert vellykket for __name__",
+            "settingsUpdated": "Innstillingene har blitt oppdatert for __name__",
+            "renamedToDevice": "__oldName__ har blitt endret til __newName__",
+            "failedToDeleteData": "Kunne ikke slette data for __name__",
+            "dataDeletedSuccessfully": "Sletting av data i databasen var vellykket for __name__",
+            "deletedButFailedToDeleteData": "__name__ har blitt slettet, men feilet med å slette data i databasen",
+            "deleted": "__name__ har blitt slettet",
+            "webhookChangeNotAllowed": "Endring av webhook for __name__ er ikke tillatt. Ingen endringer har blitt utført.",
+            "unknown": "Ukjent",
+            "started": "Startet",
+            "on": "På",
+            "off": "Av",
+            "idle": "Klar",
+            "charging": "Lader",
+            "connected": "Tilkoblet",
+            "disconnected": "Frakoblet",
+            "added": "__name__ har blitt lagt til",
+            "lastTrip": "Din siste tur",
+            "lastTripInfo": "Turinformasjon"
+        }
     }
 }
