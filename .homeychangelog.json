@@ -43,5 +43,8 @@
   },
   "2.0.2": {
     "en": "Fixed a minor typo bug in the new driver"
+  },
+  "2.0.3": {
+    "en": "Fixed a bug where the battery level could be read as above 100, which would result in errors"
   }
 }
