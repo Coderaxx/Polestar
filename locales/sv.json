@@ -1,50 +1,49 @@
 {
-    "welcome_header": "",
     "Polestar2": {
         "pair": {
-            "title": "",
-            "email": "",
-            "password": "",
-            "loginButton": "",
-            "loginFailed": "",
-            "alertNoCarFound": "",
-            "fetchingCars": "",
-            "pairInfo": ""
+            "title": "Logga in på ditt Tibber-konto",
+            "email": "E-postadress",
+            "password": "Lösenord",
+            "loginButton": "Logga in",
+            "loginFailed": "Inloggningen misslyckades. Kontrollera din e-postadress och ditt lösenord och försök igen.",
+            "alertNoCarFound": "Ingen Polestar 2 hittades i ditt Tibber-konto.",
+            "fetchingCars": "Laddar ner Polestar 2 från ditt Tibber-konto...",
+            "pairInfo": "Din Tibber-kontoinformation används endast för att koppla din Polestar 2 till Homey. Dina inloggningsuppgifter lagras endast lokalt på din Homey."
         },
         "device": {
-            "isCharging": "",
-            "isNotCharging": "",
-            "unknownChargingState": ""
+            "isCharging": "Laddare",
+            "isNotCharging": "Laddar inte",
+            "unknownChargingState": "Okänd"
         },
         "settings": {
-            "title": "",
+            "title": "Inställningar",
             "tabs": {
-                "account": "",
-                "debug": ""
+                "account": "Konto",
+                "debug": "Felsökning"
             },
             "account": {
-                "title": "",
-                "email": "",
-                "password": "",
-                "saveBtn": ""
+                "title": "Kontoinställningar",
+                "email": "E-postadress",
+                "password": "Lösenord",
+                "saveBtn": "Spara"
             },
             "debug": {
-                "title": "",
-                "registered": "",
-                "severity": "",
-                "message": ""
+                "title": "Felsökningsloggar",
+                "registered": "Tidsstämpel",
+                "severity": "Allvarlighetsgrad",
+                "message": "Meddelande"
             }
         }
     },
     "Polestar2Beta": {
         "pair": {
-            "title": "",
-            "email": "",
-            "password": "",
-            "loginButton": "",
-            "loginFailed": "",
-            "alertNoCarFound": "",
-            "fetchingCars": "",
+            "title": "Logga in på ditt Polestar-konto",
+            "email": "E-postadress",
+            "password": "Lösenord",
+            "loginButton": "Logga in",
+            "loginFailed": "Inloggningen misslyckades. Kontrollera din e-postadress och ditt lösenord och försök igen.",
+            "alertNoCarFound": "Ingen Polestar 2 hittades i ditt Polestar-konto.",
+            "fetchingCars": "Hämtar Polestar 2 från ditt Polestar-konto...",
             "pairInfo": "Din Polestar-kontoinformation används endast för att koppla din Polestar 2 till Homey. Dina inloggningsuppgifter lagras endast lokalt på din Homey."
         }
     }
