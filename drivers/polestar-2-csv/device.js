@@ -275,7 +275,7 @@ class PolestarBetaDevice extends Device {
                 location = this.homey.__({ "en": "Unknown", "no": "Ukjent" });
             }
             if (!alt) {
-                alt = this.homey.__({ "en": "Unknown", "no": "Ukjent" });
+                alt = 0;
             }
 
             switch (ignitionState) {
