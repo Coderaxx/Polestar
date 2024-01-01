@@ -19,6 +19,7 @@ class PolestarBetaDevice extends Device {
 
         this.homeyId = await this.homey.cloud.getHomeyId();
         this.settings = await this.getSettings();
+        this.slug = this.settings.webhook_slug || null;
         this.tripSummaryEnabled = this.settings.tripSummaryEnabled || false;
         this.vehicleId = this.getData().id;
         this.vehicleData = null;
@@ -54,8 +55,8 @@ class PolestarBetaDevice extends Device {
         let drivingData = [];
 
         const updateImage = async () => {
-            this.tripSummaryImage.setUrl(`${this.apiUrl}/tripSummary/${Buffer.from(this.homeyId).toString('base64')}?mapType=${this.settings.mapImageType}&theme=${this.settings.tripSummaryStyle}&lang=${this.locale}`);
-            this.tripInfoImage.setUrl(`${this.apiUrl}/tripInfo/${Buffer.from(this.homeyId).toString('base64')}?theme=${this.settings.tripInfoStyle}&lang=${this.locale}`);
+            this.tripSummaryImage.setUrl(`${this.apiUrl}/tripSummary/${Buffer.from(this.slug).toString('base64')}?mapType=${this.settings.mapImageType}&theme=${this.settings.tripSummaryStyle}&lang=${this.locale}`);
+            this.tripInfoImage.setUrl(`${this.apiUrl}/tripInfo/${Buffer.from(this.slug).toString('base64')}?theme=${this.settings.tripInfoStyle}&lang=${this.locale}`);
             await this.tripSummaryImage.update();
             await this.tripInfoImage.update();
 
@@ -183,8 +184,8 @@ class PolestarBetaDevice extends Device {
                         };
 
                         drivingData = [];
-                        this.tripSummaryImage.setUrl(`${this.apiUrl}/tripSummary/${Buffer.from(this.homeyId).toString('base64')}?mapType=${this.settings.mapImageType}&theme=${this.settings.tripSummaryStyle}&lang=${this.locale}`);
-                        this.tripInfoImage.setUrl(`${this.apiUrl}/tripInfo/${Buffer.from(this.homeyId).toString('base64')}?theme=${this.settings.tripInfoStyle}&lang=${this.locale}`);
+                        this.tripSummaryImage.setUrl(`${this.apiUrl}/tripSummary/${Buffer.from(this.slug).toString('base64')}?mapType=${this.settings.mapImageType}&theme=${this.settings.tripSummaryStyle}&lang=${this.locale}`);
+                        this.tripInfoImage.setUrl(`${this.apiUrl}/tripInfo/${Buffer.from(this.slug).toString('base64')}?theme=${this.settings.tripInfoStyle}&lang=${this.locale}`);
 
                         await this.tripSummaryImage.update();
                         await this.tripInfoImage.update();
