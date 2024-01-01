@@ -49,5 +49,8 @@
   },
   "2.0.4": {
     "en": "Fixed a small type bug"
+  },
+  "2.0.5": {
+    "en": "Fixed an issue with driving data"
   }
 }
