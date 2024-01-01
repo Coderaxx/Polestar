@@ -66,7 +66,7 @@
 			<input class="homey-form-input" id="webhookUrlShort" type="text" value="" readonly />
 		</div>
 		<div class="homey-form-group" style="bottom: 10px;">
-			<button class="homey-button homey-button-primary-full" id="createWebhook" type="button">
+			<button class="homey-button homey-button-primary-full" id="createWebhook" type="button" disabled="disabled">
 				<span id="continueButton"></span>
 			</button>
 		</div>
@@ -211,9 +211,9 @@
 				console.error('Feil ved henting av data:', error);
 				$('#createWebhook').attr('disabled', 'disabled');
 			}
-        } else {
-            $('#createWebhook').attr('disabled', 'disabled');
-        }
+		} else {
+			$('#createWebhook').attr('disabled', 'disabled');
+		}
 	}
 
 	$('#webhookSlug').keyup(debounce(checkSlug, 500));
@@ -233,15 +233,15 @@
 		const webhookId = $('#webhookId').val();
 		const webhookSecret = $('#webhookSecret').val();
 		const webhookUrl = $('#webhookUrl').val().toLowerCase();
-        const webhookSlug = $('#webhookSlug').val().toLowerCase();
-        const webhookUrlShort = $('#webhookUrlShort').val().toLowerCase();
-        
+		const webhookSlug = $('#webhookSlug').val().toLowerCase();
+		const webhookUrlShort = $('#webhookUrlShort').val().toLowerCase();
+
 		const data = {
 			id: webhookId,
 			secret: webhookSecret,
-            slug: webhookSlug,
+			slug: webhookSlug,
 			url: webhookUrl,
-            url_short: webhookUrlShort
+			url_short: webhookUrlShort
 		};
 
 		Homey.emit('createWebhook', data).then(function(result) {
