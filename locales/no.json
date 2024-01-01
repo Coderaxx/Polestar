@@ -1,50 +1,51 @@
 {
-	"Polestar2": {
-		"pair": {
-			"title": "Vennligst logg inn på din Tibber-konto",
-			"email": "Epost-adresse",
-			"password": "Passord",
-			"loginButton": "Logg inn",
-			"loginFailed": "Innlogging feilet. Vennligst sjekk epost-adresse og passord og prøv igjen.",
-			"alertNoCarFound": "Fant ingen Polestar 2 på Tibber-kontoen din.",
-			"fetchingCars": "Henter Polestar 2 fra Tibber-kontoen din...",
-			"pairInfo": "Din Tibber-kontoinformasjon brukes kun for å koble din Polestar 2 til Homey. Dine påloggingsdata lagres kun lokalt på din Homey."
-		},
-		"device": {
-			"isCharging": "Lader",
-			"isNotCharging": "Lader ikke",
-			"unknownChargingState": "Ukjent"
-		},
-		"settings": {
-			"title": "Innstillinger",
-			"tabs": {
-				"account": "Konto",
-				"debug": "Debug"
-			},
-			"account": {
-				"title": "Konto-innstillinger",
-				"email": "Epost-adresse",
-				"password": "Passord",
-				"saveBtn": "Lagre"
-			},
-			"debug": {
-				"title": "Debug logger",
-				"registered": "Tidsstempel",
-				"severity": "Alvorlighet",
-				"message": "Melding"
-			}
-		}
-	},
+    "welcome_header": "Hello world!",
+    "Polestar2": {
+        "pair": {
+            "title": "Vennligst logg inn på din Tibber-konto",
+            "email": "Epost-adresse",
+            "password": "Passord",
+            "loginButton": "Logg inn",
+            "loginFailed": "Innlogging feilet. Vennligst sjekk epost-adresse og passord og prøv igjen.",
+            "alertNoCarFound": "Fant ingen Polestar 2 på Tibber-kontoen din.",
+            "fetchingCars": "Henter Polestar 2 fra Tibber-kontoen din...",
+            "pairInfo": "Din Tibber-kontoinformasjon brukes kun for å koble din Polestar 2 til Homey. Dine påloggingsdata lagres kun lokalt på din Homey."
+        },
+        "device": {
+            "isCharging": "Lader",
+            "isNotCharging": "Lader ikke",
+            "unknownChargingState": "Ukjent"
+        },
+        "settings": {
+            "title": "Innstillinger",
+            "tabs": {
+                "account": "Konto",
+                "debug": "Debug"
+            },
+            "account": {
+                "title": "Konto-innstillinger",
+                "email": "Epost-adresse",
+                "password": "Passord",
+                "saveBtn": "Lagre"
+            },
+            "debug": {
+                "title": "Debug logger",
+                "registered": "Tidsstempel",
+                "severity": "Alvorlighet",
+                "message": "Melding"
+            }
+        }
+    },
     "Polestar2Beta": {
-      "pair": {
-        "title": "Vennligst logg inn på din Polestar-konto",
-        "email": "Epost-adresse",
-        "password": "Passord",
-        "loginButton": "Logg inn",
-        "loginFailed": "Innlogging feilet. Vennligst sjekk epost-adresse og passord og prøv igjen.",
-        "alertNoCarFound": "Fant ingen Polestar 2 på Polestar-kontoen din.",
-        "fetchingCars": "Henter Polestar 2 fra Polestar-kontoen din...",
-        "pairInfo": "Din Polestar-kontoinformasjon brukes kun for å koble din Polestar 2 til Homey. Dine påloggingsdata lagres kun lokalt på din Homey."
-      }
+        "pair": {
+            "title": "Vennligst logg inn på din Polestar-konto",
+            "email": "Epost-adresse",
+            "password": "Passord",
+            "loginButton": "Logg inn",
+            "loginFailed": "Innlogging feilet. Vennligst sjekk epost-adresse og passord og prøv igjen.",
+            "alertNoCarFound": "Fant ingen Polestar 2 på Polestar-kontoen din.",
+            "fetchingCars": "Henter Polestar 2 fra Polestar-kontoen din...",
+            "pairInfo": "Din Polestar-kontoinformasjon brukes kun for å koble din Polestar 2 til Homey. Dine påloggingsdata lagres kun lokalt på din Homey."
+        }
     }
 }
