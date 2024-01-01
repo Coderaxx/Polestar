@@ -1,0 +1,50 @@
+{
+    "Polestar2": {
+        "pair": {
+            "title": "",
+            "email": "",
+            "password": "",
+            "loginButton": "",
+            "loginFailed": "",
+            "alertNoCarFound": "",
+            "fetchingCars": "",
+            "pairInfo": ""
+        },
+        "device": {
+            "isCharging": "",
+            "isNotCharging": "",
+            "unknownChargingState": ""
+        },
+        "settings": {
+            "title": "",
+            "tabs": {
+                "account": "",
+                "debug": ""
+            },
+            "account": {
+                "title": "",
+                "email": "",
+                "password": "",
+                "saveBtn": ""
+            },
+            "debug": {
+                "title": "",
+                "registered": "",
+                "severity": "",
+                "message": ""
+            }
+        }
+    },
+    "Polestar2Beta": {
+        "pair": {
+            "title": "",
+            "email": "",
+            "password": "",
+            "loginButton": "",
+            "loginFailed": "",
+            "alertNoCarFound": "",
+            "fetchingCars": "",
+            "pairInfo": "Vi bruger kun dine Polestar-kontooplysninger til at forbinde din Polestar 2 med Homey. Dine loginoplysninger opbevares kun lokalt på din Homey."
+        }
+    }
+}
