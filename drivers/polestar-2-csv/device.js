@@ -106,7 +106,7 @@ class PolestarBetaDevice extends Device {
                                 throw new Error('homeyId er ikke satt');
                             }
 
-                            const response = await axios.post(`${this.apiUrl}/save/${this.homeyId}`, drivingData, { headers: { 'Content-Type': 'application/json' } });
+                            const response = await axios.post(`${this.apiUrl}/save/${this.slug}`, drivingData, { headers: { 'Content-Type': 'application/json' } });
                             if (response.status !== 200) {
                                 return this.homey.app.log(this.homey.__({
                                     en: 'Failed to save data',
@@ -438,7 +438,7 @@ class PolestarBetaDevice extends Device {
         await this.homey.cloud.unregisterWebhook(this.webhook);
 
         try {
-            const response = await axios.delete(`${this.apiUrl}/delete/${this.homeyId}`);
+            const response = await axios.delete(`${this.apiUrl}/delete/${this.slug}`);
             if (response.status !== 200) {
                 return this.homey.app.log(this.homey.__({
                     en: 'Failed to delete data',
