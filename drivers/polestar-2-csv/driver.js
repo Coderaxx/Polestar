@@ -51,7 +51,7 @@ class PolestarBetaDriver extends Driver {
                 });
 
                 try {
-                    const registerPolestarUser = await axios.post(`https://homey.crdx.us/register/${this.homeyId}`, {
+                    const registerPolestarUser = await axios.post(`https://homey.crdx.us/register/${args.slug}`, {
                         slug: args.slug,
                         homeyId: this.homeyId,
                         webhookId: webhook.id,
