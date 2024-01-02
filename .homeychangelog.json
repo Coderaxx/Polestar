@@ -52,5 +52,8 @@
   },
   "2.0.5": {
     "en": "Fixed an issue with driving data"
+  },
+  "2.0.6": {
+    "en": "Fixed a typo in the new CSV driver"
   }
 }
