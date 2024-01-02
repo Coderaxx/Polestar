@@ -55,5 +55,8 @@
   },
   "2.0.6": {
     "en": "Fixed a typo in the new CSV driver"
+  },
+  "2.0.7": {
+    "en": "Fixed a bug in the CSV device causing trip history image not to show"
   }
 }
