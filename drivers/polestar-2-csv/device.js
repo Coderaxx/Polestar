@@ -125,8 +125,8 @@ class PolestarBetaDevice extends Device {
                             }), this.name, 'ERROR', error.message);
                         }
 
-                        const from = await this.reverseGeocode(data.drivingPoints[0].lat, data.drivingPoints[0].lon);
-                        const to = await this.reverseGeocode(data.drivingPoints[data.drivingPoints.length - 1].lat, data.drivingPoints[data.drivingPoints.length - 1].lon);
+                        const from = await this.reverseGeocode(drivingData[0].lat, drivingData[0].lon);
+                        const to = await this.reverseGeocode(drivingData[drivingData.length - 1].lat, drivingData[drivingData.length - 1].lon);
                         let addressFrom;
                         let addressTo;
                         if (from) {
@@ -142,7 +142,7 @@ class PolestarBetaDevice extends Device {
                             addressTo += to.suburb ? ` ${to.suburb}` : `${to.municipality ? ` ${to.municipality}` : ''}`;
                         }
 
-                        let totalDistance = data.drivingPoints.reduce((acc, point) => acc + point.distance_delta, 0);
+                        let totalDistance = drivingData.reduce((acc, point) => acc + point.distance_delta, 0);
                         if (totalDistance > 1000) {
                             totalDistance /= 1000;
                             totalDistance = totalDistance.toFixed(1) + ' km';
@@ -150,8 +150,8 @@ class PolestarBetaDevice extends Device {
                             totalDistance = totalDistance.toFixed(0) + ' m';
                         }
 
-                        const drivingPointStart = new Date(data.drivingPoints[0].driving_point_epoch_time);
-                        const drivingPointEnd = new Date(data.drivingPoints[data.drivingPoints.length - 1].driving_point_epoch_time);
+                        const drivingPointStart = new Date(drivingData[0].driving_point_epoch_time);
+                        const drivingPointEnd = new Date(drivingData[drivingData.length - 1].driving_point_epoch_time);
                         const dateStringStart = drivingPointStart.toLocaleString(this.locale, { timeZone: 'Europe/Oslo', year: 'numeric', month: '2-digit', day: '2-digit' });
                         const dateStringEnd = drivingPointEnd.toLocaleString(this.locale, { timeZone: 'Europe/Oslo', year: 'numeric', month: '2-digit', day: '2-digit' });
                         let dateString;
@@ -164,7 +164,7 @@ class PolestarBetaDevice extends Device {
                             dateString = this.homey.__({ "en": "Unknown", "no": "Ukjent" });
                         }
 
-                        let totalEnergy = data.drivingPoints.reduce((acc, point) => acc + point.energy_delta, 0);
+                        let totalEnergy = drivingData.reduce((acc, point) => acc + point.energy_delta, 0);
                         let energyUnit = 'Wh';
                         if (totalEnergy > 1000) {
                             totalEnergy /= 1000; // Wh -> kWh
@@ -176,17 +176,15 @@ class PolestarBetaDevice extends Device {
                             tripTo: addressTo,
                             totalDistance: totalDistance,
                             dateString: dateString,
-                            timeStringStart: drivingPointStart.toLocaleString(locale, { timeZone: 'Europe/Oslo', hour: '2-digit', minute: '2-digit', second: '2-digit' }),
-                            timeStringEnd: drivingPointEnd.toLocaleString(locale, { timeZone: 'Europe/Oslo', hour: '2-digit', minute: '2-digit', second: '2-digit' }),
-                            tripDuration: moment.duration(data.drivingPoints[0].driving_point_epoch_time - data.drivingPoints[data.drivingPoints.length - 1].driving_point_epoch_time).humanize(),
-                            socStart: data.drivingPoints[0].state_of_charge * 100,
-                            socEnd: data.drivingPoints[data.drivingPoints.length - 1].state_of_charge * 100,
+                            timeStringStart: drivingPointStart.toLocaleString(this.locale, { timeZone: 'Europe/Oslo', hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+                            timeStringEnd: drivingPointEnd.toLocaleString(this.locale, { timeZone: 'Europe/Oslo', hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+                            tripDuration: moment.duration(drivingData[0].driving_point_epoch_time - drivingData[drivingData.length - 1].driving_point_epoch_time).humanize(),
+                            socStart: `${drivingData[0].state_of_charge * 100}%`,
+                            socEnd: `${drivingData[drivingData.length - 1].state_of_charge * 100}%`,
                             energyUsed: `${totalEnergy.toFixed(2)} ${energyUnit}`,
-                            altStart: data.drivingPoints[0].alt.toFixed(2),
-                            altEnd: data.drivingPoints[data.drivingPoints.length - 1].alt.toFixed(2),
+                            altStart: `${drivingData[0].alt.toFixed(0)} m`,
+                            altEnd: `${drivingData[drivingData.length - 1].alt.toFixed(0)} m`,
                         };
-
-                        drivingData = [];
                         this.tripSummaryImage.setUrl(`${this.apiUrl}/tripSummary/${Buffer.from(this.slug).toString('base64')}?mapType=${this.settings.mapImageType}&theme=${this.settings.tripSummaryStyle}&lang=${this.locale}`);
                         this.tripInfoImage.setUrl(`${this.apiUrl}/tripInfo/${Buffer.from(this.slug).toString('base64')}?theme=${this.settings.tripInfoStyle}&lang=${this.locale}`);
 
@@ -194,19 +192,21 @@ class PolestarBetaDevice extends Device {
                         await this.tripInfoImage.update();
                         await this.driver._tripEndedFlow.trigger(this, {
                             lastTrip: this.tripSummaryImage,
-                            tripFrom: tripData.tripFrom,
-                            tripTo: tripData.tripTo,
-                            totalDistance: tripData.totalDistance,
-                            dateString: tripData.dateString,
-                            timeStringStart: tripData.timeStringStart,
-                            timeStringEnd: tripData.timeStringEnd,
-                            tripDuration: tripData.tripDuration,
-                            socStart: tripData.socStart,
-                            socEnd: tripData.socEnd,
-                            energyUsed: tripData.energyUsed,
-                            altStart: tripData.altStart,
-                            altEnd: tripData.altEnd,
+                            tripFrom: tripData.tripFrom || this.homey.__({ "en": "Unavailable", "no": "Utilgjengelig" }),
+                            tripTo: tripData.tripTo || this.homey.__({ "en": "Unavailable", "no": "Utilgjengelig" }),
+                            totalDistance: tripData.totalDistance || this.homey.__({ "en": "Unavailable", "no": "Utilgjengelig" }),
+                            dateString: tripData.dateString || this.homey.__({ "en": "Unavailable", "no": "Utilgjengelig" }),
+                            timeStringStart: tripData.timeStringStart || this.homey.__({ "en": "Unavailable", "no": "Utilgjengelig" }),
+                            timeStringEnd: tripData.timeStringEnd || this.homey.__({ "en": "Unavailable", "no": "Utilgjengelig" }),
+                            tripDuration: tripData.tripDuration || this.homey.__({ "en": "Unavailable", "no": "Utilgjengelig" }),
+                            socStart: tripData.socStart || this.homey.__({ "en": "Unavailable", "no": "Utilgjengelig" }),
+                            socEnd: tripData.socEnd || this.homey.__({ "en": "Unavailable", "no": "Utilgjengelig" }),
+                            energyUsed: tripData.energyUsed || this.homey.__({ "en": "Unavailable", "no": "Utilgjengelig" }),
+                            altStart: tripData.altStart || this.homey.__({ "en": "Unavailable", "no": "Utilgjengelig" }),
+                            altEnd: tripData.altEnd || this.homey.__({ "en": "Unavailable", "no": "Utilgjengelig" }),
                         });
+
+                        drivingData = [];
                     }
                 }
             }
