@@ -160,6 +160,9 @@ class PolestarBetaDevice extends Device {
                         } else {
                             dateString = `${dateStringStart} - ${dateStringEnd}`;
                         }
+                        if (!dateString) {
+                            dateString = this.homey.__({ "en": "Unknown", "no": "Ukjent" });
+                        }
 
                         let totalEnergy = data.drivingPoints.reduce((acc, point) => acc + point.energy_delta, 0);
                         let energyUnit = 'Wh';
