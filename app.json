@@ -113,6 +113,7 @@
           "INTERNAL"
         ]
       },
+      "deprecated": true,
       "id": "polestar-2",
       "settings": [
         {
@@ -476,6 +477,69 @@
           ]
         }
       ]
+    },
+    {
+      "name": {
+        "en": "Polestar 2 ᴮᴱᵀᴬ",
+        "no": "Polestar 2 ᴮᴱᵀᴬ"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_battery",
+        "measure_polestarRange",
+        "measure_polestarChargeState",
+        "measure_polestarOdometer",
+        "measure_polestarConnected",
+        "measure_polestarChargeTimeRemaining"
+      ],
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "images": {
+        "small": "/drivers/ps2/assets/images/small.png",
+        "large": "/drivers/ps2/assets/images/large.png",
+        "xlarge": "/drivers/ps2/assets/images/xlarge.png"
+      },
+      "repair": [
+        {
+          "id": "login"
+        }
+      ],
+      "pair": [
+        {
+          "id": "login",
+          "navigation": {
+            "next": "discover_vehicles"
+          }
+        },
+        {
+          "id": "discover_vehicles",
+          "template": "loading",
+          "navigation": {
+            "next": "list_devices"
+          }
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "energy": {
+        "batteries": [
+          "INTERNAL"
+        ]
+      },
+      "id": "ps2"
     }
   ],
   "flow": {
@@ -707,6 +771,21 @@
       "setable": false,
       "insights": true
     },
+    "measure_polestarChargeTimeRemaining": {
+      "type": "number",
+      "uiComponent": "sensor",
+      "icon": "/drivers/ps2/assets/images/time-left.svg",
+      "title": {
+        "en": "Time remaining",
+        "no": "Gjenstaende tid",
+        "nl": "Resterende tijd"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "Min"
+      }
+    },
     "measure_polestarConnected": {
       "type": "string",
       "uiComponent": "sensor",
@@ -766,6 +845,21 @@
       "getable": true,
       "setable": false,
       "insights": true
+    },
+    "measure_polestarOdometer": {
+      "type": "number",
+      "uiComponent": "sensor",
+      "icon": "/drivers/ps2/assets/images/odometer.svg",
+      "title": {
+        "en": "Odometer",
+        "no": "Kilometerstand",
+        "nl": "Odometer"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "KM"
+      }
     },
     "measure_polestarPower": {
       "type": "number",

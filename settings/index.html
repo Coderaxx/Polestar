@@ -288,12 +288,12 @@
 		var passwordElement = document.getElementById("password");
 		var saveElement = document.getElementById("save");
 
-		Homey.get("tibber_email", function (err, username) {
+		Homey.get("user_email", function (err, username) {
 			if (err) return Homey.alert(err);
 			emailElement.value = username;
 		});
 
-		Homey.get("tibber_password", function (err, password) {
+		Homey.get("user_password", function (err, password) {
 			if (err) return Homey.alert(err);
 			passwordElement.value = password;
 		});
@@ -301,10 +301,10 @@
 		saveElement.addEventListener("click", function (e) {
 			e.preventDefault();
 
-			Homey.set("tibber_email", emailElement.value, function (err) {
+			Homey.set("user_email", emailElement.value, function (err) {
 				if (err) return Homey.alert(err);
 			});
-			Homey.set("tibber_password", passwordElement.value, function (err) {
+			Homey.set("user_password", passwordElement.value, function (err) {
 				if (err) return Homey.alert(err);
 			});
 			Homey.alert(Homey.__({ en: "Settings saved", no: "Innstillinger lagret" }));
