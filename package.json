@@ -9,6 +9,7 @@
     "@types/node": "^20.8.10"
   },
   "dependencies": {
+    "@andysmithfal/polestar.js": "^1.0.3",
     "axios": "^1.6.0",
     "geolib": "^3.3.4",
     "moment": "^2.30.1",

@@ -1,0 +1,21 @@
+<script type="application/javascript">
+    Homey.setTitle(Homey.__("Polestar2Beta.pair.fetchingCars"));
+
+    Homey.emit('getVehicles').then(function (result) {
+        Homey.showLoadingOverlay();
+        console.log(result);
+        if (result.success) {
+            // Søk etter Polestar 2 i "title" i respons.vehicles
+            var polestar = result.vehicles;
+            if (polestar) {
+                return Homey.nextView();
+            } else {
+                Homey.alert(Homey.__("Polestar2Beta.pair.alertNoCarFound"));
+                return Homey.setNavigationClose();
+            }
+        } else {
+            Homey.alert(Homey.__("Polestar2Beta.pair.alertNoCarFound"));
+            return Homey.setNavigationClose();
+        }
+    });
+</script>

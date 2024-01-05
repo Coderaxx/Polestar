@@ -45,5 +45,6 @@
     "batteries": [
       "INTERNAL"
     ]
-  }
+  },
+  "deprecated": true
 }
