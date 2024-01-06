@@ -4,6 +4,7 @@ const { Device } = require('homey');
 const moment = require('moment');
 const axios = require('axios');
 const geolib = require('geolib');
+const base64url = require('base64-url');
 
 class PolestarBetaDevice extends Device {
     async onInit() {
@@ -76,8 +77,9 @@ class PolestarBetaDevice extends Device {
         let drivingData = [];
 
         const updateImage = async () => {
-            this.tripSummaryImage.setUrl(`${this.apiUrl}/tripSummary/${Buffer.from(this.slug).toString('base64')}?mapType=${this.settings.mapImageType}&theme=${this.settings.tripSummaryStyle}&lang=${this.locale}`);
-            this.tripInfoImage.setUrl(`${this.apiUrl}/tripInfo/${Buffer.from(this.slug).toString('base64')}?theme=${this.settings.tripInfoStyle}&lang=${this.locale}`);
+            const encodedSlug = base64url.encode(this.slug);
+            this.tripSummaryImage.setUrl(`${this.apiUrl}/tripSummary/${encodedSlug}?mapType=${this.settings.mapImageType}&theme=${this.settings.tripSummaryStyle}&lang=${this.locale}`);
+            this.tripInfoImage.setUrl(`${this.apiUrl}/tripInfo/${encodedSlug}?theme=${this.settings.tripInfoStyle}&lang=${this.locale}`);
             await this.tripSummaryImage.update();
             await this.tripInfoImage.update();
 
@@ -206,8 +208,9 @@ class PolestarBetaDevice extends Device {
                             altStart: `${drivingData[0].alt.toFixed(0)} m`,
                             altEnd: `${drivingData[drivingData.length - 1].alt.toFixed(0)} m`,
                         };
-                        this.tripSummaryImage.setUrl(`${this.apiUrl}/tripSummary/${Buffer.from(this.slug).toString('base64')}?mapType=${this.settings.mapImageType}&theme=${this.settings.tripSummaryStyle}&lang=${this.locale}`);
-                        this.tripInfoImage.setUrl(`${this.apiUrl}/tripInfo/${Buffer.from(this.slug).toString('base64')}?theme=${this.settings.tripInfoStyle}&lang=${this.locale}`);
+                        const encodedSlug = base64url.encode(this.slug);
+                        this.tripSummaryImage.setUrl(`${this.apiUrl}/tripSummary/${encodedSlug}?mapType=${this.settings.mapImageType}&theme=${this.settings.tripSummaryStyle}&lang=${this.locale}`);
+                        this.tripInfoImage.setUrl(`${this.apiUrl}/tripInfo/${encodedSlug}?theme=${this.settings.tripInfoStyle}&lang=${this.locale}`);
 
                         await this.tripSummaryImage.update();
                         await this.tripInfoImage.update();
