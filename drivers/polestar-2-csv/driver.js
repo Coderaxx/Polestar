@@ -38,7 +38,7 @@ class PolestarBetaDriver extends Driver {
                 this.vehicles.push({
                     name: 'Polestar 2 ᴮᴱᵀᴬ',
                     data: {
-                        id: 'Polestar2Car-Stats-Viewer',
+                        id: `Polestar2CarStatsViewer.${args.slug}`,
                         webhook: JSON.stringify(webhook),
                     },
                     settings: {
