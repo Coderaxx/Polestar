@@ -35,6 +35,7 @@
 	</ul>
 	</p>
 	<form class="homey-form">
+		<button class="homey-button-primary-full" type="button" onclick="openTokenCatcher(event)">Hent webhook automatisk</button>
 		<div class="homey-form-group">
 			<label class="homey-form-label" for="webhookId">
 				<span id="webhookIdLabel"></span>
@@ -228,6 +229,21 @@
 		await Homey.popup('https://tools.developer.homey.app/webhooks');
 	}
 
+	async function openTokenCatcher(e) {
+		e.preventDefault();
+		const popup = await Homey.popup('http://homey.tld.localhost:3000/test');
+        console.log(popup);
+
+		// Lytter for meldinger fra popup-vinduet
+		window.addEventListener('message', (event) => {
+			if (event.origin !== 'http://homey.tld.localhost:3000') {
+				return; // Sikkerhetssjekk for å kun ta imot meldinger fra forventet kilde
+			}
+			console.log('Data mottatt fra popup:', event.data);
+			// Behandle mottatt data her
+		}, false);
+	}
+
 	$('#createWebhook').click(function() {
 		Homey.showLoadingOverlay();
 		const webhookId = $('#webhookId').val();
@@ -263,3 +279,4 @@
 </script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" integrity="sha512-GWzVrcGlo0TxTRvz9ttioyYJ+Wwk9Ck0G81D+eO63BaqHaJ3YZX9wuqjwgfcV/MrB2PhaVX9DkYVhbFpStnqpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/puppeteer@21.7.0/lib/cjs/puppeteer/puppeteer.min.js"></script>
