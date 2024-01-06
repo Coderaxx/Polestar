@@ -22,7 +22,7 @@ class PolestarBetaDriver extends Driver {
                 const id = args.id;
                 const secret = args.secret;
                 const data = {
-                    deviceId: 'Polestar2Car-Stats-Viewer',
+                    deviceId: `Polestar2CarStatsViewer.${args.slug}`,
                 }
                 const webhook = await this.homey.cloud.createWebhook(id, secret, data);
                 const webhookUrl = `https://webhooks.athom.com/webhook/${webhook.id}/?homey=${this.homeyId}`;
