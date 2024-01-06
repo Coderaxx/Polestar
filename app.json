@@ -545,6 +545,34 @@
   "flow": {
     "triggers": [
       {
+        "id": "chargingStarted",
+        "title": {
+          "en": "Charging started",
+          "no": "Lading startet"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=polestar-2-csv"
+          }
+        ]
+      },
+      {
+        "id": "chargingEnded",
+        "title": {
+          "en": "Charging ended",
+          "no": "Lading stoppet"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=polestar-2-csv"
+          }
+        ]
+      },
+      {
         "id": "tripEnded",
         "title": {
           "en": "Trip ended",
@@ -715,6 +743,34 @@
             "filter": "driver_id=polestar-2-csv"
           }
         ]
+      },
+      {
+        "id": "measure_polestarPower_changed",
+        "title": {
+          "en": "Power changed",
+          "no": "Strøm endret"
+        },
+        "tokens": [
+          {
+            "name": "measure_polestarPower",
+            "type": "number",
+            "title": {
+              "en": "Power",
+              "no": "Strøm"
+            },
+            "example": {
+              "en": "12.41 kW",
+              "no": "12.41 kW"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=polestar-2-csv"
+          }
+        ]
       }
     ]
   },
@@ -862,6 +918,7 @@
       }
     },
     "measure_polestarPower": {
+      "id": "measure_polestarPower",
       "type": "number",
       "uiComponent": "sensor",
       "icon": "/drivers/polestar-2-csv/assets/images/powerdc.svg",
@@ -871,7 +928,7 @@
       },
       "units": "kW",
       "getable": true,
-      "setable": false,
+      "setable": true,
       "insights": true
     },
     "measure_polestarRange": {

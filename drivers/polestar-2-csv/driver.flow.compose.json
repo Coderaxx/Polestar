@@ -1,6 +1,20 @@
 {
     "triggers": [
         {
+            "id": "chargingStarted",
+            "title": {
+                "en": "Charging started",
+                "no": "Lading startet"
+            }
+        },
+        {
+            "id": "chargingEnded",
+            "title": {
+                "en": "Charging ended",
+                "no": "Lading stoppet"
+            }
+        },
+        {
             "id": "tripEnded",
             "title": {
                 "en": "Trip ended",
@@ -161,6 +175,27 @@
                     "example": {
                         "en": "40 m",
                         "no": "40 m"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "measure_polestarPower_changed",
+            "title": {
+                "en": "Power changed",
+                "no": "Strøm endret"
+            },
+            "tokens": [
+                {
+                    "name": "measure_polestarPower",
+                    "type": "number",
+                    "title": {
+                        "en": "Power",
+                        "no": "Strøm"
+                    },
+                    "example": {
+                        "en": "12.41 kW",
+                        "no": "12.41 kW"
                     }
                 }
             ]

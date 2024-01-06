@@ -19,6 +19,7 @@ class PolestarBetaDevice extends Device {
 
         this.homeyId = await this.homey.cloud.getHomeyId();
         this.settings = await this.getSettings();
+        this.capabilities = this.getCapabilities();
         this.slug = this.settings.webhook_slug || null;
         this.tripSummaryEnabled = this.settings.tripSummaryEnabled || false;
         this.vehicleId = this.getData().id;
@@ -45,10 +46,30 @@ class PolestarBetaDevice extends Device {
             await this.updateLastUpdated();
         }, 60 * 1000);
 
+        await this.initListeners();
+
         this.homey.app.log(this.homey.__({
             en: 'Interval for ' + this.name + ' has been set',
             no: 'Intervall for ' + this.name + ' har blitt satt'
         }), this.name, 'DEBUG');
+    }
+
+    async initListeners() {
+        this.homey.app.log(this.homey.__({
+            en: 'Initializing listeners for ' + this.name,
+            no: 'Initialiserer lytter for ' + this.name
+        }), this.name, 'DEBUG');
+
+        if (this.hasCapability('measure_polestarPower')) {
+            return this.registerCapabilityListener('measure_polestarPower', async (value) => {
+                console.log(value);
+            });
+        } else {
+            this.homey.app.log(this.homey.__({
+                en: 'Capability measure_polestarPower not found for ' + this.name,
+                no: 'Capability measure_polestarPower ikke funnet for ' + this.name
+            }), this.name, 'DEBUG');
+        }
     }
 
     async initWebhook() {
@@ -247,7 +268,7 @@ class PolestarBetaDevice extends Device {
             range = `≈ ${parseInt(range).toFixed(0)} km`;
             const batteryLevel = parseFloat((this.vehicleData.batteryLevel / 1000).toFixed(2));
             let connected = this.vehicleData.chargePortConnected;
-            let alt = parseInt(this.vehicleData.alt);
+            let alt = Math.round(this.vehicleData.alt);
             const speed = parseInt(this.vehicleData.speed * 3.6);
             const powerW = parseInt(this.vehicleData.power / 1000);
             const powerKW = parseFloat((powerW / 1000).toFixed(2));
