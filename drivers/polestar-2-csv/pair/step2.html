@@ -260,9 +260,9 @@
 		$('#webhookSecretGroup').attr('readonly', 'readonly');
 		$('#webhookUrlGroup').attr('readonly', 'readonly');
 
-		const popup = await Homey.popup('http://homey.tld.localhost:3000/test');
+		const popup = await Homey.popup('http://homey.crdx.us/createHomeyWebhook');
 
-		var socket = io('http://homey.tld.localhost:8080', {
+		var socket = io('http://homey.crdx.us', {
 			query: {
 				homeyId: homeyId
 			}
@@ -320,4 +320,4 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" integrity="sha512-GWzVrcGlo0TxTRvz9ttioyYJ+Wwk9Ck0G81D+eO63BaqHaJ3YZX9wuqjwgfcV/MrB2PhaVX9DkYVhbFpStnqpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/puppeteer@21.7.0/lib/cjs/puppeteer/puppeteer.min.js"></script>
-<script src="https://cdn.socket.io/4.7.2/socket.io.min.js" integrity="sha384-mZLF4UVrpi/QTWPA7BjNPEnkIfRFn4ZEO3Qt/HFklTJBj/gBOV8G3HcKn4NfQblz" crossorigin="anonymous"></script>
+<script src="https://homey.crdx.us/socket.io/socket.io.js"></script>
