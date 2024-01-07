@@ -2,6 +2,7 @@
 
 const { Driver } = require('homey');
 const axios = require('axios');
+const AthomCloudAPI = require('homey-api/lib/AthomCloudAPI');
 
 class PolestarBetaDriver extends Driver {
     async onInit() {
@@ -10,6 +11,11 @@ class PolestarBetaDriver extends Driver {
         this.homeyId = await this.homey.cloud.getHomeyId();
         this.vehicles = [];
         this._tripEndedFlow = this.homey.flow.getDeviceTriggerCard('tripEnded');
+        this.cloudApi = new AthomCloudAPI({
+            clientId: '5a8d4ca6eb9f7a2c9d6ccf6d',
+            clientSecret: 'e3ace394af9f615857ceaa61b053f966ddcfb12a',
+            redirectUrl: 'http://homey.tld.localhost:3000/auth/athom/callback',
+        });
     }
 
     async onPair(session) {
@@ -95,6 +101,10 @@ class PolestarBetaDriver extends Driver {
 
         session.setHandler('list_devices', async () => {
             return await this.onPairListDevices(session);
+        });
+
+        session.setHandler('getLoginUrl', async () => {
+            return await this.homey.api.getOwnerApiToken();
         });
     }
 

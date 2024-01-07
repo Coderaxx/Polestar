@@ -260,7 +260,10 @@
 		$('#webhookSecretGroup').attr('readonly', 'readonly');
 		$('#webhookUrlGroup').attr('readonly', 'readonly');
 
-		const popup = await Homey.popup('https://crdx.us/createHomeyWebhook');
+        Homey.emit('getLoginUrl').then(function(result) {
+            console.log(result);
+        });
+		/*const popup = await Homey.popup('https://crdx.us/createHomeyWebhook');
 
 		var socket = io('https://crdx.us', {
 			query: {
@@ -281,7 +284,7 @@
 
 		socket.on('disconnect', function() {
 			console.log('Koblet fra serveren');
-		});
+		});*/
 	}
 
 	$('#createWebhook').click(function() {
