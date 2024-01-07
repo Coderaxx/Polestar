@@ -1,61 +1,69 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <fieldset class="homey-form-fieldset">
-	<h2><b style="color: red;" id="importantText">Viktig:</b>
-		<span id="headerText">Før du kan legge til denne enheten:</span>
+	<h1><b style="color: red;" id="betaTitle">NY BETA-FUNKSJON - 07.01.2024</b></h1>
+	<h2 id="betaTitleInfo">
+		Prøv gjerne den nye funksjonen, som oppretter og henter webhook automatisk. Prøv ved å trykke på knappen under.
 	</h2>
-	<p id="infoText">
-		Følg disse trinnene for å opprette en Webhook i Homey Dev Tools:
-	<ol>
-		<li>
-			<strong>Logg inn på Homey Dev Tools:</strong>
-			Logg inn med din Homey-konto på
-			<a href="#" onclick="openDevTools(event)">Homey Dev Tools</a>.
-		</li>
-		<li>
-			<strong>Konfigurer din Webhook:</strong>
-			Besøk
-			<a href="#" onclick="openWebhooks(event)">Homey Dev Tools Webhooks</a>
-			for å se en oversikt og opprette nye Webhooks.
-		</li>
-		<li>
-			<strong>Opprett Ny Webhook:</strong>
-			Velg 'Ny Webhook' og følg instruksjonene for å fullføre oppsettet. Sørg for at all informasjon er
-			korrekt.
-		</li>
-		<li>
-			<strong>Kopier ID og Hemmelig Nøkkel:</strong>
-			Du vil motta en unik ID og hemmelig nøkkel (Secret) etter opprettelsen. Disse er nødvendige for
-			autentisering.
-		</li>
-	</ol>
-	<strong>Viktig å Huske:</strong>
-	<ul>
-		<li>All kommunikasjon via Webhooken er sikret og kryptert. Hold den hemmelige nøkkelen trygg.</li>
-		<li>Sørg for at Webhookens URL er korrekt konfigurert i produsentens systemer.</li>
-	</ul>
-	</p>
 	<form class="homey-form">
-		<button class="homey-button-primary-full" type="button" onclick="openTokenCatcher(event)">Hent webhook automatisk</button>
-		<div class="homey-form-group">
+		<button class="homey-button-primary-full" type="button" onclick="openTokenCatcher(event)" id="tokenCatcherButton"></button>
+	</form>
+	<div id="infoDiv">
+		<h2 id="importantText"><b style="color: red;" id="importantText">Viktig:</b>
+			<span id="headerText">Før du kan legge til denne enheten:</span>
+		</h2>
+		<p id="infoText">
+			Følg disse trinnene for å opprette en Webhook i Homey Dev Tools:
+		<ol>
+			<li>
+				<strong>Logg inn på Homey Dev Tools:</strong>
+				Logg inn med din Homey-konto på
+				<a href="#" onclick="openDevTools(event)">Homey Dev Tools</a>.
+			</li>
+			<li>
+				<strong>Konfigurer din Webhook:</strong>
+				Besøk
+				<a href="#" onclick="openWebhooks(event)">Homey Dev Tools Webhooks</a>
+				for å se en oversikt og opprette nye Webhooks.
+			</li>
+			<li>
+				<strong>Opprett Ny Webhook:</strong>
+				Velg 'Ny Webhook' og følg instruksjonene for å fullføre oppsettet. Sørg for at all informasjon er
+				korrekt.
+			</li>
+			<li>
+				<strong>Kopier ID og Hemmelig Nøkkel:</strong>
+				Du vil motta en unik ID og hemmelig nøkkel (Secret) etter opprettelsen. Disse er nødvendige for
+				autentisering.
+			</li>
+		</ol>
+		<strong>Viktig å Huske:</strong>
+		<ul>
+			<li>All kommunikasjon via Webhooken er sikret og kryptert. Hold den hemmelige nøkkelen trygg.</li>
+			<li>Sørg for at Webhookens URL er korrekt konfigurert i produsentens systemer.</li>
+		</ul>
+		</p>
+	</div>
+	<form class="homey-form">
+		<div class="homey-form-group" id="webhookIdGroup">
 			<label class="homey-form-label" for="webhookId">
 				<span id="webhookIdLabel"></span>
 			</label>
 			<input class="homey-form-input" id="webhookId" type="text" value="" />
 		</div>
-		<div class="homey-form-group">
+		<div class="homey-form-group" id="webhookSecretGroup">
 			<label class="homey-form-label" for="webhookSecret">
 				<span id="webhookSecretLabel"></span>
 			</label>
 			<input class="homey-form-input" id="webhookSecret" type="text" value="" />
 		</div>
-		<div class="homey-form-group">
+		<div class="homey-form-group" id="webhookUrlGroup">
 			<label class="homey-form-label" for="webhookUrl">
 				<span id="webhookUrlLabel"></span>
 			</label>
 			<input class="homey-form-input" id="webhookUrl" type="text" value="" readonly />
 			<span id="webhookUrlInfo" class="text-muted"></span>
 		</div>
-		<div class="homey-form-group">
+		<div class="homey-form-group" id="webhookSlugGroup">
 			<label class="homey-form-label" for="webhookSlug">
 				<span id="webhookSlugLabel"></span>
 			</label>
@@ -66,7 +74,7 @@
 			</label>
 			<input class="homey-form-input" id="webhookUrlShort" type="text" value="" readonly />
 		</div>
-		<div class="homey-form-group" style="bottom: 10px;">
+		<div class="homey-form-group" id="webhookButtonGroup" style="bottom: 10px;">
 			<button class="homey-button homey-button-primary-full" id="createWebhook" type="button" disabled="disabled">
 				<span id="continueButton"></span>
 			</button>
@@ -88,6 +96,21 @@
 		$('#importantText').text(Homey.__({
 			en: 'Important:',
 			no: 'Viktig:'
+		}));
+
+		$('#betaTitle').text(Homey.__({
+			en: 'NEW BETA FEATURE - 07.01.2024',
+			no: 'NY BETA-FUNKSJON - 07.01.2024'
+		}));
+
+		$('#betaTitleInfo').text(Homey.__({
+			en: 'Try this new feature now by clicking the button below.',
+			no: 'Prøv gjerne den nye funksjonen, som oppretter og henter webhook automatisk. Prøv ved å trykke på knappen under.'
+		}));
+
+		$('#tokenCatcherButton').text(Homey.__({
+			en: 'Create and fetch Webhook automatically',
+			no: 'Opprett og hent Webhook automatisk'
 		}));
 
 		$('#infoText').html(Homey.__({
@@ -229,19 +252,36 @@
 		await Homey.popup('https://tools.developer.homey.app/webhooks');
 	}
 
+
 	async function openTokenCatcher(e) {
 		e.preventDefault();
-		const popup = await Homey.popup('http://homey.tld.localhost:3000/test');
-        console.log(popup);
+		$('#infoDiv').hide();
+		$('#webhookIdGroup').attr('readonly', 'readonly');
+		$('#webhookSecretGroup').attr('readonly', 'readonly');
+		$('#webhookUrlGroup').attr('readonly', 'readonly');
 
-		// Lytter for meldinger fra popup-vinduet
-		window.addEventListener('message', (event) => {
-			if (event.origin !== 'http://homey.tld.localhost:3000') {
-				return; // Sikkerhetssjekk for å kun ta imot meldinger fra forventet kilde
+		const popup = await Homey.popup('http://homey.tld.localhost:3000/test');
+
+		var socket = io('http://homey.tld.localhost:8080', {
+			query: {
+				homeyId: homeyId
 			}
-			console.log('Data mottatt fra popup:', event.data);
-			// Behandle mottatt data her
-		}, false);
+		});
+
+		socket.on('connect', function() {
+			console.log('Koblet til serveren med Homey ID:', homeyId);
+		});
+
+		socket.on('webhookData', function(data) {
+			console.log('Mottok følgende data om webhook:', data);
+			$('#webhookId').val(data.id);
+			$('#webhookSecret').val(data.secret);
+			socket.disconnect();
+		});
+
+		socket.on('disconnect', function() {
+			console.log('Koblet fra serveren');
+		});
 	}
 
 	$('#createWebhook').click(function() {
@@ -280,3 +320,4 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" integrity="sha512-GWzVrcGlo0TxTRvz9ttioyYJ+Wwk9Ck0G81D+eO63BaqHaJ3YZX9wuqjwgfcV/MrB2PhaVX9DkYVhbFpStnqpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/puppeteer@21.7.0/lib/cjs/puppeteer/puppeteer.min.js"></script>
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js" integrity="sha384-mZLF4UVrpi/QTWPA7BjNPEnkIfRFn4ZEO3Qt/HFklTJBj/gBOV8G3HcKn4NfQblz" crossorigin="anonymous"></script>
