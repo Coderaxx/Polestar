@@ -260,9 +260,9 @@
 		$('#webhookSecretGroup').attr('readonly', 'readonly');
 		$('#webhookUrlGroup').attr('readonly', 'readonly');
 
-		const popup = await Homey.popup('http://homey.crdx.us/createHomeyWebhook');
+		const popup = await Homey.popup('https://crdx.us/createHomeyWebhook');
 
-		var socket = io('http://homey.crdx.us', {
+		var socket = io('https://crdx.us', {
 			query: {
 				homeyId: homeyId
 			}
