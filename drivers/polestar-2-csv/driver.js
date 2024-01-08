@@ -12,9 +12,9 @@ class PolestarBetaDriver extends Driver {
         this.vehicles = [];
         this._tripEndedFlow = this.homey.flow.getDeviceTriggerCard('tripEnded');
         this.cloudApi = new AthomCloudAPI({
-            clientId: '5a8d4ca6eb9f7a2c9d6ccf6d',
-            clientSecret: 'e3ace394af9f615857ceaa61b053f966ddcfb12a',
-            redirectUrl: 'http://homey.tld.localhost:3000/auth/athom/callback',
+            clientId: '64691b4358336640a5ecee5c',
+            clientSecret: 'ed09f559ae12b1522d00431f0bf7c5755603c41e',
+            redirectUrl: 'https://cli.athom.com',
         });
     }
 
@@ -101,10 +101,6 @@ class PolestarBetaDriver extends Driver {
 
         session.setHandler('list_devices', async () => {
             return await this.onPairListDevices(session);
-        });
-
-        session.setHandler('getLoginUrl', async () => {
-            return await this.homey.api.getOwnerApiToken();
         });
     }
 

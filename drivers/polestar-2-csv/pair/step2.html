@@ -1,12 +1,12 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <fieldset class="homey-form-fieldset">
-	<h1><b style="color: red;" id="betaTitle">NY BETA-FUNKSJON - 07.01.2024</b></h1>
+	<!--<h1><b style="color: red;" id="betaTitle">NY BETA-FUNKSJON - 07.01.2024</b></h1>
 	<h2 id="betaTitleInfo">
 		Prøv gjerne den nye funksjonen, som oppretter og henter webhook automatisk. Prøv ved å trykke på knappen under.
 	</h2>
 	<form class="homey-form">
 		<button class="homey-button-primary-full" type="button" onclick="openTokenCatcher(event)" id="tokenCatcherButton"></button>
-	</form>
+	</form>-->
 	<div id="infoDiv">
 		<h2 id="importantText"><b style="color: red;" id="importantText">Viktig:</b>
 			<span id="headerText">Før du kan legge til denne enheten:</span>
@@ -252,7 +252,6 @@
 		await Homey.popup('https://tools.developer.homey.app/webhooks');
 	}
 
-
 	async function openTokenCatcher(e) {
 		e.preventDefault();
 		$('#infoDiv').hide();
@@ -260,10 +259,17 @@
 		$('#webhookSecretGroup').attr('readonly', 'readonly');
 		$('#webhookUrlGroup').attr('readonly', 'readonly');
 
-        Homey.emit('getLoginUrl').then(function(result) {
-            console.log(result);
-        });
-		/*const popup = await Homey.popup('https://crdx.us/createHomeyWebhook');
+		Homey.emit('getLoginUrl');
+		let loginUrl;
+		Homey.on('url', async function(data) {
+			console.log('Mottok url fra serveren:', data);
+			loginUrl = data;
+			await Homey.popup(data);
+		});
+
+		Homey.on('authorized', function(data) {
+			console.log('Authorized:', data);
+		});
 
 		var socket = io('https://crdx.us', {
 			query: {
@@ -284,7 +290,7 @@
 
 		socket.on('disconnect', function() {
 			console.log('Koblet fra serveren');
-		});*/
+		});
 	}
 
 	$('#createWebhook').click(function() {
@@ -322,5 +328,6 @@
 </script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" integrity="sha512-GWzVrcGlo0TxTRvz9ttioyYJ+Wwk9Ck0G81D+eO63BaqHaJ3YZX9wuqjwgfcV/MrB2PhaVX9DkYVhbFpStnqpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdn.jsdelivr.net/npm/puppeteer@21.7.0/lib/cjs/puppeteer/puppeteer.min.js"></script>
 <script src="https://homey.crdx.us/socket.io/socket.io.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="text/javascript" src="https://cdn.athom.com/homey-api/3.0.2.js"></script>
