@@ -32,10 +32,13 @@ class PolestarBetaDevice extends Device {
         if (this.settings.tripSummaryEnabled) {
             this.tripSummaryImage = await this.homey.images.createImage();
             this.tripInfoImage = await this.homey.images.createImage();
+            this.tripScoreImage = await this.homey.images.createImage();
             const lastTripString = this.homey.__({ "en": "Last trip", "no": "Din siste tur" });
             const lastTripInfoString = this.homey.__({ "en": "Last trip info", "no": "Turinformasjon" });
+            const lastTripScoreString = this.homey.__({ "en": "Trip score", "no": "Tur-score" });
             await this.setCameraImage('polestarTrip', lastTripString, this.tripSummaryImage);
             await this.setCameraImage('polestarTripInfo', lastTripInfoString, this.tripInfoImage);
+            await this.setCameraImage('polestarTripScore', lastTripScoreString, this.tripScoreImage);
         }
         this.webhook = null;
         this.apiUrl = 'https://homey.crdx.us';
@@ -80,12 +83,14 @@ class PolestarBetaDevice extends Device {
             const encodedSlug = base64url.encode(this.slug);
             this.tripSummaryImage.setUrl(`${this.apiUrl}/tripSummary/${encodedSlug}?mapType=${this.settings.mapImageType}&theme=${this.settings.tripSummaryStyle}&lang=${this.locale}`);
             this.tripInfoImage.setUrl(`${this.apiUrl}/tripInfo/${encodedSlug}?theme=${this.settings.tripInfoStyle}&lang=${this.locale}`);
+            this.tripScoreImage.setUrl(`${this.apiUrl}/tripScore/${encodedSlug}?theme=${this.settings.tripScoreStyle}&lang=${this.locale}`);
             await this.tripSummaryImage.update();
             await this.tripInfoImage.update();
+            await this.tripScoreImage.update();
 
             this.homey.app.log(this.homey.__({
-                en: 'Updated image for ' + this.name,
-                no: 'Oppdaterte bilde for ' + this.name
+                en: 'Updated image(s) for ' + this.name,
+                no: 'Oppdaterte bilde(r) for ' + this.name
             }), this.name, 'DEBUG');
         }
 
@@ -211,11 +216,15 @@ class PolestarBetaDevice extends Device {
                         const encodedSlug = base64url.encode(this.slug);
                         this.tripSummaryImage.setUrl(`${this.apiUrl}/tripSummary/${encodedSlug}?mapType=${this.settings.mapImageType}&theme=${this.settings.tripSummaryStyle}&lang=${this.locale}`);
                         this.tripInfoImage.setUrl(`${this.apiUrl}/tripInfo/${encodedSlug}?theme=${this.settings.tripInfoStyle}&lang=${this.locale}`);
+                        this.tripScoreImage.setUrl(`${this.apiUrl}/tripScore/${encodedSlug}?theme=${this.settings.tripScoreStyle}&lang=${this.locale}`);
 
                         await this.tripSummaryImage.update();
                         await this.tripInfoImage.update();
+                        await this.tripScoreImage.update();
                         await this.driver._tripEndedFlow.trigger(this, {
                             lastTrip: this.tripSummaryImage,
+                            tripInfo: this.tripInfoImage,
+                            tripScore: this.tripScoreImage,
                             tripFrom: tripData.tripFrom || this.homey.__({ "en": "Unavailable", "no": "Utilgjengelig" }),
                             tripTo: tripData.tripTo || this.homey.__({ "en": "Unavailable", "no": "Utilgjengelig" }),
                             totalDistance: tripData.totalDistance || this.homey.__({ "en": "Unavailable", "no": "Utilgjengelig" }),
