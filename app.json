@@ -594,6 +594,30 @@
             }
           },
           {
+            "type": "image",
+            "name": "tripInfo",
+            "title": {
+              "en": "Trip Info",
+              "no": "Reiseinfo"
+            },
+            "example": {
+              "en": "An image visualizing data about your last trip",
+              "no": "Et bilde som viser data om din siste reise"
+            }
+          },
+          {
+            "type": "image",
+            "name": "tripScore",
+            "title": {
+              "en": "Trip Score",
+              "no": "Reise-score"
+            },
+            "example": {
+              "en": "An image visualizing how well your last trip was",
+              "no": "Et bilde som viser hvor bra din siste reise var"
+            }
+          },
+          {
             "type": "string",
             "name": "tripFrom",
             "title": {
