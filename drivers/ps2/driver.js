@@ -14,7 +14,6 @@ class PS2Driver extends Driver {
 
     async onRepair(session, device) {
         session.setHandler("showView", async (data) => {
-            console.log('Login page of repair is showing, send credentials');
             this.homey.app.log(this.homey.__({
                 en: 'Login page of repair is showing, send credentials',
                 no: 'Viser innloggingssiden for reparasjon, send innloggingsinformasjon'

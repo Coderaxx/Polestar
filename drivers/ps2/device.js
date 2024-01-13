@@ -63,16 +63,16 @@ class PS2Device extends Device {
             await this.polestar.setVehicle(this.getData().vin);
         }
         var odometer = await this.polestar.getOdometer();
-        console.log(JSON.stringify(odometer));
+        //console.log(JSON.stringify(odometer));
         var odo = odometer.odometerMeters;
         try {
             odo = odo / 1000; //Convert to KM instead of M
         } catch {
             odo = null;
         }
-        console.log('KM:' + odo)
+        //console.log('KM:' + odo)
         var batteryInfo = await this.polestar.getBattery();
-        console.log(JSON.stringify(batteryInfo));
+        //console.log(JSON.stringify(batteryInfo));
 
         this.setCapabilityValue('measure_battery', batteryInfo.batteryChargeLevelPercentage);
         // this.setCapabilityValue('measure_current', batteryInfo.chargingCurrentAmps);
