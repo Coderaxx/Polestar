@@ -34,8 +34,8 @@ class PolestarBetaDevice extends Device {
             this.tripInfoImage = await this.homey.images.createImage();
             this.tripScoreImage = await this.homey.images.createImage();
             const lastTripString = this.homey.__({ "en": "Last trip", "no": "Din siste tur" });
-            const lastTripInfoString = this.homey.__({ "en": "Last trip info", "no": "Turinformasjon" });
-            const lastTripScoreString = this.homey.__({ "en": "Trip score", "no": "Tur-score" });
+            const lastTripInfoString = this.homey.__({ "en": "Last trip info", "no": "Tur-informasjon" });
+            const lastTripScoreString = this.homey.__({ "en": "Trip score", "no": "Kjørescore" });
             await this.setCameraImage('polestarTrip', lastTripString, this.tripSummaryImage);
             await this.setCameraImage('polestarTripInfo', lastTripInfoString, this.tripInfoImage);
             await this.setCameraImage('polestarTripScore', lastTripScoreString, this.tripScoreImage);
