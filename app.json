@@ -331,7 +331,36 @@
               },
               "hint": {
                 "en": "This changes the style of the trip info. (Optional)",
-                "no": " Dette endrer stilen til turinfoen. (Valgfritt)"
+                "no": "Dette endrer stilen til turinfoen. (Valgfritt)"
+              },
+              "values": [
+                {
+                  "id": "light",
+                  "label": {
+                    "en": "Light",
+                    "no": "Lys"
+                  }
+                },
+                {
+                  "id": "dark",
+                  "label": {
+                    "en": "Dark",
+                    "no": "Mørk"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "tripScoreStyle",
+              "type": "dropdown",
+              "value": "light",
+              "label": {
+                "en": "Trip score style",
+                "no": "Kjørescorens stil"
+              },
+              "hint": {
+                "en": "This changes the style of the trip score. (Optional)",
+                "no": "Dette endrer stilen til kjørescoren. (Valgfritt)"
               },
               "values": [
                 {

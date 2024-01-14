@@ -216,7 +216,7 @@ class PolestarBetaDevice extends Device {
                         const encodedSlug = base64url.encode(this.slug);
                         this.tripSummaryImage.setUrl(`${this.apiUrl}/tripSummary/${encodedSlug}?mapType=${this.settings.mapImageType}&theme=${this.settings.tripSummaryStyle}&lang=${this.locale}`);
                         this.tripInfoImage.setUrl(`${this.apiUrl}/tripInfo/${encodedSlug}?theme=${this.settings.tripInfoStyle}&lang=${this.locale}`);
-                        this.tripScoreImage.setUrl(`${this.apiUrl}/tripScore/${encodedSlug}?theme=${this.settings.tripInfoStyle}&lang=${this.locale}`);
+                        this.tripScoreImage.setUrl(`${this.apiUrl}/tripScore/${encodedSlug}?theme=${this.settings.tripScoreStyle}&lang=${this.locale}`);
 
                         await this.tripSummaryImage.update();
                         await this.tripInfoImage.update();
