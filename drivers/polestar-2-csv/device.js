@@ -78,6 +78,8 @@ class PolestarBetaDevice extends Device {
 
     async initWebhook() {
         let drivingData = [];
+        let tripEndTimer = null;
+        let tripInProgress = false;
 
         const updateImage = async () => {
             const encodedSlug = base64url.encode(this.slug);
@@ -129,29 +131,49 @@ class PolestarBetaDevice extends Device {
 
                     const isTripEnded = args.body.drivingPoints.some(point => point.point_marker_type === 2);
                     if (isTripEnded) {
-                        try {
-                            if (!this.homeyId) {
-                                throw new Error('homeyId er ikke satt');
-                            }
-
-                            const response = await axios.post(`${this.apiUrl}/save/${this.slug}`, drivingData, { headers: { 'Content-Type': 'application/json' } });
-                            if (response.status !== 200) {
-                                return this.homey.app.log(this.homey.__({
-                                    en: 'Failed to save data',
-                                    no: 'Kunne ikke lagre data'
-                                }), this.name, 'ERROR');
-                            } else {
-                                this.homey.app.log(this.homey.__({
-                                    en: 'Saved data',
-                                    no: 'Lagret data'
-                                }), this.name, 'DEBUG', response.data.encodedId);
-                            }
-                        } catch (error) {
-                            this.homey.app.log(this.homey.__({
-                                en: 'Failed to save data',
-                                no: 'Kunne ikke lagre data'
-                            }), this.name, 'ERROR', error.message);
+                        tripInProgress = false;
+                        if (tripEndTimer) {
+                            clearTimeout(tripEndTimer);
                         }
+
+                        const endTripThreshold = this.settings.endTripThreshold * 60 * 1000 || 10 * 60 * 1000; // Standardverdi på 10 minutter
+                        tripEndTimer = new Promise(resolve => {
+                            this.homey.app.log(this.homey.__({
+                                en: 'Trip ended. Waiting ' + endTripThreshold / 1000 + ' seconds before saving data.',
+                                no: 'Tur avsluttet. Venter ' + endTripThreshold / 1000 + ' sekunder før data lagres.'
+                            }), this.name, 'DEBUG');
+                            setTimeout(() => {
+                                resolve();
+                            }, endTripThreshold);
+                        });
+
+                        tripEndTimer.then(async () => {
+                            if (!tripInProgress) {
+                                try {
+                                    if (!this.homeyId) {
+                                        throw new Error('homeyId er ikke satt');
+                                    }
+
+                                    const response = await axios.post(`${this.apiUrl}/save/${this.slug}`, drivingData, { headers: { 'Content-Type': 'application/json' } });
+                                    if (response.status !== 200) {
+                                        return this.homey.app.log(this.homey.__({
+                                            en: 'Failed to save data',
+                                            no: 'Kunne ikke lagre data'
+                                        }), this.name, 'ERROR');
+                                    } else {
+                                        this.homey.app.log(this.homey.__({
+                                            en: 'Saved data',
+                                            no: 'Lagret data'
+                                        }), this.name, 'DEBUG', response.data.encodedId);
+                                    }
+                                } catch (error) {
+                                    this.homey.app.log(this.homey.__({
+                                        en: 'Failed to save data',
+                                        no: 'Kunne ikke lagre data'
+                                    }), this.name, 'ERROR', error.message);
+                                }
+                            }
+                        });
 
                         const from = await this.reverseGeocode(drivingData[0].lat, drivingData[0].lon);
                         const to = await this.reverseGeocode(drivingData[drivingData.length - 1].lat, drivingData[drivingData.length - 1].lon);
@@ -240,6 +262,11 @@ class PolestarBetaDevice extends Device {
                         });
 
                         drivingData = [];
+                    } else if (tripInProgress && tripEndTimer) {
+                        // Ny tur startet før timeren er ferdig
+                        args.body.drivingPoints[args.body.drivingPoints.length - 1].point_marker_type = 1;
+                        clearTimeout(tripEndTimer);
+                        tripEndTimer = null;
                     }
                 }
             }
@@ -306,10 +333,10 @@ class PolestarBetaDevice extends Device {
                         location += city ? ` ${city}` : '';
                     }
                 } else {
-                    location = this.homey.__({ "en": "Unknown", "no": "Ukjent" });
+                    location = this.homey.__({ "en": "Unknown road", "no": "Ukjent vei" });
                 }
             } else {
-                location = this.homey.__({ "en": "Unknown", "no": "Ukjent" });
+                location = this.homey.__({ "en": "Unknown road", "no": "Ukjent vei" });
             }
             if (!alt) {
                 alt = 0;

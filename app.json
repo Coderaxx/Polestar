@@ -275,6 +275,28 @@
         {
           "type": "group",
           "label": {
+            "en": "General settings",
+            "no": "Generelle innstillinger"
+          },
+          "children": [
+            {
+              "id": "endTripThreshold",
+              "type": "number",
+              "value": 10,
+              "label": {
+                "en": "End trip threshold",
+                "no": "Terskel for endt tur"
+              },
+              "hint": {
+                "en": "The time in minutes after which a trip should be considered ended. (Optional)",
+                "no": "Terskel i minutter for når en tur skal anses som avsluttet. (Valgfritt)"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
             "en": "Trip summary settings",
             "no": "Innstillinger for turoppsummering"
           },
