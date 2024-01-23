@@ -1,0 +1,12 @@
+{
+  "type": "string",
+  "uiComponent": "sensor",
+  "icon": "/drivers/polestar-2-csv/assets/images/ccs.svg",
+  "title": {
+    "en": "Charge port",
+    "no": "Ladeport"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true
+}

@@ -1,0 +1,12 @@
+{
+  "type": "string",
+  "uiComponent": "sensor",
+  "icon": "/drivers/polestar-2-csv/assets/images/update.svg",
+  "title": {
+    "en": "Updated",
+    "no": "Oppdatert"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true
+}

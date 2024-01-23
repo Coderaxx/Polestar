@@ -1,0 +1,13 @@
+{
+  "type": "number",
+  "uiComponent": "sensor",
+  "icon": "/drivers/polestar-2-csv/assets/images/battery-75.svg",
+  "title": {
+    "en": "Battery",
+    "no": "Batteri"
+  },
+  "units": "%",
+  "getable": true,
+  "setable": false,
+  "insights": true
+}

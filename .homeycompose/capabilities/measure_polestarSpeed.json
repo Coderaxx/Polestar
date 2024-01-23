@@ -1,0 +1,16 @@
+{
+  "type": "number",
+  "uiComponent": "sensor",
+  "icon": "/drivers/polestar-2-csv/assets/images/speedometer.svg",
+  "title": {
+    "en": "Speed",
+    "no": "Fart"
+  },
+  "units": {
+    "en": "km/h",
+    "no": "km/t"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true
+}

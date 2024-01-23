@@ -1,0 +1,12 @@
+{
+    "type": "string",
+    "uiComponent": "sensor",
+    "icon": "/drivers/polestar-2-csv/assets/images/range.svg",
+    "title": {
+        "en": "Range",
+        "no": "Rekkevidde"
+    },
+    "getable": true,
+    "setable": false,
+    "insights": true
+}

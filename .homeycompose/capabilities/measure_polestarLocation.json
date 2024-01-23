@@ -1,0 +1,12 @@
+{
+  "type": "string",
+  "uiComponent": "sensor",
+  "icon": "/drivers/polestar-2-csv/assets/images/location.svg",
+  "title": {
+    "en": "Location",
+    "no": "Plassering"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true
+}

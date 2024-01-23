@@ -1,0 +1,13 @@
+{
+  "type": "number",
+  "uiComponent": "sensor",
+  "icon": "/drivers/polestar-2-csv/assets/images/altitude.svg",
+  "title": {
+    "en": "Altitude",
+    "no": "Høyde"
+  },
+  "units": "m",
+  "getable": true,
+  "setable": false,
+  "insights": true
+}

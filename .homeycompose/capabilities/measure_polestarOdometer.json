@@ -1,0 +1,15 @@
+{
+    "type": "number",
+    "uiComponent": "sensor",
+    "icon": "/drivers/ps2/assets/images/odometer.svg",
+    "title": {
+        "en": "Odometer",
+        "no": "Kilometerstand",
+        "nl": "Odometer"
+    },
+    "getable": true,
+    "setable": false,
+    "units": {
+        "en": "KM"
+    }
+}

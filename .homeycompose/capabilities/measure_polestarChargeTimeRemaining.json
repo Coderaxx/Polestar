@@ -1,0 +1,15 @@
+{
+    "type": "number",
+    "uiComponent": "sensor",
+    "icon": "/drivers/ps2/assets/images/time-left.svg",
+    "title": {
+        "en": "Time remaining",
+        "no": "Gjenstaende tid",
+        "nl": "Resterende tijd"
+    },
+    "getable": true,
+    "setable": false,
+    "units": {
+        "en": "Min"
+    }
+}
