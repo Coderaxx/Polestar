@@ -3,7 +3,6 @@
 /.homeybuild/
 /env.json
 .homeybuild/*
-.homeycompose/*
 drivers/polestar-2/*
 drivers/polestar-2-beta/*
 .homeyignore
