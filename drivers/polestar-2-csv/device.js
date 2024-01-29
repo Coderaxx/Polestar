@@ -137,17 +137,12 @@ class PolestarBetaDevice extends Device {
                         }
 
                         const endTripThreshold = this.settings.endTripThreshold * 60 * 1000 || 10 * 60 * 1000; // Standardverdi på 10 minutter
-                        tripEndTimer = new Promise(resolve => {
-                            this.homey.app.log(this.homey.__({
-                                en: 'Trip ended. Waiting ' + endTripThreshold / 1000 + ' seconds before saving data.',
-                                no: 'Tur avsluttet. Venter ' + endTripThreshold / 1000 + ' sekunder før data lagres.'
-                            }), this.name, 'DEBUG');
-                            setTimeout(() => {
-                                resolve();
-                            }, endTripThreshold);
-                        });
-
-                        tripEndTimer.then(async () => {
+                        this.homey.app.log(this.homey.__({
+                            en: 'Trip ended. Waiting ' + endTripThreshold / 1000 + ' seconds before saving data.',
+                            no: 'Tur avsluttet. Venter ' + endTripThreshold / 1000 + ' sekunder før data lagres.'
+                        }), this.name, 'DEBUG');
+                        
+                        tripEndTimer = setTimeout(async () => {
                             if (!tripInProgress) {
                                 try {
                                     if (!this.homeyId) {
@@ -173,7 +168,7 @@ class PolestarBetaDevice extends Device {
                                     }), this.name, 'ERROR', error.message);
                                 }
                             }
-                        });
+                        }, endTripThreshold);
 
                         const from = await this.reverseGeocode(drivingData[0].lat, drivingData[0].lon);
                         const to = await this.reverseGeocode(drivingData[drivingData.length - 1].lat, drivingData[drivingData.length - 1].lon);
