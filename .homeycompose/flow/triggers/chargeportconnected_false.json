@@ -1,0 +1,15 @@
+{
+  "title": {
+    "en": "Car disconnected from a charger"
+  },
+  "hint": {
+    "en": "When the car detects it is no longer connected to a charge port"
+  },
+  "args": [
+    {
+      "name": "Vehicle",
+      "type": "device",
+      "filter": "driver_id=vehicle"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "title": {
+    "en": "Car stopped charging"
+  },
+  "hint": {
+    "en": "When the car stopped drawing power from the socket"
+  },
+  "args": [
+    {
+      "name": "Vehicle",
+      "type": "device",
+      "filter": "driver_id=vehicle"
+    }
+  ]
+}

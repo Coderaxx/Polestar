@@ -69,6 +69,70 @@
   "flow": {
     "triggers": [
       {
+        "title": {
+          "en": "Car disconnected from a charger"
+        },
+        "hint": {
+          "en": "When the car detects it is no longer connected to a charge port"
+        },
+        "args": [
+          {
+            "name": "Vehicle",
+            "type": "device",
+            "filter": "driver_id=vehicle"
+          }
+        ],
+        "id": "chargeportconnected_false"
+      },
+      {
+        "title": {
+          "en": "Car connected to a charger"
+        },
+        "hint": {
+          "en": "When the car detects a charger connected to a charge port"
+        },
+        "args": [
+          {
+            "name": "Vehicle",
+            "type": "device",
+            "filter": "driver_id=vehicle"
+          }
+        ],
+        "id": "chargeportconnected_true"
+      },
+      {
+        "title": {
+          "en": "Car stopped charging"
+        },
+        "hint": {
+          "en": "When the car stopped drawing power from the socket"
+        },
+        "args": [
+          {
+            "name": "Vehicle",
+            "type": "device",
+            "filter": "driver_id=vehicle"
+          }
+        ],
+        "id": "charging_false"
+      },
+      {
+        "title": {
+          "en": "Car started charging"
+        },
+        "hint": {
+          "en": "When the car started to draw power from the socket"
+        },
+        "args": [
+          {
+            "name": "Vehicle",
+            "type": "device",
+            "filter": "driver_id=vehicle"
+          }
+        ],
+        "id": "charging_true"
+      },
+      {
         "id": "chargingStarted",
         "title": {
           "en": "Charging started",

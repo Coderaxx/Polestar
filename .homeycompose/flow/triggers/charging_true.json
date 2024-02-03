@@ -1,0 +1,15 @@
+{
+  "title": {
+    "en": "Car started charging"
+  },
+  "hint": {
+    "en": "When the car started to draw power from the socket"
+  },
+  "args": [
+    {
+      "name": "Vehicle",
+      "type": "device",
+      "filter": "driver_id=vehicle"
+    }
+  ]
+}
