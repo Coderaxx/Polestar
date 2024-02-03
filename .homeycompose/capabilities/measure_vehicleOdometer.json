@@ -1,0 +1,13 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Odometer",
+    "nl": "Odometer"
+  },
+  "getable": true,
+  "setable": false,
+  "units": {
+    "en": "KM"
+  },
+  "icon": "/drivers/vehicle/assets/odometer.svg"
+}

@@ -66,140 +66,263 @@
   },
   "homeyCommunityTopicId": 95083,
   "homepage": "https://coderax.dev",
+  "flow": {
+    "triggers": [
+      {
+        "id": "chargingStarted",
+        "title": {
+          "en": "Charging started",
+          "no": "Lading startet"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=polestar-2-csv"
+          }
+        ]
+      },
+      {
+        "id": "chargingEnded",
+        "title": {
+          "en": "Charging ended",
+          "no": "Lading stoppet"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=polestar-2-csv"
+          }
+        ]
+      },
+      {
+        "id": "tripEnded",
+        "title": {
+          "en": "Trip ended",
+          "no": "Reisen er over"
+        },
+        "tokens": [
+          {
+            "type": "image",
+            "name": "lastTrip",
+            "title": {
+              "en": "Your last trip",
+              "no": "Din siste reise"
+            },
+            "example": {
+              "en": "An image visualizing your last trip, combined with useful trip data",
+              "no": "Et bilde som viser din siste reise, kombinert med nyttige reise-data"
+            }
+          },
+          {
+            "type": "image",
+            "name": "tripInfo",
+            "title": {
+              "en": "Trip Info",
+              "no": "Reiseinfo"
+            },
+            "example": {
+              "en": "An image visualizing data about your last trip",
+              "no": "Et bilde som viser data om din siste reise"
+            }
+          },
+          {
+            "type": "image",
+            "name": "tripScore",
+            "title": {
+              "en": "Trip Score",
+              "no": "Reise-score"
+            },
+            "example": {
+              "en": "An image visualizing how well your last trip was",
+              "no": "Et bilde som viser hvor bra din siste reise var"
+            }
+          },
+          {
+            "type": "string",
+            "name": "tripFrom",
+            "title": {
+              "en": "Trip From",
+              "no": "Reise fra"
+            },
+            "example": {
+              "en": "Storgata 1, Oslo",
+              "no": "Storgata 1, Oslo"
+            }
+          },
+          {
+            "type": "string",
+            "name": "tripTo",
+            "title": {
+              "en": "Trip To",
+              "no": "Reise til"
+            },
+            "example": {
+              "en": "Karl Johans gate 1, Oslo",
+              "no": "Karl Johans gate 1, Oslo"
+            }
+          },
+          {
+            "type": "string",
+            "name": "totalDistance",
+            "title": {
+              "en": "Total Distance",
+              "no": "Total distanse"
+            },
+            "example": {
+              "en": "2.5 km",
+              "no": "2.5 km"
+            }
+          },
+          {
+            "type": "string",
+            "name": "dateString",
+            "title": {
+              "en": "Date",
+              "no": "Dato"
+            },
+            "example": {
+              "en": "31.12.2023",
+              "no": "31.12.2023"
+            }
+          },
+          {
+            "type": "string",
+            "name": "timeStringStart",
+            "title": {
+              "en": "Start Time",
+              "no": "Starttid"
+            },
+            "example": {
+              "en": "10:00",
+              "no": "10:00"
+            }
+          },
+          {
+            "type": "string",
+            "name": "timeStringEnd",
+            "title": {
+              "en": "End Time",
+              "no": "Sluttid"
+            },
+            "example": {
+              "en": "10:30",
+              "no": "10:30"
+            }
+          },
+          {
+            "type": "string",
+            "name": "tripDuration",
+            "title": {
+              "en": "Trip Duration",
+              "no": "Reisens varighet"
+            },
+            "example": {
+              "en": "2.5 hours",
+              "no": "2.5 timer"
+            }
+          },
+          {
+            "type": "string",
+            "name": "socStart",
+            "title": {
+              "en": "Start State of Charge",
+              "no": "Starttilstand for lading"
+            },
+            "example": {
+              "en": "80%",
+              "no": "80%"
+            }
+          },
+          {
+            "type": "string",
+            "name": "socEnd",
+            "title": {
+              "en": "End State of Charge",
+              "no": "Slutttilstand for lading"
+            },
+            "example": {
+              "en": "50%",
+              "no": "50%"
+            }
+          },
+          {
+            "type": "string",
+            "name": "energyUsed",
+            "title": {
+              "en": "Energy Used",
+              "no": "Energi brukt"
+            },
+            "example": {
+              "en": "12.41 kWh",
+              "no": "12.41 kWh"
+            }
+          },
+          {
+            "type": "string",
+            "name": "altStart",
+            "title": {
+              "en": "Start Altitude",
+              "no": "Start høyde"
+            },
+            "example": {
+              "en": "20 m",
+              "no": "20 m"
+            }
+          },
+          {
+            "type": "string",
+            "name": "altEnd",
+            "title": {
+              "en": "End Altitude",
+              "no": "Slutt høyde"
+            },
+            "example": {
+              "en": "40 m",
+              "no": "40 m"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=polestar-2-csv"
+          }
+        ]
+      },
+      {
+        "id": "measure_polestarPower_changed",
+        "title": {
+          "en": "Power changed",
+          "no": "Strøm endret"
+        },
+        "tokens": [
+          {
+            "name": "measure_polestarPower",
+            "type": "number",
+            "title": {
+              "en": "Power",
+              "no": "Strøm"
+            },
+            "example": {
+              "en": "12.41 kW",
+              "no": "12.41 kW"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=polestar-2-csv"
+          }
+        ]
+      }
+    ]
+  },
   "drivers": [
-    {
-      "name": {
-        "en": "Polestar 2 (Tibber)",
-        "no": "Polestar 2 (Tibber)"
-      },
-      "class": "sensor",
-      "capabilities": [
-        "measure_battery",
-        "measure_polestarBattery",
-        "measure_polestarRange",
-        "measure_polestarChargeState",
-        "measure_polestarMonthlyCharge",
-        "measure_polestarUpdated"
-      ],
-      "platforms": [
-        "local"
-      ],
-      "connectivity": [
-        "cloud"
-      ],
-      "images": {
-        "small": "/drivers/polestar-2/assets/images/small.png",
-        "large": "/drivers/polestar-2/assets/images/large.png"
-      },
-      "pair": [
-        {
-          "id": "start"
-        },
-        {
-          "id": "getPolestar"
-        },
-        {
-          "id": "list_devices",
-          "template": "list_devices",
-          "navigation": {
-            "next": "add_device"
-          }
-        },
-        {
-          "id": "add_device",
-          "template": "add_devices"
-        }
-      ],
-      "energy": {
-        "batteries": [
-          "INTERNAL"
-        ]
-      },
-      "deprecated": true,
-      "id": "polestar-2",
-      "settings": [
-        {
-          "id": "refresh_interval",
-          "type": "number",
-          "label": {
-            "en": "Refresh interval",
-            "no": "Oppdateringsintervall"
-          },
-          "min": 10,
-          "max": 720,
-          "units": {
-            "en": "minutes",
-            "no": "minutter"
-          }
-        }
-      ]
-    },
-    {
-      "name": {
-        "en": "Polestar 2 ᴮᴱᵀᴬ",
-        "no": "Polestar 2 ᴮᴱᵀᴬ"
-      },
-      "class": "sensor",
-      "capabilities": [
-        "measure_battery",
-        "measure_polestarBattery",
-        "measure_polestarRange",
-        "measure_polestarChargeState",
-        "measure_polestarUpdated"
-      ],
-      "platforms": [
-        "local"
-      ],
-      "connectivity": [
-        "cloud"
-      ],
-      "images": {
-        "small": "/drivers/polestar-2-beta/assets/images/small.png",
-        "large": "/drivers/polestar-2-beta/assets/images/large.png"
-      },
-      "pair": [
-        {
-          "id": "start"
-        },
-        {
-          "id": "getPolestar"
-        },
-        {
-          "id": "list_devices",
-          "template": "list_devices",
-          "navigation": {
-            "next": "add_device"
-          }
-        },
-        {
-          "id": "add_device",
-          "template": "add_devices"
-        }
-      ],
-      "energy": {
-        "batteries": [
-          "INTERNAL"
-        ]
-      },
-      "deprecated": true,
-      "id": "polestar-2-beta",
-      "settings": [
-        {
-          "id": "refresh_interval",
-          "type": "number",
-          "label": {
-            "en": "Refresh interval",
-            "no": "Oppdateringsintervall"
-          },
-          "min": 10,
-          "max": 720,
-          "units": {
-            "en": "minutes",
-            "no": "minutter"
-          }
-        }
-      ]
-    },
     {
       "name": {
         "en": "Polestar 2 (Car Stats Viewer ᴮᴱᵀᴬ)",
@@ -593,264 +716,65 @@
         ]
       },
       "id": "ps2"
+    },
+    {
+      "name": {
+        "en": "Car"
+      },
+      "class": "other",
+      "capabilities": [
+        "measure_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "INTERNAL"
+        ]
+      },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "images": {
+        "small": "/drivers/vehicle/assets/images/small.png",
+        "large": "/drivers/vehicle/assets/images/large.png",
+        "xlarge": "/drivers/vehicle/assets/images/xlarge.png"
+      },
+      "repair": [
+        {
+          "id": "login"
+        }
+      ],
+      "pair": [
+        {
+          "id": "login",
+          "navigation": {
+            "next": "discover_vehicles"
+          }
+        },
+        {
+          "id": "discover_vehicles",
+          "template": "loading",
+          "navigation": {
+            "next": "list_devices"
+          }
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "id": "vehicle"
     }
   ],
-  "flow": {
-    "triggers": [
-      {
-        "id": "chargingStarted",
-        "title": {
-          "en": "Charging started",
-          "no": "Lading startet"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=polestar-2-csv"
-          }
-        ]
-      },
-      {
-        "id": "chargingEnded",
-        "title": {
-          "en": "Charging ended",
-          "no": "Lading stoppet"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=polestar-2-csv"
-          }
-        ]
-      },
-      {
-        "id": "tripEnded",
-        "title": {
-          "en": "Trip ended",
-          "no": "Reisen er over"
-        },
-        "tokens": [
-          {
-            "type": "image",
-            "name": "lastTrip",
-            "title": {
-              "en": "Your last trip",
-              "no": "Din siste reise"
-            },
-            "example": {
-              "en": "An image visualizing your last trip, combined with useful trip data",
-              "no": "Et bilde som viser din siste reise, kombinert med nyttige reise-data"
-            }
-          },
-          {
-            "type": "image",
-            "name": "tripInfo",
-            "title": {
-              "en": "Trip Info",
-              "no": "Reiseinfo"
-            },
-            "example": {
-              "en": "An image visualizing data about your last trip",
-              "no": "Et bilde som viser data om din siste reise"
-            }
-          },
-          {
-            "type": "image",
-            "name": "tripScore",
-            "title": {
-              "en": "Trip Score",
-              "no": "Reise-score"
-            },
-            "example": {
-              "en": "An image visualizing how well your last trip was",
-              "no": "Et bilde som viser hvor bra din siste reise var"
-            }
-          },
-          {
-            "type": "string",
-            "name": "tripFrom",
-            "title": {
-              "en": "Trip From",
-              "no": "Reise fra"
-            },
-            "example": {
-              "en": "Storgata 1, Oslo",
-              "no": "Storgata 1, Oslo"
-            }
-          },
-          {
-            "type": "string",
-            "name": "tripTo",
-            "title": {
-              "en": "Trip To",
-              "no": "Reise til"
-            },
-            "example": {
-              "en": "Karl Johans gate 1, Oslo",
-              "no": "Karl Johans gate 1, Oslo"
-            }
-          },
-          {
-            "type": "string",
-            "name": "totalDistance",
-            "title": {
-              "en": "Total Distance",
-              "no": "Total distanse"
-            },
-            "example": {
-              "en": "2.5 km",
-              "no": "2.5 km"
-            }
-          },
-          {
-            "type": "string",
-            "name": "dateString",
-            "title": {
-              "en": "Date",
-              "no": "Dato"
-            },
-            "example": {
-              "en": "31.12.2023",
-              "no": "31.12.2023"
-            }
-          },
-          {
-            "type": "string",
-            "name": "timeStringStart",
-            "title": {
-              "en": "Start Time",
-              "no": "Starttid"
-            },
-            "example": {
-              "en": "10:00",
-              "no": "10:00"
-            }
-          },
-          {
-            "type": "string",
-            "name": "timeStringEnd",
-            "title": {
-              "en": "End Time",
-              "no": "Sluttid"
-            },
-            "example": {
-              "en": "10:30",
-              "no": "10:30"
-            }
-          },
-          {
-            "type": "string",
-            "name": "tripDuration",
-            "title": {
-              "en": "Trip Duration",
-              "no": "Reisens varighet"
-            },
-            "example": {
-              "en": "2.5 hours",
-              "no": "2.5 timer"
-            }
-          },
-          {
-            "type": "string",
-            "name": "socStart",
-            "title": {
-              "en": "Start State of Charge",
-              "no": "Starttilstand for lading"
-            },
-            "example": {
-              "en": "80%",
-              "no": "80%"
-            }
-          },
-          {
-            "type": "string",
-            "name": "socEnd",
-            "title": {
-              "en": "End State of Charge",
-              "no": "Slutttilstand for lading"
-            },
-            "example": {
-              "en": "50%",
-              "no": "50%"
-            }
-          },
-          {
-            "type": "string",
-            "name": "energyUsed",
-            "title": {
-              "en": "Energy Used",
-              "no": "Energi brukt"
-            },
-            "example": {
-              "en": "12.41 kWh",
-              "no": "12.41 kWh"
-            }
-          },
-          {
-            "type": "string",
-            "name": "altStart",
-            "title": {
-              "en": "Start Altitude",
-              "no": "Start høyde"
-            },
-            "example": {
-              "en": "20 m",
-              "no": "20 m"
-            }
-          },
-          {
-            "type": "string",
-            "name": "altEnd",
-            "title": {
-              "en": "End Altitude",
-              "no": "Slutt høyde"
-            },
-            "example": {
-              "en": "40 m",
-              "no": "40 m"
-            }
-          }
-        ],
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=polestar-2-csv"
-          }
-        ]
-      },
-      {
-        "id": "measure_polestarPower_changed",
-        "title": {
-          "en": "Power changed",
-          "no": "Strøm endret"
-        },
-        "tokens": [
-          {
-            "name": "measure_polestarPower",
-            "type": "number",
-            "title": {
-              "en": "Power",
-              "no": "Strøm"
-            },
-            "example": {
-              "en": "12.41 kW",
-              "no": "12.41 kW"
-            }
-          }
-        ],
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=polestar-2-csv"
-          }
-        ]
-      }
-    ]
-  },
   "capabilities": {
     "measure_polestarAlt": {
       "type": "number",
@@ -970,7 +894,7 @@
     "measure_polestarMonthlyCharge": {
       "type": "string",
       "uiComponent": "sensor",
-      "icon": "/drivers/polestar-2/assets/images/charge-home.svg",
+      "icon": "/drivers/vehicle/assets/charging.svg",
       "title": {
         "en": "Charged home this month",
         "no": "Ladet hjemme denne mnd"
@@ -1060,6 +984,67 @@
       "getable": true,
       "setable": false,
       "insights": true
+    },
+    "measure_vehicleChargeState": {
+      "type": "boolean",
+      "title": {
+        "en": "Charging",
+        "nl": "Laden"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/drivers/vehicle/assets/charging.svg"
+    },
+    "measure_vehicleChargeTimeRemaining": {
+      "type": "number",
+      "title": {
+        "en": "Time remaining",
+        "nl": "Resterende tijd"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "Min"
+      },
+      "icon": "/drivers/vehicle/assets/timeremaining.svg"
+    },
+    "measure_vehicleConnected": {
+      "type": "boolean",
+      "title": {
+        "en": "Chargeport connected",
+        "nl": "Laadpoort verbonden"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/drivers/vehicle/assets/charger_connected.svg"
+    },
+    "measure_vehicleOdometer": {
+      "type": "number",
+      "title": {
+        "en": "Odometer",
+        "nl": "Odometer"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "KM"
+      },
+      "icon": "/drivers/vehicle/assets/odometer.svg"
+    },
+    "measure_vehicleRange": {
+      "type": "number",
+      "title": {
+        "en": "Range",
+        "nl": "Bereik"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "KM"
+      },
+      "icon": "/drivers/vehicle/assets/range.svg"
     }
   }
 }

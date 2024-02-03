@@ -1,0 +1,13 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Range",
+    "nl": "Bereik"
+  },
+  "getable": true,
+  "setable": false,
+  "units": {
+    "en": "KM"
+  },
+  "icon": "/drivers/vehicle/assets/range.svg"
+}
