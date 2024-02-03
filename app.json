@@ -719,7 +719,8 @@
     },
     {
       "name": {
-        "en": "Car"
+        "en": "My Polestar",
+        "nl": "Mijn Polestar"
       },
       "class": "other",
       "capabilities": [
