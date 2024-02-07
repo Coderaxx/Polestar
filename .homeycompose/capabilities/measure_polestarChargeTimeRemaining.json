@@ -1,7 +1,7 @@
 {
     "type": "number",
     "uiComponent": "sensor",
-    "icon": "/drivers/ps2/assets/images/time-left.svg",
+    "icon": "/drivers/vehicle/assets/timeremaining.svg",
     "title": {
         "en": "Time remaining",
         "no": "Gjenstaende tid",

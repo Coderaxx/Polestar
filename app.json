@@ -70,10 +70,12 @@
     "triggers": [
       {
         "title": {
-          "en": "Car disconnected from a charger"
+          "en": "Car disconnected from a charger",
+          "no": "Bil frakoblet lader"
         },
         "hint": {
-          "en": "When the car detects it is no longer connected to a charge port"
+          "en": "When the car detects it is no longer connected to a charge port",
+          "no": "Når bilen oppdager at ladepunktet er frakoblet"
         },
         "args": [
           {
@@ -86,10 +88,12 @@
       },
       {
         "title": {
-          "en": "Car connected to a charger"
+          "en": "Car connected to a charger",
+          "no": "Bil tilkoblet lader"
         },
         "hint": {
-          "en": "When the car detects a charger connected to a charge port"
+          "en": "When the car detects a charger connected to a charge port",
+          "no": "Når bilen oppdager at en lader er tilkoblet ladepunktet"
         },
         "args": [
           {
@@ -102,10 +106,12 @@
       },
       {
         "title": {
-          "en": "Car stopped charging"
+          "en": "Car stopped charging",
+          "no": "Lading stoppet"
         },
         "hint": {
-          "en": "When the car stopped drawing power from the socket"
+          "en": "When the car stopped drawing power from the socket",
+          "no": "Når bilen sluttet å trekke strøm fra laderen"
         },
         "args": [
           {
@@ -118,10 +124,12 @@
       },
       {
         "title": {
-          "en": "Car started charging"
+          "en": "Car started charging",
+          "no": "Lading startet"
         },
         "hint": {
-          "en": "When the car started to draw power from the socket"
+          "en": "When the car started to draw power from the socket",
+          "no": "Når bilen startet å trekke strøm fra laderen"
         },
         "args": [
           {
@@ -720,70 +728,8 @@
     },
     {
       "name": {
-        "en": "Polestar 2 ᴮᴱᵀᴬ",
-        "no": "Polestar 2 ᴮᴱᵀᴬ"
-      },
-      "class": "sensor",
-      "capabilities": [
-        "measure_battery",
-        "measure_polestarRange",
-        "measure_polestarChargeState",
-        "measure_polestarOdometer",
-        "measure_polestarConnected",
-        "measure_polestarChargeTimeRemaining"
-      ],
-      "platforms": [
-        "local"
-      ],
-      "connectivity": [
-        "cloud"
-      ],
-      "images": {
-        "small": "/drivers/ps2/assets/images/small.png",
-        "large": "/drivers/ps2/assets/images/large.png",
-        "xlarge": "/drivers/ps2/assets/images/xlarge.png"
-      },
-      "repair": [
-        {
-          "id": "login"
-        }
-      ],
-      "pair": [
-        {
-          "id": "login",
-          "navigation": {
-            "next": "discover_vehicles"
-          }
-        },
-        {
-          "id": "discover_vehicles",
-          "template": "loading",
-          "navigation": {
-            "next": "list_devices"
-          }
-        },
-        {
-          "id": "list_devices",
-          "template": "list_devices",
-          "navigation": {
-            "next": "add_devices"
-          }
-        },
-        {
-          "id": "add_devices",
-          "template": "add_devices"
-        }
-      ],
-      "energy": {
-        "batteries": [
-          "INTERNAL"
-        ]
-      },
-      "id": "ps2"
-    },
-    {
-      "name": {
         "en": "My Polestar",
+        "no": "Min Polestar",
         "nl": "Mijn Polestar"
       },
       "class": "other",
@@ -896,7 +842,7 @@
     "measure_polestarChargeTimeRemaining": {
       "type": "number",
       "uiComponent": "sensor",
-      "icon": "/drivers/ps2/assets/images/time-left.svg",
+      "icon": "/drivers/vehicle/assets/timeremaining.svg",
       "title": {
         "en": "Time remaining",
         "no": "Gjenstaende tid",
@@ -971,7 +917,7 @@
     "measure_polestarOdometer": {
       "type": "number",
       "uiComponent": "sensor",
-      "icon": "/drivers/ps2/assets/images/odometer.svg",
+      "icon": "/drivers/vehicle/assets/odometer.svg",
       "title": {
         "en": "Odometer",
         "no": "Kilometerstand",
@@ -1054,6 +1000,7 @@
       "type": "boolean",
       "title": {
         "en": "Charging",
+        "no": "Lader",
         "nl": "Laden"
       },
       "getable": true,
@@ -1065,6 +1012,7 @@
       "type": "number",
       "title": {
         "en": "Time remaining",
+        "no": "Gjenstående tid",
         "nl": "Resterende tijd"
       },
       "getable": true,
@@ -1078,6 +1026,7 @@
       "type": "boolean",
       "title": {
         "en": "Chargeport connected",
+        "no": "Ladepoort tilkoblet",
         "nl": "Laadpoort verbonden"
       },
       "getable": true,
@@ -1089,6 +1038,7 @@
       "type": "number",
       "title": {
         "en": "Odometer",
+        "no": "Kilometerteller",
         "nl": "Odometer"
       },
       "getable": true,
@@ -1102,6 +1052,7 @@
       "type": "number",
       "title": {
         "en": "Range",
+        "no": "Rekkevidde",
         "nl": "Bereik"
       },
       "getable": true,
