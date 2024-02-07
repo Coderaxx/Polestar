@@ -17,9 +17,9 @@ class Vehicle extends Driver {
             var cryptedpassword = this.homey.settings.get('user_password');
             try {
                 plainpass = await HomeyCrypt.decrypt(cryptedpassword, username);
-                await session.emit('loadaccount', { 'username': username, 'password': plainpass });
+                await session.emit('loadaccount', { username, password: plainpass });
             } catch (err) {
-                await session.emit('loadaccount', { 'username': username, 'password': '' })
+                await session.emit('loadaccount', { username, password: '' })
             }
         });
 

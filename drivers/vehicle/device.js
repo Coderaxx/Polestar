@@ -57,7 +57,6 @@ class PolestarVehicle extends Device {
             await this.addCapability('measure_vehicleChargeState');
         if (!this.hasCapability('measure_vehicleConnected'))
             await this.addCapability('measure_vehicleConnected');
-
     }
 
     async updateVehicleState() {
