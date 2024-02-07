@@ -60,9 +60,9 @@ class Vehicle extends Driver {
                 var cryptedpassword = this.homey.settings.get('user_password');
                 try {
                     plainpass = await HomeyCrypt.decrypt(cryptedpassword, username);
-                    await session.emit('loadaccount', { 'username': username, 'password': plainpass });
+                    await session.emit('loadaccount', { username, password: plainpass });
                 } catch (err) {
-                    await session.emit('loadaccount', { 'username': username, 'password': '' })
+                    await session.emit('loadaccount', { username, password: '' })
                 }
             };
         });
@@ -72,7 +72,6 @@ class Vehicle extends Driver {
         });
 
         session.setHandler('add_devices', async (data) => {
-            await session.showView('add_devices');
             if (data.length > 0) {
                 this.homey.app.log('vehicle [' + data[0].name + '] added', 'Polestar Driver');
             } else {
@@ -82,45 +81,52 @@ class Vehicle extends Driver {
 
         session.setHandler('discover_vehicles', async (data) => {
             this.homey.app.log('Polestar vehicles discovery started...', 'Polestar Driver');
-            await session.showView('discover_vehicles');
             let PolestarUser = this.homey.settings.get('user_email');
             let PolestarPwd = await HomeyCrypt.decrypt(this.homey.settings.get('user_password'), PolestarUser);
-            var polestar = new Polestar(PolestarUser, PolestarPwd);
-            await polestar.login();
-            var vehiclelist = await polestar.getVehicles();
-            if (vehiclelist && vehiclelist.length > 0) {
-                var vehicles = vehiclelist.map((bev) => {
-                    try {
-                        this.homey.app.log('Located vehicle info, lets convert it into a Polestar bev', 'Polestar Driver');
-                        let device = {
-                            id: bev.vin,
-                            name: bev.content.model.name + ' (' + bev.registrationNo + ')',
-                            data: {
-                                vin: bev.vin,
-                                registration: bev.registrationNo,
-                                internalVehicleIdentifier: bev.internalVehicleIdentifier,
-                                modelName: bev.content.model.name,
-                                modelYear: bev.modelYear,
-                                carImage: bev.content.images.studio.url,
-                                deliveryDate: bev.deliveryDate,
-                                hasPerformancePackage: bev.hasPerformancePackage
+            try {
+                this.homey.app.log('Attempting to login to Polestar', 'Polestar Driver');
+                var polestar = new Polestar(PolestarUser, PolestarPwd);
+                await polestar.login();
+                this.homey.app.log('Login successful, retrieving vehicles', 'Polestar Driver');
+                var vehiclelist = await polestar.getVehicles();
+                if (vehiclelist && vehiclelist.length > 0) {
+                    var vehicles = vehiclelist.map((bev) => {
+                        try {
+                            this.homey.app.log('Located vehicle info, lets convert it into a Polestar bev', 'Polestar Driver');
+                            let device = {
+                                id: bev.vin,
+                                name: bev.content.model.name + ' (' + bev.registrationNo + ')',
+                                data: {
+                                    vin: bev.vin,
+                                    registration: bev.registrationNo,
+                                    internalVehicleIdentifier: bev.internalVehicleIdentifier,
+                                    modelName: bev.content.model.name,
+                                    modelYear: bev.modelYear,
+                                    carImage: bev.content.images.studio.url,
+                                    deliveryDate: bev.deliveryDate,
+                                    hasPerformancePackage: bev.hasPerformancePackage
+                                }
                             }
+
+                            return device;
+                        } catch (err) {
+                            this.homey.app.log('Could not convert vehicle info to bev', 'Polestar Driver', 'ERROR', err);
+                            return err;
                         }
-                        return device;
-                    } catch (err) {
-                        this.homey.app.log('Could not convert vehicle info to bev', 'Polestar Driver', 'ERROR', err);
-                        return err;
-                    }
-                });
-            } else {
-                this.homey.app.log('No vehicles found', 'Polestar Driver', 'WARNING');
-                var vehicles = [];
-                await session.showView('login');
-                return await session.emit('noVehiclesFound', 'No vehicles found, please try again.');
+                    });
+                } else {
+                    this.homey.app.log('No vehicles found', 'Polestar Driver', 'WARNING');
+                    var vehicles = [];
+                    return await session.emit('noVehiclesFound', 'No vehicles found, please try again.');
+                }
+
+                this.homey.app.log('Vehicles ready to be added:', 'Polestar Driver', 'DEBUG', vehicles);
+                mydevices = vehicles;
+                await session.showView('list_devices');
+            } catch (err) {
+                this.homey.app.log('Could not login to Polestar', 'Polestar Driver', 'ERROR', err);
+                return err;
             }
-            this.homey.app.log('Vehicles ready to be added:', 'Polestar Driver', 'DEBUG', vehicles);
-            mydevices = vehicles;
-            await session.showView('list_devices');
         });
 
         session.setHandler('testlogin', async (data) => {

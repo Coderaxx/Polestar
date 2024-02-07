@@ -31,13 +31,6 @@
       "id": "login"
     },
     {
-      "id": "discover_vehicles",
-      "template": "loading",
-      "navigation": {
-        "next": "list_devices"
-      }
-    },
-    {
       "id": "list_devices",
       "template": "list_devices",
       "navigation": {

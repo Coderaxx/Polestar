@@ -14,11 +14,11 @@
 
 		<div class="homey-form-group">
 			<label class="homey-form-label" for="username">Username</label>
-			<input class="homey-form-input" id="username" type="text" value="" />
+			<input class="homey-form-input" id="username" name="username" type="text" value="" />
 		</div>
 		<div class="homey-form-group">
 			<label class="homey-form-label" for="password">Password</label>
-			<input class="homey-form-input" id="password" type="password" value="" />
+			<input class="homey-form-input" id="password" name="password" type="password" value="" />
 		</div>
 		<button class="homey-button-primary-full" id="save">Login</button>
 	</fieldset>
@@ -27,22 +27,26 @@
 <script type="text/javascript">
 	$(document).ready(function() {
         const loginForm = $('#loginForm');
-		const usernameElement = $('#username').val();
-		const passwordElement = $('#password').val();
+		const usernameElement = $('#username');
+		const passwordElement = $('#password');
 		const saveElement = $('#save');
 
-        loginForm.submit(function(e) {
+		loginForm.submit(function(e) {
 			e.preventDefault();
 
 			Homey.showLoadingOverlay();
 			Homey.emit('testlogin', {
-				'username': usernameElement,
-				'password': passwordElement
+				'username': usernameElement.val(),
+				'password': passwordElement.val()
 			}).then(async function(result) {
-				console.log('Testcomplete result: ' + result);
+				//console.log('Testcomplete result: ' + result);
 				if (result) {
-					Homey.hideLoadingOverlay();
-					await Homey.emit('discover_vehicles');
+                    await Homey.emit('discover_vehicles').then(function(result) {
+                        if (result) {
+                            Homey.hideLoadingOverlay();
+                            Homey.nextView();
+                        }
+                    })
 				} else {
 					Homey.hideLoadingOverlay();
 					Homey.alert("Login validation failed, check your credentials or try again. Retrieving the token sometimes fails due to the website. If you are sure your credentials are fine just try a couple of times.");
@@ -51,8 +55,8 @@
 		});
 
 		Homey.on('loadaccount', function(credentials, callback) {
-			usernameElement.value = credentials.username;
-			passwordElement.value = credentials.password;
+			usernameElement.val(credentials.username);
+			passwordElement.val(credentials.password);
 		});
 
 		Homey.on('noVehiclesFound', function(message) {
