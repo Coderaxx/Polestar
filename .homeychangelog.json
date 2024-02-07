@@ -61,5 +61,8 @@
   },
   "2.0.8": {
     "en": "Fixed a bug causing the flow trigger card to not trigger"
+  },
+  "2.1.0": {
+    "en": "Added unofficial Polestar API driver."
   }
 }
