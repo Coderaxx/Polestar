@@ -1,0 +1,14 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Range",
+    "no": "Rekkevidde",
+    "nl": "Bereik"
+  },
+  "getable": true,
+  "setable": false,
+  "units": {
+    "en": "KM"
+  },
+  "icon": "/drivers/vehicle/assets/range.svg"
+}
