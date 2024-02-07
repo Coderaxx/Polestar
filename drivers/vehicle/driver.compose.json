@@ -28,10 +28,7 @@
     }],
   "pair": [
     {
-      "id": "login",
-      "navigation": {
-        "next": "discover_vehicles"
-      }
+      "id": "login"
     },
     {
       "id": "discover_vehicles",

@@ -1,53 +1,65 @@
+<header class="homey-header">
+	<h1 class="homey-title">
+		Polestar Account
+	</h1>
+	<p class="homey-subtitle">
+		Please provide your account details.<br />
+		These will be stored on your Homey encrypted and used to login during app operations.
+	</p>
+</header>
+<img src="../assets/images/polestar.png" style="width: 100%; max-width: 420px; height: auto; margin-bottom: 20px;" />
+<form class="homey-form" id="loginForm">
+	<fieldset class="homey-form-fieldset">
+		<legend class="homey-form-legend">Account settings</legend>
 
-    <h1>Polestar Account</h1>
-    <p>Please provide your account details.<br />
-    These will be stored on your Homey encrypted and used to login during app operations.</p>
+		<div class="homey-form-group">
+			<label class="homey-form-label" for="username">Username</label>
+			<input class="homey-form-input" id="username" type="text" value="" />
+		</div>
+		<div class="homey-form-group">
+			<label class="homey-form-label" for="password">Password</label>
+			<input class="homey-form-input" id="password" type="password" value="" />
+		</div>
+		<button class="homey-button-primary-full" id="save">Login</button>
+	</fieldset>
+</form>
 
-    <fieldset>
-        <legend>Polestar Account settings</legend>
+<script type="text/javascript">
+	$(document).ready(function() {
+        const loginForm = $('#loginForm');
+		const usernameElement = $('#username').val();
+		const passwordElement = $('#password').val();
+		const saveElement = $('#save');
 
-        <div class="field row">
-            <label for="username">Username</label>
-            <input id="username" type="text" value="" />
-        </div>
-        <div class="field row">
-            <label for="password">Password</label>
-            <input id="password" type="password" value="" />
-        </div>
+        loginForm.submit(function(e) {
+			e.preventDefault();
 
-    </fieldset>
+			Homey.showLoadingOverlay();
+			Homey.emit('testlogin', {
+				'username': usernameElement,
+				'password': passwordElement
+			}).then(async function(result) {
+				console.log('Testcomplete result: ' + result);
+				if (result) {
+					Homey.hideLoadingOverlay();
+					await Homey.emit('discover_vehicles');
+				} else {
+					Homey.hideLoadingOverlay();
+					Homey.alert("Login validation failed, check your credentials or try again. Retrieving the token sometimes fails due to the website. If you are sure your credentials are fine just try a couple of times.");
+				}
+			});
+		});
 
-    <button id="save" class="right">Login</button>
+		Homey.on('loadaccount', function(credentials, callback) {
+			usernameElement.value = credentials.username;
+			passwordElement.value = credentials.password;
+		});
 
-    <script type="text/javascript">
-        var usernameElement = document.getElementById('username');
-        var passwordElement = document.getElementById('password');
-        var saveElement = document.getElementById('save');
-
-        saveElement.addEventListener('click', function(e) {
-            Homey.showLoadingOverlay();
-            Homey.emit('testlogin', { 'username':usernameElement.value,'password':passwordElement.value }).then(function (result) {
-                console.log('Testcomplete result: '+result);
-                if(result)
-                {
-                    Homey.hideLoadingOverlay();
-                    Homey.emit( 'discover_vehicles', null, function( err, result ){
-                        console.log(result); 
-                    });
-                }
-                else
-                {
-                    Homey.hideLoadingOverlay();
-                    Homey.alert("Login validation failed, check your credentials or try again.");
-                }
-            });
-        });
-
-        Homey.on('loadaccount', function(credentials, callback){
-            usernameElement.value=credentials.username;
-            passwordElement.value=credentials.password;
-        });
-
-    </script>
+		Homey.on('noVehiclesFound', function(message) {
+			Homey.alert(message);
+			return Homey.done();
+		});
+	});
+</script>
 
 </body>
