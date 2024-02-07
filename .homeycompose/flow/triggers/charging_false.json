@@ -1,0 +1,17 @@
+{
+  "title": {
+    "en": "Car stopped charging",
+    "no": "Lading stoppet"
+  },
+  "hint": {
+    "en": "When the car stopped drawing power from the socket",
+    "no": "Når bilen sluttet å trekke strøm fra laderen"
+  },
+  "args": [
+    {
+      "name": "Vehicle",
+      "type": "device",
+      "filter": "driver_id=vehicle"
+    }
+  ]
+}

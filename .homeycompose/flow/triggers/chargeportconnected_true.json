@@ -1,0 +1,17 @@
+{
+  "title": {
+    "en": "Car connected to a charger",
+    "no": "Bil tilkoblet lader"
+  },
+  "hint": {
+    "en": "When the car detects a charger connected to a charge port",
+    "no": "Når bilen oppdager at en lader er tilkoblet ladepunktet"
+  },
+  "args": [
+    {
+      "name": "Vehicle",
+      "type": "device",
+      "filter": "driver_id=vehicle"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Charging",
+    "no": "Lader",
+    "nl": "Laden"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/drivers/vehicle/assets/charging.svg"
+}

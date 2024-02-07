@@ -1,0 +1,14 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Time remaining",
+    "no": "Gjenstående tid",
+    "nl": "Resterende tijd"
+  },
+  "getable": true,
+  "setable": false,
+  "units": {
+    "en": "Min"
+  },
+  "icon": "/drivers/vehicle/assets/timeremaining.svg"
+}

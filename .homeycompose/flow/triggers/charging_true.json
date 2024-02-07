@@ -1,0 +1,17 @@
+{
+  "title": {
+    "en": "Car started charging",
+    "no": "Lading startet"
+  },
+  "hint": {
+    "en": "When the car started to draw power from the socket",
+    "no": "Når bilen startet å trekke strøm fra laderen"
+  },
+  "args": [
+    {
+      "name": "Vehicle",
+      "type": "device",
+      "filter": "driver_id=vehicle"
+    }
+  ]
+}

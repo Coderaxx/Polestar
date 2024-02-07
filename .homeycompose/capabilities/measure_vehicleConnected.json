@@ -1,0 +1,12 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Chargeport connected",
+    "no": "Ladepoort tilkoblet",
+    "nl": "Laadpoort verbonden"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/drivers/vehicle/assets/charger_connected.svg"
+}
