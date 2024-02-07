@@ -8,16 +8,35 @@ var polestar = null;
 
 class PolestarVehicle extends Device {
     async onInit() {
-        this.homey.app.log('PolestarVehicle has been initialized', 'PolestarVehicle');
+        if (this.polestar == null) {
+            let PolestarUser = this.homey.settings.get('user_email');
+            try {
+                let PolestarPwd = await HomeyCrypt.decrypt(this.homey.settings.get('user_password'), PolestarUser);
+                this.polestar = new Polestar(PolestarUser, PolestarPwd);
+            } catch (err) {
+                this.homey.app.log('Could not decrypt using salt, network connection changed?', 'PolestarVehicle', 'ERROR', err);
+                return;
+            }
+            try {
+                await this.polestar.login();
+                await this.polestar.setVehicle(this.getData().vin);
+            } catch (err) {
+                this.homey.app.log('Could not login. Please check your credentials or try again later', 'PolestarVehicle', 'ERROR', err);
+                return;
+            }
+        }
+
         await this.fixCapabilities();
         this.update_loop_timers();
+
+        this.homey.app.log('PolestarVehicle has been initialized', 'PolestarVehicle');
     }
 
-    update_loop_timers() {
-        this.updateVehicleState();
+    async update_loop_timers() {
+        await this.updateVehicleState();
         let interval = 60000;
-        this._timerTimers = setInterval(() => {
-            this.updateVehicleState();
+        this._timerTimers = this.homey.setInterval(async () => {
+            await this.updateVehicleState();
         }, interval);
     }
 
@@ -41,31 +60,14 @@ class PolestarVehicle extends Device {
 
     }
 
-    async onAdded() {
-        this.homey.app.log('PolestarVehicle has been added', 'PolestarVehicle');
-    }
-
     async updateVehicleState() {
         this.homey.app.log('Retrieve device details', 'PolestarVehicle', 'DEBUG');
-        if (this.polestar == null) {
-            let PolestarUser = this.homey.settings.get('user_email');
-            try {
-                let PolestarPwd = await HomeyCrypt.decrypt(this.homey.settings.get('user_password'), PolestarUser);
-                this.polestar = new Polestar(PolestarUser, PolestarPwd);
-            } catch (err) {
-                this.homey.app.log('Could not decrypt using salt, network connection changed?', 'PolestarVehicle', 'ERROR', err);
-                return;
-            }
-            await this.polestar.login();
-            await this.polestar.setVehicle(this.getData().vin);
-        }
         try {
             var odometer = await this.polestar.getOdometer();
             var odo = odometer.odometerMeters;
             try {
                 odo = odo / 1000; //Convert to KM instead of M
-            }
-            catch {
+            } catch {
                 odo = null;
             }
             this.homey.app.log('KM:' + odo, 'PolestarVehicle', 'DEBUG');
@@ -97,6 +99,10 @@ class PolestarVehicle extends Device {
         } catch {
             this.homey.app.log('Failed to retrieve batterystate', 'PolestarVehicle', 'ERROR');
         }
+    }
+
+    async onAdded() {
+        this.homey.app.log('PolestarVehicle has been added', 'PolestarVehicle');
     }
 
     async onSettings({ oldSettings, newSettings, changedKeys }) {
