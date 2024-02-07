@@ -1,9 +1,11 @@
 {
   "title": {
-    "en": "Car started charging"
+    "en": "Car started charging",
+    "no": "Lading startet"
   },
   "hint": {
-    "en": "When the car started to draw power from the socket"
+    "en": "When the car started to draw power from the socket",
+    "no": "Når bilen startet å trekke strøm fra laderen"
   },
   "args": [
     {

@@ -2,6 +2,7 @@
   "type": "number",
   "title": {
     "en": "Odometer",
+    "no": "Kilometerteller",
     "nl": "Odometer"
   },
   "getable": true,

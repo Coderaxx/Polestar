@@ -2,6 +2,7 @@
   "type": "boolean",
   "title": {
     "en": "Chargeport connected",
+    "no": "Ladepoort tilkoblet",
     "nl": "Laadpoort verbonden"
   },
   "getable": true,

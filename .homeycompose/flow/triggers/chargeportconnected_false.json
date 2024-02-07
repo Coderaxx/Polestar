@@ -1,9 +1,11 @@
 {
   "title": {
-    "en": "Car disconnected from a charger"
+    "en": "Car disconnected from a charger",
+    "no": "Bil frakoblet lader"
   },
   "hint": {
-    "en": "When the car detects it is no longer connected to a charge port"
+    "en": "When the car detects it is no longer connected to a charge port",
+    "no": "Når bilen oppdager at ladepunktet er frakoblet"
   },
   "args": [
     {

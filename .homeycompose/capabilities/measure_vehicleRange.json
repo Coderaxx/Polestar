@@ -2,6 +2,7 @@
   "type": "number",
   "title": {
     "en": "Range",
+    "no": "Rekkevidde",
     "nl": "Bereik"
   },
   "getable": true,

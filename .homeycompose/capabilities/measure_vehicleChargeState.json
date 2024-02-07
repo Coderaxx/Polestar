@@ -2,6 +2,7 @@
   "type": "boolean",
   "title": {
     "en": "Charging",
+    "no": "Lader",
     "nl": "Laden"
   },
   "getable": true,
