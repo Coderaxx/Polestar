@@ -9,11 +9,13 @@
   ],
   "name": {
     "en": "Polestar",
-    "no": "Polestar"
+    "no": "Polestar",
+    "nl": "Polestar"
   },
   "description": {
     "en": "Enjoy the road with Polestar and Homey – smart technology for smart drivers",
-    "no": "Nyt veien med Polestar og Homey – smart teknologi for smarte sjåfører"
+    "no": "Nyt veien med Polestar og Homey – smart teknologi for smarte sjåfører",
+    "nl": "Geniet van de weg met Polestar en Homey – Slimme technologie voor slimme bestuurders"
   },
   "category": "internet",
   "permissions": [
@@ -30,6 +32,14 @@
   },
   "brandColor": "#081822",
   "support": "mailto:polestar@coderax.dev?subject=Polestar%20-%20Homey%20app",
+  "contributors": {
+    "developers": [
+      {
+        "name": "Vincent Boer",
+        "email": "vincent+homey@vdboer.nl"
+      }
+    ]
+  },
   "contributing": {
     "donate": {
       "paypal": {
@@ -62,6 +72,20 @@
       "ev",
       "ev car",
       "smart car"
+    ],
+    "nl": [
+      "polestar",
+      "pole",
+      "star",
+      "auto",
+      "electrisch",
+      "electrische auto",
+      "ev",
+      "ev auto",
+      "bev",
+      "bev auto",
+      "slimme auto",
+      "batterij auto"
     ]
   },
   "homeyCommunityTopicId": 95083,
@@ -70,10 +94,14 @@
     "triggers": [
       {
         "title": {
-          "en": "Car disconnected from a charger"
+          "en": "Car disconnected from a charger",
+          "no": "Bil frakoblet lader",
+          "nl": "Auto is niet meer verbonden met de lader"
         },
         "hint": {
-          "en": "When the car detects it is no longer connected to a charge port"
+          "en": "When the car detects it is no longer connected to a charge port",
+          "no": "Når bilen oppdager at ladepunktet er frakoblet",
+          "nl": "Als de auto detecteerd dat de laadpoort niet meer verbonden is met een lader"
         },
         "args": [
           {
@@ -86,10 +114,14 @@
       },
       {
         "title": {
-          "en": "Car connected to a charger"
+          "en": "Car connected to a charger",
+          "no": "Bil tilkoblet lader",
+          "nl": "Auto is verbonden met een lader"
         },
         "hint": {
-          "en": "When the car detects a charger connected to a charge port"
+          "en": "When the car detects a charger connected to a charge port",
+          "no": "Når bilen oppdager at en lader er tilkoblet ladepunktet",
+          "nl": "Wanneer de auto detecteerd dat de laadpoort verbonden is met een lader"
         },
         "args": [
           {
@@ -102,10 +134,14 @@
       },
       {
         "title": {
-          "en": "Car stopped charging"
+          "en": "Car stopped charging",
+          "no": "Lading stoppet",
+          "nl": "Auto is gestopt met laden"
         },
         "hint": {
-          "en": "When the car stopped drawing power from the socket"
+          "en": "When the car stopped drawing power from the socket",
+          "no": "Når bilen sluttet å trekke strøm fra laderen",
+          "nl": "Als de auto zelf gestopt is met het opnemen van stroom uit via laadpoort"
         },
         "args": [
           {
@@ -118,10 +154,14 @@
       },
       {
         "title": {
-          "en": "Car started charging"
+          "en": "Car started charging",
+          "no": "Lading startet",
+          "nl": "Auto is begonnen met laden"
         },
         "hint": {
-          "en": "When the car started to draw power from the socket"
+          "en": "When the car started to draw power from the socket",
+          "no": "Når bilen startet å trekke strøm fra laderen",
+          "nl": "Als de auto is begonnen met het opnemen van stroom via de laadpoort"
         },
         "args": [
           {
@@ -720,70 +760,8 @@
     },
     {
       "name": {
-        "en": "Polestar 2 ᴮᴱᵀᴬ",
-        "no": "Polestar 2 ᴮᴱᵀᴬ"
-      },
-      "class": "sensor",
-      "capabilities": [
-        "measure_battery",
-        "measure_polestarRange",
-        "measure_polestarChargeState",
-        "measure_polestarOdometer",
-        "measure_polestarConnected",
-        "measure_polestarChargeTimeRemaining"
-      ],
-      "platforms": [
-        "local"
-      ],
-      "connectivity": [
-        "cloud"
-      ],
-      "images": {
-        "small": "/drivers/ps2/assets/images/small.png",
-        "large": "/drivers/ps2/assets/images/large.png",
-        "xlarge": "/drivers/ps2/assets/images/xlarge.png"
-      },
-      "repair": [
-        {
-          "id": "login"
-        }
-      ],
-      "pair": [
-        {
-          "id": "login",
-          "navigation": {
-            "next": "discover_vehicles"
-          }
-        },
-        {
-          "id": "discover_vehicles",
-          "template": "loading",
-          "navigation": {
-            "next": "list_devices"
-          }
-        },
-        {
-          "id": "list_devices",
-          "template": "list_devices",
-          "navigation": {
-            "next": "add_devices"
-          }
-        },
-        {
-          "id": "add_devices",
-          "template": "add_devices"
-        }
-      ],
-      "energy": {
-        "batteries": [
-          "INTERNAL"
-        ]
-      },
-      "id": "ps2"
-    },
-    {
-      "name": {
         "en": "My Polestar",
+        "no": "Min Polestar",
         "nl": "Mijn Polestar"
       },
       "class": "other",
@@ -847,7 +825,8 @@
       "icon": "/drivers/polestar-2-csv/assets/images/altitude.svg",
       "title": {
         "en": "Altitude",
-        "no": "Høyde"
+        "no": "Høyde",
+        "nl": "Hoogte"
       },
       "units": "m",
       "getable": true,
@@ -860,7 +839,8 @@
       "icon": "/drivers/polestar-2-csv/assets/images/battery-75.svg",
       "title": {
         "en": "Battery",
-        "no": "Batteri"
+        "no": "Batteri",
+        "nl": "Batterij"
       },
       "units": "%",
       "getable": true,
@@ -873,7 +853,8 @@
       "icon": "/drivers/polestar-2-csv/assets/images/hvbattery.svg",
       "title": {
         "en": "Battery level",
-        "no": "Batterinivå"
+        "no": "Batterinivå",
+        "nl": "Batterij niveau"
       },
       "units": "kWh",
       "decimals": 2,
@@ -887,26 +868,12 @@
       "icon": "/drivers/polestar-2-csv/assets/images/charging.svg",
       "title": {
         "en": "Charging",
-        "no": "Lader"
+        "no": "Lader",
+        "nl": "Laden"
       },
       "getable": true,
       "setable": false,
       "insights": true
-    },
-    "measure_polestarChargeTimeRemaining": {
-      "type": "number",
-      "uiComponent": "sensor",
-      "icon": "/drivers/ps2/assets/images/time-left.svg",
-      "title": {
-        "en": "Time remaining",
-        "no": "Gjenstaende tid",
-        "nl": "Resterende tijd"
-      },
-      "getable": true,
-      "setable": false,
-      "units": {
-        "en": "Min"
-      }
     },
     "measure_polestarConnected": {
       "type": "string",
@@ -914,7 +881,8 @@
       "icon": "/drivers/polestar-2-csv/assets/images/ccs.svg",
       "title": {
         "en": "Charge port",
-        "no": "Ladeport"
+        "no": "Ladeport",
+        "nl": "Laadpoort"
       },
       "getable": true,
       "setable": false,
@@ -926,7 +894,8 @@
       "icon": "/drivers/polestar-2-csv/assets/images/gear.svg",
       "title": {
         "en": "Selected Gear",
-        "no": "Valgt gir"
+        "no": "Valgt gir",
+        "nl": "Geselecteerde versnelling"
       },
       "getable": true,
       "setable": false,
@@ -938,7 +907,8 @@
       "icon": "/drivers/polestar-2-csv/assets/images/ignition.svg",
       "title": {
         "en": "Ignition",
-        "no": "Tenning"
+        "no": "Tenning",
+        "nl": "Ontsteking"
       },
       "getable": true,
       "setable": false,
@@ -950,7 +920,8 @@
       "icon": "/drivers/polestar-2-csv/assets/images/location.svg",
       "title": {
         "en": "Location",
-        "no": "Plassering"
+        "no": "Plassering",
+        "nl": "Locatie"
       },
       "getable": true,
       "setable": false,
@@ -962,26 +933,12 @@
       "icon": "/drivers/vehicle/assets/charging.svg",
       "title": {
         "en": "Charged home this month",
-        "no": "Ladet hjemme denne mnd"
+        "no": "Ladet hjemme denne mnd",
+        "nl": "Deze maand thuis geladen"
       },
       "getable": true,
       "setable": false,
       "insights": true
-    },
-    "measure_polestarOdometer": {
-      "type": "number",
-      "uiComponent": "sensor",
-      "icon": "/drivers/ps2/assets/images/odometer.svg",
-      "title": {
-        "en": "Odometer",
-        "no": "Kilometerstand",
-        "nl": "Odometer"
-      },
-      "getable": true,
-      "setable": false,
-      "units": {
-        "en": "KM"
-      }
     },
     "measure_polestarPower": {
       "id": "measure_polestarPower",
@@ -990,7 +947,8 @@
       "icon": "/drivers/polestar-2-csv/assets/images/powerdc.svg",
       "title": {
         "en": "Power",
-        "no": "Effekt"
+        "no": "Effekt",
+        "nl": "Acceleratie"
       },
       "units": "kW",
       "getable": true,
@@ -1003,7 +961,8 @@
       "icon": "/drivers/polestar-2-csv/assets/images/range.svg",
       "title": {
         "en": "Range",
-        "no": "Rekkevidde"
+        "no": "Rekkevidde",
+        "nl": "Bereik"
       },
       "getable": true,
       "setable": false,
@@ -1015,7 +974,8 @@
       "icon": "/drivers/polestar-2-csv/assets/images/speedometer.svg",
       "title": {
         "en": "Speed",
-        "no": "Fart"
+        "no": "Fart",
+        "nl": "Snelheid"
       },
       "units": {
         "en": "km/h",
@@ -1031,7 +991,8 @@
       "icon": "/drivers/polestar-2-csv/assets/images/temp.svg",
       "title": {
         "en": "Ambient Temperature",
-        "no": "Utetemperatur"
+        "no": "Utetemperatur",
+        "nl": "Buitentemperatuur"
       },
       "units": "°C",
       "getable": true,
@@ -1044,7 +1005,8 @@
       "icon": "/drivers/polestar-2-csv/assets/images/update.svg",
       "title": {
         "en": "Updated",
-        "no": "Oppdatert"
+        "no": "Oppdatert",
+        "nl": "Bijgewerkt"
       },
       "getable": true,
       "setable": false,
@@ -1054,6 +1016,7 @@
       "type": "boolean",
       "title": {
         "en": "Charging",
+        "no": "Lader",
         "nl": "Laden"
       },
       "getable": true,
@@ -1065,6 +1028,7 @@
       "type": "number",
       "title": {
         "en": "Time remaining",
+        "no": "Gjenstående tid",
         "nl": "Resterende tijd"
       },
       "getable": true,
@@ -1078,6 +1042,7 @@
       "type": "boolean",
       "title": {
         "en": "Chargeport connected",
+        "no": "Ladepoort tilkoblet",
         "nl": "Laadpoort verbonden"
       },
       "getable": true,
@@ -1089,6 +1054,7 @@
       "type": "number",
       "title": {
         "en": "Odometer",
+        "no": "Kilometerteller",
         "nl": "Odometer"
       },
       "getable": true,
@@ -1102,6 +1068,7 @@
       "type": "number",
       "title": {
         "en": "Range",
+        "no": "Rekkevidde",
         "nl": "Bereik"
       },
       "getable": true,

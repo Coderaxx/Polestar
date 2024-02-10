@@ -4,7 +4,8 @@
   "icon": "/drivers/polestar-2-csv/assets/images/ignition.svg",
   "title": {
     "en": "Ignition",
-    "no": "Tenning"
+    "no": "Tenning",
+    "nl": "Ontsteking"
   },
   "getable": true,
   "setable": false,

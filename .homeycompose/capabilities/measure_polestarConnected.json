@@ -4,7 +4,8 @@
   "icon": "/drivers/polestar-2-csv/assets/images/ccs.svg",
   "title": {
     "en": "Charge port",
-    "no": "Ladeport"
+    "no": "Ladeport",
+    "nl": "Laadpoort"
   },
   "getable": true,
   "setable": false,

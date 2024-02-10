@@ -29,6 +29,9 @@ class PolestarVehicle extends Device {
   {
     if(!this.hasCapability('measure_battery'))
       await this.addCapability('measure_battery');
+    if (!this.hasCapability('measure_polestarBattery'))
+      await this.addCapability('measure_polestarBattery');
+    //measure_polestarBatteryLevel
     // if(!this.hasCapability('measure_current'))
     //   await this.addCapability('measure_current');
     // if(!this.hasCapability('measure_power'))
@@ -43,7 +46,10 @@ class PolestarVehicle extends Device {
       await this.addCapability('measure_vehicleChargeState'); 
     if(!this.hasCapability('measure_vehicleConnected'))
       await this.addCapability('measure_vehicleConnected');
-       
+    //Deprecated capabilities
+
+      if(this.hasCapability('measure_polestarConnected'))
+      await this.removeCapability('measure_polestarConnected');
   }
 
   /**
@@ -90,6 +96,8 @@ class PolestarVehicle extends Device {
       console.log(JSON.stringify(batteryInfo));
 
       this.setCapabilityValue('measure_battery', batteryInfo.batteryChargeLevelPercentage);
+      if (this.hasCapability('measure_polestarBattery'))
+      this.setCapabilityValue('measure_polestarBattery', batteryInfo.batteryChargeLevelPercentage);
       // this.setCapabilityValue('measure_current', batteryInfo.chargingCurrentAmps);
       // this.setCapabilityValue('measure_power', batteryInfo.chargingPowerWatts);
 

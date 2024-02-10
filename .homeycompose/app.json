@@ -8,11 +8,13 @@
   ],
   "name": {
     "en": "Polestar",
-    "no": "Polestar"
+    "no": "Polestar",
+    "nl": "Polestar"
   },
   "description": {
     "en": "Enjoy the road with Polestar and Homey – smart technology for smart drivers",
-    "no": "Nyt veien med Polestar og Homey – smart teknologi for smarte sjåfører"
+    "no": "Nyt veien med Polestar og Homey – smart teknologi for smarte sjåfører",
+    "nl": "Geniet van de weg met Polestar en Homey – Slimme technologie voor slimme bestuurders"
   },
   "category": "internet",
   "permissions": [
@@ -29,6 +31,14 @@
   },
   "brandColor": "#081822",
   "support": "mailto:polestar@coderax.dev?subject=Polestar%20-%20Homey%20app",
+  "contributors": {
+    "developers": [
+      {
+        "name": "Vincent Boer",
+        "email": "vincent+homey@vdboer.nl"
+      }
+    ]
+  },
   "contributing": {
     "donate": {
       "paypal": {
@@ -61,6 +71,20 @@
       "ev",
       "ev car",
       "smart car"
+    ],
+    "nl": [
+      "polestar",
+      "pole",
+      "star",
+      "auto",
+      "electrisch",
+      "electrische auto",
+      "ev",
+      "ev auto",
+      "bev",
+      "bev auto",
+      "slimme auto",
+      "batterij auto"
     ]
   },
   "homeyCommunityTopicId": 95083,
