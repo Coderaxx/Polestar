@@ -12,7 +12,11 @@ class PolestarVehicle extends Device {
    * onInit is called when the device is initialized.
    */
   async onInit() {
-    this.log('PolestarVehicle has been initialized');
+    this.homey.app.log(this.homey.__({
+      en: `${this.name} has been initialized`,
+      no: `${this.name} har blitt initialisert`,
+      nl: `${this.name} is geinitialiseerd`,
+  }), this.name, 'DEBUG');
     await this.fixCapabilities();
     this.update_loop_timers();
   }

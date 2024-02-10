@@ -4,21 +4,24 @@
             "id": "chargingStarted",
             "title": {
                 "en": "Charging started",
-                "no": "Lading startet"
+                "no": "Lading startet",
+                "nl": "Laden is gestart"
             }
         },
         {
             "id": "chargingEnded",
             "title": {
                 "en": "Charging ended",
-                "no": "Lading stoppet"
+                "no": "Lading stoppet",
+                "nl": "Laden is gestopt"
             }
         },
         {
             "id": "tripEnded",
             "title": {
                 "en": "Trip ended",
-                "no": "Reisen er over"
+                "no": "Reisen er over",
+                "nl": "De rit is geindigd"
             },
             "tokens": [
                 {
@@ -26,11 +29,13 @@
                     "name": "lastTrip",
                     "title": {
                         "en": "Your last trip",
-                        "no": "Din siste reise"
+                        "no": "Din siste reise",
+                        "nl": "Uw recente rit"
                     },
                     "example": {
                         "en": "An image visualizing your last trip, combined with useful trip data",
-                        "no": "Et bilde som viser din siste reise, kombinert med nyttige reise-data"
+                        "no": "Et bilde som viser din siste reise, kombinert med nyttige reise-data",
+                        "nl": "Een visuele weergave van uw recente trip, gecombineerd met nuttige rit info"
                     }
                 },
                 {
@@ -38,11 +43,13 @@
                     "name": "tripInfo",
                     "title": {
                         "en": "Trip Info",
-                        "no": "Reiseinfo"
+                        "no": "Reiseinfo",
+                        "nl": "Rit info"
                     },
                     "example": {
                         "en": "An image visualizing data about your last trip",
-                        "no": "Et bilde som viser data om din siste reise"
+                        "no": "Et bilde som viser data om din siste reise",
+                        "nl": "Een afbeelding met uw recente rit weergegeven"
                     }
                 },
                 {
@@ -50,11 +57,13 @@
                     "name": "tripScore",
                     "title": {
                         "en": "Trip Score",
-                        "no": "Reise-score"
+                        "no": "Reise-score",
+                        "nl": "Rit score"
                     },
                     "example": {
                         "en": "An image visualizing how well your last trip was",
-                        "no": "Et bilde som viser hvor bra din siste reise var"
+                        "no": "Et bilde som viser hvor bra din siste reise var",
+                        "nl": "Een afbeelding over hoe goed uw rit was"
                     }
                 },
                 {
@@ -62,11 +71,13 @@
                     "name": "tripFrom",
                     "title": {
                         "en": "Trip From",
-                        "no": "Reise fra"
+                        "no": "Reise fra",
+                        "nl": "Rit vanaf"
                     },
                     "example": {
                         "en": "Storgata 1, Oslo",
-                        "no": "Storgata 1, Oslo"
+                        "no": "Storgata 1, Oslo",
+                        "nl": "Storgata 1, Oslo"
                     }
                 },
                 {
@@ -74,11 +85,13 @@
                     "name": "tripTo",
                     "title": {
                         "en": "Trip To",
-                        "no": "Reise til"
+                        "no": "Reise til",
+                        "nl": "Rit naar"
                     },
                     "example": {
                         "en": "Karl Johans gate 1, Oslo",
-                        "no": "Karl Johans gate 1, Oslo"
+                        "no": "Karl Johans gate 1, Oslo",
+                        "nl": "Karl Johans gate 1, Oslo"
                     }
                 },
                 {
@@ -86,11 +99,13 @@
                     "name": "totalDistance",
                     "title": {
                         "en": "Total Distance",
-                        "no": "Total distanse"
+                        "no": "Total distanse",
+                        "nl": "Totale afstand"
                     },
                     "example": {
                         "en": "2.5 km",
-                        "no": "2.5 km"
+                        "no": "2.5 km",
+                        "nl": "2.5 km"
                     }
                 },
                 {
@@ -98,11 +113,13 @@
                     "name": "dateString",
                     "title": {
                         "en": "Date",
-                        "no": "Dato"
+                        "no": "Dato",
+                        "nl": "Datum"
                     },
                     "example": {
                         "en": "31.12.2023",
-                        "no": "31.12.2023"
+                        "no": "31.12.2023",
+                        "nl": "31.12.2023"
                     }
                 },
                 {
@@ -110,11 +127,13 @@
                     "name": "timeStringStart",
                     "title": {
                         "en": "Start Time",
-                        "no": "Starttid"
+                        "no": "Starttid",
+                        "nl": "Start tijd"
                     },
                     "example": {
                         "en": "10:00",
-                        "no": "10:00"
+                        "no": "10:00",
+                        "nl": "10:00"
                     }
                 },
                 {
@@ -122,11 +141,13 @@
                     "name": "timeStringEnd",
                     "title": {
                         "en": "End Time",
-                        "no": "Sluttid"
+                        "no": "Sluttid",
+                        "nl": "Eind tijd"
                     },
                     "example": {
                         "en": "10:30",
-                        "no": "10:30"
+                        "no": "10:30",
+                        "nl": "10:30"
                     }
                 },
                 {
@@ -134,11 +155,13 @@
                     "name": "tripDuration",
                     "title": {
                         "en": "Trip Duration",
-                        "no": "Reisens varighet"
+                        "no": "Reisens varighet",
+                        "nl": "Ritduur"
                     },
                     "example": {
                         "en": "2.5 hours",
-                        "no": "2.5 timer"
+                        "no": "2.5 timer",
+                        "nl": "2.5 timer"
                     }
                 },
                 {
@@ -146,11 +169,13 @@
                     "name": "socStart",
                     "title": {
                         "en": "Start State of Charge",
-                        "no": "Starttilstand for lading"
+                        "no": "Starttilstand for lading",
+                        "nl": "Startniveau van batterijniveau"
                     },
                     "example": {
                         "en": "80%",
-                        "no": "80%"
+                        "no": "80%",
+                        "nl": "80%"
                     }
                 },
                 {
@@ -158,11 +183,13 @@
                     "name": "socEnd",
                     "title": {
                         "en": "End State of Charge",
-                        "no": "Slutttilstand for lading"
+                        "no": "Slutttilstand for lading",
+                        "nl": "Eindniveau van batterijniveau"
                     },
                     "example": {
                         "en": "50%",
-                        "no": "50%"
+                        "no": "50%",
+                        "nl": "50%"
                     }
                 },
                 {
@@ -170,11 +197,13 @@
                     "name": "energyUsed",
                     "title": {
                         "en": "Energy Used",
-                        "no": "Energi brukt"
+                        "no": "Energi brukt",
+                        "nl": "Verbruikte energy"
                     },
                     "example": {
                         "en": "12.41 kWh",
-                        "no": "12.41 kWh"
+                        "no": "12.41 kWh",
+                        "nl": "12.41 kWh"
                     }
                 },
                 {
@@ -182,11 +211,13 @@
                     "name": "altStart",
                     "title": {
                         "en": "Start Altitude",
-                        "no": "Start høyde"
+                        "no": "Start høyde",
+                        "nl": "Start hoogte"
                     },
                     "example": {
                         "en": "20 m",
-                        "no": "20 m"
+                        "no": "20 m",
+                        "nl": "20 m"
                     }
                 },
                 {
@@ -194,11 +225,13 @@
                     "name": "altEnd",
                     "title": {
                         "en": "End Altitude",
-                        "no": "Slutt høyde"
+                        "no": "Slutt høyde",
+                        "nl": "Eind hoogte"
                     },
                     "example": {
                         "en": "40 m",
-                        "no": "40 m"
+                        "no": "40 m",
+                        "nl": "40 m"
                     }
                 }
             ]
@@ -207,7 +240,8 @@
             "id": "measure_polestarPower_changed",
             "title": {
                 "en": "Power changed",
-                "no": "Strøm endret"
+                "no": "Strøm endret",
+                "nl": "Stroom verandert"
             },
             "tokens": [
                 {
@@ -215,11 +249,13 @@
                     "type": "number",
                     "title": {
                         "en": "Power",
-                        "no": "Strøm"
+                        "no": "Strøm",
+                        "nl": "Stroom"
                     },
                     "example": {
                         "en": "12.41 kW",
-                        "no": "12.41 kW"
+                        "no": "12.41 kW",
+                        "nl": "12.41 kW"
                     }
                 }
             ]

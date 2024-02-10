@@ -12,7 +12,8 @@ class PolestarBetaDevice extends Device {
 
         this.homey.app.log(this.homey.__({
             en: `${this.name} has been initialized`,
-            no: `${this.name} har blitt initialisert`
+            no: `${this.name} har blitt initialisert`,
+            nl: `${this.name} is geinitialiseerd`,
         }), this.name, 'DEBUG');
 
         moment.locale(this.homey.i18n.getLanguage() == 'no' ? 'nb' : 'en');

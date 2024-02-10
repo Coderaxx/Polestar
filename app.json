@@ -176,7 +176,8 @@
         "id": "chargingStarted",
         "title": {
           "en": "Charging started",
-          "no": "Lading startet"
+          "no": "Lading startet",
+          "nl": "Laden is gestart"
         },
         "args": [
           {
@@ -190,7 +191,8 @@
         "id": "chargingEnded",
         "title": {
           "en": "Charging ended",
-          "no": "Lading stoppet"
+          "no": "Lading stoppet",
+          "nl": "Laden is gestopt"
         },
         "args": [
           {
@@ -204,7 +206,8 @@
         "id": "tripEnded",
         "title": {
           "en": "Trip ended",
-          "no": "Reisen er over"
+          "no": "Reisen er over",
+          "nl": "De rit is geindigd"
         },
         "tokens": [
           {
@@ -212,11 +215,13 @@
             "name": "lastTrip",
             "title": {
               "en": "Your last trip",
-              "no": "Din siste reise"
+              "no": "Din siste reise",
+              "nl": "Uw recente rit"
             },
             "example": {
               "en": "An image visualizing your last trip, combined with useful trip data",
-              "no": "Et bilde som viser din siste reise, kombinert med nyttige reise-data"
+              "no": "Et bilde som viser din siste reise, kombinert med nyttige reise-data",
+              "nl": "Een visuele weergave van uw recente trip, gecombineerd met nuttige rit info"
             }
           },
           {
@@ -224,11 +229,13 @@
             "name": "tripInfo",
             "title": {
               "en": "Trip Info",
-              "no": "Reiseinfo"
+              "no": "Reiseinfo",
+              "nl": "Rit info"
             },
             "example": {
               "en": "An image visualizing data about your last trip",
-              "no": "Et bilde som viser data om din siste reise"
+              "no": "Et bilde som viser data om din siste reise",
+              "nl": "Een afbeelding met uw recente rit weergegeven"
             }
           },
           {
@@ -236,11 +243,13 @@
             "name": "tripScore",
             "title": {
               "en": "Trip Score",
-              "no": "Reise-score"
+              "no": "Reise-score",
+              "nl": "Rit score"
             },
             "example": {
               "en": "An image visualizing how well your last trip was",
-              "no": "Et bilde som viser hvor bra din siste reise var"
+              "no": "Et bilde som viser hvor bra din siste reise var",
+              "nl": "Een afbeelding over hoe goed uw rit was"
             }
           },
           {
@@ -248,11 +257,13 @@
             "name": "tripFrom",
             "title": {
               "en": "Trip From",
-              "no": "Reise fra"
+              "no": "Reise fra",
+              "nl": "Rit vanaf"
             },
             "example": {
               "en": "Storgata 1, Oslo",
-              "no": "Storgata 1, Oslo"
+              "no": "Storgata 1, Oslo",
+              "nl": "Storgata 1, Oslo"
             }
           },
           {
@@ -260,11 +271,13 @@
             "name": "tripTo",
             "title": {
               "en": "Trip To",
-              "no": "Reise til"
+              "no": "Reise til",
+              "nl": "Rit naar"
             },
             "example": {
               "en": "Karl Johans gate 1, Oslo",
-              "no": "Karl Johans gate 1, Oslo"
+              "no": "Karl Johans gate 1, Oslo",
+              "nl": "Karl Johans gate 1, Oslo"
             }
           },
           {
@@ -272,11 +285,13 @@
             "name": "totalDistance",
             "title": {
               "en": "Total Distance",
-              "no": "Total distanse"
+              "no": "Total distanse",
+              "nl": "Totale afstand"
             },
             "example": {
               "en": "2.5 km",
-              "no": "2.5 km"
+              "no": "2.5 km",
+              "nl": "2.5 km"
             }
           },
           {
@@ -284,11 +299,13 @@
             "name": "dateString",
             "title": {
               "en": "Date",
-              "no": "Dato"
+              "no": "Dato",
+              "nl": "Datum"
             },
             "example": {
               "en": "31.12.2023",
-              "no": "31.12.2023"
+              "no": "31.12.2023",
+              "nl": "31.12.2023"
             }
           },
           {
@@ -296,11 +313,13 @@
             "name": "timeStringStart",
             "title": {
               "en": "Start Time",
-              "no": "Starttid"
+              "no": "Starttid",
+              "nl": "Start tijd"
             },
             "example": {
               "en": "10:00",
-              "no": "10:00"
+              "no": "10:00",
+              "nl": "10:00"
             }
           },
           {
@@ -308,11 +327,13 @@
             "name": "timeStringEnd",
             "title": {
               "en": "End Time",
-              "no": "Sluttid"
+              "no": "Sluttid",
+              "nl": "Eind tijd"
             },
             "example": {
               "en": "10:30",
-              "no": "10:30"
+              "no": "10:30",
+              "nl": "10:30"
             }
           },
           {
@@ -320,11 +341,13 @@
             "name": "tripDuration",
             "title": {
               "en": "Trip Duration",
-              "no": "Reisens varighet"
+              "no": "Reisens varighet",
+              "nl": "Ritduur"
             },
             "example": {
               "en": "2.5 hours",
-              "no": "2.5 timer"
+              "no": "2.5 timer",
+              "nl": "2.5 timer"
             }
           },
           {
@@ -332,11 +355,13 @@
             "name": "socStart",
             "title": {
               "en": "Start State of Charge",
-              "no": "Starttilstand for lading"
+              "no": "Starttilstand for lading",
+              "nl": "Startniveau van batterijniveau"
             },
             "example": {
               "en": "80%",
-              "no": "80%"
+              "no": "80%",
+              "nl": "80%"
             }
           },
           {
@@ -344,11 +369,13 @@
             "name": "socEnd",
             "title": {
               "en": "End State of Charge",
-              "no": "Slutttilstand for lading"
+              "no": "Slutttilstand for lading",
+              "nl": "Eindniveau van batterijniveau"
             },
             "example": {
               "en": "50%",
-              "no": "50%"
+              "no": "50%",
+              "nl": "50%"
             }
           },
           {
@@ -356,11 +383,13 @@
             "name": "energyUsed",
             "title": {
               "en": "Energy Used",
-              "no": "Energi brukt"
+              "no": "Energi brukt",
+              "nl": "Verbruikte energy"
             },
             "example": {
               "en": "12.41 kWh",
-              "no": "12.41 kWh"
+              "no": "12.41 kWh",
+              "nl": "12.41 kWh"
             }
           },
           {
@@ -368,11 +397,13 @@
             "name": "altStart",
             "title": {
               "en": "Start Altitude",
-              "no": "Start høyde"
+              "no": "Start høyde",
+              "nl": "Start hoogte"
             },
             "example": {
               "en": "20 m",
-              "no": "20 m"
+              "no": "20 m",
+              "nl": "20 m"
             }
           },
           {
@@ -380,11 +411,13 @@
             "name": "altEnd",
             "title": {
               "en": "End Altitude",
-              "no": "Slutt høyde"
+              "no": "Slutt høyde",
+              "nl": "Eind hoogte"
             },
             "example": {
               "en": "40 m",
-              "no": "40 m"
+              "no": "40 m",
+              "nl": "40 m"
             }
           }
         ],
@@ -400,7 +433,8 @@
         "id": "measure_polestarPower_changed",
         "title": {
           "en": "Power changed",
-          "no": "Strøm endret"
+          "no": "Strøm endret",
+          "nl": "Stroom verandert"
         },
         "tokens": [
           {
@@ -408,11 +442,13 @@
             "type": "number",
             "title": {
               "en": "Power",
-              "no": "Strøm"
+              "no": "Strøm",
+              "nl": "Stroom"
             },
             "example": {
               "en": "12.41 kW",
-              "no": "12.41 kW"
+              "no": "12.41 kW",
+              "nl": "12.41 kW"
             }
           }
         ],
@@ -430,7 +466,8 @@
     {
       "name": {
         "en": "Polestar 2 (Car Stats Viewer ᴮᴱᵀᴬ)",
-        "no": "Polestar 2 (Car Stats Viewer ᴮᴱᵀᴬ)"
+        "no": "Polestar 2 (Car Stats Viewer ᴮᴱᵀᴬ)",
+        "nl": "Polestar 2 (Car Stats Viewer ᴮᴱᵀᴬ)"
       },
       "class": "sensor",
       "capabilities": [
@@ -503,7 +540,8 @@
           "type": "group",
           "label": {
             "en": "General settings",
-            "no": "Generelle innstillinger"
+            "no": "Generelle innstillinger",
+            "nl": "Algemene instellingen"
           },
           "children": [
             {
@@ -512,11 +550,13 @@
               "value": 10,
               "label": {
                 "en": "End trip threshold",
-                "no": "Terskel for endt tur"
+                "no": "Terskel for endt tur",
+                "nl": "Einde rit drempel tijd"
               },
               "hint": {
                 "en": "The time in minutes after which a trip should be considered ended. (Optional)",
-                "no": "Terskel i minutter for når en tur skal anses som avsluttet. (Valgfritt)"
+                "no": "Terskel i minutter for når en tur skal anses som avsluttet. (Valgfritt)",
+                "nl": "De tijd in minuten waarna de rit wordt beschouwd als geindigd. (Optioneel)"
               }
             }
           ]
@@ -525,7 +565,8 @@
           "type": "group",
           "label": {
             "en": "Trip summary settings",
-            "no": "Innstillinger for turoppsummering"
+            "no": "Innstillinger for turoppsummering",
+            "nl": "Rit samenvatting instellingen"
           },
           "children": [
             {
@@ -534,11 +575,13 @@
               "value": true,
               "label": {
                 "en": "Enable trip summary",
-                "no": "Aktiver turoppsummering"
+                "no": "Aktiver turoppsummering",
+                "nl": "Gebruik rit samenvatting"
               },
               "hint": {
                 "en": "Enable or disable the trip summary. (Optional) NOTE: By enabling you accept that your trip data will be stored anonymously in the cloud. You can disable this at any time. By deleting the device, you will also permanently delete all your trip data. App restart is required after changing this setting.",
-                "no": "Aktiver eller deaktiver turoppsummeringen. (Valgfritt) MERK: Ved å aktivere godtar du at turoppsummeringen lagres anonymt i skyen. Du kan deaktivere dette når som helst. Ved å slette enheten vil du også slette all turoppsummeringsdata permanent. App restart er nødvendig etter endring av denne innstillingen."
+                "no": "Aktiver eller deaktiver turoppsummeringen. (Valgfritt) MERK: Ved å aktivere godtar du at turoppsummeringen lagres anonymt i skyen. Du kan deaktivere dette når som helst. Ved å slette enheten vil du også slette all turoppsummeringsdata permanent. App restart er nødvendig etter endring av denne innstillingen.",
+                "nl": "Aan of uit zetten van de rit samenvatting. (Optioneel) OPMERKING: Door de rit samenvatting te activeren accepteert u dat de rit informatie annoniem wordt opgeslagen in de cloud. U kunt dit ten alle tijden weer uitzetten. Als u dit device weer verwijdert wordt ook de cloud data permanent verwijdert. De App moet opnieuw worden opgestart als u deze instelling aanpast."
               }
             },
             {
@@ -547,25 +590,29 @@
               "value": "light",
               "label": {
                 "en": "Trip summary style",
-                "no": "Turoppsummeringens stil"
+                "no": "Turoppsummeringens stil",
+                "nl": "Rit samenvatting uiterlijk"
               },
               "hint": {
                 "en": "This changes the style of the trip summary. (Optional)",
-                "no": "Dette endrer stilen til turoppsummeringen. (Valgfritt)"
+                "no": "Dette endrer stilen til turoppsummeringen. (Valgfritt)",
+                "nl": "Dit past het uiterlijk van de rit samenvatting aan. (Optioneel)"
               },
               "values": [
                 {
                   "id": "light",
                   "label": {
                     "en": "Light",
-                    "no": "Lys"
+                    "no": "Lys",
+                    "nl": "Ligt"
                   }
                 },
                 {
                   "id": "dark",
                   "label": {
                     "en": "Dark",
-                    "no": "Mørk"
+                    "no": "Mørk",
+                    "nl": "Donker"
                   }
                 }
               ]
@@ -576,25 +623,29 @@
               "value": "light",
               "label": {
                 "en": "Trip info style",
-                "no": "Turinfoens stil"
+                "no": "Turinfoens stil",
+                "nl": "Rit samenvatting stijl"
               },
               "hint": {
                 "en": "This changes the style of the trip info. (Optional)",
-                "no": "Dette endrer stilen til turinfoen. (Valgfritt)"
+                "no": "Dette endrer stilen til turinfoen. (Valgfritt)",
+                "nl": "Dit verandert de stijl van de rit samenvatting. (Optioneel)"
               },
               "values": [
                 {
                   "id": "light",
                   "label": {
                     "en": "Light",
-                    "no": "Lys"
+                    "no": "Lys",
+                    "nl": "Ligt"
                   }
                 },
                 {
                   "id": "dark",
                   "label": {
                     "en": "Dark",
-                    "no": "Mørk"
+                    "no": "Mørk",
+                    "nl": "Donker"
                   }
                 }
               ]
@@ -605,25 +656,29 @@
               "value": "light",
               "label": {
                 "en": "Trip score style",
-                "no": "Kjørescorens stil"
+                "no": "Kjørescorens stil",
+                "nl": "Rit score stijl"
               },
               "hint": {
                 "en": "This changes the style of the trip score. (Optional)",
-                "no": "Dette endrer stilen til kjørescoren. (Valgfritt)"
+                "no": "Dette endrer stilen til kjørescoren. (Valgfritt)",
+                "nl": "Dit verandert de stijl van de rit score. (Optioneel)"
               },
               "values": [
                 {
                   "id": "light",
                   "label": {
                     "en": "Light",
-                    "no": "Lys"
+                    "no": "Lys",
+                    "nl": "Ligt"
                   }
                 },
                 {
                   "id": "dark",
                   "label": {
                     "en": "Dark",
-                    "no": "Mørk"
+                    "no": "Mørk",
+                    "nl": "Donker"
                   }
                 }
               ]
@@ -634,53 +689,61 @@
               "value": "mapboxOutdoors",
               "label": {
                 "en": "Map image type",
-                "no": "Kart-bildetype"
+                "no": "Kart-bildetype",
+                "nl": "Kaartweergave stijl"
               },
               "hint": {
                 "en": "This changes the type of the map that is shown in the trip summary. (Optional)",
-                "no": "Dette endrer hvilket type kart som vises i turoppsummeringen. (Valgfritt)"
+                "no": "Dette endrer hvilket type kart som vises i turoppsummeringen. (Valgfritt)",
+                "nl": "Dit verandert de stijl van de kaart die bij de rit samenvatting wordt weergegeven. (Optioneel)"
               },
               "values": [
                 {
                   "id": "mapboxLight",
                   "label": {
                     "en": "Mapbox Light",
-                    "no": "Mapbox Light"
+                    "no": "Mapbox Light",
+                    "nl": "Mapbox Ligt"
                   }
                 },
                 {
                   "id": "mapboxDark",
                   "label": {
                     "en": "Mapbox Dark",
-                    "no": "Mapbox Dark"
+                    "no": "Mapbox Dark",
+                    "nl": "Mapbox Donker"
                   }
                 },
                 {
                   "id": "mapboxStreets",
                   "label": {
                     "en": "Mapbox Streets",
-                    "no": "Mapbox Streets"
+                    "no": "Mapbox Streets",
+                    "nl": "Mapbox Straten"
                   }
                 },
                 {
                   "id": "mapboxOutdoors",
                   "label": {
                     "en": "Mapbox Outdoors",
-                    "no": "Mapbox Outdoors"
+                    "no": "Mapbox Outdoors",
+                    "nl": "Mapbox Buitenleven"
                   }
                 },
                 {
                   "id": "mapboxSatellite",
                   "label": {
                     "en": "Mapbox Satellite",
-                    "no": "Mapbox Satellite"
+                    "no": "Mapbox Satellite",
+                    "nl": "Mapbox Sateliet"
                   }
                 },
                 {
                   "id": "mapboxSatelliteStreets",
                   "label": {
                     "en": "Mapbox Satellite Streets",
-                    "no": "Mapbox Satellite Streets"
+                    "no": "Mapbox Satellite Streets",
+                    "nl": "Mapbox Sateliet Straten"
                   }
                 }
               ]
@@ -691,7 +754,8 @@
           "type": "group",
           "label": {
             "en": "Webhook Settings",
-            "no": "Webhook innstillinger"
+            "no": "Webhook innstillinger",
+            "nl": "Webhook instellingen"
           },
           "children": [
             {
@@ -699,11 +763,13 @@
               "type": "text",
               "hint": {
                 "en": "Do not change unless instructed by developer, or if you changed the webhook. This setting has no function, and is only for information.",
-                "no": "Ikke endre med mindre du har fått beskjed om det av utvikler, eller hvis du har endret webhooken. Denne innstillingen har ingen funksjon, og er kun til informasjon."
+                "no": "Ikke endre med mindre du har fått beskjed om det av utvikler, eller hvis du har endret webhooken. Denne innstillingen har ingen funksjon, og er kun til informasjon.",
+                "nl": "Niet aanpassingen tenzij door de developer opgedragen, of tenzij je de webhook hebt aangepast. Deze setting heeft geen functie, en is er ter informatie"
               },
               "label": {
                 "en": "Webhook URL",
-                "no": "Webhook URL"
+                "no": "Webhook URL",
+                "nl": "Webhook URL"
               }
             },
             {
@@ -711,11 +777,13 @@
               "type": "text",
               "hint": {
                 "en": "Do not change unless instructed by developer. This setting has no function, and is only for information.",
-                "no": "Ikke endre med mindre du har fått beskjed om det av utvikler. Dette er ikke en funksjon, og er kun til informasjon."
+                "no": "Ikke endre med mindre du har fått beskjed om det av utvikler. Dette er ikke en funksjon, og er kun til informasjon.",
+                "nl": "Niet aanpassingen tenzij door de developer opgedragen. Deze setting heeft geen functie, en is er ter informatie"
               },
               "label": {
                 "en": "Webhook URL (short)",
-                "no": "Webhook URL (kort)"
+                "no": "Webhook URL (kort)",
+                "nl": "Webhook URL (kort)"
               }
             },
             {
@@ -723,11 +791,13 @@
               "type": "label",
               "hint": {
                 "en": "Do not change unless instructed by developer. This setting has no function, and is only for information.",
-                "no": "Ikke endre med mindre du har fått beskjed om det av utvikler. Dette er ikke en funksjon, og er kun til informasjon."
+                "no": "Ikke endre med mindre du har fått beskjed om det av utvikler. Dette er ikke en funksjon, og er kun til informasjon.",
+                "nl": "Niet aanpassingen tenzij door de developer opgedragen. Deze setting heeft geen functie, en is er ter informatie"
               },
               "label": {
                 "en": "Webhook slug",
-                "no": "Webhook slug"
+                "no": "Webhook slug",
+                "nl": "Webhook slug"
               }
             },
             {
@@ -735,11 +805,13 @@
               "type": "label",
               "hint": {
                 "en": "Do not change unless instructed by developer.",
-                "no": "Ikke endre med mindre du har fått beskjed om det av utvikler."
+                "no": "Ikke endre med mindre du har fått beskjed om det av utvikler.",
+                "nl": "Niet aanpassingen tenzij door de developer opgedragen."
               },
               "label": {
                 "en": "Webhook ID",
-                "no": "Webhook ID"
+                "no": "Webhook ID",
+                "nl": "Webhook ID"
               }
             },
             {
@@ -747,11 +819,13 @@
               "type": "label",
               "hint": {
                 "en": "Do not change unless instructed by developer.",
-                "no": "Ikke endre med mindre du har fått beskjed om det av utvikler."
+                "no": "Ikke endre med mindre du har fått beskjed om det av utvikler.",
+                "nl": "Niet aanpassingen tenzij door de developer opgedragen."
               },
               "label": {
                 "en": "Webhook secret",
-                "no": "Webhook secret"
+                "no": "Webhook secret",
+                "nl": "Webhook secret"
               }
             }
           ]
