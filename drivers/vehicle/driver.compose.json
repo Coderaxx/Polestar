@@ -28,17 +28,7 @@
     }],
   "pair": [
     {
-      "id": "login",
-      "navigation": {
-        "next": "discover_vehicles"
-      }
-    },
-    {
-      "id": "discover_vehicles",
-      "template": "loading",
-      "navigation": {
-        "next": "list_devices"
-      }
+      "id": "login"
     },
     {
       "id": "list_devices",
