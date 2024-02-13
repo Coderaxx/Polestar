@@ -147,6 +147,8 @@ class PolestarBetaDevice extends Device {
                                 try {
                                     if (!this.homeyId) {
                                         throw new Error('homeyId er ikke satt');
+                                    } else if (!this.slug) {
+                                        throw new Error('slug er ikke satt');
                                     }
 
                                     const response = await axios.post(`${this.apiUrl}/save/${this.slug}`, drivingData, { headers: { 'Content-Type': 'application/json' } });
