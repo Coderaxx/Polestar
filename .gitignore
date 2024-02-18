@@ -6,4 +6,4 @@
 drivers/polestar-2/*
 drivers/polestar-2-beta/*
 .homeyignore
-/env.json
+/env_secret.json

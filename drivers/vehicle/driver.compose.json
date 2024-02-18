@@ -5,9 +5,7 @@
     "nl": "Mijn Polestar"
   },
   "class": "other",
-  "capabilities": [
-    "measure_battery"
-  ],
+  "capabilities": [ ],
   "energy": {
     "batteries": ["INTERNAL"]
   },

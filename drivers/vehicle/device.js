@@ -45,8 +45,10 @@ class PolestarVehicle extends Device {
     }
 
     async fixCapabilities() {
-        if (!this.hasCapability('measure_battery'))
-            await this.addCapability('measure_battery');
+        // if (!this.hasCapability('measure_battery'))
+        //     await this.addCapability('measure_battery');
+        if (this.hasCapability('measure_battery'))
+            await this.removeCapability('measure_battery');
         if (!this.hasCapability('measure_polestarBattery'))
             await this.addCapability('measure_polestarBattery');
         // if(!this.hasCapability('measure_current'))
@@ -84,7 +86,7 @@ class PolestarVehicle extends Device {
             var batteryInfo = await this.polestar.getBattery();
             this.homey.app.log('Battery:', 'PolestarVehicle', 'DEBUG', batteryInfo);
 
-            this.setCapabilityValue('measure_battery', batteryInfo.batteryChargeLevelPercentage);
+            //this.setCapabilityValue('measure_battery', batteryInfo.batteryChargeLevelPercentage);
             this.setCapabilityValue('measure_polestarBattery', batteryInfo.batteryChargeLevelPercentage);
             // this.setCapabilityValue('measure_current', batteryInfo.chargingCurrentAmps);
             // this.setCapabilityValue('measure_power', batteryInfo.chargingPowerWatts);
