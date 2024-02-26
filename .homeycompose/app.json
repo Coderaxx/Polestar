@@ -15,9 +15,7 @@
     "no": "Nyt veien med Polestar og Homey – smart teknologi for smarte sjåfører"
   },
   "category": "internet",
-  "permissions": [
-    "homey:manager:api"
-  ],
+  "permissions": [],
   "images": {
     "small": "/assets/images/small.png",
     "large": "/assets/images/large.png",
@@ -64,5 +62,9 @@
     ]
   },
   "homeyCommunityTopicId": 95083,
-  "homepage": "https://coderax.dev"
+  "homepage": "https://coderax.dev",
+  "source": "https://github.com/Coderaxx/Polestar",
+  "bugs": {
+    "url": "https://github.com/Coderaxx/Polestar/issues"
+  }
 }
