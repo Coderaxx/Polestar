@@ -67,5 +67,8 @@
   },
   "2.1.1": {
     "en": "Removed unnecessary API permission"
+  },
+  "2.1.2": {
+    "en": "Removed summary images from the device"
   }
 }
