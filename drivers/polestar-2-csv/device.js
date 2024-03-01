@@ -29,7 +29,7 @@ class PolestarBetaDevice extends Device {
         this.previousLat = null;
         this.previousLon = null;
         this.threshold = 10; // Threshold in meters for distance updates
-        if (this.settings.tripSummaryEnabled) {
+        /*if (this.settings.tripSummaryEnabled) {
             this.tripSummaryImage = await this.homey.images.createImage();
             this.tripInfoImage = await this.homey.images.createImage();
             this.tripScoreImage = await this.homey.images.createImage();
@@ -39,7 +39,7 @@ class PolestarBetaDevice extends Device {
             await this.setCameraImage('polestarTrip', lastTripString, this.tripSummaryImage);
             await this.setCameraImage('polestarTripInfo', lastTripInfoString, this.tripInfoImage);
             await this.setCameraImage('polestarTripScore', lastTripScoreString, this.tripScoreImage);
-        }
+        }*/
         this.webhook = null;
         this.apiUrl = 'https://homey.crdx.us';
 
@@ -81,7 +81,7 @@ class PolestarBetaDevice extends Device {
         let tripEndTimer = null;
         let tripInProgress = false;
 
-        const updateImage = async () => {
+        /*const updateImage = async () => {
             const encodedSlug = base64url.encode(this.slug);
             this.tripSummaryImage.setUrl(`${this.apiUrl}/tripSummary/${encodedSlug}?mapType=${this.settings.mapImageType}&theme=${this.settings.tripSummaryStyle}&lang=${this.locale}`);
             this.tripInfoImage.setUrl(`${this.apiUrl}/tripInfo/${encodedSlug}?theme=${this.settings.tripInfoStyle}&lang=${this.locale}`);
@@ -98,7 +98,7 @@ class PolestarBetaDevice extends Device {
 
         if (this.tripSummaryEnabled) {
             await updateImage();
-        }
+        }*/
 
         const id = this.settings.webhook_id || null;
         const secret = this.settings.webhook_secret || null;
@@ -233,17 +233,17 @@ class PolestarBetaDevice extends Device {
                             altEnd: `${drivingData[drivingData.length - 1].alt.toFixed(0)} m`,
                         };
                         const encodedSlug = base64url.encode(this.slug);
-                        this.tripSummaryImage.setUrl(`${this.apiUrl}/tripSummary/${encodedSlug}?mapType=${this.settings.mapImageType}&theme=${this.settings.tripSummaryStyle}&lang=${this.locale}`);
+                        /*this.tripSummaryImage.setUrl(`${this.apiUrl}/tripSummary/${encodedSlug}?mapType=${this.settings.mapImageType}&theme=${this.settings.tripSummaryStyle}&lang=${this.locale}`);
                         this.tripInfoImage.setUrl(`${this.apiUrl}/tripInfo/${encodedSlug}?theme=${this.settings.tripInfoStyle}&lang=${this.locale}`);
                         this.tripScoreImage.setUrl(`${this.apiUrl}/tripScore/${encodedSlug}?theme=${this.settings.tripScoreStyle}&lang=${this.locale}`);
 
                         await this.tripSummaryImage.update();
                         await this.tripInfoImage.update();
-                        await this.tripScoreImage.update();
+                        await this.tripScoreImage.update();*/
                         await this.driver._tripEndedFlow.trigger(this, {
-                            lastTrip: this.tripSummaryImage,
-                            tripInfo: this.tripInfoImage,
-                            tripScore: this.tripScoreImage,
+                            //lastTrip: this.tripSummaryImage,
+                            //tripInfo: this.tripInfoImage,
+                            //tripScore: this.tripScoreImage,
                             tripFrom: tripData.tripFrom || this.homey.__({ "en": "Unavailable", "no": "Utilgjengelig" }),
                             tripTo: tripData.tripTo || this.homey.__({ "en": "Unavailable", "no": "Utilgjengelig" }),
                             totalDistance: tripData.totalDistance || this.homey.__({ "en": "Unavailable", "no": "Utilgjengelig" }),
