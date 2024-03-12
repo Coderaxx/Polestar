@@ -4,7 +4,8 @@
   "icon": "/drivers/polestar-2-csv/assets/images/battery-75.svg",
   "title": {
     "en": "Battery",
-    "no": "Batteri"
+    "no": "Batteri",
+    "nl": "Batterij"
   },
   "units": "%",
   "getable": true,

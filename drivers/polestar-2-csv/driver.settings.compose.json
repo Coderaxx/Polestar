@@ -2,196 +2,223 @@
     {
         "type": "group",
         "label": {
-            "en": "General settings",
-            "no": "Generelle innstillinger"
+          "en": "General settings",
+          "no": "Generelle innstillinger",
+          "nl": "Algemene instellingen"
         },
         "children": [
-            {
-                "id": "endTripThreshold",
-                "type": "number",
-                "value": 10,
-                "label": {
-                    "en": "End trip threshold",
-                    "no": "Terskel for endt tur"
-                },
-                "hint": {
-                    "en": "The time in minutes after which a trip should be considered ended. (Optional)",
-                    "no": "Terskel i minutter for når en tur skal anses som avsluttet. (Valgfritt)"
-                }
+          {
+            "id": "endTripThreshold",
+            "type": "number",
+            "value": 10,
+            "label": {
+              "en": "End trip threshold",
+              "no": "Terskel for endt tur",
+              "nl": "Einde rit drempel tijd"
+            },
+            "hint": {
+              "en": "The time in minutes after which a trip should be considered ended. (Optional)",
+              "no": "Terskel i minutter for når en tur skal anses som avsluttet. (Valgfritt)",
+              "nl": "De tijd in minuten waarna de rit wordt beschouwd als geindigd. (Optioneel)"
             }
+          }
         ]
-    },
+      },
     {
         "type": "group",
         "label": {
             "en": "Trip summary settings",
-            "no": "Innstillinger for turoppsummering"
+            "no": "Innstillinger for turoppsummering",
+            "nl": "Rit samenvatting instellingen"
         },
         "children": [
             {
-                "id": "tripSummaryEnabled",
-                "type": "checkbox",
-                "value": true,
-                "label": {
-                    "en": "Enable trip summary",
-                    "no": "Aktiver turoppsummering"
+              "id": "tripSummaryEnabled",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Enable trip summary",
+                "no": "Aktiver turoppsummering",
+                "nl": "Gebruik rit samenvatting"
+              },
+              "hint": {
+                "en": "Enable or disable the trip summary. (Optional) NOTE: By enabling you accept that your trip data will be stored anonymously in the cloud. You can disable this at any time. By deleting the device, you will also permanently delete all your trip data. App restart is required after changing this setting.",
+                "no": "Aktiver eller deaktiver turoppsummeringen. (Valgfritt) MERK: Ved å aktivere godtar du at turoppsummeringen lagres anonymt i skyen. Du kan deaktivere dette når som helst. Ved å slette enheten vil du også slette all turoppsummeringsdata permanent. App restart er nødvendig etter endring av denne innstillingen.",
+                "nl": "Aan of uit zetten van de rit samenvatting. (Optioneel) OPMERKING: Door de rit samenvatting te activeren accepteert u dat de rit informatie annoniem wordt opgeslagen in de cloud. U kunt dit ten alle tijden weer uitzetten. Als u dit device weer verwijdert wordt ook de cloud data permanent verwijdert. De App moet opnieuw worden opgestart als u deze instelling aanpast."
+              }
+            },
+            {
+              "id": "tripSummaryStyle",
+              "type": "dropdown",
+              "value": "light",
+              "label": {
+                "en": "Trip summary style",
+                "no": "Turoppsummeringens stil",
+                "nl": "Rit samenvatting uiterlijk"
+              },
+              "hint": {
+                "en": "This changes the style of the trip summary. (Optional)",
+                "no": "Dette endrer stilen til turoppsummeringen. (Valgfritt)",
+                "nl": "Dit past het uiterlijk van de rit samenvatting aan. (Optioneel)"
+              },
+              "values": [
+                {
+                  "id": "light",
+                  "label": {
+                    "en": "Light",
+                    "no": "Lys",
+                    "nl": "Ligt"
+                  }
                 },
-                "hint": {
-                    "en": "Enable or disable the trip summary. (Optional) NOTE: By enabling you accept that your trip data will be stored anonymously in the cloud. You can disable this at any time. By deleting the device, you will also permanently delete all your trip data. App restart is required after changing this setting.",
-                    "no": "Aktiver eller deaktiver turoppsummeringen. (Valgfritt) MERK: Ved å aktivere godtar du at turoppsummeringen lagres anonymt i skyen. Du kan deaktivere dette når som helst. Ved å slette enheten vil du også slette all turoppsummeringsdata permanent. App restart er nødvendig etter endring av denne innstillingen."
+                {
+                  "id": "dark",
+                  "label": {
+                    "en": "Dark",
+                    "no": "Mørk",
+                    "nl": "Donker"
+                  }
                 }
+              ]
             },
             {
-                "id": "tripSummaryStyle",
-                "type": "dropdown",
-                "value": "light",
-                "label": {
-                    "en": "Trip summary style",
-                    "no": "Turoppsummeringens stil"
+              "id": "tripInfoStyle",
+              "type": "dropdown",
+              "value": "light",
+              "label": {
+                "en": "Trip info style",
+                "no": "Turinfoens stil",
+                "nl": "Rit samenvatting stijl"
+              },
+              "hint": {
+                "en": "This changes the style of the trip info. (Optional)",
+                "no": "Dette endrer stilen til turinfoen. (Valgfritt)",
+                "nl": "Dit verandert de stijl van de rit samenvatting. (Optioneel)"
+              },
+              "values": [
+                {
+                  "id": "light",
+                  "label": {
+                    "en": "Light",
+                    "no": "Lys",
+                    "nl": "Ligt"
+                  }
                 },
-                "hint": {
-                    "en": "This changes the style of the trip summary. (Optional)",
-                    "no": "Dette endrer stilen til turoppsummeringen. (Valgfritt)"
-                },
-                "values": [
-                    {
-                        "id": "light",
-                        "label": {
-                            "en": "Light",
-                            "no": "Lys"
-                        }
-                    },
-                    {
-                        "id": "dark",
-                        "label": {
-                            "en": "Dark",
-                            "no": "Mørk"
-                        }
-                    }
-                ]
+                {
+                  "id": "dark",
+                  "label": {
+                    "en": "Dark",
+                    "no": "Mørk",
+                    "nl": "Donker"
+                  }
+                }
+              ]
             },
             {
-                "id": "tripInfoStyle",
-                "type": "dropdown",
-                "value": "light",
-                "label": {
-                    "en": "Trip info style",
-                    "no": "Turinfoens stil"
+              "id": "tripScoreStyle",
+              "type": "dropdown",
+              "value": "light",
+              "label": {
+                "en": "Trip score style",
+                "no": "Kjørescorens stil",
+                "nl": "Rit score stijl"
+              },
+              "hint": {
+                "en": "This changes the style of the trip score. (Optional)",
+                "no": "Dette endrer stilen til kjørescoren. (Valgfritt)",
+                "nl": "Dit verandert de stijl van de rit score. (Optioneel)"
+              },
+              "values": [
+                {
+                  "id": "light",
+                  "label": {
+                    "en": "Light",
+                    "no": "Lys",
+                    "nl": "Ligt"
+                  }
                 },
-                "hint": {
-                    "en": "This changes the style of the trip info. (Optional)",
-                    "no": "Dette endrer stilen til turinfoen. (Valgfritt)"
-                },
-                "values": [
-                    {
-                        "id": "light",
-                        "label": {
-                            "en": "Light",
-                            "no": "Lys"
-                        }
-                    },
-                    {
-                        "id": "dark",
-                        "label": {
-                            "en": "Dark",
-                            "no": "Mørk"
-                        }
-                    }
-                ]
+                {
+                  "id": "dark",
+                  "label": {
+                    "en": "Dark",
+                    "no": "Mørk",
+                    "nl": "Donker"
+                  }
+                }
+              ]
             },
             {
-                "id": "tripScoreStyle",
-                "type": "dropdown",
-                "value": "light",
-                "label": {
-                    "en": "Trip score style",
-                    "no": "Kjørescorens stil"
+              "id": "mapImageType",
+              "type": "dropdown",
+              "value": "mapboxOutdoors",
+              "label": {
+                "en": "Map image type",
+                "no": "Kart-bildetype",
+                "nl": "Kaartweergave stijl"
+              },
+              "hint": {
+                "en": "This changes the type of the map that is shown in the trip summary. (Optional)",
+                "no": "Dette endrer hvilket type kart som vises i turoppsummeringen. (Valgfritt)",
+                "nl": "Dit verandert de stijl van de kaart die bij de rit samenvatting wordt weergegeven. (Optioneel)"
+              },
+              "values": [
+                {
+                  "id": "mapboxLight",
+                  "label": {
+                    "en": "Mapbox Light",
+                    "no": "Mapbox Light",
+                    "nl": "Mapbox Ligt"
+                  }
                 },
-                "hint": {
-                    "en": "This changes the style of the trip score. (Optional)",
-                    "no": "Dette endrer stilen til kjørescoren. (Valgfritt)"
+                {
+                  "id": "mapboxDark",
+                  "label": {
+                    "en": "Mapbox Dark",
+                    "no": "Mapbox Dark",
+                    "nl": "Mapbox Donker"
+                  }
                 },
-                "values": [
-                    {
-                        "id": "light",
-                        "label": {
-                            "en": "Light",
-                            "no": "Lys"
-                        }
-                    },
-                    {
-                        "id": "dark",
-                        "label": {
-                            "en": "Dark",
-                            "no": "Mørk"
-                        }
-                    }
-                ]
-            },
-            {
-                "id": "mapImageType",
-                "type": "dropdown",
-                "value": "mapboxOutdoors",
-                "label": {
-                    "en": "Map image type",
-                    "no": "Kart-bildetype"
+                {
+                  "id": "mapboxStreets",
+                  "label": {
+                    "en": "Mapbox Streets",
+                    "no": "Mapbox Streets",
+                    "nl": "Mapbox Straten"
+                  }
                 },
-                "hint": {
-                    "en": "This changes the type of the map that is shown in the trip summary. (Optional)",
-                    "no": "Dette endrer hvilket type kart som vises i turoppsummeringen. (Valgfritt)"
+                {
+                  "id": "mapboxOutdoors",
+                  "label": {
+                    "en": "Mapbox Outdoors",
+                    "no": "Mapbox Outdoors",
+                    "nl": "Mapbox Buitenleven"
+                  }
                 },
-                "values": [
-                    {
-                        "id": "mapboxLight",
-                        "label": {
-                            "en": "Mapbox Light",
-                            "no": "Mapbox Light"
-                        }
-                    },
-                    {
-                        "id": "mapboxDark",
-                        "label": {
-                            "en": "Mapbox Dark",
-                            "no": "Mapbox Dark"
-                        }
-                    },
-                    {
-                        "id": "mapboxStreets",
-                        "label": {
-                            "en": "Mapbox Streets",
-                            "no": "Mapbox Streets"
-                        }
-                    },
-                    {
-                        "id": "mapboxOutdoors",
-                        "label": {
-                            "en": "Mapbox Outdoors",
-                            "no": "Mapbox Outdoors"
-                        }
-                    },
-                    {
-                        "id": "mapboxSatellite",
-                        "label": {
-                            "en": "Mapbox Satellite",
-                            "no": "Mapbox Satellite"
-                        }
-                    },
-                    {
-                        "id": "mapboxSatelliteStreets",
-                        "label": {
-                            "en": "Mapbox Satellite Streets",
-                            "no": "Mapbox Satellite Streets"
-                        }
-                    }
-                ]
+                {
+                  "id": "mapboxSatellite",
+                  "label": {
+                    "en": "Mapbox Satellite",
+                    "no": "Mapbox Satellite",
+                    "nl": "Mapbox Sateliet"
+                  }
+                },
+                {
+                  "id": "mapboxSatelliteStreets",
+                  "label": {
+                    "en": "Mapbox Satellite Streets",
+                    "no": "Mapbox Satellite Streets",
+                    "nl": "Mapbox Sateliet Straten"
+                  }
+                }
+              ]
             }
-        ]
+          ]
     },
     {
         "type": "group",
         "label": {
             "en": "Webhook Settings",
-            "no": "Webhook innstillinger"
+            "no": "Webhook innstillinger",
+            "nl": "Webhook instellingen"
         },
         "children": [
             {
@@ -199,11 +226,13 @@
                 "type": "text",
                 "hint": {
                     "en": "Do not change unless instructed by developer, or if you changed the webhook. This setting has no function, and is only for information.",
-                    "no": "Ikke endre med mindre du har fått beskjed om det av utvikler, eller hvis du har endret webhooken. Denne innstillingen har ingen funksjon, og er kun til informasjon."
+                    "no": "Ikke endre med mindre du har fått beskjed om det av utvikler, eller hvis du har endret webhooken. Denne innstillingen har ingen funksjon, og er kun til informasjon.",
+                    "nl": "Niet aanpassingen tenzij door de developer opgedragen, of tenzij je de webhook hebt aangepast. Deze setting heeft geen functie, en is er ter informatie"
                 },
                 "label": {
                     "en": "Webhook URL",
-                    "no": "Webhook URL"
+                    "no": "Webhook URL",
+                    "nl": "Webhook URL"
                 }
             },
             {
@@ -211,11 +240,13 @@
                 "type": "text",
                 "hint": {
                     "en": "Do not change unless instructed by developer. This setting has no function, and is only for information.",
-                    "no": "Ikke endre med mindre du har fått beskjed om det av utvikler. Dette er ikke en funksjon, og er kun til informasjon."
+                    "no": "Ikke endre med mindre du har fått beskjed om det av utvikler. Dette er ikke en funksjon, og er kun til informasjon.",
+                    "nl": "Niet aanpassingen tenzij door de developer opgedragen. Deze setting heeft geen functie, en is er ter informatie"
                 },
                 "label": {
                     "en": "Webhook URL (short)",
-                    "no": "Webhook URL (kort)"
+                    "no": "Webhook URL (kort)",
+                    "nl": "Webhook URL (kort)"
                 }
             },
             {
@@ -223,11 +254,13 @@
                 "type": "label",
                 "hint": {
                     "en": "Do not change unless instructed by developer. This setting has no function, and is only for information.",
-                    "no": "Ikke endre med mindre du har fått beskjed om det av utvikler. Dette er ikke en funksjon, og er kun til informasjon."
+                    "no": "Ikke endre med mindre du har fått beskjed om det av utvikler. Dette er ikke en funksjon, og er kun til informasjon.",
+                    "nl": "Niet aanpassingen tenzij door de developer opgedragen. Deze setting heeft geen functie, en is er ter informatie"
                 },
                 "label": {
                     "en": "Webhook slug",
-                    "no": "Webhook slug"
+                    "no": "Webhook slug",
+                    "nl": "Webhook slug"
                 }
             },
             {
@@ -235,11 +268,13 @@
                 "type": "label",
                 "hint": {
                     "en": "Do not change unless instructed by developer.",
-                    "no": "Ikke endre med mindre du har fått beskjed om det av utvikler."
+                    "no": "Ikke endre med mindre du har fått beskjed om det av utvikler.",
+                    "nl": "Niet aanpassingen tenzij door de developer opgedragen."
                 },
                 "label": {
                     "en": "Webhook ID",
-                    "no": "Webhook ID"
+                    "no": "Webhook ID",
+                    "nl": "Webhook ID"
                 }
             },
             {
@@ -247,11 +282,13 @@
                 "type": "label",
                 "hint": {
                     "en": "Do not change unless instructed by developer.",
-                    "no": "Ikke endre med mindre du har fått beskjed om det av utvikler."
+                    "no": "Ikke endre med mindre du har fått beskjed om det av utvikler.",
+                    "nl": "Niet aanpassingen tenzij door de developer opgedragen."
                 },
                 "label": {
                     "en": "Webhook secret",
-                    "no": "Webhook secret"
+                    "no": "Webhook secret",
+                    "nl": "Webhook secret"
                 }
             }
         ]
