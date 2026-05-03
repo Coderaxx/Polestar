@@ -1,18 +1,20 @@
 {
   "id": "com.Coderax.Polestar",
-  "version": "2.1.2",
-  "compatibility": ">=5.0.0",
+  "version": "3.0.4",
+  "compatibility": ">=12.4.5",
   "sdk": 3,
   "platforms": [
     "local"
   ],
   "name": {
     "en": "Polestar",
-    "no": "Polestar"
+    "no": "Polestar",
+    "nl": "Polestar"
   },
   "description": {
-    "en": "Enjoy the road with Polestar and Homey – smart technology for smart drivers",
-    "no": "Nyt veien med Polestar og Homey – smart teknologi for smarte sjåfører"
+    "en": "Monitor and control your Polestar from Homey — charging, climate, locks, windows, and more.",
+    "no": "Overvåk og styr Polestar fra Homey — lading, klima, låser, vinduer og mer.",
+    "nl": "Monitor en bedien je Polestar vanuit Homey — laden, climate, sloten, ramen en meer."
   },
   "category": "internet",
   "permissions": [],
@@ -22,20 +24,22 @@
     "xlarge": "/assets/images/xlarge.png"
   },
   "author": {
-    "name": "Jesper Grimstad",
-    "email": "jesper.grimstad@hotmail.com"
+    "name": "Vincent Boer",
+    "email": "vincent+homey@vdboer.nl"
   },
   "brandColor": "#081822",
-  "support": "mailto:polestar@coderax.dev?subject=Polestar%20-%20Homey%20app",
-  "contributing": {
-    "donate": {
-      "paypal": {
-        "username": "Coderaxxx"
+  "support": "mailto:vincent+polestar@vdboer.nl?subject=Polestar%20-%20Homey%20app",
+  "contributors": {
+    "developers": [
+      {
+        "name": "Jesper Grimstad",
+        "email": "jesper.grimstad@hotmail.com"
       },
-      "githubSponsors": {
-        "username": "Coderaxx"
+      {
+        "name": "Vincent Boer",
+        "email": "vincent+homey@vdboer.nl"
       }
-    }
+    ]
   },
   "tags": {
     "en": [
@@ -43,28 +47,68 @@
       "pole",
       "star",
       "car",
+      "ev",
       "electric",
       "electric car",
-      "ev",
       "ev car",
-      "smart car"
+      "smart car",
+      "bev",
+      "charging",
+      "charge limit",
+      "precondition",
+      "climate",
+      "preheat",
+      "lock",
+      "unlock",
+      "remote",
+      "honk",
+      "flash"
     ],
     "no": [
       "polestar",
       "pole",
       "star",
-      "car",
-      "electric",
-      "electric car",
+      "bil",
+      "elbil",
+      "elektrisk",
+      "smart bil",
+      "lading",
+      "ladegrense",
+      "forvarming",
+      "klima",
+      "lås",
+      "lås opp",
+      "fjernstyring",
+      "tut",
+      "blink"
+    ],
+    "nl": [
+      "polestar",
+      "pole",
+      "star",
+      "auto",
       "ev",
-      "ev car",
-      "smart car"
+      "elektrisch",
+      "electrische auto",
+      "ev auto",
+      "bev",
+      "bev auto",
+      "slimme auto",
+      "batterij auto",
+      "laden",
+      "laadlimiet",
+      "voorverwarmen",
+      "climate",
+      "vergrendelen",
+      "ontgrendelen",
+      "afstandsbediening",
+      "toeteren",
+      "knipperen"
     ]
   },
   "homeyCommunityTopicId": 95083,
-  "homepage": "https://coderax.dev",
-  "source": "https://github.com/Coderaxx/Polestar",
+  "source": "https://github.com/kaohlive/Polestar",
   "bugs": {
-    "url": "https://github.com/Coderaxx/Polestar/issues"
+    "url": "https://github.com/kaohlive/Polestar/issues"
   }
 }

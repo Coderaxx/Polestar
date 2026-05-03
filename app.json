@@ -1,19 +1,21 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.Coderax.Polestar",
-  "version": "2.1.2",
-  "compatibility": ">=5.0.0",
+  "version": "3.0.4",
+  "compatibility": ">=12.4.5",
   "sdk": 3,
   "platforms": [
     "local"
   ],
   "name": {
     "en": "Polestar",
-    "no": "Polestar"
+    "no": "Polestar",
+    "nl": "Polestar"
   },
   "description": {
-    "en": "Enjoy the road with Polestar and Homey – smart technology for smart drivers",
-    "no": "Nyt veien med Polestar og Homey – smart teknologi for smarte sjåfører"
+    "en": "Monitor and control your Polestar from Homey — charging, climate, locks, windows, and more.",
+    "no": "Overvåk og styr Polestar fra Homey — lading, klima, låser, vinduer og mer.",
+    "nl": "Monitor en bedien je Polestar vanuit Homey — laden, climate, sloten, ramen en meer."
   },
   "category": "internet",
   "permissions": [],
@@ -23,20 +25,22 @@
     "xlarge": "/assets/images/xlarge.png"
   },
   "author": {
-    "name": "Jesper Grimstad",
-    "email": "jesper.grimstad@hotmail.com"
+    "name": "Vincent Boer",
+    "email": "vincent+homey@vdboer.nl"
   },
   "brandColor": "#081822",
-  "support": "mailto:polestar@coderax.dev?subject=Polestar%20-%20Homey%20app",
-  "contributing": {
-    "donate": {
-      "paypal": {
-        "username": "Coderaxxx"
+  "support": "mailto:vincent+polestar@vdboer.nl?subject=Polestar%20-%20Homey%20app",
+  "contributors": {
+    "developers": [
+      {
+        "name": "Jesper Grimstad",
+        "email": "jesper.grimstad@hotmail.com"
       },
-      "githubSponsors": {
-        "username": "Coderaxx"
+      {
+        "name": "Vincent Boer",
+        "email": "vincent+homey@vdboer.nl"
       }
-    }
+    ]
   },
   "tags": {
     "en": [
@@ -44,109 +48,118 @@
       "pole",
       "star",
       "car",
+      "ev",
       "electric",
       "electric car",
-      "ev",
       "ev car",
-      "smart car"
+      "smart car",
+      "bev",
+      "charging",
+      "charge limit",
+      "precondition",
+      "climate",
+      "preheat",
+      "lock",
+      "unlock",
+      "remote",
+      "honk",
+      "flash"
     ],
     "no": [
       "polestar",
       "pole",
       "star",
-      "car",
-      "electric",
-      "electric car",
+      "bil",
+      "elbil",
+      "elektrisk",
+      "smart bil",
+      "lading",
+      "ladegrense",
+      "forvarming",
+      "klima",
+      "lås",
+      "lås opp",
+      "fjernstyring",
+      "tut",
+      "blink"
+    ],
+    "nl": [
+      "polestar",
+      "pole",
+      "star",
+      "auto",
       "ev",
-      "ev car",
-      "smart car"
+      "elektrisch",
+      "electrische auto",
+      "ev auto",
+      "bev",
+      "bev auto",
+      "slimme auto",
+      "batterij auto",
+      "laden",
+      "laadlimiet",
+      "voorverwarmen",
+      "climate",
+      "vergrendelen",
+      "ontgrendelen",
+      "afstandsbediening",
+      "toeteren",
+      "knipperen"
     ]
   },
   "homeyCommunityTopicId": 95083,
-  "homepage": "https://coderax.dev",
-  "source": "https://github.com/Coderaxx/Polestar",
+  "source": "https://github.com/kaohlive/Polestar",
   "bugs": {
-    "url": "https://github.com/Coderaxx/Polestar/issues"
+    "url": "https://github.com/kaohlive/Polestar/issues"
   },
   "flow": {
     "triggers": [
       {
+        "id": "measure_polestarConnected_false",
         "title": {
           "en": "Car disconnected from a charger",
-          "no": "Bil frakoblet lader"
+          "no": "Bil frakoblet lader",
+          "nl": "Auto is niet meer verbonden met de lader"
         },
         "hint": {
           "en": "When the car detects it is no longer connected to a charge port",
-          "no": "Når bilen oppdager at ladepunktet er frakoblet"
+          "no": "Når bilen oppdager at ladepunktet er frakoblet",
+          "nl": "Als de auto detecteerd dat de laadpoort niet meer verbonden is met een lader"
         },
         "args": [
           {
-            "name": "Vehicle",
             "type": "device",
-            "filter": "driver_id=vehicle"
+            "name": "device",
+            "filter": "driver_id=polestar-2-csv&capabilities=measure_polestarConnected"
           }
-        ],
-        "id": "chargeportconnected_false"
+        ]
       },
       {
+        "id": "measure_polestarConnected_true",
         "title": {
           "en": "Car connected to a charger",
-          "no": "Bil tilkoblet lader"
+          "no": "Bil tilkoblet lader",
+          "nl": "Auto is verbonden met een lader"
         },
         "hint": {
           "en": "When the car detects a charger connected to a charge port",
-          "no": "Når bilen oppdager at en lader er tilkoblet ladepunktet"
+          "no": "Når bilen oppdager at en lader er tilkoblet ladepunktet",
+          "nl": "Wanneer de auto detecteerd dat de laadpoort verbonden is met een lader"
         },
         "args": [
           {
-            "name": "Vehicle",
             "type": "device",
-            "filter": "driver_id=vehicle"
+            "name": "device",
+            "filter": "driver_id=polestar-2-csv&capabilities=measure_polestarConnected"
           }
-        ],
-        "id": "chargeportconnected_true"
-      },
-      {
-        "title": {
-          "en": "Car stopped charging",
-          "no": "Lading stoppet"
-        },
-        "hint": {
-          "en": "When the car stopped drawing power from the socket",
-          "no": "Når bilen sluttet å trekke strøm fra laderen"
-        },
-        "args": [
-          {
-            "name": "Vehicle",
-            "type": "device",
-            "filter": "driver_id=vehicle"
-          }
-        ],
-        "id": "charging_false"
-      },
-      {
-        "title": {
-          "en": "Car started charging",
-          "no": "Lading startet"
-        },
-        "hint": {
-          "en": "When the car started to draw power from the socket",
-          "no": "Når bilen startet å trekke strøm fra laderen"
-        },
-        "args": [
-          {
-            "name": "Vehicle",
-            "type": "device",
-            "filter": "driver_id=vehicle"
-          }
-        ],
-        "id": "charging_true"
+        ]
       },
       {
         "id": "chargingStarted",
         "title": {
           "en": "Charging started",
-          "no": "Lading startet"
+          "no": "Lading startet",
+          "nl": "Laden is gestart"
         },
         "args": [
           {
@@ -160,7 +173,8 @@
         "id": "chargingEnded",
         "title": {
           "en": "Charging ended",
-          "no": "Lading stoppet"
+          "no": "Lading stoppet",
+          "nl": "Laden is gestopt"
         },
         "args": [
           {
@@ -174,7 +188,8 @@
         "id": "tripEnded",
         "title": {
           "en": "Trip ended",
-          "no": "Reisen er over"
+          "no": "Reisen er over",
+          "nl": "De rit is geindigd"
         },
         "tokens": [
           {
@@ -182,11 +197,13 @@
             "name": "lastTrip",
             "title": {
               "en": "Your last trip",
-              "no": "Din siste reise"
+              "no": "Din siste reise",
+              "nl": "Uw recente rit"
             },
             "example": {
               "en": "An image visualizing your last trip, combined with useful trip data",
-              "no": "Et bilde som viser din siste reise, kombinert med nyttige reise-data"
+              "no": "Et bilde som viser din siste reise, kombinert med nyttige reise-data",
+              "nl": "Een visuele weergave van uw recente trip, gecombineerd met nuttige rit info"
             }
           },
           {
@@ -194,11 +211,13 @@
             "name": "tripInfo",
             "title": {
               "en": "Trip Info",
-              "no": "Reiseinfo"
+              "no": "Reiseinfo",
+              "nl": "Rit info"
             },
             "example": {
               "en": "An image visualizing data about your last trip",
-              "no": "Et bilde som viser data om din siste reise"
+              "no": "Et bilde som viser data om din siste reise",
+              "nl": "Een afbeelding met uw recente rit weergegeven"
             }
           },
           {
@@ -206,11 +225,13 @@
             "name": "tripScore",
             "title": {
               "en": "Trip Score",
-              "no": "Reise-score"
+              "no": "Reise-score",
+              "nl": "Rit score"
             },
             "example": {
               "en": "An image visualizing how well your last trip was",
-              "no": "Et bilde som viser hvor bra din siste reise var"
+              "no": "Et bilde som viser hvor bra din siste reise var",
+              "nl": "Een afbeelding over hoe goed uw rit was"
             }
           },
           {
@@ -218,11 +239,13 @@
             "name": "tripFrom",
             "title": {
               "en": "Trip From",
-              "no": "Reise fra"
+              "no": "Reise fra",
+              "nl": "Rit vanaf"
             },
             "example": {
               "en": "Storgata 1, Oslo",
-              "no": "Storgata 1, Oslo"
+              "no": "Storgata 1, Oslo",
+              "nl": "Storgata 1, Oslo"
             }
           },
           {
@@ -230,11 +253,13 @@
             "name": "tripTo",
             "title": {
               "en": "Trip To",
-              "no": "Reise til"
+              "no": "Reise til",
+              "nl": "Rit naar"
             },
             "example": {
               "en": "Karl Johans gate 1, Oslo",
-              "no": "Karl Johans gate 1, Oslo"
+              "no": "Karl Johans gate 1, Oslo",
+              "nl": "Karl Johans gate 1, Oslo"
             }
           },
           {
@@ -242,11 +267,13 @@
             "name": "totalDistance",
             "title": {
               "en": "Total Distance",
-              "no": "Total distanse"
+              "no": "Total distanse",
+              "nl": "Totale afstand"
             },
             "example": {
               "en": "2.5 km",
-              "no": "2.5 km"
+              "no": "2.5 km",
+              "nl": "2.5 km"
             }
           },
           {
@@ -254,11 +281,13 @@
             "name": "dateString",
             "title": {
               "en": "Date",
-              "no": "Dato"
+              "no": "Dato",
+              "nl": "Datum"
             },
             "example": {
               "en": "31.12.2023",
-              "no": "31.12.2023"
+              "no": "31.12.2023",
+              "nl": "31.12.2023"
             }
           },
           {
@@ -266,11 +295,13 @@
             "name": "timeStringStart",
             "title": {
               "en": "Start Time",
-              "no": "Starttid"
+              "no": "Starttid",
+              "nl": "Start tijd"
             },
             "example": {
               "en": "10:00",
-              "no": "10:00"
+              "no": "10:00",
+              "nl": "10:00"
             }
           },
           {
@@ -278,11 +309,13 @@
             "name": "timeStringEnd",
             "title": {
               "en": "End Time",
-              "no": "Sluttid"
+              "no": "Sluttid",
+              "nl": "Eind tijd"
             },
             "example": {
               "en": "10:30",
-              "no": "10:30"
+              "no": "10:30",
+              "nl": "10:30"
             }
           },
           {
@@ -290,11 +323,13 @@
             "name": "tripDuration",
             "title": {
               "en": "Trip Duration",
-              "no": "Reisens varighet"
+              "no": "Reisens varighet",
+              "nl": "Ritduur"
             },
             "example": {
               "en": "2.5 hours",
-              "no": "2.5 timer"
+              "no": "2.5 timer",
+              "nl": "2.5 timer"
             }
           },
           {
@@ -302,11 +337,13 @@
             "name": "socStart",
             "title": {
               "en": "Start State of Charge",
-              "no": "Starttilstand for lading"
+              "no": "Starttilstand for lading",
+              "nl": "Startniveau van batterijniveau"
             },
             "example": {
               "en": "80%",
-              "no": "80%"
+              "no": "80%",
+              "nl": "80%"
             }
           },
           {
@@ -314,11 +351,13 @@
             "name": "socEnd",
             "title": {
               "en": "End State of Charge",
-              "no": "Slutttilstand for lading"
+              "no": "Slutttilstand for lading",
+              "nl": "Eindniveau van batterijniveau"
             },
             "example": {
               "en": "50%",
-              "no": "50%"
+              "no": "50%",
+              "nl": "50%"
             }
           },
           {
@@ -326,11 +365,13 @@
             "name": "energyUsed",
             "title": {
               "en": "Energy Used",
-              "no": "Energi brukt"
+              "no": "Energi brukt",
+              "nl": "Verbruikte energy"
             },
             "example": {
               "en": "12.41 kWh",
-              "no": "12.41 kWh"
+              "no": "12.41 kWh",
+              "nl": "12.41 kWh"
             }
           },
           {
@@ -338,11 +379,13 @@
             "name": "altStart",
             "title": {
               "en": "Start Altitude",
-              "no": "Start høyde"
+              "no": "Start høyde",
+              "nl": "Start hoogte"
             },
             "example": {
               "en": "20 m",
-              "no": "20 m"
+              "no": "20 m",
+              "nl": "20 m"
             }
           },
           {
@@ -350,11 +393,13 @@
             "name": "altEnd",
             "title": {
               "en": "End Altitude",
-              "no": "Slutt høyde"
+              "no": "Slutt høyde",
+              "nl": "Eind hoogte"
             },
             "example": {
               "en": "40 m",
-              "no": "40 m"
+              "no": "40 m",
+              "nl": "40 m"
             }
           }
         ],
@@ -370,7 +415,8 @@
         "id": "measure_polestarPower_changed",
         "title": {
           "en": "Power changed",
-          "no": "Strøm endret"
+          "no": "Strøm endret",
+          "nl": "Stroom verandert"
         },
         "tokens": [
           {
@@ -378,11 +424,13 @@
             "type": "number",
             "title": {
               "en": "Power",
-              "no": "Strøm"
+              "no": "Strøm",
+              "nl": "Stroom"
             },
             "example": {
               "en": "12.41 kW",
-              "no": "12.41 kW"
+              "no": "12.41 kW",
+              "nl": "12.41 kW"
             }
           }
         ],
@@ -393,6 +441,799 @@
             "filter": "driver_id=polestar-2-csv"
           }
         ]
+      },
+      {
+        "id": "measure_vehicleChargeState_false",
+        "title": {
+          "en": "Car stopped charging",
+          "no": "Lading stoppet",
+          "nl": "Auto is gestopt met laden"
+        },
+        "hint": {
+          "en": "When the car stopped drawing power from the socket",
+          "no": "Når bilen sluttet å trekke strøm fra laderen",
+          "nl": "Als de auto zelf gestopt is met het opnemen van stroom uit via laadpoort"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=vehicle&capabilities=measure_vehicleChargeState"
+          }
+        ]
+      },
+      {
+        "id": "measure_vehicleChargeState_true",
+        "title": {
+          "en": "Car started charging",
+          "no": "Lading startet",
+          "nl": "Auto is begonnen met laden"
+        },
+        "hint": {
+          "en": "When the car started to draw power from the socket",
+          "no": "Når bilen startet å trekke strøm fra laderen",
+          "nl": "Als de auto is begonnen met het opnemen van stroom via de laadpoort"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=vehicle&capabilities=measure_vehicleChargeState"
+          }
+        ]
+      },
+      {
+        "id": "measure_vehicleConnected_false",
+        "title": {
+          "en": "Car disconnected from a charger",
+          "no": "Bil frakoblet lader",
+          "nl": "Auto is niet meer verbonden met de lader"
+        },
+        "hint": {
+          "en": "When the car detects it is no longer connected to a charge port",
+          "no": "Når bilen oppdager at ladepunktet er frakoblet",
+          "nl": "Als de auto detecteerd dat de laadpoort niet meer verbonden is met een lader"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=vehicle&capabilities=measure_vehicleConnected"
+          }
+        ]
+      },
+      {
+        "id": "measure_vehicleConnected_true",
+        "title": {
+          "en": "Car connected to a charger",
+          "no": "Bil tilkoblet lader",
+          "nl": "Auto is verbonden met een lader"
+        },
+        "hint": {
+          "en": "When the car detects a charger connected to a charge port",
+          "no": "Når bilen oppdager at en lader er tilkoblet ladepunktet",
+          "nl": "Wanneer de auto detecteerd dat de laadpoort verbonden is met een lader"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=vehicle&capabilities=measure_vehicleConnected"
+          }
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "id": "is_locked",
+        "title": {
+          "en": "Car !{{is|is not}} locked",
+          "no": "Bil !{{er|er ikke}} låst",
+          "nl": "Auto !{{is|is niet}} vergrendeld"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=vehicle"
+          }
+        ]
+      },
+      {
+        "id": "target_soc_is",
+        "title": {
+          "en": "Charge limit !{{is|is not}} at least",
+          "no": "Ladegrense !{{er|er ikke}} minst",
+          "nl": "Laadlimiet !{{is|is niet}} minimaal"
+        },
+        "titleFormatted": {
+          "en": "Charge limit !{{is|is not}} at least [[level]]%",
+          "no": "Ladegrense !{{er|er ikke}} minst [[level]]%",
+          "nl": "Laadlimiet !{{is|is niet}} minimaal [[level]]%"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=vehicle"
+          },
+          {
+            "type": "number",
+            "name": "level",
+            "min": 50,
+            "max": 100,
+            "step": 1,
+            "placeholder": {
+              "en": "%",
+              "no": "%",
+              "nl": "%"
+            }
+          }
+        ]
+      },
+      {
+        "id": "amp_limit_is",
+        "title": {
+          "en": "Amp limit !{{is|is not}} at least",
+          "no": "Amperebegrensning !{{er|er ikke}} minst",
+          "nl": "Amperebegrenzing !{{is|is niet}} minimaal"
+        },
+        "titleFormatted": {
+          "en": "Amp limit !{{is|is not}} at least [[amperage]] A",
+          "no": "Amperebegrensning !{{er|er ikke}} minst [[amperage]] A",
+          "nl": "Amperebegrenzing !{{is|is niet}} minimaal [[amperage]] A"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=vehicle"
+          },
+          {
+            "type": "number",
+            "name": "amperage",
+            "min": 6,
+            "max": 32,
+            "step": 1,
+            "placeholder": {
+              "en": "A",
+              "no": "A",
+              "nl": "A"
+            }
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "charge_start",
+        "title": {
+          "en": "Start charging (override timer)",
+          "no": "Start lading (overstyr tidtaker)",
+          "nl": "Laden starten (negeer timer)"
+        },
+        "titleFormatted": {
+          "en": "Start charging (override timer)",
+          "no": "Start lading (overstyr tidtaker)",
+          "nl": "Laden starten (negeer timer)"
+        },
+        "hint": {
+          "en": "Overrides any scheduled charging timer and starts drawing power now. Requires the charger to be connected and 'Allow remote commands' to be enabled in device settings.",
+          "no": "Overstyr planlagt lading og start nå. Laderen må være tilkoblet og 'Tillat fjernkommandoer' må være på i enhetsinnstillingene.",
+          "nl": "Overschrijft een geplande laadtimer en begint direct met laden. Lader moet verbonden zijn en 'Afstandscommando's toestaan' moet aan staan in de device-instellingen."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=vehicle"
+          }
+        ]
+      },
+      {
+        "id": "charge_stop",
+        "title": {
+          "en": "Stop charging (override timer)",
+          "no": "Stopp lading (overstyr tidtaker)",
+          "nl": "Laden stoppen (negeer timer)"
+        },
+        "titleFormatted": {
+          "en": "Stop charging (override timer)",
+          "no": "Stopp lading (overstyr tidtaker)",
+          "nl": "Laden stoppen (negeer timer)"
+        },
+        "hint": {
+          "en": "Cancels the charge-now override and lets the scheduled timer take over again.",
+          "no": "Avbryt lad-nå-overstyringen og overlat kontrollen til planlagt tidtaker.",
+          "nl": "Heft de lad-nu-override op; de geplande timer neemt het weer over."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=vehicle"
+          }
+        ]
+      },
+      {
+        "id": "set_target_soc",
+        "title": {
+          "en": "Set charge limit",
+          "no": "Sett ladegrense",
+          "nl": "Laadlimiet instellen"
+        },
+        "titleFormatted": {
+          "en": "Set charge limit to [[level]]%",
+          "no": "Sett ladegrense til [[level]]%",
+          "nl": "Laadlimiet instellen op [[level]]%"
+        },
+        "hint": {
+          "en": "Target state-of-charge where the car stops charging (50–100%).",
+          "no": "Ladegrense der bilen stopper ladingen (50–100%).",
+          "nl": "SoC-doel waarop de auto stopt met laden (50–100%)."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=vehicle"
+          },
+          {
+            "type": "number",
+            "name": "level",
+            "min": 50,
+            "max": 100,
+            "step": 1,
+            "placeholder": {
+              "en": "%",
+              "no": "%",
+              "nl": "%"
+            }
+          }
+        ]
+      },
+      {
+        "id": "lock_car",
+        "title": {
+          "en": "Lock car",
+          "no": "Lås bil",
+          "nl": "Auto vergrendelen"
+        },
+        "titleFormatted": {
+          "en": "Lock car",
+          "no": "Lås bil",
+          "nl": "Auto vergrendelen"
+        },
+        "hint": {
+          "en": "Activate the central lock.",
+          "no": "Aktiver sentrallås.",
+          "nl": "Activeert de centrale vergrendeling."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=vehicle"
+          }
+        ]
+      },
+      {
+        "id": "unlock_car",
+        "title": {
+          "en": "Unlock car",
+          "no": "Lås opp bil",
+          "nl": "Auto ontgrendelen"
+        },
+        "titleFormatted": {
+          "en": "Unlock car",
+          "no": "Lås opp bil",
+          "nl": "Auto ontgrendelen"
+        },
+        "hint": {
+          "en": "Unlock all doors.",
+          "no": "Lås opp alle dører.",
+          "nl": "Ontgrendelt alle deuren."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=vehicle"
+          }
+        ]
+      },
+      {
+        "id": "unlock_trunk_action",
+        "title": {
+          "en": "Unlock trunk",
+          "no": "Lås opp bagasjerom",
+          "nl": "Kofferbak ontgrendelen"
+        },
+        "titleFormatted": {
+          "en": "Unlock trunk",
+          "no": "Lås opp bagasjerom",
+          "nl": "Kofferbak ontgrendelen"
+        },
+        "hint": {
+          "en": "Unlock only the trunk; the cabin stays locked.",
+          "no": "Lås opp kun bagasjerommet; kupeen forblir låst.",
+          "nl": "Alleen de kofferbak ontgrendelen, interieur blijft vergrendeld."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=vehicle"
+          }
+        ]
+      },
+      {
+        "id": "honk_flash",
+        "title": {
+          "en": "Find my car",
+          "no": "Finn bilen",
+          "nl": "Vind mijn auto"
+        },
+        "titleFormatted": {
+          "en": "Find my car — [[action]]",
+          "no": "Finn bilen — [[action]]",
+          "nl": "Vind mijn auto — [[action]]"
+        },
+        "hint": {
+          "en": "Find-my-car: flash the lights, honk the horn, or both.",
+          "no": "Finn bilen: blink med lys, tut i hornet, eller begge.",
+          "nl": "Vind-mijn-auto: knipper met lichten, toeter, of beide."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=vehicle"
+          },
+          {
+            "type": "dropdown",
+            "name": "action",
+            "values": [
+              {
+                "id": "flash",
+                "label": {
+                  "en": "Flash lights only",
+                  "no": "Kun blink",
+                  "nl": "Alleen knipperen"
+                }
+              },
+              {
+                "id": "honk",
+                "label": {
+                  "en": "Honk only",
+                  "no": "Kun tut",
+                  "nl": "Alleen toeteren"
+                }
+              },
+              {
+                "id": "both",
+                "label": {
+                  "en": "Honk and flash",
+                  "no": "Tut og blink",
+                  "nl": "Toeteren en knipperen"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "climate_start_simple",
+        "title": {
+          "en": "Start climate (defaults)",
+          "no": "Start klima (standard)",
+          "nl": "Climate starten (standaard)"
+        },
+        "titleFormatted": {
+          "en": "Start climate (defaults)",
+          "no": "Start klima (standard)",
+          "nl": "Climate starten (standaard)"
+        },
+        "hint": {
+          "en": "Start parking climatization using the temperature and seat/steering defaults from device settings. Same behaviour as tapping the climate button in the Polestar app.",
+          "no": "Start klima med standard temperatur og sete/ratt-instillinger fra enhetsinnstillinger.",
+          "nl": "Start parkeer-climatisering met de standaard temperatuur en stoel/stuurwiel-instellingen uit device-settings."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=vehicle"
+          }
+        ]
+      },
+      {
+        "id": "climate_start",
+        "title": {
+          "en": "Start climate",
+          "no": "Start klima",
+          "nl": "Climate starten"
+        },
+        "titleFormatted": {
+          "en": "Start climate to [[temp]]°C, seats FL [[seat_fl]] FR [[seat_fr]] RL [[seat_rl]] RR [[seat_rr]], steering [[wheel]]",
+          "no": "Start klima til [[temp]]°C, seter FV [[seat_fl]] FH [[seat_fr]] BV [[seat_rl]] BH [[seat_rr]], ratt [[wheel]]",
+          "nl": "Climate starten op [[temp]]°C, zittingen LV [[seat_fl]] RV [[seat_fr]] LA [[seat_rl]] RA [[seat_rr]], stuur [[wheel]]"
+        },
+        "hint": {
+          "en": "Start parking climatization with explicit temperature, per-seat heating and steering-wheel heating. Bypasses the device-settings defaults.",
+          "no": "Start klima med eksplisitt temperatur, setevarme og rattvarme. Overstyrer standard fra enhetsinnstillinger.",
+          "nl": "Start climatiseren met expliciete temperatuur, stoelverwarming per plek en stuurverwarming. Overschrijft defaults uit device-settings."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=vehicle"
+          },
+          {
+            "type": "number",
+            "name": "temp",
+            "min": 16,
+            "max": 30,
+            "step": 0.5,
+            "placeholder": {
+              "en": "°C",
+              "no": "°C",
+              "nl": "°C"
+            }
+          },
+          {
+            "type": "dropdown",
+            "name": "seat_fl",
+            "values": [
+              {
+                "id": "1",
+                "label": {
+                  "en": "Seat FL off",
+                  "no": "Sete FV av",
+                  "nl": "Stoel LV uit"
+                }
+              },
+              {
+                "id": "2",
+                "label": {
+                  "en": "Seat FL L1",
+                  "no": "Sete FV N1",
+                  "nl": "Stoel LV N1"
+                }
+              },
+              {
+                "id": "3",
+                "label": {
+                  "en": "Seat FL L2",
+                  "no": "Sete FV N2",
+                  "nl": "Stoel LV N2"
+                }
+              },
+              {
+                "id": "4",
+                "label": {
+                  "en": "Seat FL L3",
+                  "no": "Sete FV N3",
+                  "nl": "Stoel LV N3"
+                }
+              }
+            ]
+          },
+          {
+            "type": "dropdown",
+            "name": "seat_fr",
+            "values": [
+              {
+                "id": "1",
+                "label": {
+                  "en": "Seat FR off",
+                  "no": "Sete FH av",
+                  "nl": "Stoel RV uit"
+                }
+              },
+              {
+                "id": "2",
+                "label": {
+                  "en": "Seat FR L1",
+                  "no": "Sete FH N1",
+                  "nl": "Stoel RV N1"
+                }
+              },
+              {
+                "id": "3",
+                "label": {
+                  "en": "Seat FR L2",
+                  "no": "Sete FH N2",
+                  "nl": "Stoel RV N2"
+                }
+              },
+              {
+                "id": "4",
+                "label": {
+                  "en": "Seat FR L3",
+                  "no": "Sete FH N3",
+                  "nl": "Stoel RV N3"
+                }
+              }
+            ]
+          },
+          {
+            "type": "dropdown",
+            "name": "seat_rl",
+            "values": [
+              {
+                "id": "1",
+                "label": {
+                  "en": "Seat RL off",
+                  "no": "Sete BV av",
+                  "nl": "Stoel LA uit"
+                }
+              },
+              {
+                "id": "2",
+                "label": {
+                  "en": "Seat RL L1",
+                  "no": "Sete BV N1",
+                  "nl": "Stoel LA N1"
+                }
+              },
+              {
+                "id": "3",
+                "label": {
+                  "en": "Seat RL L2",
+                  "no": "Sete BV N2",
+                  "nl": "Stoel LA N2"
+                }
+              },
+              {
+                "id": "4",
+                "label": {
+                  "en": "Seat RL L3",
+                  "no": "Sete BV N3",
+                  "nl": "Stoel LA N3"
+                }
+              }
+            ]
+          },
+          {
+            "type": "dropdown",
+            "name": "seat_rr",
+            "values": [
+              {
+                "id": "1",
+                "label": {
+                  "en": "Seat RR off",
+                  "no": "Sete BH av",
+                  "nl": "Stoel RA uit"
+                }
+              },
+              {
+                "id": "2",
+                "label": {
+                  "en": "Seat RR L1",
+                  "no": "Sete BH N1",
+                  "nl": "Stoel RA N1"
+                }
+              },
+              {
+                "id": "3",
+                "label": {
+                  "en": "Seat RR L2",
+                  "no": "Sete BH N2",
+                  "nl": "Stoel RA N2"
+                }
+              },
+              {
+                "id": "4",
+                "label": {
+                  "en": "Seat RR L3",
+                  "no": "Sete BH N3",
+                  "nl": "Stoel RA N3"
+                }
+              }
+            ]
+          },
+          {
+            "type": "dropdown",
+            "name": "wheel",
+            "values": [
+              {
+                "id": "1",
+                "label": {
+                  "en": "Steering off",
+                  "no": "Ratt av",
+                  "nl": "Stuur uit"
+                }
+              },
+              {
+                "id": "2",
+                "label": {
+                  "en": "Steering L1",
+                  "no": "Ratt N1",
+                  "nl": "Stuur N1"
+                }
+              },
+              {
+                "id": "3",
+                "label": {
+                  "en": "Steering L2",
+                  "no": "Ratt N2",
+                  "nl": "Stuur N2"
+                }
+              },
+              {
+                "id": "4",
+                "label": {
+                  "en": "Steering L3",
+                  "no": "Ratt N3",
+                  "nl": "Stuur N3"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "climate_stop",
+        "title": {
+          "en": "Stop climate",
+          "no": "Stopp klima",
+          "nl": "Climate stoppen"
+        },
+        "titleFormatted": {
+          "en": "Stop climate",
+          "no": "Stopp klima",
+          "nl": "Climate stoppen"
+        },
+        "hint": {
+          "en": "Stop any running parking climatization session.",
+          "no": "Stopp pågående klimasesjon.",
+          "nl": "Stop een lopende climate-sessie."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=vehicle"
+          }
+        ]
+      },
+      {
+        "id": "windows_open",
+        "title": {
+          "en": "Open all windows",
+          "no": "Åpne alle vinduer",
+          "nl": "Alle ramen openen"
+        },
+        "titleFormatted": {
+          "en": "Open all windows",
+          "no": "Åpne alle vinduer",
+          "nl": "Alle ramen openen"
+        },
+        "hint": {
+          "en": "Open all four side windows — e.g. to vent a hot cabin.",
+          "no": "Åpne alle fire sidevinduer.",
+          "nl": "Open alle vier zijramen — bv. om een hete cabine te luchten."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=vehicle"
+          }
+        ]
+      },
+      {
+        "id": "windows_close",
+        "title": {
+          "en": "Close all windows",
+          "no": "Lukk alle vinduer",
+          "nl": "Alle ramen sluiten"
+        },
+        "titleFormatted": {
+          "en": "Close all windows",
+          "no": "Lukk alle vinduer",
+          "nl": "Alle ramen sluiten"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=vehicle"
+          }
+        ]
+      },
+      {
+        "id": "get_location",
+        "title": {
+          "en": "Get location",
+          "no": "Hent plassering",
+          "nl": "Locatie ophalen"
+        },
+        "titleFormatted": {
+          "en": "Get location",
+          "no": "Hent plassering",
+          "nl": "Locatie ophalen"
+        },
+        "hint": {
+          "en": "Fetches the last known position and exposes latitude, longitude, and a formatted location string as tokens for subsequent flow cards (e.g. push notifications with a map link).",
+          "no": "Henter siste kjente posisjon og eksponerer breddegrad, lengdegrad og en formatert tekststreng som tokens.",
+          "nl": "Haalt de laatst bekende positie op en levert breedtegraad, lengtegraad en een geformatteerde tekststring als tokens voor volgende flow-cards (bv. push met kaart-link)."
+        },
+        "tokens": [
+          {
+            "name": "latitude",
+            "type": "number",
+            "title": {
+              "en": "Latitude",
+              "no": "Breddegrad",
+              "nl": "Breedtegraad"
+            }
+          },
+          {
+            "name": "longitude",
+            "type": "number",
+            "title": {
+              "en": "Longitude",
+              "no": "Lengdegrad",
+              "nl": "Lengtegraad"
+            }
+          },
+          {
+            "name": "location",
+            "type": "string",
+            "title": {
+              "en": "Location",
+              "no": "Plassering",
+              "nl": "Locatie"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=vehicle"
+          }
+        ]
+      },
+      {
+        "id": "set_amp_limit",
+        "title": {
+          "en": "Set charging amperage limit",
+          "no": "Sett maks ampere ved lading",
+          "nl": "Ampère-limiet instellen bij laden"
+        },
+        "titleFormatted": {
+          "en": "Set amperage limit to [[amperage]] A",
+          "no": "Sett ampere-grense til [[amperage]] A",
+          "nl": "Ampère-limiet instellen op [[amperage]] A"
+        },
+        "hint": {
+          "en": "Caps the AC charging current (6–32 A). Note: Polestar 4 currently reports this feature as unsupported.",
+          "no": "Maks vekselstrømsladestrøm (6–32 A). Merk: Polestar 4 rapporterer dette som ikke støttet.",
+          "nl": "Maximum AC-laadstroom (6–32 A). Let op: Polestar 4 meldt dat deze functie niet wordt ondersteund."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=vehicle"
+          },
+          {
+            "type": "number",
+            "name": "amperage",
+            "min": 6,
+            "max": 32,
+            "step": 1,
+            "placeholder": {
+              "en": "A",
+              "no": "A",
+              "nl": "A"
+            }
+          }
+        ]
       }
     ]
   },
@@ -400,9 +1241,11 @@
     {
       "name": {
         "en": "Polestar 2 (Car Stats Viewer ᴮᴱᵀᴬ)",
-        "no": "Polestar 2 (Car Stats Viewer ᴮᴱᵀᴬ)"
+        "no": "Polestar 2 (Car Stats Viewer ᴮᴱᵀᴬ)",
+        "nl": "Polestar 2 (Car Stats Viewer ᴮᴱᵀᴬ)"
       },
       "class": "sensor",
+      "deprecated": true,
       "capabilities": [
         "measure_battery",
         "measure_polestarIgnitionState",
@@ -473,7 +1316,8 @@
           "type": "group",
           "label": {
             "en": "General settings",
-            "no": "Generelle innstillinger"
+            "no": "Generelle innstillinger",
+            "nl": "Algemene instellingen"
           },
           "children": [
             {
@@ -482,11 +1326,13 @@
               "value": 10,
               "label": {
                 "en": "End trip threshold",
-                "no": "Terskel for endt tur"
+                "no": "Terskel for endt tur",
+                "nl": "Einde rit drempel tijd"
               },
               "hint": {
                 "en": "The time in minutes after which a trip should be considered ended. (Optional)",
-                "no": "Terskel i minutter for når en tur skal anses som avsluttet. (Valgfritt)"
+                "no": "Terskel i minutter for når en tur skal anses som avsluttet. (Valgfritt)",
+                "nl": "De tijd in minuten waarna de rit wordt beschouwd als geindigd. (Optioneel)"
               }
             }
           ]
@@ -495,7 +1341,8 @@
           "type": "group",
           "label": {
             "en": "Trip summary settings",
-            "no": "Innstillinger for turoppsummering"
+            "no": "Innstillinger for turoppsummering",
+            "nl": "Rit samenvatting instellingen"
           },
           "children": [
             {
@@ -504,11 +1351,13 @@
               "value": true,
               "label": {
                 "en": "Enable trip summary",
-                "no": "Aktiver turoppsummering"
+                "no": "Aktiver turoppsummering",
+                "nl": "Gebruik rit samenvatting"
               },
               "hint": {
                 "en": "Enable or disable the trip summary. (Optional) NOTE: By enabling you accept that your trip data will be stored anonymously in the cloud. You can disable this at any time. By deleting the device, you will also permanently delete all your trip data. App restart is required after changing this setting.",
-                "no": "Aktiver eller deaktiver turoppsummeringen. (Valgfritt) MERK: Ved å aktivere godtar du at turoppsummeringen lagres anonymt i skyen. Du kan deaktivere dette når som helst. Ved å slette enheten vil du også slette all turoppsummeringsdata permanent. App restart er nødvendig etter endring av denne innstillingen."
+                "no": "Aktiver eller deaktiver turoppsummeringen. (Valgfritt) MERK: Ved å aktivere godtar du at turoppsummeringen lagres anonymt i skyen. Du kan deaktivere dette når som helst. Ved å slette enheten vil du også slette all turoppsummeringsdata permanent. App restart er nødvendig etter endring av denne innstillingen.",
+                "nl": "Aan of uit zetten van de rit samenvatting. (Optioneel) OPMERKING: Door de rit samenvatting te activeren accepteert u dat de rit informatie annoniem wordt opgeslagen in de cloud. U kunt dit ten alle tijden weer uitzetten. Als u dit device weer verwijdert wordt ook de cloud data permanent verwijdert. De App moet opnieuw worden opgestart als u deze instelling aanpast."
               }
             },
             {
@@ -517,25 +1366,29 @@
               "value": "light",
               "label": {
                 "en": "Trip summary style",
-                "no": "Turoppsummeringens stil"
+                "no": "Turoppsummeringens stil",
+                "nl": "Rit samenvatting uiterlijk"
               },
               "hint": {
                 "en": "This changes the style of the trip summary. (Optional)",
-                "no": "Dette endrer stilen til turoppsummeringen. (Valgfritt)"
+                "no": "Dette endrer stilen til turoppsummeringen. (Valgfritt)",
+                "nl": "Dit past het uiterlijk van de rit samenvatting aan. (Optioneel)"
               },
               "values": [
                 {
                   "id": "light",
                   "label": {
                     "en": "Light",
-                    "no": "Lys"
+                    "no": "Lys",
+                    "nl": "Ligt"
                   }
                 },
                 {
                   "id": "dark",
                   "label": {
                     "en": "Dark",
-                    "no": "Mørk"
+                    "no": "Mørk",
+                    "nl": "Donker"
                   }
                 }
               ]
@@ -546,25 +1399,29 @@
               "value": "light",
               "label": {
                 "en": "Trip info style",
-                "no": "Turinfoens stil"
+                "no": "Turinfoens stil",
+                "nl": "Rit samenvatting stijl"
               },
               "hint": {
                 "en": "This changes the style of the trip info. (Optional)",
-                "no": "Dette endrer stilen til turinfoen. (Valgfritt)"
+                "no": "Dette endrer stilen til turinfoen. (Valgfritt)",
+                "nl": "Dit verandert de stijl van de rit samenvatting. (Optioneel)"
               },
               "values": [
                 {
                   "id": "light",
                   "label": {
                     "en": "Light",
-                    "no": "Lys"
+                    "no": "Lys",
+                    "nl": "Ligt"
                   }
                 },
                 {
                   "id": "dark",
                   "label": {
                     "en": "Dark",
-                    "no": "Mørk"
+                    "no": "Mørk",
+                    "nl": "Donker"
                   }
                 }
               ]
@@ -575,25 +1432,29 @@
               "value": "light",
               "label": {
                 "en": "Trip score style",
-                "no": "Kjørescorens stil"
+                "no": "Kjørescorens stil",
+                "nl": "Rit score stijl"
               },
               "hint": {
                 "en": "This changes the style of the trip score. (Optional)",
-                "no": "Dette endrer stilen til kjørescoren. (Valgfritt)"
+                "no": "Dette endrer stilen til kjørescoren. (Valgfritt)",
+                "nl": "Dit verandert de stijl van de rit score. (Optioneel)"
               },
               "values": [
                 {
                   "id": "light",
                   "label": {
                     "en": "Light",
-                    "no": "Lys"
+                    "no": "Lys",
+                    "nl": "Ligt"
                   }
                 },
                 {
                   "id": "dark",
                   "label": {
                     "en": "Dark",
-                    "no": "Mørk"
+                    "no": "Mørk",
+                    "nl": "Donker"
                   }
                 }
               ]
@@ -604,53 +1465,61 @@
               "value": "mapboxOutdoors",
               "label": {
                 "en": "Map image type",
-                "no": "Kart-bildetype"
+                "no": "Kart-bildetype",
+                "nl": "Kaartweergave stijl"
               },
               "hint": {
                 "en": "This changes the type of the map that is shown in the trip summary. (Optional)",
-                "no": "Dette endrer hvilket type kart som vises i turoppsummeringen. (Valgfritt)"
+                "no": "Dette endrer hvilket type kart som vises i turoppsummeringen. (Valgfritt)",
+                "nl": "Dit verandert de stijl van de kaart die bij de rit samenvatting wordt weergegeven. (Optioneel)"
               },
               "values": [
                 {
                   "id": "mapboxLight",
                   "label": {
                     "en": "Mapbox Light",
-                    "no": "Mapbox Light"
+                    "no": "Mapbox Light",
+                    "nl": "Mapbox Ligt"
                   }
                 },
                 {
                   "id": "mapboxDark",
                   "label": {
                     "en": "Mapbox Dark",
-                    "no": "Mapbox Dark"
+                    "no": "Mapbox Dark",
+                    "nl": "Mapbox Donker"
                   }
                 },
                 {
                   "id": "mapboxStreets",
                   "label": {
                     "en": "Mapbox Streets",
-                    "no": "Mapbox Streets"
+                    "no": "Mapbox Streets",
+                    "nl": "Mapbox Straten"
                   }
                 },
                 {
                   "id": "mapboxOutdoors",
                   "label": {
                     "en": "Mapbox Outdoors",
-                    "no": "Mapbox Outdoors"
+                    "no": "Mapbox Outdoors",
+                    "nl": "Mapbox Buitenleven"
                   }
                 },
                 {
                   "id": "mapboxSatellite",
                   "label": {
                     "en": "Mapbox Satellite",
-                    "no": "Mapbox Satellite"
+                    "no": "Mapbox Satellite",
+                    "nl": "Mapbox Sateliet"
                   }
                 },
                 {
                   "id": "mapboxSatelliteStreets",
                   "label": {
                     "en": "Mapbox Satellite Streets",
-                    "no": "Mapbox Satellite Streets"
+                    "no": "Mapbox Satellite Streets",
+                    "nl": "Mapbox Sateliet Straten"
                   }
                 }
               ]
@@ -661,7 +1530,8 @@
           "type": "group",
           "label": {
             "en": "Webhook Settings",
-            "no": "Webhook innstillinger"
+            "no": "Webhook innstillinger",
+            "nl": "Webhook instellingen"
           },
           "children": [
             {
@@ -669,11 +1539,13 @@
               "type": "text",
               "hint": {
                 "en": "Do not change unless instructed by developer, or if you changed the webhook. This setting has no function, and is only for information.",
-                "no": "Ikke endre med mindre du har fått beskjed om det av utvikler, eller hvis du har endret webhooken. Denne innstillingen har ingen funksjon, og er kun til informasjon."
+                "no": "Ikke endre med mindre du har fått beskjed om det av utvikler, eller hvis du har endret webhooken. Denne innstillingen har ingen funksjon, og er kun til informasjon.",
+                "nl": "Niet aanpassingen tenzij door de developer opgedragen, of tenzij je de webhook hebt aangepast. Deze setting heeft geen functie, en is er ter informatie"
               },
               "label": {
                 "en": "Webhook URL",
-                "no": "Webhook URL"
+                "no": "Webhook URL",
+                "nl": "Webhook URL"
               }
             },
             {
@@ -681,11 +1553,13 @@
               "type": "text",
               "hint": {
                 "en": "Do not change unless instructed by developer. This setting has no function, and is only for information.",
-                "no": "Ikke endre med mindre du har fått beskjed om det av utvikler. Dette er ikke en funksjon, og er kun til informasjon."
+                "no": "Ikke endre med mindre du har fått beskjed om det av utvikler. Dette er ikke en funksjon, og er kun til informasjon.",
+                "nl": "Niet aanpassingen tenzij door de developer opgedragen. Deze setting heeft geen functie, en is er ter informatie"
               },
               "label": {
                 "en": "Webhook URL (short)",
-                "no": "Webhook URL (kort)"
+                "no": "Webhook URL (kort)",
+                "nl": "Webhook URL (kort)"
               }
             },
             {
@@ -693,11 +1567,13 @@
               "type": "label",
               "hint": {
                 "en": "Do not change unless instructed by developer. This setting has no function, and is only for information.",
-                "no": "Ikke endre med mindre du har fått beskjed om det av utvikler. Dette er ikke en funksjon, og er kun til informasjon."
+                "no": "Ikke endre med mindre du har fått beskjed om det av utvikler. Dette er ikke en funksjon, og er kun til informasjon.",
+                "nl": "Niet aanpassingen tenzij door de developer opgedragen. Deze setting heeft geen functie, en is er ter informatie"
               },
               "label": {
                 "en": "Webhook slug",
-                "no": "Webhook slug"
+                "no": "Webhook slug",
+                "nl": "Webhook slug"
               }
             },
             {
@@ -705,11 +1581,13 @@
               "type": "label",
               "hint": {
                 "en": "Do not change unless instructed by developer.",
-                "no": "Ikke endre med mindre du har fått beskjed om det av utvikler."
+                "no": "Ikke endre med mindre du har fått beskjed om det av utvikler.",
+                "nl": "Niet aanpassingen tenzij door de developer opgedragen."
               },
               "label": {
                 "en": "Webhook ID",
-                "no": "Webhook ID"
+                "no": "Webhook ID",
+                "nl": "Webhook ID"
               }
             },
             {
@@ -717,11 +1595,13 @@
               "type": "label",
               "hint": {
                 "en": "Do not change unless instructed by developer.",
-                "no": "Ikke endre med mindre du har fått beskjed om det av utvikler."
+                "no": "Ikke endre med mindre du har fått beskjed om det av utvikler.",
+                "nl": "Niet aanpassingen tenzij door de developer opgedragen."
               },
               "label": {
                 "en": "Webhook secret",
-                "no": "Webhook secret"
+                "no": "Webhook secret",
+                "nl": "Webhook secret"
               }
             }
           ]
@@ -734,14 +1614,283 @@
         "no": "Min Polestar",
         "nl": "Mijn Polestar"
       },
-      "class": "other",
+      "class": "car",
       "capabilities": [
-        "measure_battery"
+        "measure_battery",
+        "ev_charging_state",
+        "measure_power",
+        "measure_current",
+        "measure_voltage",
+        "meter_power",
+        "measure_polestarDrivingKwh",
+        "measure_polestarSessionKwh",
+        "measure_polestarChargingType",
+        "target_polestarChargeLimit",
+        "target_polestarAmpLimit",
+        "button.charge_start",
+        "button.charge_stop",
+        "button.honk_flash",
+        "button.unlock_trunk",
+        "button.windows_open",
+        "button.windows_close",
+        "locked",
+        "onoff.climate",
+        "target_temperature",
+        "measure_temperature",
+        "measure_polestarClimateRemaining",
+        "measure_polestarLocation",
+        "alarm_polestarOtaAvailable",
+        "measure_polestarOtaState",
+        "measure_polestarOtaVersion",
+        "alarm_contact.door_front_left",
+        "alarm_contact.door_front_right",
+        "alarm_contact.door_rear_left",
+        "alarm_contact.door_rear_right",
+        "alarm_contact.window_any",
+        "alarm_contact.tailgate",
+        "alarm_contact.hood",
+        "alarm_contact.sunroof",
+        "alarm_contact.tank_lid",
+        "alarm_polestarTyrePressure",
+        "measure_pressure.front_left",
+        "measure_pressure.front_right",
+        "measure_pressure.rear_left",
+        "measure_pressure.rear_right"
       ],
       "energy": {
-        "batteries": [
-          "INTERNAL"
-        ]
+        "electricCar": true
+      },
+      "capabilitiesOptions": {
+        "button.charge_start": {
+          "title": {
+            "en": "Start charging",
+            "no": "Start lading",
+            "nl": "Laden starten"
+          },
+          "desc": {
+            "en": "Override the charge timer and start charging now.",
+            "no": "Overstyr ladetidtakeren og start lading nå.",
+            "nl": "Negeer de laadtimer en begin direct met laden."
+          }
+        },
+        "button.charge_stop": {
+          "title": {
+            "en": "Stop charging",
+            "no": "Stopp lading",
+            "nl": "Laden stoppen"
+          },
+          "desc": {
+            "en": "Cancel the charge-now override.",
+            "no": "Avbryt lad-nå-overstyringen.",
+            "nl": "Heft de lad-nu-override op."
+          }
+        },
+        "button.honk_flash": {
+          "title": {
+            "en": "Honk and flash",
+            "no": "Tut og blink",
+            "nl": "Toeter en knipper"
+          },
+          "desc": {
+            "en": "Find the car — honk horn and flash lights.",
+            "no": "Finn bilen — tut og blink med lysene.",
+            "nl": "Vind de auto — toeteren en lichten knipperen."
+          }
+        },
+        "button.unlock_trunk": {
+          "title": {
+            "en": "Unlock trunk",
+            "no": "Lås opp bagasjerom",
+            "nl": "Kofferbak ontgrendelen"
+          },
+          "desc": {
+            "en": "Unlock only the trunk, leaving the cabin locked.",
+            "no": "Lås opp kun bagasjerommet.",
+            "nl": "Ontgrendel alleen de kofferbak; het interieur blijft vergrendeld."
+          }
+        },
+        "button.windows_open": {
+          "title": {
+            "en": "Open windows",
+            "no": "Åpne vinduer",
+            "nl": "Ramen openen"
+          },
+          "desc": {
+            "en": "Open all four side windows.",
+            "no": "Åpne alle fire sidevinduer.",
+            "nl": "Open alle vier zijramen."
+          }
+        },
+        "button.windows_close": {
+          "title": {
+            "en": "Close windows",
+            "no": "Lukk vinduer",
+            "nl": "Ramen sluiten"
+          },
+          "desc": {
+            "en": "Close all side windows.",
+            "no": "Lukk alle sidevinduer.",
+            "nl": "Sluit alle zijramen."
+          }
+        },
+        "measure_pressure.front_left": {
+          "title": {
+            "en": "Tyre pressure FL",
+            "no": "Dekktrykk FV",
+            "nl": "Bandenspanning LV"
+          },
+          "units": {
+            "en": "kPa"
+          },
+          "decimals": 0,
+          "insights": true
+        },
+        "measure_pressure.front_right": {
+          "title": {
+            "en": "Tyre pressure FR",
+            "no": "Dekktrykk FH",
+            "nl": "Bandenspanning RV"
+          },
+          "units": {
+            "en": "kPa"
+          },
+          "decimals": 0,
+          "insights": true
+        },
+        "measure_pressure.rear_left": {
+          "title": {
+            "en": "Tyre pressure RL",
+            "no": "Dekktrykk BV",
+            "nl": "Bandenspanning LA"
+          },
+          "units": {
+            "en": "kPa"
+          },
+          "decimals": 0,
+          "insights": true
+        },
+        "measure_pressure.rear_right": {
+          "title": {
+            "en": "Tyre pressure RR",
+            "no": "Dekktrykk BH",
+            "nl": "Bandenspanning RA"
+          },
+          "units": {
+            "en": "kPa"
+          },
+          "decimals": 0,
+          "insights": true
+        },
+        "locked": {
+          "title": {
+            "en": "Locked",
+            "no": "Låst",
+            "nl": "Vergrendeld"
+          },
+          "desc": {
+            "en": "Central-lock state. Toggle to lock/unlock the car.",
+            "no": "Status for sentrallås. Trykk for å låse / låse opp bilen.",
+            "nl": "Centrale-vergrendelingsstatus. Schakel om de auto te vergrendelen of ontgrendelen."
+          }
+        },
+        "onoff.climate": {
+          "title": {
+            "en": "Climate",
+            "no": "Klima",
+            "nl": "Klimaat"
+          },
+          "desc": {
+            "en": "Start or stop parking climatization. Uses the heating settings from device settings.",
+            "no": "Start eller stopp klimaanlegg. Bruker oppvarmingsinnstillinger fra enhetsinnstillinger.",
+            "nl": "Start of stop de parkeer-klimaatregeling. Gebruikt de verwarmingsinstellingen uit de device-settings."
+          }
+        },
+        "target_temperature": {
+          "min": 16,
+          "max": 30,
+          "step": 0.5,
+          "decimals": 1,
+          "title": {
+            "en": "Climate target",
+            "no": "Klima-mål",
+            "nl": "Klimaatdoel"
+          },
+          "desc": {
+            "en": "Desired climatization temperature. Used as default when starting climate from the toggle.",
+            "no": "Ønsket klimatemperatur. Brukes som standard ved start via klima-bryteren.",
+            "nl": "Gewenste klimaattemperatuur. Wordt als default gebruikt bij het aanzetten via de climate-toggle."
+          }
+        },
+        "measure_temperature": {
+          "title": {
+            "en": "Interior temperature",
+            "no": "Innetemperatur",
+            "nl": "Binnentemperatuur"
+          }
+        },
+        "alarm_contact.door_front_left": {
+          "title": {
+            "en": "Door FL open",
+            "no": "Dør FV åpen",
+            "nl": "Deur LV open"
+          }
+        },
+        "alarm_contact.door_front_right": {
+          "title": {
+            "en": "Door FR open",
+            "no": "Dør FH åpen",
+            "nl": "Deur RV open"
+          }
+        },
+        "alarm_contact.door_rear_left": {
+          "title": {
+            "en": "Door RL open",
+            "no": "Dør BV åpen",
+            "nl": "Deur LA open"
+          }
+        },
+        "alarm_contact.door_rear_right": {
+          "title": {
+            "en": "Door RR open",
+            "no": "Dør BH åpen",
+            "nl": "Deur RA open"
+          }
+        },
+        "alarm_contact.window_any": {
+          "title": {
+            "en": "Window open",
+            "no": "Vindu åpent",
+            "nl": "Raam open"
+          }
+        },
+        "alarm_contact.tailgate": {
+          "title": {
+            "en": "Tailgate open",
+            "no": "Bakluke åpen",
+            "nl": "Kofferbak open"
+          }
+        },
+        "alarm_contact.hood": {
+          "title": {
+            "en": "Hood open",
+            "no": "Panser åpent",
+            "nl": "Motorkap open"
+          }
+        },
+        "alarm_contact.sunroof": {
+          "title": {
+            "en": "Sunroof open",
+            "no": "Takluke åpen",
+            "nl": "Schuifdak open"
+          }
+        },
+        "alarm_contact.tank_lid": {
+          "title": {
+            "en": "Charge port open",
+            "no": "Ladeluke åpen",
+            "nl": "Laadklep open"
+          }
+        }
       },
       "platforms": [
         "local"
@@ -775,17 +1924,365 @@
           "template": "add_devices"
         }
       ],
-      "id": "vehicle"
+      "id": "vehicle",
+      "settings": [
+        {
+          "id": "writes_enabled",
+          "type": "checkbox",
+          "label": {
+            "en": "Allow remote commands",
+            "no": "Tillat fjernkommandoer",
+            "nl": "Afstandscommando's toestaan"
+          },
+          "value": true,
+          "hint": {
+            "en": "Master switch for write flows: start/stop charging, charge limit, amp limit, and (later) locks, windows, climate. Disable to make every write flow fail instantly.",
+            "no": "Hovedbryter for skriveflyter. Slå av for å få alle skriveflyter til å feile umiddelbart.",
+            "nl": "Hoofdschakelaar voor schrijfflows. Zet uit om alle schrijfflows direct te laten falen."
+          }
+        },
+        {
+          "id": "target_soc_setting_type",
+          "type": "dropdown",
+          "label": {
+            "en": "Charge limit slot",
+            "no": "Ladegrense-slot",
+            "nl": "Laadlimiet-slot"
+          },
+          "value": "1",
+          "hint": {
+            "en": "Which charge-limit slot the car should use when Homey writes a new value. Some Polestar models silently ignore writes to the wrong slot. Try 'Custom' if changes don't appear in the Polestar app.",
+            "no": "Hvilket ladegrenseslot bilen bruker når Homey skriver en ny verdi. Prøv 'Egendefinert' om endringer ikke vises i Polestar-appen.",
+            "nl": "Welk slot voor de laadlimiet de auto gebruikt als Homey een nieuwe waarde schrijft. Sommige Polestar-modellen negeren writes naar het verkeerde slot stil. Probeer 'Aangepast' als wijzigingen niet in de Polestar-app verschijnen."
+          },
+          "values": [
+            {
+              "id": "1",
+              "label": {
+                "en": "Daily (default)",
+                "no": "Daglig (standard)",
+                "nl": "Dagelijks (standaard)"
+              }
+            },
+            {
+              "id": "2",
+              "label": {
+                "en": "Long trip",
+                "no": "Lang tur",
+                "nl": "Lange rit"
+              }
+            },
+            {
+              "id": "3",
+              "label": {
+                "en": "Custom",
+                "no": "Egendefinert",
+                "nl": "Aangepast"
+              }
+            },
+            {
+              "id": "0",
+              "label": {
+                "en": "Unspecified",
+                "no": "Uspesifisert",
+                "nl": "Niet gespecificeerd"
+              }
+            }
+          ]
+        },
+        {
+          "id": "windows_supported",
+          "type": "checkbox",
+          "label": {
+            "en": "Windows remote control",
+            "no": "Fjernstyring av vinduer",
+            "nl": "Ramen op afstand bedienen"
+          },
+          "value": true,
+          "hint": {
+            "en": "Leave checked unless your Polestar model responds with 'not supported' when trying Open/Close windows. Uncheck to hide the two window buttons from the device page. Auto-disabled if the backend returns UNIMPLEMENTED.",
+            "no": "La stå påskrudd med mindre bilen svarer 'ikke støttet' når du prøver Åpne/Lukk vinduer. Fjern haken for å skjule vinduskontrollene. Deaktiveres automatisk ved UNIMPLEMENTED.",
+            "nl": "Laat aangevinkt tenzij je Polestar 'niet ondersteund' meldt bij Openen/Sluiten van ramen. Uitvinken verbergt de raam-knoppen van de device-pagina. Automatisch uitgeschakeld als de backend UNIMPLEMENTED teruggeeft."
+          }
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Climate defaults",
+            "no": "Klima-standarder",
+            "nl": "Climate standaardinstellingen"
+          },
+          "children": [
+            {
+              "id": "climate_default_temp",
+              "type": "number",
+              "label": {
+                "en": "Default temperature",
+                "no": "Standard temperatur",
+                "nl": "Standaard temperatuur"
+              },
+              "value": 21,
+              "min": 16,
+              "max": 30,
+              "step": 0.5,
+              "units": {
+                "en": "°C"
+              },
+              "hint": {
+                "en": "Used when climate is started via the toggle, button, or onoff capability. The separate 'Climate target' tile overrides this for the next start.",
+                "no": "Brukes når klima startes via bryter, knapp eller onoff. 'Klima-mål'-flisen overstyrer dette ved neste start.",
+                "nl": "Gebruikt wanneer climate via de toggle, knop of onoff-capability wordt gestart. De 'Klimaatdoel'-tile overschrijft dit voor de eerstvolgende start."
+              }
+            },
+            {
+              "id": "climate_seat_front_left",
+              "type": "dropdown",
+              "label": {
+                "en": "Front left seat heating",
+                "no": "Setevarme forran venstre",
+                "nl": "Zitverwarming linksvoor"
+              },
+              "value": "1",
+              "values": [
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Off"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Level 1"
+                  }
+                },
+                {
+                  "id": "3",
+                  "label": {
+                    "en": "Level 2"
+                  }
+                },
+                {
+                  "id": "4",
+                  "label": {
+                    "en": "Level 3"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "climate_seat_front_right",
+              "type": "dropdown",
+              "label": {
+                "en": "Front right seat heating",
+                "no": "Setevarme forran høyre",
+                "nl": "Zitverwarming rechtsvoor"
+              },
+              "value": "1",
+              "values": [
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Off"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Level 1"
+                  }
+                },
+                {
+                  "id": "3",
+                  "label": {
+                    "en": "Level 2"
+                  }
+                },
+                {
+                  "id": "4",
+                  "label": {
+                    "en": "Level 3"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "climate_seat_rear_left",
+              "type": "dropdown",
+              "label": {
+                "en": "Rear left seat heating",
+                "no": "Setevarme bak venstre",
+                "nl": "Zitverwarming linksachter"
+              },
+              "value": "1",
+              "values": [
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Off"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Level 1"
+                  }
+                },
+                {
+                  "id": "3",
+                  "label": {
+                    "en": "Level 2"
+                  }
+                },
+                {
+                  "id": "4",
+                  "label": {
+                    "en": "Level 3"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "climate_seat_rear_right",
+              "type": "dropdown",
+              "label": {
+                "en": "Rear right seat heating",
+                "no": "Setevarme bak høyre",
+                "nl": "Zitverwarming rechtsachter"
+              },
+              "value": "1",
+              "values": [
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Off"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Level 1"
+                  }
+                },
+                {
+                  "id": "3",
+                  "label": {
+                    "en": "Level 2"
+                  }
+                },
+                {
+                  "id": "4",
+                  "label": {
+                    "en": "Level 3"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "climate_steering_wheel",
+              "type": "dropdown",
+              "label": {
+                "en": "Steering wheel heating",
+                "no": "Rattvarme",
+                "nl": "Stuurwielverwarming"
+              },
+              "value": "1",
+              "values": [
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Off"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Level 1"
+                  }
+                },
+                {
+                  "id": "3",
+                  "label": {
+                    "en": "Level 2"
+                  }
+                },
+                {
+                  "id": "4",
+                  "label": {
+                    "en": "Level 3"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ],
+  "widgets": {
+    "dashboard": {
+      "name": {
+        "en": "Vehicle Dashboard"
+      },
+      "height": 188,
+      "transparent": true,
+      "settings": [
+        {
+          "id": "device",
+          "type": "autocomplete",
+          "title": {
+            "en": "Vehicle"
+          }
+        }
+      ],
+      "api": {
+        "getVehicles": {
+          "method": "GET",
+          "path": "/"
+        },
+        "getVehicleStatus": {
+          "method": "GET",
+          "path": "/status"
+        }
+      },
+      "id": "dashboard"
+    }
+  },
   "capabilities": {
+    "alarm_polestarOtaAvailable": {
+      "type": "boolean",
+      "uiComponent": "sensor",
+      "icon": "/drivers/vehicle/assets/update.svg",
+      "title": {
+        "en": "Software update available",
+        "no": "Programvareoppdatering tilgjengelig",
+        "nl": "Software-update beschikbaar"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true
+    },
+    "alarm_polestarTyrePressure": {
+      "type": "boolean",
+      "uiComponent": "sensor",
+      "icon": "/drivers/vehicle/assets/tire-pressure.svg",
+      "title": {
+        "en": "Tyre pressure warning",
+        "no": "Dekktrykk-varsel",
+        "nl": "Bandenspanningswaarschuwing"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true
+    },
     "measure_polestarAlt": {
       "type": "number",
       "uiComponent": "sensor",
       "icon": "/drivers/polestar-2-csv/assets/images/altitude.svg",
       "title": {
         "en": "Altitude",
-        "no": "Høyde"
+        "no": "Høyde",
+        "nl": "Hoogte"
       },
       "units": "m",
       "getable": true,
@@ -795,10 +2292,11 @@
     "measure_polestarBattery": {
       "type": "number",
       "uiComponent": "sensor",
-      "icon": "/drivers/polestar-2-csv/assets/images/battery-75.svg",
+      "icon": "/drivers/vehicle/assets/battery-75.svg",
       "title": {
         "en": "Battery",
-        "no": "Batteri"
+        "no": "Batteri",
+        "nl": "Batterij"
       },
       "units": "%",
       "getable": true,
@@ -811,7 +2309,8 @@
       "icon": "/drivers/polestar-2-csv/assets/images/hvbattery.svg",
       "title": {
         "en": "Battery level",
-        "no": "Batterinivå"
+        "no": "Batterinivå",
+        "nl": "Batterij niveau"
       },
       "units": "kWh",
       "decimals": 2,
@@ -825,7 +2324,8 @@
       "icon": "/drivers/polestar-2-csv/assets/images/charging.svg",
       "title": {
         "en": "Charging",
-        "no": "Lader"
+        "no": "Lader",
+        "nl": "Laden"
       },
       "getable": true,
       "setable": false,
@@ -846,14 +2346,58 @@
         "en": "Min"
       }
     },
+    "measure_polestarChargingType": {
+      "type": "string",
+      "uiComponent": "sensor",
+      "icon": "/drivers/vehicle/assets/powerdc.svg",
+      "title": {
+        "en": "Charging type",
+        "no": "Ladetype",
+        "nl": "Laadtype"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": false
+    },
+    "measure_polestarClimateRemaining": {
+      "type": "number",
+      "uiComponent": "sensor",
+      "icon": "/drivers/vehicle/assets/update.svg",
+      "title": {
+        "en": "Climate time remaining",
+        "no": "Klima-tid igjen",
+        "nl": "Climate resterend"
+      },
+      "units": "min",
+      "decimals": 0,
+      "getable": true,
+      "setable": false,
+      "insights": true
+    },
     "measure_polestarConnected": {
       "type": "string",
       "uiComponent": "sensor",
       "icon": "/drivers/polestar-2-csv/assets/images/ccs.svg",
       "title": {
         "en": "Charge port",
-        "no": "Ladeport"
+        "no": "Ladeport",
+        "nl": "Laadpoort"
       },
+      "getable": true,
+      "setable": false,
+      "insights": true
+    },
+    "measure_polestarDrivingKwh": {
+      "type": "number",
+      "uiComponent": "sensor",
+      "icon": "/drivers/vehicle/assets/hvbattery.svg",
+      "title": {
+        "en": "Driving energy (total)",
+        "no": "Kjøreenergi (totalt)",
+        "nl": "Rijverbruik (totaal)"
+      },
+      "units": "kWh",
+      "decimals": 1,
       "getable": true,
       "setable": false,
       "insights": true
@@ -864,7 +2408,8 @@
       "icon": "/drivers/polestar-2-csv/assets/images/gear.svg",
       "title": {
         "en": "Selected Gear",
-        "no": "Valgt gir"
+        "no": "Valgt gir",
+        "nl": "Geselecteerde versnelling"
       },
       "getable": true,
       "setable": false,
@@ -876,7 +2421,8 @@
       "icon": "/drivers/polestar-2-csv/assets/images/ignition.svg",
       "title": {
         "en": "Ignition",
-        "no": "Tenning"
+        "no": "Tenning",
+        "nl": "Ontsteking"
       },
       "getable": true,
       "setable": false,
@@ -885,10 +2431,11 @@
     "measure_polestarLocation": {
       "type": "string",
       "uiComponent": "sensor",
-      "icon": "/drivers/polestar-2-csv/assets/images/location.svg",
+      "icon": "/drivers/vehicle/assets/location.svg",
       "title": {
         "en": "Location",
-        "no": "Plassering"
+        "no": "Plassering",
+        "nl": "Locatie"
       },
       "getable": true,
       "setable": false,
@@ -900,7 +2447,8 @@
       "icon": "/drivers/vehicle/assets/charging.svg",
       "title": {
         "en": "Charged home this month",
-        "no": "Ladet hjemme denne mnd"
+        "no": "Ladet hjemme denne mnd",
+        "nl": "Deze maand thuis geladen"
       },
       "getable": true,
       "setable": false,
@@ -921,6 +2469,32 @@
         "en": "KM"
       }
     },
+    "measure_polestarOtaState": {
+      "type": "string",
+      "uiComponent": "sensor",
+      "icon": "/drivers/vehicle/assets/update.svg",
+      "title": {
+        "en": "OTA state",
+        "no": "OTA-status",
+        "nl": "OTA-status"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": false
+    },
+    "measure_polestarOtaVersion": {
+      "type": "string",
+      "uiComponent": "sensor",
+      "icon": "/drivers/vehicle/assets/update.svg",
+      "title": {
+        "en": "New software version",
+        "no": "Ny programvareversjon",
+        "nl": "Nieuwe softwareversie"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": false
+    },
     "measure_polestarPower": {
       "id": "measure_polestarPower",
       "type": "number",
@@ -928,7 +2502,8 @@
       "icon": "/drivers/polestar-2-csv/assets/images/powerdc.svg",
       "title": {
         "en": "Power",
-        "no": "Effekt"
+        "no": "Effekt",
+        "nl": "Acceleratie"
       },
       "units": "kW",
       "getable": true,
@@ -941,8 +2516,24 @@
       "icon": "/drivers/polestar-2-csv/assets/images/range.svg",
       "title": {
         "en": "Range",
-        "no": "Rekkevidde"
+        "no": "Rekkevidde",
+        "nl": "Bereik"
       },
+      "getable": true,
+      "setable": false,
+      "insights": true
+    },
+    "measure_polestarSessionKwh": {
+      "type": "number",
+      "uiComponent": "sensor",
+      "icon": "/drivers/vehicle/assets/charging.svg",
+      "title": {
+        "en": "Session charge",
+        "no": "Øktens lading",
+        "nl": "Laadsessie"
+      },
+      "units": "kWh",
+      "decimals": 2,
       "getable": true,
       "setable": false,
       "insights": true
@@ -953,7 +2544,8 @@
       "icon": "/drivers/polestar-2-csv/assets/images/speedometer.svg",
       "title": {
         "en": "Speed",
-        "no": "Fart"
+        "no": "Fart",
+        "nl": "Snelheid"
       },
       "units": {
         "en": "km/h",
@@ -969,7 +2561,8 @@
       "icon": "/drivers/polestar-2-csv/assets/images/temp.svg",
       "title": {
         "en": "Ambient Temperature",
-        "no": "Utetemperatur"
+        "no": "Utetemperatur",
+        "nl": "Buitentemperatuur"
       },
       "units": "°C",
       "getable": true,
@@ -982,7 +2575,8 @@
       "icon": "/drivers/polestar-2-csv/assets/images/update.svg",
       "title": {
         "en": "Updated",
-        "no": "Oppdatert"
+        "no": "Oppdatert",
+        "nl": "Bijgewerkt"
       },
       "getable": true,
       "setable": false,
@@ -1018,13 +2612,38 @@
       "type": "boolean",
       "title": {
         "en": "Chargeport connected",
-        "no": "Ladepoort tilkoblet",
+        "no": "Ladeport tilkoblet",
         "nl": "Laadpoort verbonden"
       },
       "getable": true,
       "setable": false,
       "uiComponent": "sensor",
       "icon": "/drivers/vehicle/assets/charger_connected.svg"
+    },
+    "measure_vehicleDaysTillService": {
+      "type": "number",
+      "title": {
+        "en": "Days till service",
+        "no": "Dager til service",
+        "nl": "Dagen tot service"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/drivers/vehicle/assets/timeremaining.svg"
+    },
+    "measure_vehicleDistanceTillService": {
+      "type": "number",
+      "title": {
+        "en": "Distance till service",
+        "no": "Avstand til service",
+        "nl": "Afstand tot service"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "KM"
+      },
+      "icon": "/drivers/vehicle/assets/odometer.svg"
     },
     "measure_vehicleOdometer": {
       "type": "number",
@@ -1053,6 +2672,42 @@
         "en": "KM"
       },
       "icon": "/drivers/vehicle/assets/range.svg"
+    },
+    "target_polestarAmpLimit": {
+      "type": "number",
+      "uiComponent": "slider",
+      "icon": "/drivers/vehicle/assets/charging.svg",
+      "title": {
+        "en": "Charging amp limit",
+        "no": "Amperegrense ved lading",
+        "nl": "Ampère-limiet bij laden"
+      },
+      "units": "A",
+      "decimals": 0,
+      "min": 6,
+      "max": 32,
+      "step": 1,
+      "getable": true,
+      "setable": true,
+      "insights": true
+    },
+    "target_polestarChargeLimit": {
+      "type": "number",
+      "uiComponent": "slider",
+      "icon": "/drivers/vehicle/assets/battery-100.svg",
+      "title": {
+        "en": "Charge limit",
+        "no": "Ladegrense",
+        "nl": "Laadlimiet"
+      },
+      "units": "%",
+      "decimals": 0,
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "getable": true,
+      "setable": true,
+      "insights": true
     }
   }
 }

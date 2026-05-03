@@ -1,0 +1,13 @@
+{
+    "type": "string",
+    "uiComponent": "sensor",
+    "icon": "/drivers/vehicle/assets/update.svg",
+    "title": {
+        "en": "OTA state",
+        "no": "OTA-status",
+        "nl": "OTA-status"
+    },
+    "getable": true,
+    "setable": false,
+    "insights": false
+}

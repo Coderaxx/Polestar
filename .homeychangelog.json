@@ -70,5 +70,101 @@
   },
   "2.1.2": {
     "en": "Removed summary images from the device"
+  },
+  "2.2.0": {
+    "en": "Added support for charge speed details"
+  },
+  "2.3.0": {
+    "en": "Changed polestar vehicle to new device class car"
+  },
+  "2.3.1": {
+    "en": "Fix for trigger events"
+  },
+  "2.3.2": {
+    "en": "hotfix on the csv driver"
+  },
+  "2.3.3": {
+    "en": "Improved insights on power measurements"
+  },
+  "2.3.4": {
+    "en": "update to fix api changes"
+  },
+  "2.3.5": {
+    "en": "Update npm modules"
+  },
+  "2.4.0": {
+    "en": "Widget, service warning and login bug fix"
+  },
+  "2.4.1": {
+    "en": "preview images"
+  },
+  "2.4.2": {
+    "en": "fix widget update on device state change"
+  },
+  "2.4.3": {
+    "en": "stability improvement"
+  },
+  "2.4.4": {
+    "en": "service warning improvement"
+  },
+  "2.4.5": {
+    "en": "Update preview of widget"
+  },
+  "2.4.6": {
+    "en": "Fix for another api change on polestar side"
+  },
+  "2.5.0": {
+    "en": "Added power meter with estimated overall usage"
+  },
+  "2.5.1": {
+    "en": "Attempt to fix new api issue"
+  },
+  "2.6.0": {
+    "en": "Authentication fix and new capabilities"
+  },
+  "2.6.1": {
+    "en": "Another login fix"
+  },
+  "2.6.2": {
+    "en": "Fine tune the login error message"
+  },
+  "2.7.1": {
+    "en": "Added support for new ev charging states"
+  },
+  "2.7.2": {
+    "en": "Fixed CSV receiver driver"
+  },
+  "2.7.3": {
+    "en": "Added upgrade path for existing cars for homey energy"
+  },
+  "2.7.4": {
+    "en": "More rebost energy upgrade detection"
+  },
+  "2.7.5": {
+    "en": "Changed api, no linger supports images"
+  },
+  "2.7.6": {
+    "en": "Changed api, no linger supports images"
+  },
+  "2.7.7": {
+    "en": "Added support to switch to miles"
+  },
+  "2.7.8": {
+    "en": "Rounding and stability improvements"
+  },
+  "3.0.0": {
+    "en": "Migrate vehicle driver to Polestar C3 gRPC backend"
+  },
+  "3.0.1": {
+    "en": "Polish on icons etc"
+  },
+  "3.0.2": {
+    "en": "Fix 'Device Not Found' errors when unpairing or restarting the app while a poll was in flight"
+  },
+  "3.0.3": {
+    "en": "Completed charge sessions now report 'Plugged in' instead of 'Paused'. Improved Find-my-car flow-card title. Added a 'Start climate (defaults)' flow action that mirrors the Polestar app's one-tap climate button."
+  },
+  "3.0.4": {
+    "en": "Fix crash in the legacy Car Stats Viewer driver when a driving point arrived without altitude or state-of-charge data. Trip-ended flow now reports 'Unavailable' for missing fields instead of failing."
   }
 }

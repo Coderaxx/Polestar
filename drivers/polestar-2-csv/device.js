@@ -12,7 +12,8 @@ class PolestarBetaDevice extends Device {
 
         this.homey.app.log(this.homey.__({
             en: `${this.name} has been initialized`,
-            no: `${this.name} har blitt initialisert`
+            no: `${this.name} har blitt initialisert`,
+            nl: `${this.name} is geinitialiseerd`,
         }), this.name, 'DEBUG');
 
         moment.locale(this.homey.i18n.getLanguage() == 'no' ? 'nb' : 'en');
@@ -103,9 +104,18 @@ class PolestarBetaDevice extends Device {
         const id = this.settings.webhook_id || null;
         const secret = this.settings.webhook_secret || null;
         const data = {};
+
         this.webhook = await this.homey.cloud.createWebhook(id, secret, data);
+        this.homey.app.log(this.homey.__({
+            en: 'Initializing webhook with ' + id
+        }), this.name, 'DEBUG');
 
         this.webhook.on('message', async args => {
+            this.homey.app.log(this.homey.__({
+                en: 'Received webhook message for ' + this.name,
+                no: 'Mottok webhook data med kjøretøydata for ' + this.name
+            }), this.name, 'DEBUG', args.body);
+
             const fields = ['ambientTemperature', 'batteryLevel', 'chargePortConnected', 'ignitionState', 'power', 'selectedGear', 'speed', 'stateOfCharge'];
             const isDataMissing = fields.some(field => args.body[field] === undefined || args.body[field] === null);
             const hasFields = ['drivingPoints'];
@@ -211,12 +221,20 @@ class PolestarBetaDevice extends Device {
                             dateString = this.homey.__({ "en": "Unknown", "no": "Ukjent" });
                         }
 
-                        let totalEnergy = drivingData.reduce((acc, point) => acc + point.energy_delta, 0);
+                        let totalEnergy = drivingData.reduce((acc, point) => acc + (point.energy_delta || 0), 0);
                         let energyUnit = 'Wh';
                         if (totalEnergy > 1000) {
                             totalEnergy /= 1000; // Wh -> kWh
                             energyUnit = 'kWh';
                         }
+
+                        // Car Stats Viewer doesn't guarantee alt/state_of_charge are
+                        // populated on every driving point — guard with finite-checks
+                        // so a missing field never crashes the trip-ended trigger.
+                        const fmt = (v, dec, suffix) =>
+                            Number.isFinite(v) ? `${v.toFixed(dec)}${suffix}` : this.homey.__({ "en": "Unavailable", "no": "Utilgjengelig", "nl": "Niet beschikbaar" });
+                        const first = drivingData[0] || {};
+                        const last = drivingData[drivingData.length - 1] || {};
 
                         const tripData = {
                             tripFrom: addressFrom,
@@ -225,12 +243,12 @@ class PolestarBetaDevice extends Device {
                             dateString: dateString,
                             timeStringStart: drivingPointStart.toLocaleString(this.locale, { timeZone: 'Europe/Oslo', hour: '2-digit', minute: '2-digit', second: '2-digit' }),
                             timeStringEnd: drivingPointEnd.toLocaleString(this.locale, { timeZone: 'Europe/Oslo', hour: '2-digit', minute: '2-digit', second: '2-digit' }),
-                            tripDuration: moment.duration(drivingData[0].driving_point_epoch_time - drivingData[drivingData.length - 1].driving_point_epoch_time).humanize(),
-                            socStart: `${drivingData[0].state_of_charge * 100}%`,
-                            socEnd: `${drivingData[drivingData.length - 1].state_of_charge * 100}%`,
-                            energyUsed: `${totalEnergy.toFixed(2)} ${energyUnit}`,
-                            altStart: `${drivingData[0].alt.toFixed(0)} m`,
-                            altEnd: `${drivingData[drivingData.length - 1].alt.toFixed(0)} m`,
+                            tripDuration: moment.duration(first.driving_point_epoch_time - last.driving_point_epoch_time).humanize(),
+                            socStart: fmt((first.state_of_charge || 0) * 100, 0, '%'),
+                            socEnd:   fmt((last.state_of_charge || 0) * 100, 0, '%'),
+                            energyUsed: fmt(totalEnergy, 2, ` ${energyUnit}`),
+                            altStart: fmt(first.alt, 0, ' m'),
+                            altEnd:   fmt(last.alt, 0, ' m'),
                         };
                         const encodedSlug = base64url.encode(this.slug);
                         /*this.tripSummaryImage.setUrl(`${this.apiUrl}/tripSummary/${encodedSlug}?mapType=${this.settings.mapImageType}&theme=${this.settings.tripSummaryStyle}&lang=${this.locale}`);
@@ -419,33 +437,42 @@ class PolestarBetaDevice extends Device {
         }
 
         const url = `https://nominatim.openstreetmap.org/reverse.php?lat=${lat}&lon=${lon}&zoom=18&format=jsonv2`;
-        const response = await axios.get(url);
-        if (response.data && response.data.address) {
-            //const address = response.data.features[0].properties.formatted;
-            //const address = `${response.data.address.road} ${response.data.address.house_number}, ${response.data.address.postcode} ${response.data.address.suburb}`;
-            const address = {
-                road: response.data.address.road || null,
-                house_number: response.data.address.house_number || null,
-                postcode: response.data.address.postcode || null,
-                city: response.data.address.suburb || null,
-                city_district: response.data.address.city_district || null,
-                county: response.data.address.county || null,
-                country: response.data.address.country || null,
+        try {
+            const response = await axios.get(url);
+            if (response.data && response.data.address) {
+                //const address = response.data.features[0].properties.formatted;
+                //const address = `${response.data.address.road} ${response.data.address.house_number}, ${response.data.address.postcode} ${response.data.address.suburb}`;
+                const address = {
+                    road: response.data.address.road || null,
+                    house_number: response.data.address.house_number || null,
+                    postcode: response.data.address.postcode || null,
+                    city: response.data.address.suburb || null,
+                    city_district: response.data.address.city_district || null,
+                    county: response.data.address.county || null,
+                    country: response.data.address.country || null,
+                }
+
+                // Update the previous values with the current values
+                this.previousLat = lat;
+                this.previousLon = lon;
+                this.previousAddress = address;
+
+                this.homey.app.log(this.homey.__({
+                    en: 'Using new address',
+                    no: 'Bruker ny adresse'
+                }), this.name, 'DEBUG');
+
+                return address;
             }
-
-            // Update the previous values with the current values
-            this.previousLat = lat;
-            this.previousLon = lon;
-            this.previousAddress = address;
-
+            return null;
+        } catch (err) {
             this.homey.app.log(this.homey.__({
-                en: 'Using new address',
-                no: 'Bruker ny adresse'
-            }), this.name, 'DEBUG');
-
-            return address;
+                en: 'Reverse geocoding failed',
+                no: 'Omvendt geokoding feilet'
+            }), this.name, 'WARNING', err.message);
+            // Return previous address if available, otherwise null
+            return this.previousAddress || null;
         }
-        return null;
     }
 
     async onAdded() {

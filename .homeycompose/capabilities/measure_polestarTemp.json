@@ -4,7 +4,8 @@
   "icon": "/drivers/polestar-2-csv/assets/images/temp.svg",
   "title": {
     "en": "Ambient Temperature",
-    "no": "Utetemperatur"
+    "no": "Utetemperatur",
+    "nl": "Buitentemperatuur"
   },
   "units": "°C",
   "getable": true,

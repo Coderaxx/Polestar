@@ -1,12 +1,63 @@
 'use strict';
 
 const { Driver } = require('homey');
-const Polestar = require('@andysmithfal/polestar.js');
+const LegacyPolestar = require('../../clone_modules/polestar.js');
+const PolestarC3Compat = require('../../clone_modules/polestar-c3/compat');
 const HomeyCrypt = require('../../lib/homeycrypt')
+
+function Polestar(email, password, homey) {
+    const legacy = homey && homey.settings.get('c3_backend_disabled') === true;
+    const Client = legacy ? LegacyPolestar : PolestarC3Compat;
+    return new Client(email, password);
+}
 
 class Vehicle extends Driver {
     async onInit() {
         this.homey.app.log('Polestar Driver has been initialized', 'Polestar Driver', 'DEBUG');
+        this._registerFlowCards();
+    }
+
+    _registerFlowCards() {
+        const actionRun = (method) => async (args) => {
+            if (!args.device) throw new Error('No device supplied to flow card');
+            await args.device[method](args);
+            return true;
+        };
+
+        this.homey.flow.getActionCard('charge_start').registerRunListener(actionRun('chargeStart'));
+        this.homey.flow.getActionCard('charge_stop').registerRunListener(actionRun('chargeStop'));
+        this.homey.flow.getActionCard('set_target_soc').registerRunListener(actionRun('setTargetSoc'));
+        this.homey.flow.getActionCard('set_amp_limit').registerRunListener(actionRun('setAmpLimit'));
+
+        this.homey.flow.getActionCard('lock_car').registerRunListener(actionRun('lockCar'));
+        this.homey.flow.getActionCard('unlock_car').registerRunListener(actionRun('unlockCar'));
+        this.homey.flow.getActionCard('unlock_trunk_action').registerRunListener(actionRun('unlockTrunkAction'));
+        this.homey.flow.getActionCard('honk_flash').registerRunListener(actionRun('honkFlashAction'));
+        this.homey.flow.getActionCard('climate_start').registerRunListener(actionRun('climateStartAction'));
+        this.homey.flow.getActionCard('climate_start_simple').registerRunListener(actionRun('climateStartSimpleAction'));
+        this.homey.flow.getActionCard('climate_stop').registerRunListener(actionRun('climateStopAction'));
+        this.homey.flow.getActionCard('windows_open').registerRunListener(actionRun('windowsOpenAction'));
+        this.homey.flow.getActionCard('windows_close').registerRunListener(actionRun('windowsCloseAction'));
+        this.homey.flow.getActionCard('get_location').registerRunListener(async (args) => {
+            if (!args.device) throw new Error('No device supplied to flow card');
+            return args.device.getLocationForFlow();
+        });
+
+        this.homey.flow.getConditionCard('target_soc_is').registerRunListener(async (args) => {
+            if (!args.device) return false;
+            const current = await args.device.getCurrentTargetSoc();
+            return Number.isFinite(current) ? current >= args.level : false;
+        });
+        this.homey.flow.getConditionCard('amp_limit_is').registerRunListener(async (args) => {
+            if (!args.device) return false;
+            const current = await args.device.getCurrentAmpLimit();
+            return Number.isFinite(current) ? current >= args.amperage : false;
+        });
+        this.homey.flow.getConditionCard('is_locked').registerRunListener(async (args) => {
+            return args.device ? args.device.isLocked() : false;
+        });
+
+        this.homey.app.log('Polestar flow cards registered', 'Polestar Driver', 'DEBUG');
     }
 
     async onRepair(session, device) {
@@ -34,7 +85,7 @@ class Vehicle extends Driver {
             this.homey.app.log('Password encrypted, credentials stored. Clear existing tokens.', 'Polestar Driver');
             //Now we have the encrypted password stored we can start testing the info
             try {
-                var polestar = new Polestar(data.username, data.password);
+                var polestar = Polestar(data.username, data.password, this.homey);
                 await polestar.login();
                 var testresult = await polestar.getVehicles();
                 this.homey.app.log('Credential test ok:', 'Polestar Driver', 'DEBUG', testresult);
@@ -85,7 +136,7 @@ class Vehicle extends Driver {
             let PolestarPwd = await HomeyCrypt.decrypt(this.homey.settings.get('user_password'), PolestarUser);
             try {
                 this.homey.app.log('Attempting to login to Polestar', 'Polestar Driver');
-                var polestar = new Polestar(PolestarUser, PolestarPwd);
+                var polestar = Polestar(PolestarUser, PolestarPwd, this.homey);
                 await polestar.login();
                 this.homey.app.log('Login successful, retrieving vehicles', 'Polestar Driver');
                 var vehiclelist = await polestar.getVehicles();
@@ -102,7 +153,7 @@ class Vehicle extends Driver {
                                     internalVehicleIdentifier: bev.internalVehicleIdentifier,
                                     modelName: bev.content.model.name,
                                     modelYear: bev.modelYear,
-                                    carImage: bev.content.images.studio.url,
+                                    carImage: bev.content.images?.studio?.url || null,
                                     deliveryDate: bev.deliveryDate,
                                     hasPerformancePackage: bev.hasPerformancePackage
                                 }
@@ -131,23 +182,31 @@ class Vehicle extends Driver {
 
         session.setHandler('testlogin', async (data) => {
             this.homey.app.log('Test login and provide feedback, username length: ' + data.username.length + ' password length: ' + data.password.length, 'Polestar Driver');
-            //Store the provided credentials, but hash and salt it first
             this.homey.settings.set('user_email', data.username);
             HomeyCrypt.crypt(data.password, data.username).then(cryptedpass => {
-                //this.homey.app.log(JSON.stringify(cryptedpass));
                 this.homey.settings.set('user_password', cryptedpass);
             })
-            this.homey.app.log('Password encrypted, credentials stored. Clear existing tokens.', 'Polestar Driver');
-            //Now we have the encrypted password stored we can start testing the info
+            this.homey.app.log('Password encrypted, credentials stored.', 'Polestar Driver');
+
+            const polestar = Polestar(data.username, data.password, this.homey);
             try {
-                var polestar = new Polestar(data.username, data.password);
                 await polestar.login();
-                var vehicles = await polestar.getVehicles();
-                this.homey.app.log('Credential test ok:', 'Polestar Driver', 'DEBUG', vehicles);
-                return true;
-            } catch {
-                return false;
+            } catch (err) {
+                this.homey.app.log('Credential test failed:', 'Polestar Driver', 'ERROR', err);
+                return { ok: false, reason: 'login_failed' };
             }
+            let vehicles;
+            try {
+                vehicles = await polestar.getVehicles();
+            } catch (err) {
+                this.homey.app.log('Retrieve vehicles failed:', 'Polestar Driver', 'ERROR', err);
+                return { ok: false, reason: 'login_failed' };
+            }
+            this.homey.app.log('Credential test ok, vehicle count:', 'Polestar Driver', 'DEBUG', (vehicles || []).length);
+            if (!vehicles || vehicles.length === 0) {
+                return { ok: false, reason: 'no_vehicles' };
+            }
+            return { ok: true };
         });
     }
 

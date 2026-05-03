@@ -1,9 +1,11 @@
 {
   "name": {
     "en": "Polestar 2 (Car Stats Viewer ᴮᴱᵀᴬ)",
-    "no": "Polestar 2 (Car Stats Viewer ᴮᴱᵀᴬ)"
+    "no": "Polestar 2 (Car Stats Viewer ᴮᴱᵀᴬ)",
+    "nl": "Polestar 2 (Car Stats Viewer ᴮᴱᵀᴬ)"
   },
   "class": "sensor",
+  "deprecated": true,
   "capabilities": [
     "measure_battery",
     "measure_polestarIgnitionState",

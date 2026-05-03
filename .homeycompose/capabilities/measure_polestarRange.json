@@ -4,7 +4,8 @@
     "icon": "/drivers/polestar-2-csv/assets/images/range.svg",
     "title": {
         "en": "Range",
-        "no": "Rekkevidde"
+        "no": "Rekkevidde",
+        "nl": "Bereik"
     },
     "getable": true,
     "setable": false,

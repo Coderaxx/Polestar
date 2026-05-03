@@ -4,7 +4,8 @@
   "icon": "/drivers/polestar-2-csv/assets/images/update.svg",
   "title": {
     "en": "Updated",
-    "no": "Oppdatert"
+    "no": "Oppdatert",
+    "nl": "Bijgewerkt"
   },
   "getable": true,
   "setable": false,
