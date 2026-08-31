@@ -70,5 +70,153 @@
   },
   "2.1.2": {
     "en": "Removed summary images from the device"
+  },
+  "2.2.0": {
+    "en": "Added support for charge speed details"
+  },
+  "2.3.0": {
+    "en": "Changed polestar vehicle to new device class car"
+  },
+  "2.3.1": {
+    "en": "Fix for trigger events"
+  },
+  "2.3.2": {
+    "en": "hotfix on the csv driver"
+  },
+  "2.3.3": {
+    "en": "Improved insights on power measurements"
+  },
+  "2.3.4": {
+    "en": "update to fix api changes"
+  },
+  "2.3.5": {
+    "en": "Update npm modules"
+  },
+  "2.4.0": {
+    "en": "Widget, service warning and login bug fix"
+  },
+  "2.4.1": {
+    "en": "preview images"
+  },
+  "2.4.2": {
+    "en": "fix widget update on device state change"
+  },
+  "2.4.3": {
+    "en": "stability improvement"
+  },
+  "2.4.4": {
+    "en": "service warning improvement"
+  },
+  "2.4.5": {
+    "en": "Update preview of widget"
+  },
+  "2.4.6": {
+    "en": "Fix for another api change on polestar side"
+  },
+  "2.5.0": {
+    "en": "Added power meter with estimated overall usage"
+  },
+  "2.5.1": {
+    "en": "Attempt to fix new api issue"
+  },
+  "2.6.0": {
+    "en": "Authentication fix and new capabilities"
+  },
+  "2.6.1": {
+    "en": "Another login fix"
+  },
+  "2.6.2": {
+    "en": "Fine tune the login error message"
+  },
+  "2.7.1": {
+    "en": "Added support for new ev charging states"
+  },
+  "2.7.2": {
+    "en": "Fixed CSV receiver driver"
+  },
+  "2.7.3": {
+    "en": "Added upgrade path for existing cars for homey energy"
+  },
+  "2.7.4": {
+    "en": "More rebost energy upgrade detection"
+  },
+  "2.7.5": {
+    "en": "Changed api, no linger supports images"
+  },
+  "2.7.6": {
+    "en": "Changed api, no linger supports images"
+  },
+  "2.7.7": {
+    "en": "Added support to switch to miles"
+  },
+  "2.7.8": {
+    "en": "Rounding and stability improvements"
+  },
+  "3.0.0": {
+    "en": "Migrate vehicle driver to Polestar C3 gRPC backend"
+  },
+  "3.0.1": {
+    "en": "Polish on icons etc"
+  },
+  "3.0.2": {
+    "en": "Fix 'Device Not Found' errors when unpairing or restarting the app while a poll was in flight"
+  },
+  "3.0.3": {
+    "en": "Completed charge sessions now report 'Plugged in' instead of 'Paused'. Improved Find-my-car flow-card title. Added a 'Start climate (defaults)' flow action that mirrors the Polestar app's one-tap climate button."
+  },
+  "3.0.4": {
+    "en": "Fix crash in the legacy Car Stats Viewer driver when a driving point arrived without altitude or state-of-charge data. Trip-ended flow now reports 'Unavailable' for missing fields instead of failing."
+  },
+  "3.0.5": {
+    "en": "Fix pairing crash on Homey OS versions where network interfaces aren't named wlan0/eth0/eth1. The password-encryption salt now falls back to any available network MAC."
+  },
+  "3.1.0": {
+    "en": "Pairing bug fix"
+  },
+  "3.2.0": {
+    "en": "Added translations for 10 additional languages (de, fr, it, sv, es, da, ru, pl, ko, ja). The app now ships with all 13 languages Homey supports. AI-generated — please report any awkward phrasing."
+  },
+  "3.2.1": {
+    "en": "Dashboard widget polish: charging block now follows the same orange-label / white-value pattern as charge and range. Power is the primary number, with current and time remaining as a subtitle."
+  },
+  "3.2.2": {
+    "en": "Fix crash on the legacy Car Stats Viewer driver when finishing a trip without a webhook slug (the deprecated trip-summary image code tried to base64-encode null)."
+  },
+  "3.2.3": {
+    "en": "Restore the lastTrip / tripInfo / tripScore image tokens on the legacy Car Stats Viewer's trip-ended flow card so existing flows keep firing. Tokens now serve a static driver image since the per-trip render backend is gone."
+  },
+  "3.2.4": {
+    "en": "Door / window / hood / tailgate / sunroof / charge-port contact-alarm capability titles now name the sensor location only (e.g. 'Front-left door' instead of 'Door FL open'). Auto-generated flow cards now read naturally as 'Front-left door is open' and are distinguishable when many are added to one flow. Applied across all 13 languages."
+  },
+  "3.2.5": {
+    "en": "Three new explicit flow cards for contact sensors: 'A sensor opened', 'A sensor closed', 'A sensor is open'. Each has a dropdown to pick which door / window / hatch — once selected the card reads naturally (e.g. 'Front-left door opened'). Prefer these over the generic auto-generated Contact alarm cards, which all looked identical in the card library."
+  },
+  "3.2.6": {
+    "en": "Fix pairing for older Polestar 2 cars (2021-ish) that aren't listed via the new C3 backend. When C3 returns an empty vehicle list, the pair / repair flow now silently retries against the legacy backend and, if it finds vehicles, switches the app to use legacy for all subsequent operations. Users no longer need to know about the c3_backend_disabled escape hatch."
+  },
+  "3.2.7": {
+    "en": "Fix the app logger silently dropping numeric 0, false, and empty-string data values. Lines like 'vehicle count: 0' previously rendered as 'vehicle count:' (no value), making pairing / discovery issues harder to diagnose."
+  },
+  "3.2.8": {
+    "en": "Vehicle discovery now uses the C3 GetMyCars service, which also surfaces whether the account is linked to the car and holds owner rights (thanks olemarkus, PR #3). Non-owner accounts — e.g. lease drivers or secondhand buyers whose ownership was never transferred — should now pair successfully; pairing logs record the linked/owner state so we can investigate later if any features turn out to require owner rights. Also wires up `npm test` to run the new fixture suite."
+  },
+  "3.2.9": {
+    "en": "New 'Car at home' boolean capability that flips true when the car is within a configurable radius of Homey's own location (default 150 m, adjustable in device settings). Comes with three flow cards: 'Car came home' and 'Car left home' triggers, plus an invertable 'Car is / is not at home' condition. Also adds diagnostic logging to the 15-minute location refresh — previously it returned silently on missing data or invalid coordinates, making 'location tile stopped updating' reports impossible to triage."
+  },
+  "3.2.10": {
+    "en": "Flow-card completeness sweep for boolean capabilities that were missing them: 'Software update available/no-longer-pending' triggers + 'Software update is/is not available' condition; 'Tyre pressure warning raised/cleared' triggers + 'Tyre pressure warning is/is not active' condition; 'Climate started/stopped' triggers + 'Climate is/is not running' condition; and invertable 'Car is/is not charging' and 'Car is/is not connected to a charger' conditions to complement the existing charging-transition triggers. All 13 languages."
+  },
+  "3.2.11": {
+    "en": "Internal cleanup: removed the misleading @andysmithfal/polestar.js npm dependency (the app has always loaded the local patched fork under clone_modules/polestar.js) and added FORK_NOTES.md documenting what our fork changes versus upstream. Security bumps: axios floor raised to ^1.7.4 (installed 1.18.1) for the SSRF fix in CVE-2024-39338; qs and ws refreshed via npm audit to patched versions. Four moderate CVEs remain in transitive deps of homey-api (parseuri / engine.io-client / socket.io-client, all in code paths the app does not exercise) and will clear when Athom bumps their transport stack."
+  },
+  "3.3.0": {
+    "en": "Charging state now matches what your charger reports for the same moment. Smart-charging sessions count as charging again — previously they accrued no energy at all, so home charging totals and session kWh were under-reported. Vehicle-to-load and vehicle-to-grid now show as discharging instead of simply plugged in, and an unrecognised charging status no longer claims the cable is unplugged. Note: 'is charging' conditions and charge-state triggers will now fire during smart charging, and your energy graph will show a step where the missing kWh start being counted. Cars that report no registration number now pair under their model name instead of 'Polestar 3 (null)'. The old Polestar battery percentage is retired for newly added cars — it always duplicated the standard battery level — and existing cars keep it, so nothing you have built breaks. The dashboard widget now identifies your car by its VIN instead of its registration number, so cars without a registration work in the widget too; existing widgets keep working and do not need to be set up again. Improved Norwegian throughout, including several typos and phrasings, with thanks to @kvolden.",
+    "no": "Ladestatus samsvarer nå med det laderen rapporterer for samme øyeblikk. Smartladingsøkter telles igjen som lading — tidligere ble ingen energi registrert, så hjemmelading og økt-kWh ble underrapportert. Vehicle-to-load og vehicle-to-grid vises nå som utlading i stedet for bare tilkoblet, og en ukjent ladestatus påstår ikke lenger at kabelen er frakoblet. Merk: 'lader'-betingelser og ladestatus-utløsere vil nå utløses under smartlading, og energigrafen vil vise et hopp der de manglende kWh begynner å telles. Biler uten registreringsnummer pares nå under modellnavnet i stedet for 'Polestar 3 (null)'. Det gamle Polestar-batterinivået pensjoneres for nye biler — det har alltid vært et duplikat av standard batterinivå — og eksisterende biler beholder det, så ingenting du har bygget slutter å virke. Dashbord-widgeten identifiserer nå bilen din med VIN i stedet for registreringsnummer, slik at biler uten registreringsnummer også fungerer i widgeten; eksisterende widgeter fortsetter å virke og trenger ikke settes opp på nytt. Forbedret norsk gjennomgående, inkludert flere skrivefeil og formuleringer, med takk til @kvolden.",
+    "nl": "De laadstatus komt nu overeen met wat je laadpaal op datzelfde moment meldt. Smart-charging sessies tellen weer als laden — voorheen werd daar helemaal geen energie geregistreerd, waardoor thuislaadtotalen en sessie-kWh te laag uitvielen. Vehicle-to-load en vehicle-to-grid worden nu als ontladen weergegeven in plaats van enkel verbonden, en een onbekende laadstatus beweert niet langer dat de kabel eruit ligt. Let op: 'is aan het laden'-condities en laadstatus-triggers vuren nu ook tijdens smart charging, en je energiegrafiek laat een sprong zien waar de ontbrekende kWh alsnog worden meegeteld. Auto's zonder kenteken worden nu gekoppeld onder hun modelnaam in plaats van 'Polestar 3 (null)'. Het oude Polestar-accupercentage vervalt voor nieuw toegevoegde auto's — het dupliceerde altijd al het standaard accuniveau — en bestaande auto's houden het, zodat niets wat je hebt gebouwd stukgaat. Het dashboard-widget herkent je auto nu aan het VIN in plaats van het kenteken, waardoor auto's zonder kenteken ook in het widget werken; bestaande widgets blijven werken en hoeven niet opnieuw ingesteld te worden. Verbeterd Noors op diverse plekken, met dank aan @kvolden."
+  },
+  "3.4.0": {
+    "en": "New battery preconditioning sensor, with a flow trigger for changes and a condition to check the state. It only appears on cars that report it. Log lines now name the car they came from.",
+    "no": "Ny sensor for batteriforvarming, med en flytutløser for endringer og en betingelse for å sjekke tilstanden. Den vises kun på biler som rapporterer den. Logglinjer navngir nå bilen de kommer fra.",
+    "nl": "Nieuwe sensor voor accu-voorverwarming, met een flow-trigger bij wijzigingen en een conditie om de status te controleren. Hij verschijnt alleen op auto's die het melden. Logregels vermelden nu bij welke auto ze horen."
   }
 }

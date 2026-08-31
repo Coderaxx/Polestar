@@ -1,10 +1,21 @@
 {
   "type": "string",
   "uiComponent": "sensor",
-  "icon": "/drivers/polestar-2-csv/assets/images/location.svg",
+  "icon": "/drivers/vehicle/assets/location.svg",
   "title": {
     "en": "Location",
-    "no": "Plassering"
+    "nl": "Locatie",
+    "de": "Standort",
+    "fr": "Position",
+    "it": "Posizione",
+    "sv": "Plats",
+    "no": "Posisjon",
+    "es": "Ubicación",
+    "da": "Placering",
+    "ru": "Местоположение",
+    "pl": "Lokalizacja",
+    "ko": "위치",
+    "ja": "位置"
   },
   "getable": true,
   "setable": false,

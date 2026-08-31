@@ -1,0 +1,23 @@
+{
+    "type": "string",
+    "uiComponent": "sensor",
+    "icon": "/drivers/vehicle/assets/update.svg",
+    "title": {
+        "en": "New software version",
+        "nl": "Nieuwe softwareversie",
+        "de": "Neue Software-Version",
+        "fr": "Nouvelle version logicielle",
+        "it": "Nuova versione software",
+        "sv": "Ny programvaruversion",
+        "no": "Ny programvareversjon",
+        "es": "Nueva versión de software",
+        "da": "Ny softwareversion",
+        "ru": "Новая версия ПО",
+        "pl": "Nowa wersja oprogramowania",
+        "ko": "새 소프트웨어 버전",
+        "ja": "新ソフトウェアバージョン"
+    },
+    "getable": true,
+    "setable": false,
+    "insights": false
+}

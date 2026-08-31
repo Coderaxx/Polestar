@@ -1,0 +1,25 @@
+{
+    "type": "number",
+    "uiComponent": "sensor",
+    "icon": "/drivers/vehicle/assets/hvbattery.svg",
+    "title": {
+        "en": "Driving energy (total)",
+        "nl": "Rijverbruik (totaal)",
+        "de": "Fahrenergie (gesamt)",
+        "fr": "Énergie de roulage (total)",
+        "it": "Energia di guida (totale)",
+        "sv": "Körenergi (totalt)",
+        "no": "Kjøreenergi (totalt)",
+        "es": "Energía de conducción (total)",
+        "da": "Køreenergi (i alt)",
+        "ru": "Энергия движения (всего)",
+        "pl": "Energia jazdy (łącznie)",
+        "ko": "주행 에너지 (총)",
+        "ja": "走行エネルギー（合計）"
+    },
+    "units": "kWh",
+    "decimals": 1,
+    "getable": true,
+    "setable": false,
+    "insights": true
+}

@@ -1,0 +1,23 @@
+{
+    "type": "string",
+    "uiComponent": "sensor",
+    "icon": "/drivers/vehicle/assets/update.svg",
+    "title": {
+        "en": "OTA state",
+        "nl": "OTA-status",
+        "de": "OTA-Status",
+        "fr": "Statut OTA",
+        "it": "Stato OTA",
+        "sv": "OTA-status",
+        "no": "OTA-status",
+        "es": "Estado OTA",
+        "da": "OTA-status",
+        "ru": "Состояние OTA",
+        "pl": "Stan OTA",
+        "ko": "OTA 상태",
+        "ja": "OTA状態"
+    },
+    "getable": true,
+    "setable": false,
+    "insights": false
+}

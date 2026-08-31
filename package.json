@@ -2,15 +2,16 @@
   "name": "com.coderax.polestar",
   "version": "1.0.0",
   "main": "app.js",
-  "scripts": {},
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  },
   "devDependencies": {
     "@tsconfig/node16": "^16.1.1",
     "@types/homey": "npm:homey-apps-sdk-v3-types@^0.3.5",
     "@types/node": "^20.8.10"
   },
   "dependencies": {
-    "@andysmithfal/polestar.js": "^1.0.3",
-    "axios": "^1.6.0",
+    "axios": "^1.7.4",
     "base64-url": "^2.3.3",
     "geolib": "^3.3.4",
     "homey-api": "^3.4.13",

@@ -1,0 +1,243 @@
+<html>
+  <head>
+    <style>
+      .oval-border {
+        width: 100%;
+        height: 160px;
+        position: relative; /* Needed for positioning pseudo-element */
+        display: flex;
+      }
+      .oval-border::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        border: 8px solid;
+        border-radius: 80px;
+      }
+      .no-border::before {
+        border-color: rgb(36, 36, 36);
+      }
+      .charging-border::before {
+        border-color: rgb(35, 206, 35);
+        animation: fadeInOut 15s infinite;
+      }
+      .connected-border::before {
+        border-color: rgb(255, 237, 40);
+      }
+      .content {
+        position: relative;
+        left: 9px; top: 8px;
+        border-radius: 80px;
+        width: 95%;
+        height: 90%;
+        display: flex;
+        background-color: rgb(29, 29, 29);
+      }
+      #device-status-battery{
+        position: absolute;
+        left: 10%; top: 38px; height: 56px; width: 20%;
+        text-align: right; padding-right: 8px;
+        border-right: 4px solid white;
+      }
+      #device-status-battery-name{
+        font-size: 12px;
+        color: rgb(255, 145, 1);
+      }
+      #device-status-battery-charge{
+        font-size: 24px; font-weight: bold;
+        color: rgb(255, 255, 255);
+      }
+      #device-status-range{
+        position: absolute;
+        display: inline-block;
+        left: 67%; top: 38px; height: 56px;
+        text-align: left; padding-left: 8px;
+        border-left: 4px solid white;
+        color: rgb(255, 255, 255);
+      }
+      #device-status-range-name{
+        font-size: 12px;
+        color: rgb(255, 145, 1);
+      }
+      #device-status-range-value{
+        display: inline-block;
+        font-size: 24px; font-weight: bold;
+      }
+      #device-status-range-unit{
+        display: inline-block;
+        font-size: 18px; font-weight: normal;
+      }
+      #device-status-odometer{
+        font-size: 16px; font-weight: normal;
+        color: rgb(255, 255, 255);
+        position: absolute;
+        text-align: center;
+        left: -10px; top: 110px; height: 42px; width: 100%;
+      }
+      #device-status-charging{
+        position: absolute;
+        display: none;
+        left: 30%; top: 38px; width: 37%;
+        text-align: center;
+        color: rgb(255, 255, 255);
+      }
+      #device-status-charging-name{
+        font-size: 12px;
+        color: rgb(255, 145, 1);
+      }
+      #device-status-charging-value{
+        font-size: 22px; font-weight: bold;
+        color: rgb(255, 255, 255);
+        line-height: 1.1;
+      }
+      #device-status-charging-detail{
+        font-size: 12px;
+        color: rgb(190, 190, 190);
+        margin-top: 2px;
+      }
+      @keyframes fadeInOut { 0% { opacity: 1; } 50% { opacity: 0.1; } 100% { opacity: 1; } }
+      .alarm-triangle {
+        top: 105px; left: 70%;
+        width: 0; height: 0;
+        border-left: 15px solid transparent; border-right: 15px solid transparent;
+        border-bottom: 25px solid rgb(249, 0, 0); ;
+        position: relative;
+      }
+      .alarm-triangle::before {
+        content: '!';
+        position: absolute;
+        top: 3px; left: -3px;
+        font-size: 20px; font-weight: bold;
+        color: rgb(29, 29, 29);
+      }
+    </style>
+  </head>
+
+  <body class="homey-widget">
+
+    <div id="vehicle-dashboard" class="oval-border no-border">
+      <div class="content">
+        <div  id="device-status-battery">
+          <div id="device-status-battery-name">charge</div>
+          <div id="device-status-battery-charge">10%</div>
+        </div>
+        <div id="device-status-charging">
+          <div id="device-status-charging-name">power</div>
+          <div id="device-status-charging-value">— kW</div>
+          <div id="device-status-charging-detail"></div>
+        </div>
+        <div  id="device-status-range">
+          <div id="device-status-range-name">range</div>
+          <div id="device-status-range-value">200</div>
+          <div id="device-status-range-unit">KM</div>
+        </div>
+        <div id="device-status-odometer">88888 KM</div>
+
+        <div id="device-status-servicewarning" class="alarm-triangle"></div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      let status;
+
+      function onHomeyReady(Homey) {
+        Homey.ready();
+        syncStatus(false);
+        Homey.on('updatevehicle', () => {
+          syncStatus(true);
+        });
+        Homey.on('distanceUnitChanged', () => {
+          // Small delay to ensure device capabilities are updated
+          setTimeout(() => syncStatus(true), 500);
+        });
+      }
+
+      function syncStatus(event) {
+        const { device } = Homey.getSettings();
+        if (!device) {
+          showError('Please select your Polestar from the widget\'s settings.');
+          return;
+        }
+
+        // Widgets configured before the VIN switch hold a registration, and how
+        // Homey stored the picked device back then is undocumented — it may sit
+        // flat or nested under .data. Send every identifier we can find and let
+        // the API prefer the VIN.
+        const params = new URLSearchParams();
+        const vin = device.vin || device.data?.vin;
+        const registration = device.registration || device.data?.registration;
+        if (vin) params.set('vin', vin);
+        if (registration) params.set('registration', registration);
+
+        if (!params.toString()) {
+          showError('Please select your Polestar from the widget\'s settings.');
+          return;
+        }
+
+        Homey.api('GET', `/status?${params.toString()}`)
+          .then(status_ => {
+            status = status_;
+            renderStatus();
+          })
+          .catch(err => {
+            showError(`Please select your Polestar from the widget's settings.`);
+            return;
+          })
+          .finally(() => {
+          });
+      }
+
+      function formatCharging() {
+        const power = Number.isFinite(status.power) ? status.power : null;
+        const current = Number.isFinite(status.current) ? status.current : null;
+        const time = Number.isFinite(status.time_remaining) ? status.time_remaining : null;
+
+        const kW = power !== null ? (power / 1000).toFixed(1) + ' kW' : '— kW';
+
+        const detailParts = [];
+        if (current !== null) detailParts.push(current + ' A');
+        if (time !== null && time > 0) {
+          const hours = Math.floor(time / 60);
+          const mins = Math.round(time % 60);
+          detailParts.push(hours > 0 ? hours + 'h ' + mins + 'm' : mins + 'm');
+        }
+
+        return { primary: kW, detail: detailParts.join(' · ') };
+      }
+
+      function renderStatus() {
+        const unit = status.distanceUnit || 'KM';
+
+        document.getElementById('device-status-battery-charge').innerText = Math.floor(status.battery)+'%';
+        document.getElementById('device-status-range-value').innerText = Math.floor(status.range);
+        document.getElementById('device-status-range-unit').innerText = unit;
+        document.getElementById('device-status-odometer').innerText = Math.floor(status.odometer)+' '+unit;
+
+        const charging = formatCharging();
+        document.getElementById('device-status-charging-value').innerText = charging.primary;
+        document.getElementById('device-status-charging-detail').innerText = charging.detail;
+
+        const dash = document.getElementById('vehicle-dashboard');
+        if(status.connected) {
+          dash.classList.remove('no-border');
+          if(status.charging){
+            dash.classList.remove('connected-border'); dash.classList.add('charging-border');
+            document.getElementById('device-status-charging').style.display = 'block';
+          } else {
+            dash.classList.remove('charging-border'); dash.classList.add('connected-border');
+            document.getElementById('device-status-charging').style.display = 'none';
+          }
+        } else {
+          dash.classList.remove('connected-border'); dash.classList.remove('charging-border'); dash.classList.add('no-border');
+          document.getElementById('device-status-charging').style.display = 'none';
+        }
+        if(status.service)
+        {
+          document.getElementById('device-status-servicewarning').style.display = 'block';
+        } else {
+          document.getElementById('device-status-servicewarning').style.display = 'none';
+        }
+      }
+    </script>
+  </body>
+</html>

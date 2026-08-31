@@ -1,10 +1,21 @@
 {
   "type": "number",
   "uiComponent": "sensor",
-  "icon": "/drivers/polestar-2-csv/assets/images/battery-75.svg",
+  "icon": "/drivers/vehicle/assets/battery-75.svg",
   "title": {
     "en": "Battery",
-    "no": "Batteri"
+    "nl": "Batterij",
+    "de": "Batterie",
+    "fr": "Batterie",
+    "it": "Batteria",
+    "sv": "Batteri",
+    "no": "Batteri",
+    "es": "Batería",
+    "da": "Batteri",
+    "ru": "Батарея",
+    "pl": "Bateria",
+    "ko": "배터리",
+    "ja": "バッテリー"
   },
   "units": "%",
   "getable": true,

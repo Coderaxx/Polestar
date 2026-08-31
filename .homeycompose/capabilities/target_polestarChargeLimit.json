@@ -1,0 +1,28 @@
+{
+    "type": "number",
+    "uiComponent": "slider",
+    "icon": "/drivers/vehicle/assets/battery-100.svg",
+    "title": {
+        "en": "Charge limit",
+        "nl": "Laadlimiet",
+        "de": "Ladelimit",
+        "fr": "Limite de charge",
+        "it": "Limite di carica",
+        "sv": "Laddningsgräns",
+        "no": "Ladegrense",
+        "es": "Límite de carga",
+        "da": "Opladegrænse",
+        "ru": "Лимит зарядки",
+        "pl": "Limit ładowania",
+        "ko": "충전 한도",
+        "ja": "充電上限"
+    },
+    "units": "%",
+    "decimals": 0,
+    "min": 50,
+    "max": 100,
+    "step": 5,
+    "getable": true,
+    "setable": true,
+    "insights": true
+}
